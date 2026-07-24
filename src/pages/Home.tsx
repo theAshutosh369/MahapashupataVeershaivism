@@ -617,10 +617,14 @@ export default function Home() {
 
     async function computePinkRows() {
       const next: Record<number, boolean> = {};
+      const API_BASE = import.meta.env.VITE_API_URL ?? '';
 
       for (const summary of authors) {
         try {
-          const resp = await fetch(`/data/authors/${encodeURIComponent(summary.file)}`);
+          // Use the API endpoint (same as getAuthor) so it works in production too
+          const resp = await fetch(`${API_BASE}/api/authors/${encodeURIComponent(summary.file)}`, {
+            headers: { 'Accept': 'application/json' }
+          });
           if (!resp.ok) {
             next[summary.id] = false;
             continue;
