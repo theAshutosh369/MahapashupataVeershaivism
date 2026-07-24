@@ -864,3 +864,171 @@ img {
         flex-direction: column;
     }
 }
+
+/* =============================================
+   Mobile Vachana Cards (Author Page)
+   ============================================= */
+
+.mobile-vachana-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    padding: 16px 16px;
+    margin-bottom: 14px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    border: 1px solid rgba(122, 31, 31, 0.08);
+    transition: box-shadow 0.2s ease;
+}
+
+.mobile-vachana-card:hover {
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-vachana-card-header {
+    font-size: 15px;
+    font-weight: 700;
+    color: #7A1F1F;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1.5px solid #f0e8e8;
+    letter-spacing: 0.3px;
+}
+
+.mobile-vachana-section {
+    margin-bottom: 12px;
+}
+
+.mobile-vachana-section:last-of-type {
+    margin-bottom: 10px;
+}
+
+.mobile-vachana-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #999;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.mobile-vachana-kannada-text {
+    font-size: 16px;
+    line-height: 1.5;
+    font-family: Noto Sans Kannada, Noto Sans Devanagari, sans-serif;
+    color: #222;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    width: 100%;
+    max-width: 100%;
+}
+
+.mobile-vachana-english-text {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    width: 100%;
+    max-width: 100%;
+}
+
+.mobile-vachana-transliteration-text {
+    font-size: 14px;
+    line-height: 1.5;
+    font-family: Noto Sans Kannada, Noto Sans Devanagari, sans-serif;
+    color: #444;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    width: 100%;
+    max-width: 100%;
+}
+
+.mobile-vachana-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #f0e8e8;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.mobile-vachana-actions .btn-mobile {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1.5px solid #7A1F1F;
+    background: #fff;
+    color: #7A1F1F;
+    cursor: pointer;
+    touch-action: manipulation;
+    flex: 1;
+    min-width: 70px;
+    max-width: 140px;
+    transition: background 0.2s, color 0.2s, transform 0.1s;
+}
+
+.mobile-vachana-actions .btn-mobile:hover,
+.mobile-vachana-actions .btn-mobile:active {
+    background: #7A1F1F;
+    color: #fff;
+}
+
+.mobile-vachana-actions .btn-mobile:active {
+    transform: scale(0.97);
+}
+
+/* Compact variant for home page author cards */
+.mobile-author-card-compact {
+    padding: 12px 14px !important;
+    margin-bottom: 10px !important;
+}
+
+.mobile-author-card-compact .mobile-vachana-card-header {
+    font-size: 13px;
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+}
+
+.mobile-author-card-compact .mobile-vachana-section {
+    margin-bottom: 6px;
+}
+
+.mobile-author-card-compact .mobile-vachana-label {
+    font-size: 10px;
+    margin-bottom: 2px;
+}
+
+.mobile-author-card-compact .mobile-vachana-kannada-text {
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+.mobile-author-card-compact .mobile-vachana-english-text {
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+@media (max-width: 767px) {
+    .desktop-only {
+        display: none !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .mobile-only {
+        display: none !important;
+    }
+}

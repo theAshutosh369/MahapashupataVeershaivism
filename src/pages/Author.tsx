@@ -177,6 +177,136 @@ type ResultsTableProps = {
     onSaveEdit: (vachanaNumber: number, field: EditField) => void;
 };
 
+function MobileVachanaCards({
+    results, search, visibleColumns, authorFile, editState, setEditState,
+    onStartEditField, onCancelEdit, onSaveEdit
+}: ResultsTableProps) {
+    const { editingVachanaNumber, editingField, draft, isSaving } = editState;
+
+    if (!authorFile || results.length === 0) return null;
+    const hasVisibleColumn = Object.values(visibleColumns).some(Boolean);
+    if (!hasVisibleColumn) return null;
+
+    function setDraft(v: string) {
+        setEditState(prev => ({ ...prev, draft: v }));
+    }
+
+    function CopyButton({ text }: { text: string }) {
+        const [copied, setCopied] = useState(false);
+
+        async function onCopy() {
+            try {
+                if (navigator?.clipboard?.writeText) {
+                    await navigator.clipboard.writeText(text);
+                    setCopied(true);
+                    return;
+                }
+            } catch { /* fallback */ }
+            const el = document.createElement("textarea");
+            el.value = text;
+            el.setAttribute("readonly", "true");
+            el.style.position = "absolute";
+            el.style.left = "-9999px";
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand("copy");
+            document.body.removeChild(el);
+            setCopied(true);
+        }
+
+        return (
+            <button type="button" onClick={onCopy} onBlur={() => setTimeout(() => setCopied(false), 0)}
+                className="btn-mobile" aria-label="Copy text">
+                {copied ? "Copied!" : "Copy"}
+            </button>
+        );
+    }
+
+    function renderEditableField(vachana: Vachana, field: EditField) {
+        const isEditing = editingVachanaNumber === vachana.number && editingField === field;
+        const label = field === "translation" ? "English Translation" : field === "kannada" ? "Kannada" : "Transliteration";
+
+        return (
+            <>
+                {isEditing && (
+                    <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) onCancelEdit(); }}>
+                        <div className="modal-content" style={{ maxHeight: "85vh" }} onClick={(e) => e.stopPropagation()}>
+                            <div style={{ padding: 16, borderBottom: "1px solid #f0f0f0" }}>
+                                <div style={{ fontSize: "clamp(16px, 2vw, 18px)", color: "#7A1F1F", fontWeight: 700 }}>
+                                    Edit {label} (Vachana {vachana.number})
+                                </div>
+                            </div>
+                            <div style={{ padding: 16, flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
+                                <textarea value={draft} onChange={e => setDraft(e.target.value)} rows={6}
+                                    className="form-input" style={{ flex: 1, resize: "none", minHeight: 200, fontFamily: "inherit" }} />
+                                <div style={{ display: "flex", gap: 10, justifyContent: "flex-end", flexWrap: "wrap", marginTop: 14 }}>
+                                    <button type="button" onClick={onCancelEdit} disabled={isSaving} className="btn">Cancel</button>
+                                    <button type="button" onClick={() => onSaveEdit(vachana.number, field)} disabled={isSaving}
+                                        className="btn btn-primary">{isSaving ? "Saving..." : "Save"}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </>
+        );
+    }
+
+    return (
+        <div className="mobile-only">
+            {results.map(vachana => (
+                <div key={vachana.number} className="mobile-vachana-card">
+                    {visibleColumns.number && (
+                        <div className="mobile-vachana-card-header">
+                            Vachana #{vachana.number}
+                        </div>
+                    )}
+
+                    {visibleColumns.kannada && (
+                        <div className="mobile-vachana-section">
+                            <span className="mobile-vachana-label">Kannada</span>
+                            <div className="mobile-vachana-kannada-text">
+                                <HighlightText text={vachana.kannada} search={search} />
+                            </div>
+                            {renderEditableField(vachana, "kannada")}
+                        </div>
+                    )}
+
+                    {visibleColumns.transliteration && (
+                        <div className="mobile-vachana-section">
+                            <span className="mobile-vachana-label">Transliteration</span>
+                            <div className="mobile-vachana-transliteration-text">
+                                <HighlightText text={vachana.transliteration} search={search} />
+                            </div>
+                            {renderEditableField(vachana, "transliteration")}
+                        </div>
+                    )}
+
+                    {visibleColumns.translation && (
+                        <div className="mobile-vachana-section">
+                            <span className="mobile-vachana-label">English Translation</span>
+                            <div className="mobile-vachana-english-text">
+                                <HighlightText text={vachana.translation ?? ""} search={search} />
+                            </div>
+                            {renderEditableField(vachana, "translation")}
+                        </div>
+                    )}
+
+                    {(visibleColumns.kannada || visibleColumns.translation) && (
+                        <div className="mobile-vachana-actions">
+                            <CopyButton text={vachana.kannada} />
+                            <button type="button" onClick={() => onStartEditField(vachana, "translation")}
+                                className="btn-mobile" aria-label="Edit">
+                                Edit
+                            </button>
+                        </div>
+                    )}
+                </div>
+            ))}
+        </div>
+    );
+}
+
 function ResultsTable({
     results, search, visibleColumns, authorFile, editState, setEditState,
     onStartEditField, onCancelEdit, onSaveEdit
@@ -399,7 +529,10 @@ function AuthorPage() {
                             {isSearching ? <p style={{ color: "#666", fontSize: "var(--font-body)" }}>Updating results...</p> : null}
                             <PaginationStatus currentPage={currentPage} totalPages={totalPages} totalResults={filteredVachanas.length} pageStart={pageStart} pageResultCount={pageResults.length} />
                             {totalPages > 1 && <PaginationControls currentPage={currentPage} totalPages={totalPages} onPrevious={() => setPage(v => Math.max(1, v - 1))} onNext={() => setPage(v => Math.min(totalPages, v + 1))} />}
-                            <ResultsTable results={pageResults} search={deferredSearch.trim()} visibleColumns={visibleColumns} authorFile={authorFile} editState={editState} setEditState={setEditState} onStartEditField={onStartEditField} onCancelEdit={onCancelEdit} onSaveEdit={onSaveEdit} />
+                            <div className="desktop-only">
+                                <ResultsTable results={pageResults} search={deferredSearch.trim()} visibleColumns={visibleColumns} authorFile={authorFile} editState={editState} setEditState={setEditState} onStartEditField={onStartEditField} onCancelEdit={onCancelEdit} onSaveEdit={onSaveEdit} />
+                            </div>
+                            <MobileVachanaCards results={pageResults} search={deferredSearch.trim()} visibleColumns={visibleColumns} authorFile={authorFile} editState={editState} setEditState={setEditState} onStartEditField={onStartEditField} onCancelEdit={onCancelEdit} onSaveEdit={onSaveEdit} />
                             {totalPages > 1 && <PaginationControls currentPage={currentPage} totalPages={totalPages} onPrevious={() => setPage(v => Math.max(1, v - 1))} onNext={() => setPage(v => Math.min(totalPages, v + 1))} />}
                         </>
                     ) : (
