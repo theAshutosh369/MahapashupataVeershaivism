@@ -1,7 +1,10 @@
-# ✅ All Steps Complete
+# ✅ DONE: Auto-save edits to GitHub
 
-1. [x] Edit `src/styles/global.css` — Refine `.mobile-vachana-card` styles for proper card layout
-2. [x] Edit `src/pages/Author.tsx` — Add mobile card view (`MobileVachanaCards` component)
-3. [x] Edit `src/components/Footer.tsx` — Add social links (Instagram, Pinterest) and contact info
-4. [x] Verify build compiles without errors
+## Completed Steps:
 
+1. ✅ Created `server/github_sync.js` — GitHub sync module with `commitFile()` using GitHub Content API
+2. ✅ Created `server/update_files.js` — Standalone script for batch commits
+3. ✅ Updated `server/server.js` — Added `commitFile` calls in both PUT routes:
+   - `PUT /api/authors/:authorFile/vachanas/:vachanaNumber/:field`
+   - `PUT /api/authors/:authorFile/vachanas/:vachanaNumber/translation`
+4. ✅ Syntax checked — module loads successfully, no errors

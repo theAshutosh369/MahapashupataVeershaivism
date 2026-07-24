@@ -5,6 +5,7 @@ import path from 'node:path';
 import cors from 'cors';
 import { fileURLToPath } from 'node:url';
 import { attachRagRoutes } from './rag_routes.js';
+import { commitFile } from './github_sync.js';
 
 // ----- Environment & paths -----
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -195,6 +196,11 @@ app.put('/api/authors/:authorFile/vachanas/:vachanaNumber/:field', async (req, r
         await fs.writeFile(tmpPath, JSON.stringify(json, null, 2) + '\n', 'utf8');
         await fs.rename(tmpPath, filePath);
 
+        // Sync to GitHub (fire-and-forget — don't block the response)
+        const repoPath = 'public/data/authors/' + path.basename(filePath);
+        const updatedContent = JSON.stringify(json, null, 2) + '\n';
+        commitFile(repoPath, updatedContent, `Update ${field} for vachana #${vachanaNumber} [auto-save]`).catch(() => { });
+
         res.status(200).json({ ok: true, [field]: bodyValue });
     } catch (err) {
         res.status(500).json({ error: 'Failed to update field', details: err?.message ?? String(err) });
@@ -226,6 +232,11 @@ app.put('/api/authors/:authorFile/vachanas/:vachanaNumber/translation', async (r
         const tmpPath = filePath + '.tmp';
         await fs.writeFile(tmpPath, JSON.stringify(json, null, 2) + '\n', 'utf8');
         await fs.rename(tmpPath, filePath);
+
+        // Sync to GitHub (fire-and-forget — don't block the response)
+        const repoPath = 'public/data/authors/' + path.basename(filePath);
+        const updatedContent = JSON.stringify(json, null, 2) + '\n';
+        commitFile(repoPath, updatedContent, `Update translation for vachana #${vachanaNumber} [auto-save]`).catch(() => { });
 
         res.status(200).json({ ok: true, translation });
     } catch (err) {
@@ -398,4 +409,3 @@ app.listen(port, '0.0.0.0', () => {
     console.log(`  On your network: http://YOUR_IP_ADDRESS:${port}`);
     console.log(`========================================================\n`);
 });
-
