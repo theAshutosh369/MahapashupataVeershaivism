@@ -89,6 +89,15 @@ function GlobalSearch() {
         transliteration: true,
         translation: true
     });
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+    useEffect(() => {
+        const mq = window.matchMedia("(max-width: 767px)");
+        const handler = (e: MediaQueryListEvent | MediaQueryList) => setIsMobile(e.matches);
+        handler(mq);
+        mq.addEventListener("change", handler);
+        return () => mq.removeEventListener("change", handler);
+    }, []);
 
     useEffect(() => {
         async function load() {
@@ -122,6 +131,7 @@ function GlobalSearch() {
         const query = deferredSearch.trim();
         const q = query.toLowerCase();
         const matches: FlatResult[] = [];
+        const authorCountMap: Map<number, number> = new Map();
         const authorCounts: AuthorCount[] = [];
 
         if (!q)
@@ -137,11 +147,16 @@ function GlobalSearch() {
                     (vachana.translation ?? "").toLowerCase().includes(q);
 
                 if (matched) {
-                    count += 1;
                     matches.push({ author, vachana });
+                    count++;
                 }
             }
 
+            authorCountMap.set(author.id, count);
+        }
+
+        for (const author of scopedAuthors) {
+            const count = authorCountMap.get(author.id) ?? 0;
             if (count > 0) {
                 authorCounts.push({ author, count });
             }
@@ -242,8 +257,8 @@ function GlobalSearch() {
                         </div>
                     </section>
 
-                    {/* Summary cards */}
-                    <section style={{
+                    {/* Summary cards - Desktop: vertical column */}
+                    <section className="desktop-only" style={{
                         display: "flex",
                         flexDirection: "column",
                         gap: 18,
@@ -253,6 +268,22 @@ function GlobalSearch() {
                         <SummaryCard title="Total Vachanas" value={totalVachanaCount.toLocaleString()} />
                         <SummaryCard title="Matching Vachanas" value={totalResultCount.toLocaleString()} />
                         <SummaryCard title="Matching Vachanakaras" value={searchData.authorCounts.length.toLocaleString()} />
+                    </section>
+
+                    {/* Summary cards - Mobile: 3-column grid */}
+                    <section className="mobile-only mobile-summary-grid" style={{ width: "100%" }}>
+                        <div className="summary-card">
+                            <h2>{totalVachanaCount.toLocaleString()}</h2>
+                            <p>Total Vachanas</p>
+                        </div>
+                        <div className="summary-card">
+                            <h2>{totalResultCount.toLocaleString()}</h2>
+                            <p>Matching Vachanas</p>
+                        </div>
+                        <div className="summary-card">
+                            <h2>{searchData.authorCounts.length.toLocaleString()}</h2>
+                            <p>Matching Vachanakaras</p>
+                        </div>
                     </section>
                 </section>
 
@@ -306,12 +337,23 @@ function GlobalSearch() {
                                     />
                                 ) : null}
 
-                                <ResultsTable
-                                    results={pageMatches}
-                                    search={searchData.query}
-                                    pageStart={pageStart}
-                                    visibleColumns={visibleColumns}
-                                />
+                                <div className="desktop-only">
+                                    <ResultsTable
+                                        results={pageMatches}
+                                        search={searchData.query}
+                                        pageStart={pageStart}
+                                        visibleColumns={visibleColumns}
+                                    />
+                                </div>
+
+                                <div className="mobile-only">
+                                    <MobileGlobalResultsCards
+                                        results={pageMatches}
+                                        search={searchData.query}
+                                        pageStart={pageStart}
+                                        visibleColumns={visibleColumns}
+                                    />
+                                </div>
 
                                 {totalPages > 1 ? (
                                     <PaginationControls
@@ -449,15 +491,15 @@ function AuthorCountsBlock({
 
             {sorted.length ? (
                 <>
-                    <div className="table-responsive">
-                        <table style={{ minWidth: 400 }}>
+                    <div className="author-counts-scroll">
+                        <table>
                             <thead>
                                 <tr style={{ background: "#7A1F1F", color: "#fff", textAlign: "left" }}>
-                                    <th style={{ padding: 12, width: "18%", fontSize: "var(--font-table)" }}>sr. no.</th>
-                                    <th style={{ padding: 12, width: "52%", cursor: "pointer", userSelect: "none", fontSize: "var(--font-table)" }} onClick={() => toggleSort("englishName")}>
+                                    <th style={{ padding: "10px 12px", width: "18%", fontSize: "var(--font-table)" }}>sr. no.</th>
+                                    <th style={{ padding: "10px 12px", width: "52%", cursor: "pointer", userSelect: "none", fontSize: "var(--font-table)" }} onClick={() => toggleSort("englishName")}>
                                         vachanakar english name{sortKey === "englishName" ? (sortDir === "asc" ? " ▲" : " ▼") : null}
                                     </th>
-                                    <th style={{ padding: 12, width: "30%", cursor: "pointer", userSelect: "none", fontSize: "var(--font-table)" }} onClick={() => toggleSort("count")}>
+                                    <th style={{ padding: "10px 12px", width: "30%", cursor: "pointer", userSelect: "none", fontSize: "var(--font-table)" }} onClick={() => toggleSort("count")}>
                                         vachan count{sortKey === "count" ? (sortDir === "asc" ? " ▲" : " ▼") : null}
                                     </th>
                                 </tr>
@@ -650,6 +692,126 @@ function SearchText({ text, search }: { text: string; search: string }) {
             </pre>
             <CopyButton text={text} />
         </div>
+    );
+}
+
+function MobileGlobalResultsCards({ results, search, pageStart, visibleColumns }: {
+    results: FlatResult[]; search: string; pageStart: number; visibleColumns: Record<ColumnKey, boolean>;
+}) {
+    if (results.length === 0) return null;
+
+    const hasVisibleColumn = Object.values(visibleColumns).some(Boolean);
+    if (!hasVisibleColumn) return null;
+
+    function formatCopyAll(result: FlatResult): string {
+        return [
+            `Kannada:\n${result.vachana.kannada}`,
+            `Transliteration:\n${result.vachana.transliteration}`,
+            `English:\n${result.vachana.translation ?? ""}`
+        ].join("\n\n");
+    }
+
+    function MobileCopyButton({ text, label }: { text: string; label?: string }) {
+        const [copied, setCopied] = useState(false);
+
+        async function onCopy() {
+            try {
+                if (navigator?.clipboard?.writeText) {
+                    await navigator.clipboard.writeText(text);
+                    setCopied(true);
+                    return;
+                }
+            } catch { /* fallback */ }
+            const el = document.createElement("textarea");
+            el.value = text;
+            el.setAttribute("readonly", "true");
+            el.style.position = "absolute";
+            el.style.left = "-9999px";
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand("copy");
+            document.body.removeChild(el);
+            setCopied(true);
+        }
+
+        return (
+            <button type="button" onClick={onCopy} onBlur={() => setTimeout(() => setCopied(false), 0)}
+                className="btn-action" aria-label={label ?? "Copy text"}>
+                {copied ? "Copied!" : label ?? "Copy"}
+            </button>
+        );
+    }
+
+    return (
+        <>
+            {results.map((result, index) => (
+                <div key={`${result.author.id}-${result.vachana.number}`} className="global-search-mobile-card">
+                    {/* Card Meta Header */}
+                    <div className="card-meta">
+                        {visibleColumns.serial && (
+                            <span>sr. no. #{pageStart + index + 1}</span>
+                        )}
+                        {visibleColumns.author && (
+                            <span>
+                                Author : <Link to={"/author/" + result.author.id}>{result.author.englishName}</Link>
+                            </span>
+                        )}
+                        {visibleColumns.number && (
+                            <span>vachana no. : {result.vachana.number}</span>
+                        )}
+                    </div>
+
+                    {/* Kannada Section */}
+                    {visibleColumns.kannada && (
+                        <div className="card-section">
+                            <span className="card-label">Kannada</span>
+                            <div className="card-kannada">
+                                <HighlightText text={result.vachana.kannada} search={search} />
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Transliteration Section */}
+                    {visibleColumns.transliteration && (
+                        <div className="card-section">
+                            <span className="card-label">Transliteration</span>
+                            <div className="card-transliteration">
+                                <HighlightText text={result.vachana.transliteration} search={search} />
+                            </div>
+                        </div>
+                    )}
+
+                    {/* English Translation Section */}
+                    {visibleColumns.translation && (
+                        <div className="card-section">
+                            <span className="card-label">English Translation</span>
+                            <div className="card-english">
+                                <HighlightText text={result.vachana.translation ?? ""} search={search} />
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Actions */}
+                    <div className="card-actions">
+                        {visibleColumns.kannada && (
+                            <MobileCopyButton text={result.vachana.kannada} label="Copy Kannada" />
+                        )}
+                        {visibleColumns.transliteration && (
+                            <MobileCopyButton text={result.vachana.transliteration} label="Copy Transliteration" />
+                        )}
+                        {visibleColumns.translation && (
+                            <MobileCopyButton text={result.vachana.translation ?? ""} label="Copy English" />
+                        )}
+                        {(visibleColumns.kannada || visibleColumns.transliteration || visibleColumns.translation) && (
+                            <MobileCopyButton
+                                text={formatCopyAll(result)}
+                                label="Copy All"
+                            />
+                        )}
+                    </div>
+                </div>
+            ))}
+        </>
     );
 }
 
