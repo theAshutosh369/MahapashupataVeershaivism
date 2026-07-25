@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { getAuthor, getAuthors, updateVachanaField, updateVachanaTranslation } from "../api";
 import Footer from "../components/Footer";
+import "../styles/components/vachana-cards.css";
 import HighlightText from "../components/HighlightText";
 import Navbar from "../components/Navbar";
 

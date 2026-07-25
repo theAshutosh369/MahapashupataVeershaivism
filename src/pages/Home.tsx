@@ -1,4 +1,5 @@
 import Navbar from "../components/Navbar";
+import "../styles/pages/home.css";
 import Footer from "../components/Footer";
 import SearchBar from "../components/SearchBar";
 

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import "../styles/components/scroll-navigator.css";
+
 function ScrollNavigator() {
     const [scrollY, setScrollY] = useState(0);
     const [windowHeight, setWindowHeight] = useState(0);
@@ -100,4 +102,3 @@ function ScrollNavigator() {
 }
 
 export default ScrollNavigator;
-

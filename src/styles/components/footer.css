@@ -1,0 +1,49 @@
+/* =============================================
+   Footer Component Styles
+   ============================================= */
+
+@media (max-width: 767px) {
+    footer>div:first-of-type {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+
+    footer>div:first-of-type h3 {
+        font-size: 16px !important;
+        margin-bottom: 6px !important;
+    }
+
+    footer>div:first-of-type h4 {
+        font-size: 12px !important;
+        margin-bottom: 8px !important;
+    }
+
+    footer>div:first-of-type p,
+    footer>div:first-of-type a,
+    footer>div:first-of-type span {
+        font-size: 12px !important;
+    }
+
+    footer>div:first-of-type a span:first-child,
+    footer>div:first-of-type span>span:first-child {
+        font-size: 14px !important;
+    }
+
+    footer>div:first-of-type>div:not(:first-child) {
+        padding-top: 0 !important;
+    }
+}
+
+@media (max-width: 425px) {
+    footer>div:first-of-type {
+        gap: 12px !important;
+    }
+
+    footer>div:first-of-type h3 {
+        font-size: 15px !important;
+    }
+
+    footer>div:first-of-type p {
+        font-size: 11px !important;
+    }
+}
