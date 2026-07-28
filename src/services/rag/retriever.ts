@@ -17,12 +17,33 @@ export async function listRagDatasets(): Promise<RAGDataset[]> {
         throw new Error('Invalid dataset list response');
     }
 
+    // Dataset names can be relative paths like "datasets/Hariharataratamyam.json" or
+    // "authors/basavaṇṇa.json". Strip the directory prefix and .json extension for display.
+    function formatDatasetName(raw: string): string {
+        // Remove directory prefix (e.g., "datasets/", "authors/")
+        let name = raw.replace(/^(datasets\/|authors\/)/i, '');
+        // Remove .json extension
+        name = name.replace(/\.json$/i, '');
+        // Decode URL-encoded characters
+        try {
+            name = decodeURIComponent(name);
+        } catch {
+            // ignore decoding errors
+        }
+        return name;
+    }
+
     return [
         { name: 'All datasets', value: '__ALL__' },
-        ...data.datasets.map((dataset: unknown) => ({
-            name: String(dataset),
-            value: String(dataset)
-        }))
+        ...data.datasets
+            .filter((dataset: unknown) => String(dataset).trim().length > 0)
+            .map((dataset: unknown) => {
+                const raw = String(dataset);
+                return {
+                    name: formatDatasetName(raw),
+                    value: raw
+                };
+            })
     ];
 }
 
@@ -111,5 +132,3 @@ export async function queryRagAssistantStream(
         }
     });
 }
-
-

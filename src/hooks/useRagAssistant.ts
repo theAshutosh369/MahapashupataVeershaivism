@@ -3,7 +3,7 @@ import type { AnswerMode, RAGDataset, RAGSource } from '../types/rag';
 import type { RAGQueryRequest } from '../types/rag';
 import { listRagDatasets, queryRagAssistantStream } from '../services/rag/retriever';
 
-export type ChatTurn = { role: 'user' | 'assistant'; content: string };
+export type ChatTurn = { role: 'user' | 'assistant'; content: string; sources?: RAGSource[]; confidence?: number };
 
 export default function useRagAssistant() {
     const [datasets, setDatasets] = useState<RAGDataset[]>([]);
@@ -49,8 +49,6 @@ export default function useRagAssistant() {
     }, [datasets, selectedDataset]);
 
     async function startStream(request: RAGQueryRequest) {
-        // Uses SSE streaming from the backend (/api/rag/query/stream)
-
         setLoading(true);
         setError('');
         setStatus('Searching for the most relevant context...');
@@ -108,7 +106,6 @@ export default function useRagAssistant() {
                     if (streamIdRef.current !== myStreamId) return;
                     if (!t) return;
                     if (answer.length === 0) console.log('[RAG client] first token received');
-                    console.log('[RAG client] token chunk:', t.slice(0, 40).replace(/\n/g, '\\n'));
                     setAnswer((prev) => prev + t);
                 },
                 onDone: (d) => {
@@ -120,13 +117,16 @@ export default function useRagAssistant() {
                     });
                     setSources(d.sources);
                     setConfidence(d.confidence);
-                    setStatus('');
 
+                    // Push assistant response with metadata into history (user message was added in ask())
                     setChatHistory((prev) => [
                         ...prev,
-                        { role: 'user' as const, content: fullRequest.query },
-                        { role: 'assistant' as const, content: d.answer }
+                        { role: 'assistant' as const, content: d.answer, sources: d.sources, confidence: d.confidence }
                     ].slice(-12));
+
+                    // Clear live answer state so only chatHistory renders it
+                    setAnswer('');
+                    setStatus('');
                 }
             });
 
@@ -138,7 +138,6 @@ export default function useRagAssistant() {
 
             const msg = err instanceof Error ? err.message : String(err);
 
-            // Abort is expected for Stop/timeout — don't treat it as an error in the console
             if (controller.signal.aborted || msg.toLowerCase().includes('abort')) {
                 console.info('[RAG client] stream aborted:', msg);
                 setError('');
@@ -147,7 +146,6 @@ export default function useRagAssistant() {
                 return;
             }
 
-            // Unexpected errors are still reported as errors
             console.error('[RAG client] stream error:', msg, 'aborted:', controller.signal.aborted);
             setError(msg);
             setStatus('');
@@ -170,6 +168,17 @@ export default function useRagAssistant() {
     async function regenerate() {
         const req = lastRequestRef.current;
         if (!req || loading) return;
+        // Remove the last assistant entry so the regenerated response replaces it cleanly
+        setChatHistory((prev) => {
+            if (prev.length === 0) return prev;
+            // If last entry is assistant, remove it together with its preceding user message
+            const last = prev[prev.length - 1];
+            if (last.role === 'assistant') {
+                // Remove both the user query and the assistant response
+                return prev.slice(0, -2);
+            }
+            return prev;
+        });
         await startStream(req);
     }
 
@@ -191,6 +200,10 @@ export default function useRagAssistant() {
             includeConversationMemory,
             conversationHistory: []
         };
+
+        // Add user message to chat history immediately
+        setChatHistory((prev) => [...prev, { role: 'user', content: prompt.trim() }]);
+        setPrompt('');
 
         await startStream(request);
     }

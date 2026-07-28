@@ -1,90 +1,181 @@
-import fs from 'node:fs/promises';
-import path from 'node:path';
-import { existsSync } from 'node:fs';
+/**
+ * Vector Index — In-memory metadata index + lazy-loaded binary embeddings.
+ *
+ * ARCHITECTURE:
+ *   - Metadata (chunks without embeddings) is loaded immediately on startup.
+ *   - Embeddings are stored in a separate binary file (rag_embeddings.bin)
+ *     and loaded lazily. All searches use batched search (searchBatched).
+ *   - After search completes, embeddings can be unloaded to free RAM.
+ *
+ * STORAGE:
+ *   - Uses vector_store.js (Float32BinaryStore) — abstracted for future LanceDB swap.
+ *   - Embedding file: server/rag_embeddings.bin
+ *
+ * MEMORY EFFICIENCY:
+ *   - Batched search loads B vectors at a time, scoring them, then releasing.
+ *   - loadAll() is deprecated — no longer called internally.
+ */
 
-const INDEX_FILE = path.resolve(process.cwd(), 'server', 'rag_index.json');
+import { getCurrentIndex, getEmbeddingFilePath, getEmbeddingDimension, setCurrentEmbeddingStore, getCurrentEmbeddingStore } from './index_manager.js';
+import { VectorStore, logMemorySnapshot } from './vector_store.js';
 
-let vectorIndex = null;
+// ─── Debug flag ────────────────────────────────────────────────────────────
+const DEBUG = false;
+
+function debugLog(...args) {
+    if (DEBUG) console.log('[VectorIndex]', ...args);
+}
+
+// ─── Configuration ─────────────────────────────────────────────────────────
+
+const DEFAULT_TOP_K = 10;
+const BATCH_SIZE = 500;
+
+// ─── Internal state ─────────────────────────────────────────────────────────
+
+let vectorIndex = null;        // Array of { chunk, embeddingIndex } — metadata only
 let vectorIndexBuildPromise = null;
 
-function cosineSimilarity(a, b) {
-    if (!Array.isArray(a) || !Array.isArray(b) || a.length !== b.length) return 0;
-    let dot = 0;
-    let magA = 0;
-    let magB = 0;
-    for (let i = 0; i < a.length; i += 1) {
-        const x = Number(a[i]) || 0;
-        const y = Number(b[i]) || 0;
-        dot += x * y;
-        magA += x * x;
-        magB += y * y;
-    }
-    if (magA === 0 || magB === 0) return 0;
-    return dot / (Math.sqrt(magA) * Math.sqrt(magB));
+// ─── Build index from metadata ──────────────────────────────────────────────
+
+function buildInMemoryIndex(chunks) {
+    if (!Array.isArray(chunks)) return [];
+    return chunks.map(function (c) {
+        return {
+            chunk: c,
+            embeddingIndex: c.embeddingIndex
+        };
+    });
 }
 
-function normalizeText(text) {
-    return String(text || '').trim();
-}
+// ─── Public API ─────────────────────────────────────────────────────────────
 
-function buildInMemoryIndex(indexData) {
-    const chunks = Array.isArray(indexData?.chunks) ? indexData.chunks : [];
-
-    // Pre-split into arrays for fast scoring.
-    // Each item: { chunk, embedding }
-    return chunks
-        .filter((c) => Array.isArray(c?.embedding) && c.embedding.length > 0)
-        .map((c) => ({ chunk: c, embedding: c.embedding.map(Number) }));
-}
-
-async function loadRagIndex() {
-    if (!existsSync(INDEX_FILE)) {
-        throw new Error(`Missing rag index file: ${INDEX_FILE}. Run/boot RAG index builder first.`);
-    }
-    const raw = await fs.readFile(INDEX_FILE, 'utf8');
-    return JSON.parse(raw);
-}
-
+/**
+ * Get the vector index (metadata only).
+ * Loading the index only requires metadata, NOT embeddings.
+ */
 export async function getVectorIndex() {
     if (vectorIndex) return vectorIndex;
     if (vectorIndexBuildPromise) return vectorIndexBuildPromise;
 
     vectorIndexBuildPromise = (async () => {
-        const indexData = await loadRagIndex();
-        vectorIndex = buildInMemoryIndex(indexData);
+        try {
+            const index = getCurrentIndex();
+            if (!index || !Array.isArray(index.chunks)) {
+                throw new Error('No index loaded. Call ensureIndex() first.');
+            }
+            vectorIndex = buildInMemoryIndex(index.chunks);
+            debugLog('Loaded ' + vectorIndex.length + ' chunk metadata entries');
+        } catch (error) {
+            console.warn('[VectorIndex] Failed to build index:', error.message);
+            vectorIndex = [];
+        }
         return vectorIndex;
     })();
 
     return vectorIndexBuildPromise;
 }
 
-// Embeddings are already precomputed into rag_index.json by rag_routes.js.
-// This file only builds an in-memory index for fast cosine similarity retrieval.
-export async function retrieveTopKByCosine(queryEmbedding, { topK = 10, selectedDataset = '__ALL__' } = {}) {
+/**
+ * Open the embedding store for reading (lazy — no data loaded into RAM).
+ * Returns the VectorStore instance for batched search.
+ */
+export async function loadEmbeddings() {
+    let store = getCurrentEmbeddingStore();
+    if (store) {
+        return store;
+    }
+
+    const embedPath = getEmbeddingFilePath();
+    const exists = await VectorStore.fileExists(embedPath);
+
+    if (!exists) {
+        debugLog('Embedding file not found at: ' + embedPath);
+        return null;
+    }
+
+    try {
+        debugLog('Opening embeddings from: ' + embedPath);
+        logMemorySnapshot('[VectorIndex] Before opening embed store');
+
+        store = await VectorStore.open(embedPath);
+        setCurrentEmbeddingStore(store);
+
+        logMemorySnapshot('[VectorIndex] After opening embed store');
+        debugLog('Opened ' + store.size() + ' embeddings (dim=' + store.dimension() + ')');
+
+        return store;
+    } catch (error) {
+        console.warn('[VectorIndex] Failed to open embeddings:', error.message);
+        return null;
+    }
+}
+
+/**
+ * Unload embeddings from RAM to free memory.
+ * After calling this, search will need to reopen embeddings.
+ */
+export async function unloadEmbeddings() {
+    const store = getCurrentEmbeddingStore();
+    if (store) {
+        logMemorySnapshot('[VectorIndex] Before embedding unload');
+        await store.close();
+        setCurrentEmbeddingStore(null);
+        logMemorySnapshot('[VectorIndex] After embedding unload');
+    }
+}
+
+/**
+ * Retrieve topK chunks by cosine similarity (semantic search).
+ * Uses searchBatched exclusively for memory efficiency.
+ * Loads embeddings lazily if not already loaded.
+ */
+export async function retrieveTopKByCosine(queryEmbedding, { topK = DEFAULT_TOP_K, selectedDataset = '__ALL__' } = {}) {
     const index = await getVectorIndex();
 
+    if (!index || index.length === 0) return [];
+
+    // Filter by dataset if requested
     const filtered = (selectedDataset && selectedDataset !== '__ALL__')
         ? index.filter((item) => item.chunk?.dataset === selectedDataset)
         : index;
 
-    const scored = filtered
-        .map((item) => ({ item, similarity: cosineSimilarity(queryEmbedding, item.embedding) }))
-        .filter((x) => x.similarity > 0)
-        .sort((a, b) => b.similarity - a.similarity);
+    if (filtered.length === 0) return [];
 
-    const unique = new Set();
-    const results = [];
-    for (const s of scored) {
-        const id = s.item.chunk?.id;
-        if (!id || unique.has(id)) continue;
-        unique.add(id);
-        results.push({ chunk: s.item.chunk, similarity: s.similarity });
-        if (results.length >= topK) break;
+    // Open embeddings lazily (no loadAll — just open the store)
+    const store = await loadEmbeddings();
+    if (!store || store.size() === 0) {
+        debugLog('No embeddings available for cosine search');
+        return [];
     }
 
-    return results;
+    // Always use batched search — memory efficient
+    logMemorySnapshot('[VectorIndex] Before batched search');
+    const searchResults = await store.searchBatched(queryEmbedding, topK, BATCH_SIZE);
+    logMemorySnapshot('[VectorIndex] After batched search');
+
+    // Map results back to chunks using embeddingIndex
+    const chunkByEmbeddingIndex = new Map();
+    for (const item of filtered) {
+        if (item.embeddingIndex !== undefined && item.embeddingIndex !== null) {
+            chunkByEmbeddingIndex.set(item.embeddingIndex, item.chunk);
+        }
+    }
+
+    const results = [];
+    for (const sr of searchResults) {
+        const chunk = chunkByEmbeddingIndex.get(sr.index);
+        if (chunk) {
+            results.push({ chunk, similarity: sr.score });
+        }
+    }
+
+    return results.slice(0, topK);
 }
 
+/**
+ * Ensure the vector index is sync-loaded (for synchronous access patterns).
+ */
 export function ensureVectorIndexLoadedSync() {
     if (!vectorIndex) {
         throw new Error('Vector index not loaded yet. Call getVectorIndex() first.');
@@ -92,10 +183,16 @@ export function ensureVectorIndexLoadedSync() {
     return vectorIndex;
 }
 
+/**
+ * Index statistics.
+ */
 export function vectorIndexStats() {
+    const store = getCurrentEmbeddingStore();
     return {
         loaded: !!vectorIndex,
-        size: vectorIndex?.length ?? 0
+        size: vectorIndex?.length ?? 0,
+        embeddingsOpened: store ? true : false,
+        embeddingMemoryBytes: store ? store.getMemoryBytes() : 0,
+        embeddingFile: getEmbeddingFilePath()
     };
 }
-

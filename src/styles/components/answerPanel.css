@@ -1,0 +1,37 @@
+.assistant-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.assistant-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #f3f4f6;
+    /* light gray */
+    color: #374151;
+    /* dark gray text */
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.assistant-action-btn:hover {
+    background: #e5e7eb;
+    /* slightly darker gray */
+    border-color: #9ca3af;
+}
+
+.assistant-action-btn:active {
+    background: #d1d5db;
+    transform: scale(0.97);
+}
+
+.assistant-action-btn svg {
+    stroke: #374151;
+}
