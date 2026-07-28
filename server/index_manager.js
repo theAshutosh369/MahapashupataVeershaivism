@@ -80,7 +80,17 @@ async function scanJsonFiles(directory) {
         throw err;
     }
 }
-
+function buildMetadata(sourceFiles) {
+    var datasetNames = [];
+    for (var i = 0; i < sourceFiles.length; i++) {
+        datasetNames.push(sourceFiles[i].path);
+    }
+    datasetNames.sort();
+    return {
+        sourceFiles: sourceFiles,
+        datasetNames: datasetNames
+    };
+}
 async function getSourceFiles(dataRoot) {
     var datasetRoot = path.join(dataRoot, 'datasets');
     var authorRoot = path.join(dataRoot, 'authors');
@@ -208,7 +218,15 @@ async function embedBatch(texts, apiKey) {
         clearTimeout(timeout);
     }
 }
-
+async function embedLargeBatch(texts, apiKey) {
+    var all = [];
+    for (var i = 0; i < texts.length; i += 100) {
+        var part = texts.slice(i, i + 100);
+        var result = await embedBatch(part, apiKey);
+        for (var j = 0; j < result.length; j++) all.push(result[j]);
+    }
+    return all;
+}
 function isValidApiKey(key) {
     if (!key || typeof key !== 'string') return false;
     key = key.trim();
@@ -375,7 +393,7 @@ async function buildIndex(dataRoot) {
                 var embeddings = null;
                 if (hasApiKey && embedStore) {
                     try {
-                        embeddings = await embedBatch(fileTexts, apiKey);
+                        embeddings = await embedLargeBatch(fileTexts, apiKey);
                     } catch (e) {
                         console.warn('  -> Embedding failed: ' + e.message + '. Using empty placeholder.');
                         embeddings = null;
@@ -537,6 +555,8 @@ async function incrementalUpdate(dataRoot, existing, diff) {
     var startTime = Date.now();
     var apiKey = process.env.GEMINI_API_KEY;
     var hasApiKey = isValidApiKey(apiKey);
+    var currentSourceFiles = await getSourceFiles(dataRoot);
+    var metadata = buildMetadata(currentSourceFiles);
 
     // Ensure zero vector exists at proper dimension
     ensureZeroVector(EMBEDDING_DIMENSION);
@@ -583,8 +603,8 @@ async function incrementalUpdate(dataRoot, existing, diff) {
         await jsonWriter.write('  "embeddingModel": ' + JSON.stringify(EMBEDDING_MODEL) + ',\n');
         await jsonWriter.write('  "embeddingDimension": ' + EMBEDDING_DIMENSION + ',\n');
         await jsonWriter.write('  "createdAt": ' + JSON.stringify(existing.createdAt || new Date().toISOString()) + ',\n');
-        await jsonWriter.write('  "sourceFiles": ' + JSON.stringify(existing.sourceFiles) + ',\n');
-        await jsonWriter.write('  "datasetNames": ' + JSON.stringify(existing.datasetNames) + ',\n');
+        await jsonWriter.write('  "sourceFiles": ' + JSON.stringify(metadata.sourceFiles) + ',\n');
+        await jsonWriter.write('  "datasetNames": ' + JSON.stringify(metadata.datasetNames) + ',\n');
         await jsonWriter.write('  "embeddingFile": ' + JSON.stringify(path.basename(EMBEDDINGS_FILE)) + ',\n');
         await jsonWriter.write('  "chunks": [\n');
 
@@ -657,7 +677,7 @@ async function incrementalUpdate(dataRoot, existing, diff) {
                 var batchEmbeddings = null;
                 if (hasApiKey) {
                     try {
-                        batchEmbeddings = await embedBatch(fileTexts, apiKey);
+                        batchEmbeddings = await embedLargeBatch(fileTexts, apiKey);
                     } catch (e) {
                         console.warn('  -> Embedding failed: ' + e.message);
                     }
@@ -728,6 +748,8 @@ async function incrementalUpdate(dataRoot, existing, diff) {
         try {
             var raw = await fs.readFile(INDEX_FILE, 'utf8');
             currentIndex = JSON.parse(raw);
+            currentIndex.sourceFiles = metadata.sourceFiles;
+            currentIndex.datasetNames = metadata.datasetNames;
         } catch (loadErr) {
             console.warn('[IndexManager] Could not reload after incremental update:', loadErr.message);
             currentIndex = existing;
