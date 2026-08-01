@@ -12,7 +12,6 @@ dist
 dist-ssr
 *.local
 .env
-server/rag_index.json
 
 # Editor directories and files
 .vscode/*
