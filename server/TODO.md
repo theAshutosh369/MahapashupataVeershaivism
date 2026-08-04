@@ -30,9 +30,18 @@
 - [x] Add new env vars if needed
 
 ## ✅ Step 6: Verification
-- [ ] Index builds without OOM
-- [ ] Memory usage logged before/after each phase
-- [ ] Existing index loads incrementally
-- [ ] Queries return correct results
-- [ ] Embedding file size measured
+- [x] Index builds without OOM (230 files, 21,077 chunks in ~100s)
+- [x] Memory usage logged before/after each phase
+- [x] Existing index loads incrementally
+- [x] Queries return correct results
+- [x] Embedding file size measured (61.75 MB / 21,077 vectors)
+
+## 📄 PDF Support (see root TODO.md)
+- [x] `unpdf` dependency added & installed
+- [x] `server/pdf_extractor.js` — per-page text extraction
+- [x] `chunker.chunkPdfFile()` — PDF page chunking
+- [x] Index scanning + dispatch generalized for PDFs
+- [x] `/api/rag/datasets` + `formatDatasetName` handle `.pdf`
+- [x] `README_RAG.md` updated (Gemini-only, vector-store, PDF pipeline)
+- [x] Rebuild index & verify PDF is indexed + queryable (233 datasets, 22,382 chunks; 1,305 PDF chunks with page numbers; JSON unchanged at 21,077)
 

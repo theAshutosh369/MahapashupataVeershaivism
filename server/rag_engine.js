@@ -6,7 +6,7 @@
  * Falls back gracefully when GEMINI_API_KEY is missing or embedding fails.
  *
  * RETRIEVAL ARCHITECTURE:
- *   1. Query embedding generated via Google text-embedding-004
+ *   1. Query embedding generated via Google gemini-embedding-001 (768-dim)
  *   2. Vector search via vector_store.js (Float32 binary, lazy-loaded, batched)
  *   3. Hybrid scoring: semantic (0.5) + keyword (0.25) + fuzzy (0.15) + boost (0.10)
  *   4. If embeddings unavailable → pure keyword search fallback
@@ -20,11 +20,21 @@ import { addTurn, getConversationContext } from './conversation_memory.js';
 import { VectorStore, logMemorySnapshot } from './vector_store.js';
 import { getEmbeddingFilePath, getEmbeddingDimension } from './index_manager.js';
 
-var MAX_TOP_CHUNKS = 10;
-var RETRIEVE_CHUNKS = 25;
+var MAX_TOP_CHUNKS = 20;
+var RETRIEVE_CHUNKS = 50;
 
 var embeddingCache = new Map();
 var EMBEDDING_CACHE_MAX = 50;
+
+var GEMINI_DEFAULT_MODEL = 'models/gemini-flash-latest';
+
+function getGeminiModel() {
+    var configured = process.env.GEMINI_MODEL;
+    if (configured && typeof configured === 'string' && configured.trim().length > 0) {
+        return configured.trim();
+    }
+    return GEMINI_DEFAULT_MODEL;
+}
 
 // ─── Query embedding ────────────────────────────────────────────────────────
 
@@ -47,8 +57,9 @@ async function getQueryEmbedding(query) {
     var result;
     try {
         result = await client.models.embedContent({
-            model: 'models/text-embedding-004',
-            contents: [{ role: 'user', parts: [{ text: String(query || '').slice(0, 6000) }] }]
+            model: 'models/gemini-embedding-001',
+            contents: [{ role: 'user', parts: [{ text: String(query || '').slice(0, 6000) }] }],
+            config: { outputDimensionality: 768 }
         });
     } catch (e) {
         console.log('[RAG Engine] Embedding API call failed: ' + e.message);
@@ -93,6 +104,9 @@ function buildSystemPrompt() {
         'You answer with the depth, precision and textual rigor of a PhD in Sanskrit Vyākaraṇa, Vedānta and Veerashaiva Siddhānta while remaining clear and readable.',
         '',
         'RULES:',
+        '- Answer in the SAME language the user asked the question in (English, Kannada, Hindi, Marathi, or Sanskrit).',
+        '- Even if the relevant retrieved context is written in another language (e.g. Kannada, Hindi, Marathi, Sanskrit), use it to inform your answer but write the answer in the user\'s language and preserve original quotations verbatim.',
+        '- NEVER translate or transliterate the retrieved text during retrieval; always quote the ORIGINAL text exactly as it appears in the retrieved context, then explain it in the user\'s language.',
         '- NEVER hallucinate.',
         '- NEVER invent facts.',
         '- NEVER fabricate quotations.',
@@ -122,7 +136,36 @@ function buildSystemPrompt() {
         '2. Relevant Sanskrit Quotations (if available)',
         '3. English Translation',
         '4. Detailed Explanation',
-        '5. References'
+        '5. References',
+        'MARKDOWN FORMATTING RULES (STRICT):',
+        '- Output clean GitHub-Flavored Markdown only.',
+        '- Every heading MUST have a space after # (e.g. "## Heading", never "##Heading").',
+        '- Leave one blank line before and after every heading.',
+        '- Leave one blank line before and after every blockquote.',
+        '- Leave one blank line before and after horizontal rules (---).',
+        '- Never write "---###".',
+        '- Never merge headings and paragraphs together.',
+        '- Use numbered headings only for major sections.',
+        '- Use bullet lists (-) for multiple points.',
+        '- Use nested bullets for subpoints when necessary.',
+        '- Keep paragraphs short (2–5 sentences).',
+        '- Use tables whenever comparing multiple concepts.',
+        '- Use **bold** for important Sanskrit terms, names and conclusions.',
+        '- Italicize book names only.',
+        '- Render Sanskrit quotations as Markdown blockquotes.',
+        '- Never wrap normal explanations inside blockquotes.',
+        '- Never produce malformed markdown.',
+        '- Ensure markdown renders correctly in GitHub, React Markdown, and CommonMark.',
+        '',
+        'QUOTE FORMAT:',
+        '> संस्कृत श्लोक',
+        '>',
+        '> English Translation',
+        '',
+        'REFERENCE FORMAT:',
+        '- **Source:** Book Name, Chapter, Page XX [1]',
+        '',
+        // 'Do not output raw citation IDs inside paragraphs when a proper reference section is present.'
     ];
 
     return lines.join('\n');
@@ -139,12 +182,24 @@ function buildPrompt(query, matched, answerMode, conversationContext) {
         var chunk = candidate.chunk;
         var citationId = mi + 1;
         var metadata = formatMetadata(chunk);
-        var parts = [
-            '[' + citationId + '] Dataset: ' + chunk.dataset,
-            'Author: ' + (chunk.author || 'Unknown'),
-            'Page: ' + (chunk.page != null ? chunk.page : 'N/A'),
-            'Vachana: ' + (chunk.vachanaNumber != null ? chunk.vachanaNumber : 'N/A')
-        ];
+        var isPdf = chunk.sourceType === 'pdf' || String(chunk.dataset || '').toLowerCase().endsWith('.pdf');
+        var isDoc = isPdf || chunk.sourceType === 'txt' || String(chunk.dataset || '').toLowerCase().endsWith('.txt');
+        var parts;
+        if (isDoc) {
+            // PDF/TXT citations: title/author/page — never "Vachana".
+            parts = [
+                '[' + citationId + '] Source: ' + (chunk.title || chunk.filename || chunk.dataset),
+                'Author: ' + (chunk.author || 'Unknown'),
+                'Page: ' + (chunk.page != null ? chunk.page : 'N/A')
+            ];
+        } else {
+            parts = [
+                '[' + citationId + '] Dataset: ' + chunk.dataset,
+                'Author: ' + (chunk.author || 'Unknown'),
+                'Page: ' + (chunk.page != null ? chunk.page : 'N/A'),
+                'Vachana: ' + (chunk.vachanaNumber != null ? chunk.vachanaNumber : 'N/A')
+            ];
+        }
         if (metadata) parts.push(metadata);
         parts.push('');
         parts.push(chunk.text);
@@ -227,12 +282,36 @@ async function retrieveChunks(query, selectedDataset, topK) {
             if (store && store.size() > 0) {
                 logMemorySnapshot('[RAG Engine] After embedding load');
 
-
+                // Attach embeddings from the binary store to candidate chunks so
+                // hybridSearch can compute semantic (cosine) scores. Chunks store
+                // only an embeddingIndex; the vectors live in rag_embeddings.bin.
+                try {
+                    var embedDim = getEmbeddingDimension();
+                    var allEmbeddings = await store.loadAll();
+                    if (allEmbeddings && allEmbeddings.length >= embedDim) {
+                        for (var ce = 0; ce < candidates.length; ce++) {
+                            var ceChunk = candidates[ce];
+                            var ceIdx = ceChunk.embeddingIndex;
+                            if (ceIdx >= 0 && (ceIdx + 1) * embedDim <= allEmbeddings.length) {
+                                ceChunk.embedding = allEmbeddings.subarray(ceIdx * embedDim, (ceIdx + 1) * embedDim);
+                            }
+                        }
+                        console.log('[RAG Engine] Attached embeddings to ' + candidates.length + ' candidate chunks');
+                    }
+                } catch (embedErr) {
+                    console.warn('[RAG Engine] Could not attach embeddings: ' + embedErr.message);
+                }
 
                 var results = hybridSearch(queryEmbedding, query, candidates, {
                     topK: effectiveTopK,
                     retrieveK: RETRIEVE_CHUNKS
                 });
+
+                // Detach embeddings from chunks so the full store buffer is not
+                // pinned in memory after the search completes.
+                for (var ce2 = 0; ce2 < candidates.length; ce2++) {
+                    try { delete candidates[ce2].embedding; } catch (eD) { /* ignore */ }
+                }
 
                 logMemorySnapshot('[RAG Engine] After hybrid search');
 
@@ -275,24 +354,47 @@ async function generateAnswer(prompt) {
 
     var { GoogleGenAI } = await import('@google/genai');
     var client = new GoogleGenAI({ apiKey: apiKey });
-    var model = process.env.GEMINI_MODEL || 'models/gemini-2.5-flash';
+    var model = getGeminiModel();
 
     console.log('[RAG Engine] Generating answer with ' + model + '...');
     var startTime = Date.now();
 
-    var result;
-    try {
-        result = await client.models.generateContent({
-            model: model,
-            contents: [{ role: 'user', parts: [{ text: prompt }] }],
-            generationConfig: {
-                temperature: Number(process.env.GEMINI_TEMPERATURE || 0.2),
-                topP: 0.95,
-                maxOutputTokens: Number(process.env.GEMINI_MAX_OUTPUT_TOKENS || 2048)
+    var result = null;
+    var attempt = 0;
+    while (attempt < 2) {
+        try {
+            result = await client.models.generateContent({
+                model: model,
+                contents: [{ role: 'user', parts: [{ text: prompt }] }],
+                generationConfig: {
+                    temperature: Number(process.env.GEMINI_TEMPERATURE || 0.2),
+                    topP: 0.95,
+                    maxOutputTokens: Number(process.env.GEMINI_MAX_OUTPUT_TOKENS || 2048)
+                }
+            });
+            break;
+        } catch (e) {
+            var genMsg = String(e && e.message ? e.message : e);
+            console.warn('[RAG Engine] Gemini generation failed with ' + model + ': ' + genMsg);
+            // 429: quota exhausted (account-wide) — brief backoff, then give up.
+            if (genMsg.indexOf('429') !== -1) {
+                if (attempt === 0) {
+                    await new Promise(function (res) { setTimeout(res, 2000); });
+                    attempt++;
+                    continue;
+                }
+                break;
             }
-        });
-    } catch (e) {
-        console.log('[RAG Engine] Gemini generation failed: ' + e.message);
+            // 404 / deprecated model — switch to the default alias and retry once.
+            if (model !== GEMINI_DEFAULT_MODEL && (genMsg.indexOf('404') !== -1 || /no longer available|not found/i.test(genMsg))) {
+                model = GEMINI_DEFAULT_MODEL;
+                console.log('[RAG Engine] Falling back to ' + model);
+                continue;
+            }
+            break;
+        }
+    }
+    if (!result) {
         return null;
     }
 
@@ -317,67 +419,78 @@ async function generateAnswerStream(prompt, opts) {
 
     var { GoogleGenAI } = await import('@google/genai');
     var client = new GoogleGenAI({ apiKey: apiKey });
-    var model = process.env.GEMINI_MODEL || 'models/gemini-2.5-flash';
+    var model = getGeminiModel();
     var timeoutMs = Number(process.env.GEMINI_TIMEOUT_MS || 30000);
 
-    console.log('[RAG Engine] Streaming answer with ' + model + '...');
-    var startTime = Date.now();
-
-    var controller = new AbortController();
-    if (signal) {
-        if (signal.aborted) controller.abort();
-        signal.addEventListener('abort', function () { controller.abort(); }, { once: true });
-    }
-
-    var timeout = setTimeout(function () { controller.abort(); }, timeoutMs);
-
-    try {
-        var stream = await client.models.generateContentStream({
-            model: model,
-            contents: [{ role: 'user', parts: [{ text: prompt }] }],
-            generationConfig: {
-                temperature: Number(process.env.GEMINI_TEMPERATURE || 0.2),
-                topP: 0.95,
-                maxOutputTokens: Number(process.env.GEMINI_MAX_OUTPUT_TOKENS || 2048)
-            },
-            signal: controller.signal
-        });
-
-        var asyncIterable = stream && stream.stream ? stream.stream : stream;
-        if (!asyncIterable || typeof asyncIterable[Symbol.asyncIterator] !== 'function') {
-            throw new Error('Gemini streaming response has no async iterable');
+    for (var sAttempt = 0; sAttempt < 2; sAttempt++) {
+        var controller = new AbortController();
+        if (signal) {
+            if (signal.aborted) controller.abort();
+            signal.addEventListener('abort', function () { controller.abort(); }, { once: true });
         }
 
-        var fullText = '';
-        for await (var chunk of asyncIterable) {
-            var text = '';
-            if (chunk) {
-                text = chunk.text || '';
-                if (!text && chunk.candidates && chunk.candidates[0] && chunk.candidates[0].content && chunk.candidates[0].content.parts) {
-                    for (var pi = 0; pi < chunk.candidates[0].content.parts.length; pi++) {
-                        text += chunk.candidates[0].content.parts[pi].text || '';
+        var timeout = setTimeout(function () { controller.abort(); }, timeoutMs);
+
+        console.log('[RAG Engine] Streaming answer with ' + model + '...');
+        var startTime = Date.now();
+
+        try {
+            var stream = await client.models.generateContentStream({
+                model: model,
+                contents: [{ role: 'user', parts: [{ text: prompt }] }],
+                generationConfig: {
+                    temperature: Number(process.env.GEMINI_TEMPERATURE || 0.2),
+                    topP: 0.95,
+                    maxOutputTokens: Number(process.env.GEMINI_MAX_OUTPUT_TOKENS || 2048)
+                },
+                signal: controller.signal
+            });
+
+            var asyncIterable = stream && stream.stream ? stream.stream : stream;
+            if (!asyncIterable || typeof asyncIterable[Symbol.asyncIterator] !== 'function') {
+                throw new Error('Gemini streaming response has no async iterable');
+            }
+
+            var fullText = '';
+            for await (var chunk of asyncIterable) {
+                var text = '';
+                if (chunk) {
+                    text = chunk.text || '';
+                    if (!text && chunk.candidates && chunk.candidates[0] && chunk.candidates[0].content && chunk.candidates[0].content.parts) {
+                        for (var pi = 0; pi < chunk.candidates[0].content.parts.length; pi++) {
+                            text += chunk.candidates[0].content.parts[pi].text || '';
+                        }
                     }
                 }
+                if (!text) continue;
+                var cleaned = String(text).replace(/<think[\s\S]*?<\/think>/gi, '').trim();
+                if (cleaned) {
+                    fullText += cleaned;
+                    if (onToken) onToken(cleaned);
+                }
             }
-            if (!text) continue;
-            var cleaned = String(text).replace(/<think[\s\S]*?<\/think>/gi, '').trim();
-            if (cleaned) {
-                fullText += cleaned;
-                if (onToken) onToken(cleaned);
-            }
-        }
 
-        var elapsed = Date.now() - startTime;
-        console.log('[RAG Engine] Streaming completed in ' + elapsed + 'ms (' + fullText.length + ' chars)');
-        return fullText;
-    } catch (error) {
-        if (controller.signal.aborted) {
-            throw new Error('Gemini streaming timed out after ' + timeoutMs + 'ms');
+            var elapsed = Date.now() - startTime;
+            console.log('[RAG Engine] Streaming completed in ' + elapsed + 'ms (' + fullText.length + ' chars)');
+            clearTimeout(timeout);
+            return fullText;
+        } catch (error) {
+            clearTimeout(timeout);
+            if (controller.signal.aborted) {
+                throw new Error('Gemini streaming timed out after ' + timeoutMs + 'ms');
+            }
+            var sMsg = String(error.message || '');
+            console.warn('[RAG Engine] Gemini stream failed with ' + model + ': ' + sMsg);
+            if (sMsg.indexOf('429') !== -1) break;
+            if (sAttempt === 0 && model !== GEMINI_DEFAULT_MODEL && (sMsg.indexOf('404') !== -1 || /no longer available|not found/i.test(sMsg))) {
+                model = GEMINI_DEFAULT_MODEL;
+                console.log('[RAG Engine] Retrying streaming with ' + model);
+                continue;
+            }
+            throw error;
         }
-        throw error;
-    } finally {
-        clearTimeout(timeout);
     }
+    throw new Error('Gemini streaming failed');
 }
 
 // ─── Public query API ───────────────────────────────────────────────────────
@@ -421,6 +534,9 @@ export async function query(queryText, selectedDataset, topK, answerMode, includ
         sources.push({
             id: item.chunk.id,
             dataset: item.chunk.dataset,
+            sourceType: item.chunk.sourceType,
+            filename: item.chunk.filename,
+            source: item.chunk.source,
             page: item.chunk.page,
             vachanaNumber: item.chunk.vachanaNumber,
             author: item.chunk.author,
@@ -437,6 +553,9 @@ export async function query(queryText, selectedDataset, topK, answerMode, includ
         retrievedChunks.push({
             id: item2.chunk.id,
             dataset: item2.chunk.dataset,
+            sourceType: item2.chunk.sourceType,
+            filename: item2.chunk.filename,
+            source: item2.chunk.source,
             page: item2.chunk.page,
             vachanaNumber: item2.chunk.vachanaNumber,
             author: item2.chunk.author,
@@ -514,6 +633,9 @@ export async function queryStream(queryText, selectedDataset, topK, answerMode, 
         sources.push({
             id: item.chunk.id,
             dataset: item.chunk.dataset,
+            sourceType: item.chunk.sourceType,
+            filename: item.chunk.filename,
+            source: item.chunk.source,
             page: item.chunk.page,
             vachanaNumber: item.chunk.vachanaNumber,
             author: item.chunk.author,
@@ -530,6 +652,9 @@ export async function queryStream(queryText, selectedDataset, topK, answerMode, 
         retrievedChunks.push({
             id: item2.chunk.id,
             dataset: item2.chunk.dataset,
+            sourceType: item2.chunk.sourceType,
+            filename: item2.chunk.filename,
+            source: item2.chunk.source,
             page: item2.chunk.page,
             vachanaNumber: item2.chunk.vachanaNumber,
             author: item2.chunk.author,
@@ -547,6 +672,7 @@ export async function queryStream(queryText, selectedDataset, topK, answerMode, 
 
     var elapsed = Date.now() - startTime;
     console.log('[RAG Engine] Stream completed in ' + elapsed + 'ms');
+    console.log('---------------------------------------------------');
 
     return {
         answer: fullAnswer,

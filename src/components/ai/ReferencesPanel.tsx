@@ -1,4 +1,5 @@
 import type { RAGSource } from '../../types/rag';
+import { isDocumentSource, formatCitationSummary } from './formatCitation';
 
 type ReferencesPanelProps = {
     sources: RAGSource[];
@@ -24,7 +25,11 @@ export default function ReferencesPanel({ sources }: ReferencesPanelProps) {
                 {sources.map((source, index) => (
                     <details key={source.id} style={{ padding: 14, borderRadius: 12, backgroundColor: '#f8fafc' }}>
                         <summary style={{ fontWeight: 600, cursor: 'pointer', color: '#0f172a' }}>
-                            [{index + 1}] {source.dataset} · Page {source.page ?? 'N/A'} · Vachana {source.vachanaNumber ?? 'N/A'}
+                            {isDocumentSource(source) ? (
+                                formatCitationSummary(source, index)
+                            ) : (
+                                <>[{index + 1}] {source.dataset} · Page {source.page ?? 'N/A'} · Vachana {source.vachanaNumber ?? 'N/A'}</>
+                            )}
                         </summary>
                         <div style={{ marginTop: 10, color: '#334155', fontSize: 14, whiteSpace: 'pre-wrap' }}>{source.excerpt}</div>
                         <div style={{ marginTop: 10, color: '#475569', fontSize: 13 }}>

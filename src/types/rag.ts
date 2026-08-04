@@ -8,6 +8,9 @@ export type RAGDataset = {
 export type RAGSource = {
     id: string;
     dataset: string;
+    sourceType?: 'pdf' | 'txt' | 'json';
+    filename?: string;
+    source?: 'unicode' | 'legacy' | 'ocr';
     page?: number;
     vachanaNumber?: number | string;
     author?: string;
@@ -33,6 +36,9 @@ export type RAGQueryResponse = {
     retrievedChunks: Array<{
         id: string;
         dataset: string;
+        sourceType?: 'pdf' | 'txt' | 'json';
+        filename?: string;
+        source?: 'unicode' | 'legacy' | 'ocr';
         page?: number;
         vachanaNumber?: number | string;
         author?: string;

@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import type { RAGSource } from '../../types/rag';
 import '../../styles/components/answerPanel.css';
+import { isDocumentSource, formatCitationSummary } from './formatCitation';
 
 // ─── Inline SVG Icons ──────────────────────────────────────────────────────
 
@@ -107,9 +108,15 @@ export default function AnswerPanel({ answer, sources, loading, onCopyAnswer }: 
                         {sources.map((source, index) => (
                             <details key={source.id} className="source-detail">
                                 <summary>
-                                    [{index + 1}] {source.dataset}
-                                    {source.page !== undefined && ` · Page ${source.page}`}
-                                    {source.vachanaNumber !== undefined && ` · Vachana ${source.vachanaNumber}`}
+                                    {isDocumentSource(source) ? (
+                                        formatCitationSummary(source, index)
+                                    ) : (
+                                        <>
+                                            [{index + 1}] {source.dataset}
+                                            {source.page !== undefined && ` · Page ${source.page}`}
+                                            {source.vachanaNumber !== undefined && ` · Vachana ${source.vachanaNumber}`}
+                                        </>
+                                    )}
                                 </summary>
                                 <div className="source-detail-content">{source.excerpt}</div>
                                 <div className="source-detail-score">Score: {source.score}</div>

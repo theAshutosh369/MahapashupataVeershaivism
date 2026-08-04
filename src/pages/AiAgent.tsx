@@ -6,6 +6,7 @@ import useRagAssistant from '../hooks/useRagAssistant';
 import QueryControls from '../components/ai/QueryControls';
 import AnswerPanel from '../components/ai/AnswerPanel';
 // import ReferencesPanel from '../components/ai/ReferencesPanel';
+import { formatCitationLines } from '../components/ai/formatCitation';
 
 function AiAgent() {
     const {
@@ -40,16 +41,7 @@ function AiAgent() {
     }
 
     function copySources() {
-        const formatted = sources
-            .map((source, index) => {
-                const parts = [`[${index + 1}] ${source.dataset}`];
-                if (source.page !== undefined) parts.push(`Page: ${source.page}`);
-                if (source.vachanaNumber !== undefined) parts.push(`Vachana: ${source.vachanaNumber}`);
-                if (source.author) parts.push(`Author: ${source.author}`);
-                return parts.join(' · ');
-            })
-            .join('\n');
-        copyText(formatted);
+        copyText(formatCitationLines(sources));
     }
 
     // Auto-scroll to bottom on new messages
@@ -106,18 +98,7 @@ function AiAgent() {
                                             confidence={turn.confidence || 0}
                                             loading={false}
                                             onCopyAnswer={() => copyText(turn.content)}
-                                            onCopyReferences={() => {
-                                                const formatted = (turn.sources || [])
-                                                    .map((source, index) => {
-                                                        const parts = [`[${index + 1}] ${source.dataset}`];
-                                                        if (source.page !== undefined) parts.push(`Page: ${source.page}`);
-                                                        if (source.vachanaNumber !== undefined) parts.push(`Vachana: ${source.vachanaNumber}`);
-                                                        if (source.author) parts.push(`Author: ${source.author}`);
-                                                        return parts.join(' · ');
-                                                    })
-                                                    .join('\n');
-                                                copyText(formatted);
-                                            }}
+                                            onCopyReferences={() => copyText(formatCitationLines(turn.sources || []))}
                                         />
                                     )}
                                 </div>
@@ -225,3 +206,4 @@ function AiAgent() {
 }
 
 export default AiAgent;
+
