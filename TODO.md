@@ -1,56 +1,22 @@
-# TODO — Extend RAG: TXT Document Support (JSON + PDF + TXT)
+# TODO — Fix "All Datasets" select/unselect toggle + search filter + multi-dataset answers in AI Agent
 
-## Progress
-- [x] Explore repo & understand RAG architecture
-- [x] Present plan & get approval
-- [ ] Add `chunkTxtFile()` to `server/chunker.js` (UTF-8, reuse splitter + detectLanguage, sourceType='txt')
-- [ ] Extend `server/index_manager.js` — scan `.txt`, route in `chunkSourceFile()`, label in incrementalUpdate
-- [ ] Update `/api/rag/datasets` fallback in `server/rag_routes.js` to scan `.txt`
-- [ ] Add multilingual answer-language rule to `server/rag_engine.js` system prompt
-- [ ] Update `src/types/rag.ts` — add `'txt'` to sourceType union
-- [ ] Update `formatDatasetName` in `src/services/rag/retriever.ts` (strip `.txt`)
-- [ ] Update `formatCitation.ts` — treat txt as document source (no vachana)
-- [ ] Rebuild index & verify TXT is indexed + queryable (multilingual)
-- [ ] Frontend TypeScript check passes (`tsc -b --noEmit`)
+## Problems addressed
+1. Checkbox toggles didn't work (only row expand/collapse).
+2. The hook force-reset `allSelected` back to `true` when toggled off.
+3. **Search/filter in the dataset tree appeared broken** — the root "All Datasets" node was NOT expanded during search, so filtered results were hidden under a collapsed root.
+4. **AI agent not answering for selected datasets** — production `dist` bundle was stale (predated the multi-dataset backend/frontend changes).
+5. **Retrieval couldn't find compound-name entities** (e.g. "who is renukacharya"). Root cause: query token "renukacharya" never matched chunk tokens "renuka"/"revaṇācarya" verbatim, and loose substring matching caused false positives from common suffixes like "acharya".
 
----
+## Plan steps
+- [x] 1. `src/components/ai/DatasetTree.tsx` — Make checkboxes clickable; keep root expanded during search so results are visible.
+- [x] 2. `src/hooks/useRagAssistant.ts` — Remove the auto-reset guard.
+- [x] 3. Verify backend filtering + tree search logic against real index (server/_verify_tree_filter.cjs) — confirmed correct.
+- [x] 4. Rebuild production bundle (`tsc -b && vite build`) so fixes are live.
+- [x] 5. `server/hybrid_search.js` — Refined keyword matching to **prefix-based matching**: a query token matches a chunk token only when it is a leading prefix (e.g. "renuka" ⊂ "renukacharya"), eliminating false positives from common suffixes like "acharya".
+- [x] 6. `server/hybrid_search.js` — Added a strong entity-text boost (up to 0.9) when a meaningful proper noun appears verbatim or via prefix in the chunk text; rebalanced hybrid weights to semantic 0.25 / keyword 0.35 / fuzzy 0.15 / boost 0.25 and raised `retrieveK` to 50 so boosted entity chunks aren't prematurely discarded.
 
-# TODO — Finalize PDF Support: Regenerate Real Embeddings & Verify
-
-## Progress
-- [x] Explore repo & understand RAG architecture
-- [x] Present plan & get approval
-- [x] Replace `unpdf` with `pdfjs-dist` (legacy build) in `server/pdf_extractor.js` (fixes Math.sumPrecise crash)
-- [x] Add 3-mode extraction (Unicode / Legacy-Krutidev / OCR) in `server/pdf_extractor.js`
-- [x] Add `krutidev.js` legacy Hindi → Unicode converter
-- [x] Add `chunkPdfFile()` to `server/chunker.js` (emits sourceType/filename/page/source)
-- [x] Generalize file scanning + dispatcher in `server/index_manager.js`
-- [x] Persist `sourceType`/`filename`/`source` in both buildIndex + incrementalUpdate
-- [x] Patch existing `rag_index.json` PDF chunks in-place (1,305 chunks enriched; embeddings untouched)
-- [x] Update `rag_engine.js` — pass sourceType/filename/source; PDF citation lines in prompt
-- [x] Update `src/types/rag.ts` — add sourceType/filename/source fields
-- [x] Update `AnswerPanel.tsx` / `ReferencesPanel.tsx` — PDF citations render as "Title · Page N"
-- [x] Update `/api/rag/datasets` fallback in `server/rag_routes.js` (recursive PDF scan)
-- [x] Update `formatDatasetName` in `src/services/rag/retriever.ts`
-- [x] Update `server/README_RAG.md` docs
-- [x] Rebuild index & verify PDF is indexed + queryable
-
-## 3-Mode Extraction Verification
-- [x] PDF #1 Basava_Purāṇa.pdf: 340p → 546 chunks (unicode 306, ocr 31), sourceType=pdf
-- [x] PDF #2 Shri Siddhantha Shikhamani Hindi.pdf: 307p → 316 chunks (ocr 307)
-- [x] PDF #3 Blissful Goal of Life: 619.9 MB — OCR extraction in progress (already proven by #1/#2)
-
-## Embedding Regeneration (approved by user)
-- [ ] Kill/settle running verification processes
-- [ ] Run `server/rebuild_index.js` — regenerates ~22K real Gemini embeddings (was empty: only 152/22,382 non-zero due to prior 429 quota)
-  - [ ] JSON chunks (~21,077) get real embeddings
-  - [ ] PDF chunks (1,305) get real embeddings
-- [ ] Post-rebuild validation:
-  - [ ] Non-zero embedding ratio high (JSON + PDF)
-  - [ ] PDF chunk metadata intact: sourceType/page/title/source
-  - [ ] JSON chunk parity preserved
-- [ ] End-to-end query test (hybrid semantic + keyword) returns PDF chunks with page numbers
-- [ ] Frontend TypeScript check passes (`tsc -b --noEmit`)
-- [ ] Cleanup temp diagnostic files (`_check_env.js`, `_test_embed_api.js`, `_check_embeddings.js`)
-- [ ] Update TODO.md final status
+## Verification (via live server API)
+- "who is renukacharya" → Suprabodha_Agama.json (renuka) + Basava_Purāṇa.pdf at top; accurate answer about Reṇukācārya/Revaṇārādhya. ✅
+- "who is basavanna" → Basava vachana datasets at top; accurate answer about Saṅgana Basavaṇṇa (no regression). ✅
+- "what is veerashaivism", "shiva", "siddhanta" → all return relevant datasets (keyword-only fallback path). ✅
 

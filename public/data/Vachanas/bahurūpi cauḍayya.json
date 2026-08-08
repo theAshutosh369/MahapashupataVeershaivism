@@ -1,0 +1,469 @@
+{
+  "id" : 39,
+  "kannadaName" : "ಬಹುರೂಪಿ ಚೌಡಯ್ಯ",
+  "englishName" : "bahurūpi cauḍayya",
+  "vachanaCount" : 0,
+  "vachanas" : [ {
+    "authorId" : 39,
+    "number" : 1,
+    "akshara" : "a",
+    "kannada" : "ಅಲ್ಲಿಯಬಹುರೂಪ ಇಲ್ಲಿಗೆ ಬಂದಿತ್ತು.\nಇಲ್ಲಿಯ ಬಹುರೂಪ ಎಲ್ಲಿ ಅಡಗಿತ್ತೋ?\nಎನ್ನ ಬಹುರೂಪ ಬಲ್ಲವರಾರೋ ?\nನಾದ ಹರಿದು ಸ್ವರವು ಸೂಸಿದ ಬಳಿಕ\nಈ ಬಹುರೂಪ ಬಲ್ಲವರಾರೋ ?\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥನಲ್ಲಿ\nಬಸವಣ್ಣನಿಂದ ಬದುಕಿತೀ ಲೋಕವೆಲ್ಲ.",
+    "transliteration" : "alliyabahurūpa illige bandittu.\nilliya bahurūpa elli aḍagittō?\nenna bahurūpa ballavarārō ?\nnāda haridu svaravu sūsida baḷika\nī bahurūpa ballavarārō ?\nrēkaṇṇapriya nāgināthanalli\nbasavaṇṇaninda badukitī lōkavella.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 2,
+    "akshara" : "a",
+    "kannada" : "ಅಪ್ಪಾ ಬೊಪ್ಪಾ ಚಿಕ್ಕ ಚೋಹಮಂ ತೊಟ್ಟು\nಮುಖಕ್ಕೆ ಹೊತ್ತಿಗೊಂದು ಪರಿಯ ಬಚ್ಚಣೆಯನಿಕ್ಕಿ\nಮತ್ತದನು ತಲೆಯಲ್ಲಿ ಹೊತ್ತು, ತಪ್ಪಿ ಹೆಜ್ಜೆಯನಿಕ್ಕಿ ಆಡುತ್ತಿದ್ದ\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥನಲ್ಲಿ ಹೊತ್ತುಹೋಗದ ಬಹುರೂಪವ.",
+    "transliteration" : "appā boppā cikka cōhamaṁ toṭṭu\nmukhakke hottigondu pariya baccaṇeyanikki\nmattadanu taleyalli hottu, tappi hejjeyanikki āḍuttidda\nrēkaṇṇapriya nāgināthanalli hottuhōgada bahurūpava.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 3,
+    "akshara" : "a",
+    "kannada" : "ಅನುದಿನಂಗಳೆಂಬವು ಪ್ರಣತೆಯಾಗಿ,\nವರುಷವೆಂಬವು ಬತ್ತಿಯಾಗಿ,\nಜೀವಜಾತಿಯ ಬೆಳಗ ಬೆಳಗಿನಲರಿಯಬೇಕು.\nಬೆಳಗುಳ್ಳಲ್ಲಿ ಆತ ನಡೆಸಿದಂತೆ ನಡೆಯಬೇಕು.\nಬೆಳಗುಳ್ಳಲ್ಲಿ ಆತ ನುಡಿಸಿದಂತೆ ನುಡಿಯಬೇಕು.\nಎಣ್ಣೆಯೆಂಬ ಜವ್ವನ ಸವೆಯದ ಮುನ್ನ,\nಬೆಳಗು ಕತ್ತಲೆಯಾಗದ ಮುನ್ನ\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥ್ಞಿ, ಬೆಳಗ ಬೆಳಗಿನಲರಿಯಬೇಕು.",
+    "transliteration" : "anudinaṅgaḷembavu praṇateyāgi,\nvaruṣavembavu battiyāgi,\njīvajātiya beḷaga beḷaginalariyabēku.\nbeḷaguḷḷalli āta naḍesidante naḍeyabēku.\nbeḷaguḷḷalli āta nuḍisidante nuḍiyabēku.\neṇṇeyemba javvana saveyada munna,\nbeḷagu kattaleyāgada munna\nrēkaṇṇapriya nāgināthñi, beḷaga beḷaginalariyabēku.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 4,
+    "akshara" : "a",
+    "kannada" : "ಅಂಡಜ ಪೃಥ್ವಿ ಉದಯಿಸದಂದು\nಭೂಮಂಡಲವಾಗದಂದು\nಪಿಂಡಜ ಬೀಜವ ನವಬ್ರಹ್ಮರು ತಾರದಂದು\nನವಖಂಡವ ರಚಿಸದಂದು\nಪೃಥ್ವಿ ಅಪ್ಪು ತೇಜ ವಾಯು ಆಕಾಶವೆಂಬ\nಪಂಚಭೂತಾದಿ [ಸ್ಥ]ಳವಿಡದಂದು\nಅನುಕರಿಸದಂದು, ರೂಹಿಸದಂದು\nಅತಿಮಥನ ಒಡ್ಡದಂದು\nಇಪ್ಪತ್ತೈದರ ಸ್ಥಳವ ಹೆಸರುಗೊಂಡು ಕರೆಯದಂದು\nಎನಗೆ ತನಗೆಂಬಿಚ್ಫೆ ತನ್ನ ತಲೆದೋರದಂದು\nಋಷಿಗಳಾಶ್ರಯ ಲೋಕದಲ್ಲಿ ಹರಿಯದಂದು\nಅಂದು ಬಸವನಿದ್ದ ಕಾಣಾ, ರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾ.",
+    "transliteration" : "aṇḍaja pr̥thvi udayisadandu\nbhūmaṇḍalavāgadandu\npiṇḍaja bījava navabrahmaru tāradandu\nnavakhaṇḍava racisadandu\npr̥thvi appu tēja vāyu ākāśavemba\npan̄cabhūtādi [stha]ḷaviḍadandu\nanukarisadandu, rūhisadandu\natimathana oḍḍadandu\nippattaidara sthaḷava hesarugoṇḍu kareyadandu\nenage tanagembicphe tanna taledōradandu\nr̥ṣigaḷāśraya lōkadalli hariyadandu\nandu basavanidda kāṇā, rēkaṇṇapriya nāgināthā.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 5,
+    "akshara" : "a",
+    "kannada" : "ಅರೆಯ ಆಲಯದಲ್ಲಿ ಕರಿಗೊಳಿಸುವ ಶ್ರವಣವೆ ಮೇಲಹ ಆಕಾಶವನಪ್ಪಲು\nಉಲುಹು ನಿರ್ಯಾತವಾಗಿ ಚಿತ್ತ ಸಮಾಧಾನವನೈದಲು\nಕಾಲ ಕರ್ಮ ಭವಾರಣ್ಯವ ಗೆಲುವುದು\nಎನಗರಿದೇನಯ್ಯ, ರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾ.",
+    "transliteration" : "areya ālayadalli karigoḷisuva śravaṇave mēlaha ākāśavanappalu\nuluhu niryātavāgi citta samādhānavanaidalu\nkāla karma bhavāraṇyava geluvudu\nenagaridēnayya, rēkaṇṇapriya nāgināthā.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 6,
+    "akshara" : "ā",
+    "kannada" : "ಆಡುವಡೆ ಸದಾಚಾರಿಗಳ ಕೂಡೆ ಆಡುವದು.\nನುಡಿವಡೆ ಜಂಗಮಪ್ರೇಮಿಯ ಕೂಡೆ ನುಡಿವುದು.\nಮಾತಾಡುವಡೆ ಪ್ರಸಾದಿಯ ಕೂಡೆ ಮಾತನಾಡುವದು.\nಭಕ್ತಿಹೀನನ ಕಂಡಡೆ ಮನ ಮುನಿಸ ಮಾಡಿಸಾ\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥ್ಞಿ.",
+    "transliteration" : "āḍuvaḍe sadācārigaḷa kūḍe āḍuvadu.\nnuḍivaḍe jaṅgamaprēmiya kūḍe nuḍivudu.\nmātāḍuvaḍe prasādiya kūḍe mātanāḍuvadu.\nbhaktihīnana kaṇḍaḍe mana munisa māḍisā\nrēkaṇṇapriya nāgināthñi.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 7,
+    "akshara" : "ā",
+    "kannada" : "ಆದಿಶುದ್ಧ ಆಚಾರಲಿಂಗವೆನ್ನುತ್ತಿರ್ಪರೆಲ್ಲರು\nಅನಾದಿಯ ಲಿಂಗದ ಭೇದವನರಿಯರಾಗಿ,\nನಾಸಿಕಪುಟದ ಆಶ್ರಯದಲ್ಲಿ ಲಿಂಗವನರಿಯರಾಗಿ.\nಕೆಲಬರಿಗೆ ಲಿಂಗವು ಹಲಬರಿಗೆ ದೂಷಣೆಯ ಮಾಡಿ\nಹೋದ ಲಿಂಗವನರಿಯರಾಗಿ ದೂಷಣೆ ಪಥ್ಯವಾಗಿ,\nಮನದಾಶ್ರಯಕ್ಕೆ ತಂದಾತ, ರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥ.\nಬಸವಣ್ಣನಿಂದ ಬದುಕಿದೆ.",
+    "transliteration" : "ādiśud'dha ācāraliṅgavennuttirparellaru\nanādiya liṅgada bhēdavanariyarāgi,\nnāsikapuṭada āśrayadalli liṅgavanariyarāgi.\nkelabarige liṅgavu halabarige dūṣaṇeya māḍi\nhōda liṅgavanariyarāgi dūṣaṇe pathyavāgi,\nmanadāśrayakke tandāta, rēkaṇṇapriya nāginātha.\nbasavaṇṇaninda badukide.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 8,
+    "akshara" : "ā",
+    "kannada" : "ಆಡಿದೆನೈವರನೊಡಗೂಡಿ.\nಮಾಡಿದೆ ಶರ್ವನ ಸಂಗವ.\nನೋಡಿದೆ ನಾ ನೀನೆಂಬ ಭೇದವಳಿದು.\nಕೂಡಿದೆ ಕೇಡಿಲ್ಲದ ಕೂಟವ.\nಆಟ ಮಾಯಿತ್ತು, ನೋಟ ತೀರಿತ್ತು\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾ.",
+    "transliteration" : "āḍidenaivaranoḍagūḍi.\nmāḍide śarvana saṅgava.\nnōḍide nā nīnemba bhēdavaḷidu.\nkūḍide kēḍillada kūṭava.\nāṭa māyittu, nōṭa tīrittu\nrēkaṇṇapriya nāgināthā.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 9,
+    "akshara" : "i",
+    "kannada" : "ಇನ್ನಾಡುವೆ ಜಂಗಮ ಬಹುರೂಪ,\nಕಲ್ಯಾಣವೆಲ್ಲಾ ಅರಿಯಬೇಕೆಂದು.\nಎನ್ನ ಬಹುರೂಪ ಕಾಮ ಹೊಯ್ದುಕೊಂಡಿಯೆಂದಡೆ\nಪ್ರಸಾದವ ಮಾಡಿಕೊಟ್ಟಡೆ\nಇದು ಬಸವನ ಪ್ರಸಾದವೆಂದು ಕೈಕೊಂಡೆ ಕಾಣಾ.\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾ ಬಸವನಿಂದ ಬದುಕಿತೀ ಲೋಕವೆಲ್ಲಾ.",
+    "transliteration" : "innāḍuve jaṅgama bahurūpa,\nkalyāṇavellā ariyabēkendu.\nenna bahurūpa kāma hoydukoṇḍiyendaḍe\nprasādava māḍikoṭṭaḍe\nidu basavana prasādavendu kaikoṇḍe kāṇā.\nrēkaṇṇapriya nāgināthā basavaninda badukitī lōkavellā.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 10,
+    "akshara" : "i",
+    "kannada" : "ಇನ್ನಾಡುವೆ ಜಂಗಮ ಬಹುರೂಪ,\nಅಲ್ಲಮನಂತೆ ಆಡುವೆ ಬಹುರೂಪ.\nಅಜಗಣ್ಣನಂತೆ ಆಡುವೆ ಬಹುರೂಪ.\nಮುಖವಾಡದಯ್ಯಗಳಂತೆ ಆಡುವೆ ಬಹುರೂಪ.\nಪುರುಷಾಂಗಣವ ಮೆಟ್ಟಿ ಆಡುವೆ ಬಹುರೂಪ.\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾ ಬಸವನಿಂದ ಬದುಕಿತೀ ಲೋಕವೆಲ್ಲಾ.",
+    "transliteration" : "innāḍuve jaṅgama bahurūpa,\nallamanante āḍuve bahurūpa.\najagaṇṇanante āḍuve bahurūpa.\nmukhavāḍadayyagaḷante āḍuve bahurūpa.\npuruṣāṅgaṇava meṭṭi āḍuve bahurūpa.\nrēkaṇṇapriya nāgināthā basavaninda badukitī lōkavellā.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 11,
+    "akshara" : "i",
+    "kannada" : "ಇಂದು ಬಂದ ಬಹುರೂಪವ ನೋಡಿರಯ್ಯಾ.\nಗತಿಯ ಹೊದ್ದದೆ, ಮತಿಯ ಹೊದ್ದದೆ, ಸ್ಥಿತಿಯ ಹೊದ್ದದೆ\nಸ್ಥಾನವ ಹೊದ್ದದೆ, ಐವರು ಕಟ್ಟಿದ ಕಟ್ಟಳೆಯ ಮೀರಿ\nನಾನಾಡುವೆ ಬಹುರೂಪವ.\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾ ಬಸವಣ್ಣನಿಂದ ಬದುಕಿದೆ.",
+    "transliteration" : "indu banda bahurūpava nōḍirayyā.\ngatiya hoddade, matiya hoddade, sthitiya hoddade\nsthānava hoddade, aivaru kaṭṭida kaṭṭaḷeya mīri\nnānāḍuve bahurūpava.\nrēkaṇṇapriya nāgināthā basavaṇṇaninda badukide.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 12,
+    "akshara" : "e",
+    "kannada" : "ಎಂಟು ತಟ್ಟೆಯ ನೆಟ್ಟು, ಒಂಬತ್ತು ನೇಣು ಕಟ್ಟಿ\nಎಂಟ ಬಿಟ್ಟು ಒಂದೇ ನೇಣಿನಲ್ಲಿ ಹತ್ತಿ ಆಡುತ್ತಿರಲಾಗಿ\nತಟ್ಟೆ ಮುರಿದು, ಮೆಟ್ಟಿನಿಂದ ದಾರ ಕಿತ್ತು,\nನೋಡುವರ ದೃಷ್ಟಿ ಬಟ್ಟಬಯಲು\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥನಲ್ಲಿ\nಆಟವನಾಡಿದ ಅರಿದಾಗಿ.",
+    "transliteration" : "eṇṭu taṭṭeya neṭṭu, ombattu nēṇu kaṭṭi\neṇṭa biṭṭu ondē nēṇinalli hatti āḍuttiralāgi\ntaṭṭe muridu, meṭṭininda dāra kittu,\nnōḍuvara dr̥ṣṭi baṭṭabayalu\nrēkaṇṇapriya nāgināthanalli\nāṭavanāḍida aridāgi.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 13,
+    "akshara" : "e",
+    "kannada" : "ಎಲ್ಲರಾಟದಂತಲ್ಲ ಎನ್ನಾಟ,\nಕರದಾಧಾರದಲಪ್ಪಿ, ಪಂಚಾಮೃತ ಮಂತ್ರವನುಂಡಾಡಿದೆ.\nಆ ದೇಶ ಈ ದೇಶವೆಂತೆನ್ನದೆ\nಪರದೇಶದಲಾಡಿ ಪರದೇಶಿಯಾದೆನು.\nಕಾಲನ ಮೇಲೆ ನಿಂದು,\nಕಪಾಲದ ಭಿಕ್ಷವ ಹಿಡಿದು\nಹರಿಯ ಶೂಲದಲೆತ್ತಿಯಾಡಿದೆ.\nಹರಶರಣರಾಧಾರದ ಬಸವನ ಶಿಶು ನಾನು ಕಾಣಾ\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾ.",
+    "transliteration" : "ellarāṭadantalla ennāṭa,\nkaradādhāradalappi, pan̄cāmr̥ta mantravanuṇḍāḍide.\nā dēśa ī dēśaventennade\nparadēśadalāḍi paradēśiyādenu.\nkālana mēle nindu,\nkapālada bhikṣava hiḍidu\nhariya śūladalettiyāḍide.\nharaśaraṇarādhārada basavana śiśu nānu kāṇā\nrēkaṇṇapriya nāgināthā.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 14,
+    "akshara" : "e",
+    "kannada" : "ಎನ್ನ ಬಹುರೂಪಕ್ಕೆ ಸೂತ್ರಧಾರಿಯಾದ\nಬಸವಣ್ಣ.\nನಾದವನರ್ಪಿಸಿದಲ್ಲಿ ಅರ್ಪಿತಗೊಂಡಾತ\nಬಸವಣ್ಣ.\nನಾ ಹೆಂಡಿರನರ್ಪಿಸುವಲ್ಲಿ ಅರ್ಪಿತಗೊಂಡಾತ\nಬಸವಿದೇವ.\nಎನ್ನ ಧನ ಕೆಟ್ಟಿತ್ತು ಬಸವನಿಂದ, ಮನ ಕೆಟ್ಟಿತ್ತು\nಬಸವನಿಂದ.\nಎನ್ನ ಗೋತ್ರ ನಿವಾರಣವಾಯಿತ್ತು\nಬಸವನಿಂದ.\n[ವೇಳವಾಳಿ] ನಾ ಹೆಣ್ಣನರ್ಪಿತ ಮಾಡಿದಲ್ಲಿ\nಒಪ್ಪುಗೊಂಡಾತ ಬಸವಣ್ಣ.\nಕಡುಗಲಿ ತಮ್ಮನನಿರಿಯಲು\nಮುರಿಯಿತ್ತು ಅಲಗು ಬಸವನಿಂದ.\nಎನ್ನೊಡಲಲಿರ್ದ ಏಳು ಮಾನಿಸಸ್ತ್ರೀಯರು\nಏಳಲಾರದೆ ಹೋದರು ಬಸವನಿಂದ.\nನಾ ಕೆಟ್ಟೆ ಕಾಣಾ, ರೇಕಣ್ಣಪ್ರಿಯನಾಗಿನಾಥಾ\nಬಸವನಿಂದ ಬದುಕಿತೀ ಲೋಕವೆಲ್ಲಾ.",
+    "transliteration" : "enna bahurūpakke sūtradhāriyāda\nbasavaṇṇa.\nnādavanarpisidalli arpitagoṇḍāta\nbasavaṇṇa.\nnā heṇḍiranarpisuvalli arpitagoṇḍāta\nbasavidēva.\nenna dhana keṭṭittu basavaninda, mana keṭṭittu\nbasavaninda.\nenna gōtra nivāraṇavāyittu\nbasavaninda.\n[vēḷavāḷi] nā heṇṇanarpita māḍidalli\noppugoṇḍāta basavaṇṇa.\nkaḍugali tam'mananiriyalu\nmuriyittu alagu basavaninda.\nennoḍalalirda ēḷu mānisastrīyaru\nēḷalārade hōdaru basavaninda.\nnā keṭṭe kāṇā, rēkaṇṇapriyanāgināthā\nbasavaninda badukitī lōkavellā.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 15,
+    "akshara" : "e",
+    "kannada" : "ಎಲ್ಲಾ ಜಗಂಗಳೊಳಗಿರ್ದಡೇನು\nಶಿವನು ಜಗದಂತಹನಲ್ಲ.\nಜಗವ ತನ್ನೊಳಗಿಕ್ಕಿ ತಾ ಹೊರಗಿರ್ದಹೆನೆಂದಡೆ\nಬ್ರಹ್ಮಾಂಡದಂತಹನೇ ? ಅಲ್ಲ.\nಆಕಾಶದೋಪಾದಿಯಲ್ಲಿ ಸರ್ವಲೋಕದ\nಒಳ ಹೊರಗೆ ಮೂಲ ಚೈತನ್ಯ ತಾನಾಗಿ, ಆಧಾರವಾದ\nನಮ್ಮ ರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥ",
+    "transliteration" : "ellā jagaṅgaḷoḷagirdaḍēnu\nśivanu jagadantahanalla.\njagava tannoḷagikki tā horagirdahenendaḍe\nbrahmāṇḍadantahanē ? alla.\nākāśadōpādiyalli sarvalōkada\noḷa horage mūla caitan'ya tānāgi, ādhāravāda\nnam'ma rēkaṇṇapriya nāginātha",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 16,
+    "akshara" : "e",
+    "kannada" : "ಎಂಬತ್ತುನಾಲ್ಕುಲಕ್ಷ ಬಹುರೂಪ\nಚಂದ ಚಂದದಲ್ಲಿ ಆಡಿ\nಬಂಧುಗಳ ಮೆಚ್ಚಿಸಬಂದೆ.\nಅವರು ಬಹುರೂಪದಂದವನರಿಯರು.\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥನಲ್ಲಿ\nಬಹುರೂಪದಿಂದ ವಿಚ್ಫಂದವಾಯಿತ್ತು.",
+    "transliteration" : "embattunālkulakṣa bahurūpa\ncanda candadalli āḍi\nbandhugaḷa meccisabande.\navaru bahurūpadandavanariyaru.\nrēkaṇṇapriya nāgināthanalli\nbahurūpadinda vicphandavāyittu.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 17,
+    "akshara" : "o",
+    "kannada" : "ಒಂಬತ್ತು ಇಟ್ಟಿಯ ನಡುವೆ ಒಂದು ಕತ್ತಿಯ ನಟ್ಟು\nತುಟ್ಟತುದಿಯ ಮೆಟ್ಟಿ ಆಡಲಾಗಿ,\nಆ ಕತ್ತಿ ಇಟ್ಟಿಯ ತಾಗಿ, ಆ ಇಟ್ಟಿ ನಿಷ್ಠೆವಂತರ ತಾಗಿ\nಸತ್ತರೆಲ್ಲರು ಆಟಕ್ಕೆ ಮೊದಲೆ\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥನಲ್ಲಿ.",
+    "transliteration" : "ombattu iṭṭiya naḍuve ondu kattiya naṭṭu\ntuṭṭatudiya meṭṭi āḍalāgi,\nā katti iṭṭiya tāgi, ā iṭṭi niṣṭhevantara tāgi\nsattarellaru āṭakke modale\nrēkaṇṇapriya nāgināthanalli.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 18,
+    "akshara" : "o",
+    "kannada" : "ಒಂದರಲ್ಲಿ ಬಂದು, ನಾಲ್ಕರಲ್ಲಿ ಆಡಿ\nಒಂದರಲ್ಲಿ ಅಡಗಿ, ಮೂರರಲ್ಲಿ ಕೂಡಿ\nಎಂಟರಲ್ಲಿ ಕಂಟಕವಾಯಿತ್ತು.\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥನಲ್ಲಿ\nಪುರೆಹರೆ ಎನುತಿರ್ದೆನು.",
+    "transliteration" : "ondaralli bandu, nālkaralli āḍi\nondaralli aḍagi, mūraralli kūḍi\neṇṭaralli kaṇṭakavāyittu.\nrēkaṇṇapriya nāgināthanalli\npurehare enutirdenu.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 19,
+    "akshara" : "o",
+    "kannada" : "ಒಡೆಯರ ಸಹಪಙ್ಞ್ತಯಲ್ಲಿ ಪರಿಯಾಣ\nಅಡ್ಡಣಿಗೆಯನಿರಿಸಿಕೊಂಡು ಉಂಬ ಸಮಗ್ರಾಹಕನಲ್ಲ.\nನಿಮ್ಮ ಶರಣರ ಪಾದೋದಕಕ್ಕಲ್ಲದೆ ಕೈಯಾನೆ.\nನಿಮ್ಮ ಶರಣರ ಪ್ರಸಾದಕ್ಕಲ್ಲದೆ ಬಾಯ್ದೆರೆಯೆ.\nನಿಮ್ಮ ಲಾಂಛನಧಾರಿಯ ಮನೆಯ ಪ್ರತಿಭೃತ್ಯನಾಗಿರಿಸಯ್ಯಾ ನೀನೆನ್ನ\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾ.",
+    "transliteration" : "oḍeyara sahapaṅñtayalli pariyāṇa\naḍḍaṇigeyanirisikoṇḍu umba samagrāhakanalla.\nnim'ma śaraṇara pādōdakakkallade kaiyāne.\nnim'ma śaraṇara prasādakkallade bāydereye.\nnim'ma lān̄chanadhāriya maneya pratibhr̥tyanāgirisayyā nīnenna\nrēkaṇṇapriya nāgināthā.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 20,
+    "akshara" : "ka",
+    "kannada" : "ಕಾಮನ ಮಂದಿರದಡವಿಯೊಳಗೆ\nಶುಕ್ಲಶೋಣಿತವೆಂಬ ಮಡಕೆಯ ಮಾಡಿ\nಮೂತ್ರ ಶ್ಲೇಷ್ಮ ಅಮೇಧ್ಯವೆಂಬ ಪಾಕದ್ರವ್ಯಂಗಳ\nಮಡಕೆಯಲ್ಲಿ ನಿಶ್ಚಯಿಸಿ\nಆ ಮಡಕೆಯನೊಡೆದಾ[ಗಲೆ ಭಕ್ತ] ಕಾಣಾ.\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾ\nಬಸವಣ್ಣನಿಂದ ಬದುಕಿದೆನು.",
+    "transliteration" : "kāmana mandiradaḍaviyoḷage\nśuklaśōṇitavemba maḍakeya māḍi\nmūtra ślēṣma amēdhyavemba pākadravyaṅgaḷa\nmaḍakeyalli niścayisi\nā maḍakeyanoḍedā[gale bhakta] kāṇā.\nrēkaṇṇapriya nāgināthā\nbasavaṇṇaninda badukidenu.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 21,
+    "akshara" : "ka",
+    "kannada" : "ಕುಲವ ಕೂಡದೆ ಕೋಪವಡಗಿ\nಅನ್ಯಹೇಸಿಕೆ ಮತ್ತೆ ಐಕ್ಯವಾದ ನಿರುತ ಭರಿತದ ಪರಮಸುಖ\nಎನಗೆಂದಪ್ಪುದೊ?\nಕಾಯದಂದುಗ ಬಿಟ್ಟು ನಿರಾಸೆಯಲ್ಲಿ ನೆರೆ ಸಲು[ಹಿ]ಂದ\nಎನ್ನ ನಚ್ಚಿನ ಲಿಂಗ ಮೆಚ್ಚಿನ ಘನಕ್ಕೆ ಘನಲಿಂಗವಾಗಿ\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥನಯಸವಿನೊಲವೆನಗಪ್ಪುದೆಂದೋ ?",
+    "transliteration" : "kulava kūḍade kōpavaḍagi\nan'yahēsike matte aikyavāda niruta bharitada paramasukha\nenagendappudo?\nkāyadanduga biṭṭu nirāseyalli nere salu[hi]nda\nenna naccina liṅga meccina ghanakke ghanaliṅgavāgi\nrēkaṇṇapriya nāgināthanayasavinolavenagappudendō ?",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 22,
+    "akshara" : "ka",
+    "kannada" : "ಕಳ್ಳನ ಕೈಯಲ್ಲಿ ಒಂದು ಒಳ್ಳಿಹ ರತ್ನವ ಕಂಡಡೆ\nಎಲ್ಲರೂ ಬಂದು ತಲೆವಿಡಿವರಯ್ಯಾ.\nಆ ರತ್ನವ ರತ್ನವ್ಯವಹಾರಿ ಕೊಟ್ಟು ಕೊಂಡಡೆ\nಆರೂ ಬಾಯಲೆತ್ತಲಮ್ಮರು.\nಶೈವ ಗುರುವಿನ ಕೈಯಲ್ಲಿ ಸಾಹಿತ್ಯವಾದ ಲಿಂಗವನು\nವೀರಶೈವ ಗುರುವಿನ ಕೈಯಲ್ಲಿ ಕೊಟ್ಟು ಮರಳಿ ಕೊಂಡಡೆ\nಆತ ಇಹಲೋಕ ಪೂಜ್ಯನು, ಪರಲೋಕ ಪೂಜ್ಯನು.\nನಿಮ್ಮಾಣೆ, ನಿಮ್ಮ ಪ್ರಮಥರಾಣೆ\nತಪ್ಪದು ರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾ.",
+    "transliteration" : "kaḷḷana kaiyalli ondu oḷḷiha ratnava kaṇḍaḍe\nellarū bandu taleviḍivarayyā.\nā ratnava ratnavyavahāri koṭṭu koṇḍaḍe\nārū bāyalettalam'maru.\nśaiva guruvina kaiyalli sāhityavāda liṅgavanu\nvīraśaiva guruvina kaiyalli koṭṭu maraḷi koṇḍaḍe\nāta ihalōka pūjyanu, paralōka pūjyanu.\nnim'māṇe, nim'ma pramatharāṇe\ntappadu rēkaṇṇapriya nāgināthā.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 23,
+    "akshara" : "ka",
+    "kannada" : "ಕೈಯ ಮರದು ಕಾದುವ ಅಂಕವದೇನೊ ?\nಭಾವ ಮರದು ನೋಡುವ ನೋಟವದೇನೊ ?\nಭಯವ ಮರದು ಮಾಡುವ ಭಕ್ತಿಯದೇನೊ ?\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥನಲ್ಲಿ ಗುರುವ ಮರದು\nಲಿಂಗವನೊಲಿಸಿದೆನೆಂದಡೆ ಆ ಉಭಯ ಗುರುಲಿಂಗವೆರಡೂ ಇಲ್ಲ.",
+    "transliteration" : "kaiya maradu kāduva aṅkavadēno ?\nbhāva maradu nōḍuva nōṭavadēno ?\nbhayava maradu māḍuva bhaktiyadēno ?\nrēkaṇṇapriya nāgināthanalli guruva maradu\nliṅgavanolisidenendaḍe ā ubhaya guruliṅgaveraḍū illa.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 24,
+    "akshara" : "ka",
+    "kannada" : "ಕಲ್ಲ ಒಳಗಣ ಕಿಚ್ಚಿಂಗೂ ಬೂದಿಯಿಲ್ಲದಂತಿರಿಸಿದೆ\nಅಯ್ಯಾ ಎನ್ನ, ಲಿಂಗದೊಳಗೆ.\nಗಾಳಿಗಂಧ ಕೂಡಿದಂತಿರಿಸಯ್ಯಾ ಎನ್ನ,\nಲಿಂಗದೊಳಗಂಗವನು.\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾ, ನಿಮ್ಮ ಒಲವಿನೊಳಗಣ ನಿಲವು\nಸೊಡರ ಬೆಳಗಿನಲಡಗಿದ ಎಣ್ಣೆಯಂತೆ ಇರಿಸಯ್ಯಾ,\nಎನ್ನ ಲಿಂಗದೊಳಗಂಗವನು.",
+    "transliteration" : "kalla oḷagaṇa kicciṅgū būdiyilladantiriside\nayyā enna, liṅgadoḷage.\ngāḷigandha kūḍidantirisayyā enna,\nliṅgadoḷagaṅgavanu.\nrēkaṇṇapriya nāgināthā, nim'ma olavinoḷagaṇa nilavu\nsoḍara beḷaginalaḍagida eṇṇeyante irisayyā,\nenna liṅgadoḷagaṅgavanu.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 25,
+    "akshara" : "ga",
+    "kannada" : "ಗಾರುಡಿಗನ ವಿಷವಡರಬಲ್ಲುದೆ ?\nಸೂರ್ಯನ ಮಂಜು ಮುಸುಕಬಲ್ಲುದೆ ?\nಗಾಳಿಯ ಮೊಟ್ಟೆಯ ಕಟ್ಟಬಹುದೆ ?\nಅಗ್ನಿಯ ಕೈಯಿಂದ ಆಕಾಶ ಬೇಯಬಲ್ಲುದೆ ?\nನಿಮ್ಮನರಿದ ನಿಜಯೋಗಿಗೆ ಕರ್ಮಪಾಶವೆಲ್ಲಿಯದೊ\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಧಾ ?",
+    "transliteration" : "gāruḍigana viṣavaḍaraballude ?\nsūryana man̄ju musukaballude ?\ngāḷiya moṭṭeya kaṭṭabahude ?\nagniya kaiyinda ākāśa bēyaballude ?\nnim'manarida nijayōgige karmapāśavelliyado\nrēkaṇṇapriya nāginādhā ?",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 26,
+    "akshara" : "ga",
+    "kannada" : "ಗುರು ಎನ್ನ ಮುಟ್ಟಿ ಗುರು ಶುದ್ಧವಾದನಯ್ಯ.\nಲಿಂಗ ಎನ್ನ ಮುಟ್ಟಿ ಲಿಂಗ ಶುದ್ಧವಾಯಿತ್ತಯ್ಯ.\nಜಂಗಮ ಎನ್ನ ಮುಟ್ಟಿ ಜಂಗಮ ಶುದ್ಧವಾದನಯ್ಯ.\nಪ್ರಸಾದ ಎನ್ನ ಮುಟ್ಟಿ ಪ್ರಸಾದ ಶುದ್ಧವಾಯಿತ್ತಯ್ಯ.\nಈ ಚತುರ್ವಿಧ ಎನ್ನ ಮುಟ್ಟಿ ಶುದ್ಧವಾಯಿತ್ತು ಕಾಣಾ\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾ.",
+    "transliteration" : "guru enna muṭṭi guru śud'dhavādanayya.\nliṅga enna muṭṭi liṅga śud'dhavāyittayya.\njaṅgama enna muṭṭi jaṅgama śud'dhavādanayya.\nprasāda enna muṭṭi prasāda śud'dhavāyittayya.\nī caturvidha enna muṭṭi śud'dhavāyittu kāṇā\nrēkaṇṇapriya nāgināthā.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 27,
+    "akshara" : "gha",
+    "kannada" : "ಘನವ ನೆನವ ಮನಕ್ಕೆ ತಕ್ಕ ಕಿವಿಯಾದವಾಗಿ\nಗುರುವಚನ ರತಿಸುಖಸಾರಾಯಸಂಬಂಧದನುಭಾವಿಯಾಗಿ\nಶರಣಸತಿ ಗರ್ಭವಾದಳು.\nಇರುಳಿಲ್ಲ ಹಗಲಿಲ್ಲ, ನವಮಾಸಂಗಳನರಿಯಳು.\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥ ಅಯೋನಿ ಸಂಭವನಾಗಿ\nಪ್ರಸೂತಕಾಯನಲ್ಲ.",
+    "transliteration" : "ghanava nenava manakke takka kiviyādavāgi\nguruvacana ratisukhasārāyasambandhadanubhāviyāgi\nśaraṇasati garbhavādaḷu.\niruḷilla hagalilla, navamāsaṅgaḷanariyaḷu.\nrēkaṇṇapriya nāginātha ayōni sambhavanāgi\nprasūtakāyanalla.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 28,
+    "akshara" : "ca",
+    "kannada" : "ಚಿತ್ತಾವಧಾನವೆಂದಾಡಬಂದೆ, ಸತ್ಯಶರಣರ ಮುಂದೆ.\nಶುಕ್ಲ ಶೋಣಿತವೆಂಬ ಬಾಯಿ ಕಟ್ಟೆಯ ಮೆಟ್ಟಿ\nತುಟ್ಟತುದಿಯನೇರಿ ಕೈಯ ಬಿಟ್ಟಾಡುತ್ತಿದ್ದೇನೆ.\nಮೆಟ್ಟಿದ ಹೆಜ್ಜೆಯ ಮೆಟ್ಟದೆ,\nನೋಡುವ ನಿಷೆ*ವಂತರ ದೃಷ್ಟಿ ಪಲ್ಲಟವಾಗದೆ\nನೋಡದಿರ್ದಡೆ ಲಾಗು ಎತ್ತ ಹೋಯಿತ್ತೊ\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥ್ಞಿ ?",
+    "transliteration" : "cittāvadhānavendāḍabande, satyaśaraṇara munde.\nśukla śōṇitavemba bāyi kaṭṭeya meṭṭi\ntuṭṭatudiyanēri kaiya biṭṭāḍuttiddēne.\nmeṭṭida hejjeya meṭṭade,\nnōḍuva niṣe*vantara dr̥ṣṭi pallaṭavāgade\nnōḍadirdaḍe lāgu etta hōyitto\nrēkaṇṇapriya nāgināthñi ?",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 29,
+    "akshara" : "ja",
+    "kannada" : "ಜಂಗಮದ ಪ್ರಸಾದವ ಲಿಂಗಕ್ಕೆ ಕೊಡಬಾರದೆಂಬ\nಕರ್ಮಿಯ ಮಾತ ಕೇಳಲಾಗದು. ಅದೆಂತೆಂದಡೆ :\nಅದು ಪವಿತ್ರವಾದ ಕಾರಣ ಪವಿತ್ರವೆನಿಸುವ ಮೂರ್ತಿ\nಮಹಾಜಂಗಮದ ಪಾದತೀರ್ಥ ಪ್ರಸಾದವ\nಲಿಂಗಕ್ಕೆ ಸಮರ್ಪಿಸಿ\nಪ್ರಸಾದಭೋಗೋಪಭೋಗಿಯಾಗಿರ್ಪ ಭಕ್ತನೆ ಬಸವಣ್ಣ.\nಅದಲ್ಲದೆ ಅಪವಿತ್ರವ ಲಿಂಗಕ್ಕೆ ಸಮರ್ಪಿಸಲಾಗದು.\nಅದೆಂತೆಂದಡೆ-ಸಾಕ್ಷಿ:\nಜಂಗಮಂ ಚ ಪ್ರಸಾದಂತು ನಿವೇದ್ಯಂ ಚ ಸಮರ್ಪಣಂ |\nಪ್ರಸಾದಿ ಸತ್ಯ ಶುದ್ಧಾತ್ಮ ಪ್ರಸಾದಿಸ್ಥಲಮುತ್ತಮಂ ||\nಇಂತಲ್ಲದೆ ಅಪವಿತ್ರದ್ರವ್ಯವ,\nಉಚ್ಫಿಷ್ಟ ಚಾಂಡಾಲ ಕಾಯವ ಮುಟ್ಟಿ\nಪವಿತ್ರಲಿಂಗಕ್ಕೆ ಅರ್ಪಿಸಿ ಭುಂಜಿಸುವ\nಚಾಂಡಾಲನ ಮುಖವ ನೋಡಲಾಗದು,\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾ",
+    "transliteration" : "jaṅgamada prasādava liṅgakke koḍabārademba\nkarmiya māta kēḷalāgadu. adentendaḍe :\nadu pavitravāda kāraṇa pavitravenisuva mūrti\nmahājaṅgamada pādatīrtha prasādava\nliṅgakke samarpisi\nprasādabhōgōpabhōgiyāgirpa bhaktane basavaṇṇa.\nadallade apavitrava liṅgakke samarpisalāgadu.\nadentendaḍe-sākṣi:\njaṅgamaṁ ca prasādantu nivēdyaṁ ca samarpaṇaṁ |\nprasādi satya śud'dhātma prasādisthalamuttamaṁ ||\nintallade apavitradravyava,\nucphiṣṭa cāṇḍāla kāyava muṭṭi\npavitraliṅgakke arpisi bhun̄jisuva\ncāṇḍālana mukhava nōḍalāgadu,\nrēkaṇṇapriya nāgināthā",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 30,
+    "akshara" : "ja",
+    "kannada" : "ಜಂಗಮದನುವನರಿಯದಿರ್ದಡೆ\nಲಿಂಗ ತಮತಮಗೆಲ್ಲಿಯದೊ ?\nಲಿಂಗವಿಪ್ಪ ಸಜ್ಜೆಯೆಲ್ಲಾ ಜಂಗಮದ ಪ್ರಾಣವಲ್ಲವೆ ?\nಲಿಂಗವು ರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥ\nಜಂಗಮದ ಕಾಯವ ತೊಟ್ಟುಕೊಂಡು ಸುಳಿವನಾಗಿ.",
+    "transliteration" : "jaṅgamadanuvanariyadirdaḍe\nliṅga tamatamagelliyado ?\nliṅgavippa sajjeyellā jaṅgamada prāṇavallave ?\nliṅgavu rēkaṇṇapriya nāginātha\njaṅgamada kāyava toṭṭukoṇḍu suḷivanāgi.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 31,
+    "akshara" : "ja",
+    "kannada" : "ಜಂಗಮದ ಪಾದತೀರ್ಥ ಪ್ರಸಾದವ ಕೊಳ್ಳದಂತಹ\nಗುರುವಿನ ಕೈಯಲ್ಲಿ\nಲಿಂಗಧಾರಣವ ಮಾಡಿಸಿಕೊಳಲಾಗದು.\nಆತನ ಪಾದತೀರ್ಥ ಪ್ರಸಾದವ ಕೊಳಲಾಗದು.\nಅಥವಾ ಪ್ರಮಾದವಶದಿಂದ ಲಿಂಗಧಾರಣವ\nಮಾಡಿಸಿಕೊಂಡಡೆಯೂ ಮಾಡಿಸಿಕೊಳ್ಳಲಿ.\nಆ ಗುರುವನೆ, ಜಂಗಮದ ಪಾದತೀರ್ಥ ಪ್ರಸಾದವ\nಕೊಂಬ ಹಾಂಗೆ ಸದಾಚಾರಿಯ ಮಾಡುವದು.\nಶಿಷ್ಯನು, ಆ ಗುರು ಜಂಗಮದ\nಪಾದತೀರ್ಥ ಪ್ರಸಾದವ ಕೊಳ್ಳದಿರ್ದಡೆ\nಮತ್ತೆ ಲಿಂಗವನು ಮರಳಿ ಜಂಗಮದ ಪಾದತೀರ್ಥ ಪ್ರಸಾದವ\nಕೊಂಬಂತಹ ಜಂಗಮದ ಕೈಯಲ್ಲಿ ಕೊಟ್ಟು ಕೊಳಬೇಕು.\nಜಂಗಮಲಿಂಗಪ್ರಸಾದವ ಕೊಳದಂತಹ\nಜಂಗಮದ ಕೈಯಲ್ಲಿ ಪ್ರಸಾದವ ಕೊಳಲಾಗದು.\nಆ ಜಂಗಮ ಭಕ್ತನ ಮಠಕ್ಕೆ ಬಂದು\nಪಾದತೀರ್ಥ ಪ್ರಸಾದವ ಕೊಳದಂತಹ ಜಂಗಮವಾದಡೂ\nಅವರಲ್ಲಿ ಪಾದತೀರ್ಥ ಪ್ರಸಾದವ ಕೊಳಲಾಗದು.\nಅದೇನು ಕಾರಣವೆಂದಡೆ :\nಜಂಗಮದ ಪಾದತೀರ್ಥ ಪ್ರಸಾದವ ಕೊಳದಂತಹ\nಗುರುವಿಂಗೆಯೂ ಲಿಂಗಕ್ಕೆಯೂ ಜಂಗಮಕ್ಕೆಯೂ\nಮುಕ್ತಿಯಿಲ್ಲ ಕಾಣಾ, ರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾ.",
+    "transliteration" : "jaṅgamada pādatīrtha prasādava koḷḷadantaha\nguruvina kaiyalli\nliṅgadhāraṇava māḍisikoḷalāgadu.\nātana pādatīrtha prasādava koḷalāgadu.\nathavā pramādavaśadinda liṅgadhāraṇava\nmāḍisikoṇḍaḍeyū māḍisikoḷḷali.\nā guruvane, jaṅgamada pādatīrtha prasādava\nkomba hāṅge sadācāriya māḍuvadu.\nśiṣyanu, ā guru jaṅgamada\npādatīrtha prasādava koḷḷadirdaḍe\nmatte liṅgavanu maraḷi jaṅgamada pādatīrtha prasādava\nkombantaha jaṅgamada kaiyalli koṭṭu koḷabēku.\njaṅgamaliṅgaprasādava koḷadantaha\njaṅgamada kaiyalli prasādava koḷalāgadu.\nā jaṅgama bhaktana maṭhakke bandu\npādatīrtha prasādava koḷadantaha jaṅgamavādaḍū\navaralli pādatīrtha prasādava koḷalāgadu.\nadēnu kāraṇavendaḍe :\njaṅgamada pādatīrtha prasādava koḷadantaha\nguruviṅgeyū liṅgakkeyū jaṅgamakkeyū\nmuktiyilla kāṇā, rēkaṇṇapriya nāgināthā.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 32,
+    "akshara" : "ja",
+    "kannada" : "ಜಂಗಮಪ್ರಸಾದವರಿಯದ ಗುರುವಿನ ಕೈಯಲ್ಲಿ\nಲಿಂಗಸಾಹಿತ್ಯವಾಗಲಾಗದಯ್ಯಾ.\nಆದಡೆ ಆಗಲಿ, ಗುರುವನೆ ಸದಾಚಾರಿಯ ಮಾಡೂದು.\nಶಿಕ್ಷಾಗುರು ಜಂಗಮದಲ್ಲಿ ಪ್ರಸಾದವ ಕೊಂಡೆಹೆನೆಂದಡೆ\nಆ ಜಂಗಮ ಜಂಗಮಪ್ರಸಾದಿಯಲ್ಲದಿರ್ದಡೆ\nಆ ಪ್ರಸಾದವ ಮುಟ್ಟಲಾಗದು.\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಲಿಂಗವು\nಆಗುಹೋಗನರಿಯನಾಗಿ\nಬಸವಣ್ಣನ ಕೂಡಿ ಆಡಿ ಪ್ರಸಾದಿಯಾದನಾಗಿ\nಇತ್ತ ಬಾ ಎಂದು ಕೈವಿಡಿದು ತೆಗೆದುಕೊಂಬುದು.",
+    "transliteration" : "jaṅgamaprasādavariyada guruvina kaiyalli\nliṅgasāhityavāgalāgadayyā.\nādaḍe āgali, guruvane sadācāriya māḍūdu.\nśikṣāguru jaṅgamadalli prasādava koṇḍ'̔ehenendaḍe\nā jaṅgama jaṅgamaprasādiyalladirdaḍe\nā prasādava muṭṭalāgadu.\nrēkaṇṇapriya nāgināthaliṅgavu\nāguhōganariyanāgi\nbasavaṇṇana kūḍi āḍi prasādiyādanāgi\nitta bā endu kaiviḍidu tegedukombudu.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 33,
+    "akshara" : "ta",
+    "kannada" : "ತೊಗಲ ಸೀರೆಯ ತೆರೆಯ ಹಿಡಿದು\nಬಲು ಎಲುವಿನ ಗಳುವಿನಲ್ಲಿ\nನರವಿನ ಭೀಮಗಟ್ಟಂ ಕಟ್ಟಿ\nತೆರೆ ನಿಂದಿತ್ತು ಜವನಿಕೆಯ ಮರೆಯಲ್ಲಿ.\nಬಂದು ನಿಂದು ಜಜ್ಜರೆ ಪುರೆ[ಹರೆ]ಯಾಯಿತ್ತು.\nಹೋಯಿತ್ತು ಎಂಬ ಬಹುರೂಪಮಂ ತೊಟ್ಟು\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾ,\nಭಲರೆ ಧರುರೆ ಎನುತಿರ್ದೆನು.",
+    "transliteration" : "togala sīreya tereya hiḍidu\nbalu eluvina gaḷuvinalli\nnaravina bhīmagaṭṭaṁ kaṭṭi\ntere nindittu javanikeya mareyalli.\nbandu nindu jajjare pure[hare]yāyittu.\nhōyittu emba bahurūpamaṁ toṭṭu\nrēkaṇṇapriya nāgināthā,\nbhalare dharure enutirdenu.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 34,
+    "akshara" : "na",
+    "kannada" : "ನಿಃಕಲಶಿವ ತಾನೆ ಗುರುರೂಪವಾಗಿ\nಕೊಂಡಾಡಿದನಯ್ಯ ಬಸವಣ್ಣನು.\nಆ ಬಸವಣ್ಣನಿಂದ ಬಹುರೂಪ ಧರಿಸಿ\nಹಲವಾಕಾರವನಾಡಿ\nಸಾಕಾರದಲ್ಲಿ ಸನುಮತನಾದೆನು.\nನಿರಾಕಾರದಲ್ಲಿ ನಿರತವಾದ ರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾ\nಬಸವಣ್ಣನ ಶ್ರೀಪಾದಕ್ಕೆ ನಮೋ ನಮೋ ಎನುತಲಿರ್ದೆನು.",
+    "transliteration" : "niḥkalaśiva tāne gururūpavāgi\nkoṇḍāḍidanayya basavaṇṇanu.\nā basavaṇṇaninda bahurūpa dharisi\nhalavākāravanāḍi\nsākāradalli sanumatanādenu.\nnirākāradalli niratavāda rēkaṇṇapriya nāgināthā\nbasavaṇṇana śrīpādakke namō namō enutalirdenu.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 35,
+    "akshara" : "na",
+    "kannada" : "ನಿಃಪತಿ ಬಂದು ಒಳಕೊಂಡಲ್ಲಿ\nನಿರಾಶ್ರಯ ಬಂದು ಹೊದಕೆಯಾದಲ್ಲಿ\nನಿರಾಲಂಬವಾಯಿತ್ತಲ್ಲಾ ಎನ್ನ ಬಹುರೂಪು.\nಎನ್ನ ಬಹುರೂಪಕ್ಕೆ ಪ್ರಾಣಲಿಂಗ ಬಸವ ಕಾಣಾ.\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾ ಬಸವಣ್ಣನಿಂದ ಬದುಕಿದೆ",
+    "transliteration" : "niḥpati bandu oḷakoṇḍalli\nnirāśraya bandu hodakeyādalli\nnirālambavāyittallā enna bahurūpu.\nenna bahurūpakke prāṇaliṅga basava kāṇā.\nrēkaṇṇapriya nāgināthā basavaṇṇaninda badukide",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 36,
+    "akshara" : "na",
+    "kannada" : "ನನಗೆ ನಾನೆ ಗುರುವಾದೆನಯ್ಯಾ.\nನನಗೆ ನಾನೆ ಲಿಂಗವಾದೆನಯ್ಯಾ.\nನನಗೆ ನಾನೆ ಜಂಗಮವಾದೆನಯನ್ಯಾ.\nನನಗೆ ನಾನೆ ಪ್ರಸಾದವಾದೆನಯ್ಯಾ.\nನನಗೆ ನಾನೆ ಭಕ್ತನಾದೆನಯ್ಯಾ.\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥನಲ್ಲಿ\nಆಗುಹೋಗನರಿಯೆನಯ್ಯಾ.",
+    "transliteration" : "nanage nāne guruvādenayyā.\nnanage nāne liṅgavādenayyā.\nnanage nāne jaṅgamavādenayan'yā.\nnanage nāne prasādavādenayyā.\nnanage nāne bhaktanādenayyā.\nrēkaṇṇapriya nāgināthanalli\nāguhōganariyenayyā.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 37,
+    "akshara" : "pa",
+    "kannada" : "ಪ್ರಣವಮಂತ್ರರೂಪ ಪರಶಿವನ ಚೈತನ್ಯ\nಎಲ್ಲಾ ಮಂತ್ರಂಗಳಿಗೆ ಚೈತನ್ಯವು.\nಎಲ್ಲಾ ತಂತ್ರಂಗಳಿಗೆ ಚೈತನ್ಯವು.\nಓಂಕಾರಂ ವ್ಯಾಪ್ತಿ ಸರ್ವತ್ರಂ ಓಂಕಾರಂ ಗೋಪ್ಯ ಮಾನವಂ |\nಓಂಕಾರಂ ನಾದರೂಪಂ ಚ ಓಂಕಾರಂ ಮಂತ್ರರೂಪಕಂ ||\nಎಂದು, ಎಲ್ಲಾ ವೇದಂಗಳಿಗೆ ತಾನೆ ಚೈತನ್ಯವು.\nಇಂತಲ್ಲದಡೆ, ಎಲ್ಲಿಹದು ಜ್ಞಾನಸಾಮಥ್ರ್ಯವು.\nಅದು ಕಾರಣ, ಮಂತ್ರವೆ ಅವಯವವು\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಂಗೆ.",
+    "transliteration" : "praṇavamantrarūpa paraśivana caitan'ya\nellā mantraṅgaḷige caitan'yavu.\nellā tantraṅgaḷige caitan'yavu.\nōṅkāraṁ vyāpti sarvatraṁ ōṅkāraṁ gōpya mānavaṁ |\nōṅkāraṁ nādarūpaṁ ca ōṅkāraṁ mantrarūpakaṁ ||\nendu, ellā vēdaṅgaḷige tāne caitan'yavu.\nintalladaḍe, ellihadu jñānasāmathryavu.\nadu kāraṇa, mantrave avayavavu\nrēkaṇṇapriya nāgināthaṅge.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 38,
+    "akshara" : "pa",
+    "kannada" : "ಪದ್ಮಾಸನದಲ್ಲಿ ಕುಳ್ಳಿರ್ದು ಆಧಾರಮಂ ಬಲಿದು\nವಾಯುವ ಊಧ್ರ್ವಕ್ಕೆ ತಿದ್ದಿ\nಮನ ಪವನ ಬಿಂದುವ ತ[ರ]ಹರವಂ ಮಾಡಿ\nಷಡಾಧಾರ ಕಮಲವನೂಧ್ರ್ವಮುಖವಂ ಮಾಡಿ\nಮೇಲಣ ಸಹಸ್ರಕಮಲಮಧ್ಯದೊಳಿಪ್ಪ ಜ್ಯೋತಿರ್ಲಿಂಗದಲ್ಲಿ\nಮನವ ನಿಲಿಸಿ, ನೆನೆನೆನೆದು\nಕೀಟಭೃಂಗನ್ಯಾಯದಂತಪ್ಪುದೆ ಯೋಗ\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥ.",
+    "transliteration" : "padmāsanadalli kuḷḷirdu ādhāramaṁ balidu\nvāyuva ūdhrvakke tiddi\nmana pavana binduva ta[ra]haravaṁ māḍi\nṣaḍādhāra kamalavanūdhrvamukhavaṁ māḍi\nmēlaṇa sahasrakamalamadhyadoḷippa jyōtirliṅgadalli\nmanava nilisi, nenenenedu\nkīṭabhr̥ṅgan'yāyadantappude yōga\nrēkaṇṇapriya nāginātha.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 39,
+    "akshara" : "ba",
+    "kannada" : "ಬಸವಣ್ಣನಿಂದ ಶುದ್ಧಪ್ರಸಾದಿಯಾದೆ.\nಚನ್ನಬಸವಣ್ಣನಿಂದ ಸಿದ್ಧಪ್ರಸಾದಿಯಾದೆ.\nಪ್ರಭುದೇವರಿಂದ ಪ್ರಸಿದ್ಧಪ್ರಸಾದಿಯಾದೆ.\nಇವರೆಲ್ಲರ ಪ್ರಸಾದಿಯಾಗಿ\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥನಲ್ಲಿ ಸೊಬಗ ಮೆರೆದೆ",
+    "transliteration" : "basavaṇṇaninda śud'dhaprasādiyāde.\ncannabasavaṇṇaninda sid'dhaprasādiyāde.\nprabhudēvarinda prasid'dhaprasādiyāde.\nivarellara prasādiyāgi\nrēkaṇṇapriya nāgināthanalli sobaga merede",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 40,
+    "akshara" : "ba",
+    "kannada" : "ಬಿತ್ತೆತ್ತ ಮುಂತಾಗಿ ಬಿತ್ತಿದಡೇನೋ ?\nಬೀಜ ನಿರಾಳದ ಬೆಳಸು.\nಶರಣಚಾರಿತ್ರವೆಂತಿರ್ದಡೇನೋ ?\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥನ ಶರಣರ\nಅವರಿವರೆಂದಡೆ ನಾಯಕನರಕ.",
+    "transliteration" : "bittetta muntāgi bittidaḍēnō ?\nbīja nirāḷada beḷasu.\nśaraṇacāritraventirdaḍēnō ?\nrēkaṇṇapriya nāgināthana śaraṇara\navarivarendaḍe nāyakanaraka.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 41,
+    "akshara" : "ba",
+    "kannada" : "ಬಯಲಿಂದ ಹುಟ್ಟಿದ ಪರವೆಂಬ ತಾಯಿಗೆ\nಐವರು ಮಕ್ಕಳು ಜನಿಸಿದರೆಂತೆಂಬೆ :\nಒಬ್ಬ ಭಾವದ ರೂಪು, ಒಬ್ಬ ಪ್ರಾಣದ ರೂಪು.\nಒಬ್ಬ ಕಾಯದ ರೂಪು, ಒಬ್ಬನೈಮುಖನಾಗಿ\nವಿಷಯಕ್ಕೆ ಕಾಯರೂಪನಾದ. ಒಬ್ಬನೆಲ್ಲರ ಕೂಡಿಕೊಂಡು ನಿರವಯವಾಗಿರ್ಪ.\nಇಂತಿವರ ಕೂಡಿಕೊಂಡು ಈ ಲೋಕಕ್ಕೆ ಬಂದೆನು.\nಆನು ಹೋಗೆನಯ್ಯಾ, ಇನ್ನು ಹೋದೆನಾದಡೆ ಎನಗಿರ ಠಾವಿಲ್ಲ.\nಮುನ್ನ ಹೋದವರೆಲ್ಲಾ ತಗಹಿನಲ್ಲಿ ಕುಳ್ಳಿರ್ದರು.\nಆನು ಆ ತಗಹನರಿತೆನಾಗಿ ಬಲ್ಲಡೆ ಬಂದೆನಿಲ್ಲಿಗೆ.\nಇಲ್ಲೆನ್ನೊ ಮದ್ದಳಿಗ, ಒಲ್ಲೆನ್ನೊ ಕಹಳೆಕಾರ.\nಬಿಂದುವ ಹರಿದು ತಿಂದು ಹಾಕಿರೊ, ತಂತಿಯ ಹರಿಯಿರೊ.\nತಾಳ ವಿತಾಳವಾಯಿತ್ತಲ್ಲಾ ಕೇಳಿರೆ ಕೇಳಿರೆ.\nನಿಃಶೂನ್ಯವಾಯಿತ್ತಲ್ಲಾ ಕೇಳಯ್ಯ ಕೇಳಯ್ಯ.\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾ ಬಸವಣ್ಣನಿಂದ ಬದುಕಿತೀ ಲೋಕವೆಲ್ಲಾ.",
+    "transliteration" : "bayalinda huṭṭida paravemba tāyige\naivaru makkaḷu janisidarentembe :\nobba bhāvada rūpu, obba prāṇada rūpu.\nobba kāyada rūpu, obbanaimukhanāgi\nviṣayakke kāyarūpanāda. obbanellara kūḍikoṇḍu niravayavāgirpa.\nintivara kūḍikoṇḍu ī lōkakke bandenu.\nānu hōgenayyā, innu hōdenādaḍe enagira ṭhāvilla.\nmunna hōdavarellā tagahinalli kuḷḷirdaru.\nānu ā tagahanaritenāgi ballaḍe bandenillige.\nillenno maddaḷiga, ollenno kahaḷekāra.\nbinduva haridu tindu hākiro, tantiya hariyiro.\ntāḷa vitāḷavāyittallā kēḷire kēḷire.\nniḥśūn'yavāyittallā kēḷayya kēḷayya.\nrēkaṇṇapriya nāgināthā basavaṇṇaninda badukitī lōkavellā.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 42,
+    "akshara" : "ba",
+    "kannada" : "ಬಂದ ಬಹುರೂಪದಲ್ಲಿ ಸಂದಿಲ್ಲದೆ ಆಟವನಾಡುತ್ತ\nಬಂದ ಬಂದವರ ಮೆಚ್ಚಿಸುತ್ತ\nಅವರವರಂದಕ್ಕೆ ಕೊಂಡಾಡಿ, ಬಂದುದ ಕೈಕೊಂಡೆ\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥನಲ್ಲಿ.",
+    "transliteration" : "banda bahurūpadalli sandillade āṭavanāḍutta\nbanda bandavara meccisutta\navaravarandakke koṇḍāḍi, banduda kaikoṇḍe\nrēkaṇṇapriya nāgināthanalli.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 43,
+    "akshara" : "ba",
+    "kannada" : "ಬಾಯೊಳಗಿದ್ದ ರುಚಿಯನುಗುಳಿ ನುಂಗಲೇಕೇ ?\nಕಣ್ಣಿನೊಳಗಿದ್ದ ರೂಪನಗಲಿ ನೋಡಲುಂಟೆ ?\nಕೈಯೊಳಗಿದ್ದ ವಸ್ತುವ ಬಿಟ್ಟು ಹಿಡಿಯಲುಂಟೆ ?\nತನ್ನೊಳಗಿದ್ದ ಘನವ ಭಿನ್ನವಿಟ್ಟರಸುವಡೆ.\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾವಣ್ಣನಿಂದ ಬುದುಕಿತೀ ಲೋಕವೆಲ್ಲ.",
+    "transliteration" : "bāyoḷagidda ruciyanuguḷi nuṅgalēkē ?\nkaṇṇinoḷagidda rūpanagali nōḍaluṇṭe ?\nkaiyoḷagidda vastuva biṭṭu hiḍiyaluṇṭe ?\ntannoḷagidda ghanava bhinnaviṭṭarasuvaḍe.\nrēkaṇṇapriya nāgināthāvaṇṇaninda budukitī lōkavella.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 44,
+    "akshara" : "bha",
+    "kannada" : "ಭಕ್ತರ ಬರವಿಂಗೆ ಮಂಚವನಿಳಿಯದ ಕಾರಣ\nಧಮ್ಮು ದ್ಥಿಮ್ಮನೆ ಬೆನ್ನಬಡಿದು ಅವರಟ್ಟುಗೆಲಸಕ್ಕೆ ಹೋಗೆನಾಗಿ\nಎನ್ನ ತೊಡೆಯ ಕೊಯ್ದುಕೊಂ[ಬೆ]. ರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥನ\nಮಹಾಮನೆಯಲ್ಲಿ ಕಾಯದಂಡ ಕಲಕೇತ [ನಾನು].",
+    "transliteration" : "bhaktara baraviṅge man̄cavaniḷiyada kāraṇa\ndham'mu dthim'mane bennabaḍidu avaraṭṭugelasakke hōgenāgi\nenna toḍeya koydukoṁ[be]. rēkaṇṇapriya nāgināthana\nmahāmaneyalli kāyadaṇḍa kalakēta [nānu].",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 45,
+    "akshara" : "bha",
+    "kannada" : "ಭಕ್ತದೇಹಿಕದೇವನೆಂದು ಅಂಜದ ಮತವದೇನಪ್ಪುದೊ ?\nಭಯವಿಲ್ಲದ ಭಕ್ತಿ, ದಯವಿಲ್ಲದ ಶೀಲ\nಗುಣವಿಲ್ಲದ ನಂಟು ಮುಂದೇನಪ್ಪುದೊ ?\nಭಯವ ಮರೆದು, ಲಿಂಗದೊಡನೆ ಸಹಭೋಜನ ಮಾಡಿದಡೆ\nಪಂಚಮಹಾಪಾತಕ ತಪ್ಪದು. ಅದೆಂತೆಂದಡೆ :\nಗುರುವ ಬಿಟ್ಟು ಲಿಂಗವನೊಲಿಸಿಹೆನೆಂದಡೆ\nಗುರು ಲಿಂಗ ಎರಡೂ ಇಲ್ಲದೆ ಹೋಹವು.\nಗುರುವೆಂಬುದೆ ಭಯಭಕ್ತಿ, ಲಿಂಗವೆಂಬುದೆ ಶಿವನು.\nಈ ಭಯಭಕ್ತಿಯಿಲ್ಲದೆ ಶಿವನನೊಲಿಸಬಾರದು\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾ.",
+    "transliteration" : "bhaktadēhikadēvanendu an̄jada matavadēnappudo ?\nbhayavillada bhakti, dayavillada śīla\nguṇavillada naṇṭu mundēnappudo ?\nbhayava maredu, liṅgadoḍane sahabhōjana māḍidaḍe\npan̄camahāpātaka tappadu. adentendaḍe :\nguruva biṭṭu liṅgavanolisihenendaḍe\nguru liṅga eraḍū illade hōhavu.\nguruvembude bhayabhakti, liṅgavembude śivanu.\nī bhayabhaktiyillade śivananolisabāradu\nrēkaṇṇapriya nāgināthā.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 46,
+    "akshara" : "bha",
+    "kannada" : "ಭವಭಾರಿ ಬಂಡಿ ಎತ್ತಿನ ಕಣ್ಣಿ ಹರಿದ ಕಾರಣ\nನಿನ್ನ ಅರಿವಿನ ಬೆಳಗು ಗುರಿ ತಾಗಿ ಬಿದ್ದಡೂ\nಎತ್ತು ಅತ್ತ ಹೋಗಿಯೆ ಮರಳಿತು.\nಆ ಹೆಜ್ಜೆಯನು ಏಕೆ ಇಕ್ಕರೊ ?\nಎತ್ತ ಎತ್ತನೆ ಹೊತ್ತು ಮೀರಿ ಓಡಿತ್ತಾಗಿ\nಹಿಂದೆ ಅರಸುವರಿಲ್ಲ.\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥನ ಗೊಗ್ಗನೆತ್ತಿಗೆ ಹಗ್ಗವಿಲ್ಲ.",
+    "transliteration" : "bhavabhāri baṇḍi ettina kaṇṇi harida kāraṇa\nninna arivina beḷagu guri tāgi biddaḍū\nettu atta hōgiye maraḷitu.\nā hejjeyanu ēke ikkaro ?\netta ettane hottu mīri ōḍittāgi\nhinde arasuvarilla.\nrēkaṇṇapriya nāgināthana gogganettige haggavilla.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 47,
+    "akshara" : "ma",
+    "kannada" : "ಮಿತಭೋಜನ ಮಿತವಾಕು ಮಿತನಿದ್ರೆಯ ಮಾಡಿರಣ್ಣಾ.\nಯೋಗಸಿದ್ಧಿ ಬೇಕಪ್ಪಡೆ ಅತ್ಯಾಹಾರ ಇಂದ್ರಿಯ ವ್ಯವಹಾರ\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಿನಲ್ಲಿ ಅಳಿಯದಂತೆ\nಉಳಿಹಿಕೊಳ್ಳಿರಣ್ಣ, ಯೋಗ ಸಾಧ್ಯವಪ್ಪನ್ನಕ್ಕ.",
+    "transliteration" : "mitabhōjana mitavāku mitanidreya māḍiraṇṇā.\nyōgasid'dhi bēkappaḍe atyāhāra indriya vyavahāra\nrēkaṇṇapriya nāgināthinalli aḷiyadante\nuḷihikoḷḷiraṇṇa, yōga sādhyavappannakka.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 48,
+    "akshara" : "ma",
+    "kannada" : "ಮಹಾಕಾಲ ಕಲ್ಪದಲ್ಲಿ, ಮಹಾಪ್ರಮಥರ ಕಾಲಾಗ್ನಿಯಲ್ಲಿ\nನರರು ಬೆಂದು ಸುರರುಗಳ ನೆಮ್ಮುವರು.\nಸುರರುಗಳು ಬೆಂದು ಋಷಿಗಳ ನೆಮ್ಮುವರು.\nಋಷಿಗಳು ಬೆಂದು ಬ್ರಹ್ಮರುಗಳ ನೆಮ್ಮುವರು.\nಬ್ರಹ್ಮರುಗಳು ಬೆಂದು ವಿಷ್ಣುಗಳ ನೆಮ್ಮುವರು.\nವಿಷ್ಣುಗಳು ಬೆಂದು ರುದ್ರರುಗಳ ನೆಮ್ಮುವರು.\nರುದ್ರರುಗಳು ಬೆಂದು ಈಶ್ವರರುಗಳ ನೆಮ್ಮುವರು.\nಈಶ್ವರರುಗಳು ಬೆಂದು ಸದಾಶಿವರುಗಳ ನೆಮ್ಮುವರು.\nಸದಾಶಿವರುಗಳು ಬೆಂದು ಪರಮೇಶ್ವ[ರ]ರುಗಳ ನೆಮ್ಮುವರು.\nಪರಮೇಶ್ವರರುಗಳು ಬೆಂದು ಪಂಚಭೂತಂಗಳು ಸಹಿತ\nಭಿಕ್ಷಭೈರವನಂತಾಗಿ ಬೆಂದು ಮಾಯೆಯ ನೆಮ್ಮುವರು.\nಮಾಯೆ ಮನವ ನೆಮ್ಮಿದೊಡಾ ಮನ ನೆಮ್ಮುವದಕ್ಕೆ\nಎರವಿಲ್ಲದೆ ಬೆಂದು, ಬಾಯಾರಿತು ಕಾಣಾ\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾ.",
+    "transliteration" : "mahākāla kalpadalli, mahāpramathara kālāgniyalli\nnararu bendu surarugaḷa nem'muvaru.\nsurarugaḷu bendu r̥ṣigaḷa nem'muvaru.\nr̥ṣigaḷu bendu brahmarugaḷa nem'muvaru.\nbrahmarugaḷu bendu viṣṇugaḷa nem'muvaru.\nviṣṇugaḷu bendu rudrarugaḷa nem'muvaru.\nrudrarugaḷu bendu īśvararugaḷa nem'muvaru.\nīśvararugaḷu bendu sadāśivarugaḷa nem'muvaru.\nsadāśivarugaḷu bendu paramēśva[ra]rugaḷa nem'muvaru.\nparamēśvararugaḷu bendu pan̄cabhūtaṅgaḷu sahita\nbhikṣabhairavanantāgi bendu māyeya nem'muvaru.\nmāye manava nem'midoḍā mana nem'muvadakke\neravillade bendu, bāyāritu kāṇā\nrēkaṇṇapriya nāgināthā.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 49,
+    "akshara" : "ma",
+    "kannada" : "ಮಾನವಲೋಕದವರೆಲ್ಲರೂ ಮರದಲಿಂಗವ ಪೂಜಿಸುವರಯ್ಯಾ.\nಮರನ ಸಿಂಹಾಸನದ ಮೇಲೆ ಗಂಗೆವಾಳುಕಸಮಾರುದ್ರರೆಲ್ಲರೂ\nಹಿಂದಣ ಋಷಿಗಳು ದೇವತ್ವಗುಣವನರಿಯರಾಗಿ ಅಂಗವಿಲ್ಲವರಿಗೆ.\nವರಮುಖ ಶಾಪಮುಖರಾಗಿ ಲಿಂಗವಿಲ್ಲವರಿಗೆ.\nಧ್ಯಾನದಿಂದ ಲಿಂಗವ ಕಂಡೆನೆಂದೆಂಬರು.\nಮೌನದಿಂದ ಲಿಂಗವ ಕಂಡೆನೆಂದೆಂಬರು.\nಅನುಷಾ*ನದಿಂದ ಲಿಂಗವ ಕಂಡೆನೆಂದೆಂಬರು.\nಜಪ ತಪ ಸಮಾಧಿ ಸಂಧ್ಯಾ ನಿತ್ಯನೇಮ ಹೋಮ ಇವೆಲ್ಲವ ಮಾಡಿದವರೆಲ್ಲರೂ\nಕೆಯ್ಯ ಬೆಳೆದ ಒಕ್ಕಲಿಗನಂತೆ ಫಲದಾಯಕರಾದರಯ್ಯ.\nಇವೆಲ್ಲವನೂ ಅಲ್ಲವೆಂಬೆ, ಸೋಹಂ ಎಂಬೆ.\n[ಮೆಲ್ಲ] ಮೆಲ್ಲನೆ ಆಡುವೆ ಬಹುರೂಪ.\nಇವೆಲ್ಲ ನಾಸ್ತಿಯಾದವು, ಎನ್ನ ಬಹುರೂಪಮುಖದಲ್ಲಿ.\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾ, ಬಸವನಿಂದ ಬದುಕಿತೀ ಲೋಕವೆಲ್ಲ.",
+    "transliteration" : "mānavalōkadavarellarū maradaliṅgava pūjisuvarayyā.\nmarana sinhāsanada mēle gaṅgevāḷukasamārudrarellarū\nhindaṇa r̥ṣigaḷu dēvatvaguṇavanariyarāgi aṅgavillavarige.\nvaramukha śāpamukharāgi liṅgavillavarige.\ndhyānadinda liṅgava kaṇḍenendembaru.\nmaunadinda liṅgava kaṇḍenendembaru.\nanuṣā*nadinda liṅgava kaṇḍenendembaru.\njapa tapa samādhi sandhyā nityanēma hōma ivellava māḍidavarellarū\nkeyya beḷeda okkaliganante phaladāyakarādarayya.\nivellavanū allavembe, sōhaṁ embe.\n[mella] mellane āḍuve bahurūpa.\nivella nāstiyādavu, enna bahurūpamukhadalli.\nrēkaṇṇapriya nāgināthā, basavaninda badukitī lōkavella.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 50,
+    "akshara" : "ya",
+    "kannada" : "ಯುಗವನೊಗೆದಾತ, ಯುಗವನೆಲ್ಲವ ಮಾಡಿದಾತ\nರುದ್ರನ ಜಡೆಯ ಸುತ್ತಿದ ಫಣಿಯ ಬಿಳಿದು ಮಾಡಿದಾತ\nಇವನೆಲ್ಲವ ಬಿಳಿದು ಮಾಡಿ ಬಸವಣ್ಣಂಗೆ ಸೂತ್ರಧಾರಿಯಾದ\nಮಡಿವಳ ಮಾಚಯ್ಯನ ನೆನೆದಾಡುತ್ತಿರ್ದೆ.\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾ ಬಸವಣ್ಣನಿಂದ ಬದುಕಿತೀ ಲೋಕವೆಲ್ಲ.",
+    "transliteration" : "yugavanogedāta, yugavanellava māḍidāta\nrudrana jaḍeya suttida phaṇiya biḷidu māḍidāta\nivanellava biḷidu māḍi basavaṇṇaṅge sūtradhāriyāda\nmaḍivaḷa mācayyana nenedāḍuttirde.\nrēkaṇṇapriya nāgināthā basavaṇṇaninda badukitī lōkavella.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 51,
+    "akshara" : "la",
+    "kannada" : "ಲಿಂಗನಿಷೆ*ಯಿಲ್ಲದವರಂಗಳವ ಮೆಟ್ಟಲಾಗದು.\nಜಂಗಮಪ್ರೇಮವಿಲ್ಲದವರೊಡನೆ ಮಾತನಾಡಲಾಗದು.\nಪ್ರಸಾದವ ಪಡೆಯದವರ ಸಮಪಙ್ಞ್ತಯಲ್ಲಿ ಕುಳಿತು\nಪ್ರಸಾದ ಭೋಗವ ಮಾಡಲಾಗದು.\nಇಂತೀ ಲಿಂಗ ಜಂಗಮ ಪ್ರಸಾದ ವಿಶ್ವಾಸವಿಲ್ಲದವರಿಗೆ\nನರಕ ತಪ್ಪದು.\nಅಂಥವರ ಸಂಗವ ಸತ್ಯಸಜ್ಜನರು ಮಾಡಲಾಗದು.\nಅದೇನು ಕಾರಣವೆಂದಡೆ :\nಪ್ರಾಣಲಿಂಗ ಶಿಲಾಭೇದಂ ಚರಲಿಂಗಂತು ಯೋ ನರಃ |\nಪ್ರಸಾದಂ ದ್ರವ್ಯ ಭಾವೇನ ರೌರವ ನರಕಂ ವ್ರಜೇತ್ ||\nಎಂದುದಾಗಿ,\nಇಂತೀ ಲಿಂಗ ಜಂಗಮ ಪ್ರಸಾದ ಸದ್ಭಾವ\nನಂಬುಗೆಯ ಭಕ್ತಿ ಬೆಸುಗೆಯಿಲ್ಲದವರ ಎನಗೆ ತೋರದಿರಯ್ಯ\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾ",
+    "transliteration" : "liṅganiṣe*yilladavaraṅgaḷava meṭṭalāgadu.\njaṅgamaprēmavilladavaroḍane mātanāḍalāgadu.\nprasādava paḍeyadavara samapaṅñtayalli kuḷitu\nprasāda bhōgava māḍalāgadu.\nintī liṅga jaṅgama prasāda viśvāsavilladavarige\nnaraka tappadu.\nanthavara saṅgava satyasajjanaru māḍalāgadu.\nadēnu kāraṇavendaḍe :\nprāṇaliṅga śilābhēdaṁ caraliṅgantu yō naraḥ |\nprasādaṁ dravya bhāvēna raurava narakaṁ vrajēt ||\nendudāgi,\nintī liṅga jaṅgama prasāda sadbhāva\nnambugeya bhakti besugeyilladavara enage tōradirayya\nrēkaṇṇapriya nāgināthā",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 52,
+    "akshara" : "la",
+    "kannada" : "ಲಿಂಗ ಲಿಂಗೈಕ್ಯನೆಂಬ, ಶಬುದಲಿಂಗೈಕ್ಯಂಗೆ ಭಕ್ತಿಯೆಂತೊ ?\nಕಿರಿದಿರಲಿ ಅರಿವು ಕರಘಟಿಸಿ\nಘನತೆಗೆ ತೆರಹು ಮರಹು ಕುರುಹು ಕೂಡದ ಬೆರಗು ತೋರದೆ ?\nಕೈಮಾಟ ಮಾಟದ ಕೂಟ ನಿಂದಲ್ಲಿ\nತಂದಿಂಕೆಡೆಯಾಗಲೊಲ್ಲದೆ ಕುಳ್ಳಿದ್ದಾತ ಭೂತಲಿಂಗೈಕ್ಯ[ನು],\nಕಾಯದಲ್ಲಿ ಲಿಂಗೈಕ್ಯನು, ಜೀವದಲ್ಲಿ ಲಿಂಗೈಕ್ಯನು.\nಕಾಯ ಜೀವದ ಸಂದಳಿದ ಲಿಂಗಪ್ರಾಣಿಯು\nಒಂಬತ್ತನೆಯ ಉತ್ತಮಾಂಗವಲ್ಲದೆ\nಹತ್ತನೆಯ ಉತ್ತಮಾಂಗದಲ್ಲಿ ಬೆಳಗಾದ\nಬಾಗಿಲನರಿದಾತನೆ ಜೀವಲಿಂಗೈಕ್ಯ.\nಕಾರಮೇಘವು ನೀರಲ್ಲಿ ಬೆರಸಿ ಹರಿದುಹೋದ ಪರಿಯಂತೆ\nಸಾರಿದ ಶರಣ ಲಿಂಗಸಂಗಿಯಾಗಿರ್ದ.\nವಾಯುಮೇಘವು ನೀರು ಬೆರಸಿ ನಿರಾಳವಾಯಿತ್ತ ಕಂಡೆ.\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾ ಶರಣನುಪಮೆಯಿಲ್ಲ.",
+    "transliteration" : "liṅga liṅgaikyanemba, śabudaliṅgaikyaṅge bhaktiyento ?\nkiridirali arivu karaghaṭisi\nghanatege terahu marahu kuruhu kūḍada beragu tōrade ?\nkaimāṭa māṭada kūṭa nindalli\ntandiṅkeḍeyāgalollade kuḷḷiddāta bhūtaliṅgaikya[nu],\nkāyadalli liṅgaikyanu, jīvadalli liṅgaikyanu.\nkāya jīvada sandaḷida liṅgaprāṇiyu\nombattaneya uttamāṅgavallade\nhattaneya uttamāṅgadalli beḷagāda\nbāgilanaridātane jīvaliṅgaikya.\nkāramēghavu nīralli berasi hariduhōda pariyante\nsārida śaraṇa liṅgasaṅgiyāgirda.\nvāyumēghavu nīru berasi nirāḷavāyitta kaṇḍe.\nrēkaṇṇapriya nāgināthā śaraṇanupameyilla.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 53,
+    "akshara" : "va",
+    "kannada" : "ವೇದ್ಥಿಸಿದ ವೇದಂಗಳೆಲ್ಲ ಉರಿದುಲಿದು ನಿಂದವು.\nಸಾದ್ಥಿಸಿದ ಶಾಸ್ತ್ರಂಗಳೆಲ್ಲ ಸೋಹೋ ಎಂದಡಗಿದವು.\nವಿದ್ಯಾಮುಖ ಪ್ರಣಮವು ಸಿದ್ಧ ಸಿದ್ಧ ಎಂದು\nಕದ್ದ ಕಳ್ಳರಂತೆ ತಡವಡಿಸುತ್ತಿರ್ದವು ನೋಡಾ.\nಅರ್ಧನಾರೀಶ್ವರನ ರೂಪು ಇಂತೆಂದು\nಶುದ್ಧವಾಯಿತ್ತೀ ಲೋಕದೊಳಗೆ.\nಜಡೆಯಿಲ್ಲ ಎಮ್ಮ ದೇವಂಗೆ, ಮುಡಿಯಿಲ್ಲ ಎಮ್ಮ ದೇವಂಗೆ.\nಮಡದಿಯರಿಬ್ಬರಿಲ್ಲ ಎಮ್ಮ ದೇವಂಗೆ.\nಬೆಡಗ ನುಡಿವವರಿಲ್ಲ, ನುಡಿಯಲಮ್ಮದ ಕಾರಣ ಅರಸುತ್ತಿದ್ದಾರು.\nಎಡೆಯ ಮಧ್ಯದಲ್ಲಿ ನುಡಿಯ ನುಂಗಿದ ಬೆಡಗ ಹಿಡಿತಂದು\nಅರ್ಪಿತವ ಮಾಡಿ ; ನಡೆಸಿ ತೋರಿದ ಭಕ್ತರ ತನುವಿನೊಳಗೆ\nಕಡೆಯಿಲ್ಲದ ಲಿಂಗವ ಖಂಡಿತವ ಮಾಡಿ ತೋರಿದ\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥ, ಇಬ್ಬರಿಂದ ಬದುಕಿತೀ ಲೋಕವೆಲ್ಲಾ.",
+    "transliteration" : "vēdthisida vēdaṅgaḷella uridulidu nindavu.\nsādthisida śāstraṅgaḷella sōhō endaḍagidavu.\nvidyāmukha praṇamavu sid'dha sid'dha endu\nkadda kaḷḷarante taḍavaḍisuttirdavu nōḍā.\nardhanārīśvarana rūpu intendu\nśud'dhavāyittī lōkadoḷage.\njaḍeyilla em'ma dēvaṅge, muḍiyilla em'ma dēvaṅge.\nmaḍadiyaribbarilla em'ma dēvaṅge.\nbeḍaga nuḍivavarilla, nuḍiyalam'mada kāraṇa arasuttiddāru.\neḍeya madhyadalli nuḍiya nuṅgida beḍaga hiḍitandu\narpitava māḍi ; naḍesi tōrida bhaktara tanuvinoḷage\nkaḍeyillada liṅgava khaṇḍitava māḍi tōrida\nrēkaṇṇapriya nāginātha, ibbarinda badukitī lōkavellā.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 54,
+    "akshara" : "śa",
+    "kannada" : "ಶುದ್ಧವೆ ಜವನಿಕೆಯಾಗಿ, ಸಿದ್ಧವೆ ಸಿಂಹಾಸನವಾಗಿ\nಪ್ರಸಿದ್ಧದ ಹೊದಿಕೆಯ ಹೊದ್ದು, ನಾನಾಡುತ್ತಿರ್ದೆ ಬಹುರೂಪ.\nಶುದ್ಧ ಓಡಿದಲ್ಲಿ, ಇದ್ದ ನಿಜ ನಾಸ್ತಿಯಾಯಿತ್ತೆನ್ನ ಬಹುರೂಪು.\nಸಿದ್ಧವೆಂಬ ಸಿಂಹಾಸನ ಅಳಿದಲ್ಲಿ\nಬುದ್ಧಿಗೆಟ್ಟಾಡುತ್ತಿದ್ದುದಯ್ಯಾ, ಎನ್ನ ಬಹುರೂಪು.\nಪ್ರಸಿದ್ಧ ಹೊದಿಕೆ ಹರಿದಲ್ಲಿ\nನಾ ಬಸವನ ಕೂಡೆ ಆಡುತ್ತಿರ್ದೆ ಕಾಣಾ.\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾ, ಬಸವನಿಂದ ಬದುಕಿತೀ ಲೋಕವೆಲ್ಲಾ.",
+    "transliteration" : "śud'dhave javanikeyāgi, sid'dhave sinhāsanavāgi\nprasid'dhada hodikeya hoddu, nānāḍuttirde bahurūpa.\nśud'dha ōḍidalli, idda nija nāstiyāyittenna bahurūpu.\nsid'dhavemba sinhāsana aḷidalli\nbud'dhigeṭṭāḍuttiddudayyā, enna bahurūpu.\nprasid'dha hodike haridalli\nnā basavana kūḍe āḍuttirde kāṇā.\nrēkaṇṇapriya nāgināthā, basavaninda badukitī lōkavellā.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 55,
+    "akshara" : "śa",
+    "kannada" : "ಶೂನ್ಯ ಸನ್ನಹಿತವಾದಲ್ಲಿ\nಶೂನ್ಯ ಪದಾರ್ಥವಾದಲ್ಲಿ, ಶೂನ್ಯ ಪ್ರಸಾದವಾದಲ್ಲಿ\nಅದು ಬಸವಣ್ಣನ ಪ್ರಸಾದವೆಂದು\nಆನು ಬಸವಣ್ಣನ ಕೂಡೆ ಆಡುತಿರ್ದೆನು.\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾಬಸವಣ್ಣನಿಂದ ಬದುಕಿದೆನು.",
+    "transliteration" : "śūn'ya sannahitavādalli\nśūn'ya padārthavādalli, śūn'ya prasādavādalli\nadu basavaṇṇana prasādavendu\nānu basavaṇṇana kūḍe āḍutirdenu.\nrēkaṇṇapriya nāgināthābasavaṇṇaninda badukidenu.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 56,
+    "akshara" : "ṣa",
+    "kannada" : "ಷಡುಚಕ್ರವಳಯದೊಳಗೆ ನಾನಾಡುವೆ ಬಹುರೂಪ.\nಭ್ರೂಮಧ್ಯಮಂಡಲ ಹೃದಯಕಮಲ ಮಧ್ಯದ\nಅಬ್ಜಸ್ವರದ ಮಣಿಪೂರಕದ ಮೇಲೆ ನಾನಾಡುವೆ ಬಹುರೂಪ.\nಉರಿಯುಂಡ ಕರ್ಪುರದಂತೆ ನಾನಾಡುವೆ ಬಹುರೂಪ.\nಬಯಲ ಬೆರಸಿದ ಮರೀಚಿಯಂತೆ ನಾನಾಡುವೆ ಬಹುರೂಪ.\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾಬಸವಣ್ಣನಿಂದ ಬದುಕಿದೆನು.",
+    "transliteration" : "ṣaḍucakravaḷayadoḷage nānāḍuve bahurūpa.\nbhrūmadhyamaṇḍala hr̥dayakamala madhyada\nabjasvarada maṇipūrakada mēle nānāḍuve bahurūpa.\nuriyuṇḍa karpuradante nānāḍuve bahurūpa.\nbayala berasida marīciyante nānāḍuve bahurūpa.\nrēkaṇṇapriya nāgināthābasavaṇṇaninda badukidenu.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 57,
+    "akshara" : "ṣa",
+    "kannada" : "ಷಡುಸ್ಥಲ ಷಡುಸ್ಥಲವೆಂದು ನುಡಿವುತ್ತಿರ್ಪಿರಿ, ಕೇಳಿರಣ್ಣಾ :\nಒಬ್ಬ ರಾಯನ ಕೆಳಗೆ ಆರು ಬಲ ಉಂಟಾಗಿಪ್ಪಂತೆ\nಆ ಪರಶಿವತತ್ವಕ್ಕೆ ಪ್ರಾಣಪದವಪ್ಪರು ಭಕ್ತರುಂಟು.\nಆ ಭಕ್ತರಿಗೆ ಗುರುಲಿಂಗಜಂಗಮದ ದಾಸೋಹ.\nಪಾದೋದಕ ಪ್ರಸಾದ, ಪಂಚ ಸದಾಚಾರ.\nಇಂತಿವೆಲ್ಲವೂ ಪ್ರಾಣಪದವಾಗಿಪ್ಪವು.\nಇವರೆಲ್ಲರಿಗೆಯೂ ಶರಣಸತಿ ಲಿಂಗಪತಿಗಳೆಂಬವೆ\nಪ್ರಾಣಪದವಾಗಿ, ರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥನಲ್ಲಿ ನಿಂದರು.",
+    "transliteration" : "ṣaḍusthala ṣaḍusthalavendu nuḍivuttirpiri, kēḷiraṇṇā :\nobba rāyana keḷage āru bala uṇṭāgippante\nā paraśivatatvakke prāṇapadavapparu bhaktaruṇṭu.\nā bhaktarige guruliṅgajaṅgamada dāsōha.\npādōdaka prasāda, pan̄ca sadācāra.\nintivellavū prāṇapadavāgippavu.\nivarellarigeyū śaraṇasati liṅgapatigaḷembave\nprāṇapadavāgi, rēkaṇṇapriya nāgināthanalli nindaru.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 58,
+    "akshara" : "sa",
+    "kannada" : "ಸಂಗ ಸಮನಿಸದಂದು, ಲಿಂಗ ಉತ್ಪತ್ತಿಯಾಗದಂದು\nಸಂಗಾ ಬಸವಾಯೆಂಬ ಶಬುದವೆಲ್ಲಿಯದೋ ?\nಸಂಗಾ ಬಸವಾಯೆಂಬ ಶಬುದವ ಲಿಂಗಿಗಳೆತ್ತ ಬಲ್ಲರು ?\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾಬಸವಣ್ಣನಿಂದ ಬದುಕಿದೆ.",
+    "transliteration" : "saṅga samanisadandu, liṅga utpattiyāgadandu\nsaṅgā basavāyemba śabudavelliyadō ?\nsaṅgā basavāyemba śabudava liṅgigaḷetta ballaru ?\nrēkaṇṇapriya nāgināthābasavaṇṇaninda badukide.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 59,
+    "akshara" : "sa",
+    "kannada" : "ಸರದೊಳಗೆ ಸರಗಟ್ಟಿ, ಸರ ಹರಿದವ ನಾನಯ್ಯಾ.\nಮಹದೊಳಗೆ ಮನೆಗಟ್ಟಿ, ಮನೆ ಬೆಂದವ ನಾನಯ್ಯಾ.\nಕಿಚ್ಚಿನೊಳಗೆ ಕಿಚ್ಚನೊಟ್ಟಿ, ಕಾದವ ನಾನಯ್ಯಾ.\nಆ ಕಿಚ್ಚಿನೊಳಗೆ ಬಿದ್ದು ಉರಿದವ ನಾನಯ್ಯ.\nಬಸವಣ್ಣನು ಎನ್ನ ಬಹುರೂಪಕ್ಕೆ ಸೂತ್ರಧಾರಿಯಾದ.\nಸೂತ್ರವಾಗಿ ಹೋದೆ ನಾ. ಬಸವಣ್ಣನಿಂದ ಕೆಟ್ಟೆ ಕಾಣಾ.\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾಬಸವಣ್ಣನಿಂದ ಬದುಕಿತೀ ಲೋಕವೆಲ್ಲ.",
+    "transliteration" : "saradoḷage saragaṭṭi, sara haridava nānayyā.\nmahadoḷage manegaṭṭi, mane bendava nānayyā.\nkiccinoḷage kiccanoṭṭi, kādava nānayyā.\nā kiccinoḷage biddu uridava nānayya.\nbasavaṇṇanu enna bahurūpakke sūtradhāriyāda.\nsūtravāgi hōde nā. basavaṇṇaninda keṭṭe kāṇā.\nrēkaṇṇapriya nāgināthābasavaṇṇaninda badukitī lōkavella.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 60,
+    "akshara" : "sa",
+    "kannada" : "ಸಂಗನಬಸವಣ್ಣ ಎನ್ನ ಕರಸ್ಥಲಕ್ಕೆ ಬಂದ ಕಾರಣ\nಎನಗೆ ಗುರುರೂಪಾದನಯ್ಯಾ.\nಚನ್ನಬಸವಣ್ಣನೆನ್ನ ಕರಸ್ಥಲಕ್ಕೆ ಬಂದ ಕಾರಣ\nಎನಗೆ ಲಿಂಗರೂಪಾದನಯ್ಯಾ.\nಪ್ರಭುದೇವರೆನ್ನ ಕರಸ್ಥಲಕ್ಕೆ ಬಂದ ಕಾರಣ\nಎನಗೆ ಪ್ರಾಣಲಿಂಗವಾದನಯ್ಯಾ.\nಇವರು ಮೂವರಿಗೆ\nನಾ ಭಕ್ತನಾಗಿ ಹುಟ್ಟಿದೆನಾಗಿ\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥನೆನಗೆ ಒಚ್ಚತವಾದನಯ್ಯಾ.",
+    "transliteration" : "saṅganabasavaṇṇa enna karasthalakke banda kāraṇa\nenage gururūpādanayyā.\ncannabasavaṇṇanenna karasthalakke banda kāraṇa\nenage liṅgarūpādanayyā.\nprabhudēvarenna karasthalakke banda kāraṇa\nenage prāṇaliṅgavādanayyā.\nivaru mūvarige\nnā bhaktanāgi huṭṭidenāgi\nrēkaṇṇapriya nāgināthanenage occatavādanayyā.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 61,
+    "akshara" : "ha",
+    "kannada" : "ಹುಟ್ಟುವಾತ ಮದ್ದಳೆಯ ಕಟ್ಟಿದ.\nನಡೆವಾತ ತಾಳವನೊತ್ತಿದ.\nಬಿಡುವಾತ ಶ್ರುತಿಯನೆತ್ತಿದ.\nತತ್ಥಾತಿತ್ಥಿ ಎಂಬಾಟ ಇತ್ತಲೇ ಉಳಿಯಿತ್ತು\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಧಾ !",
+    "transliteration" : "huṭṭuvāta maddaḷeya kaṭṭida.\nnaḍevāta tāḷavanottida.\nbiḍuvāta śrutiyanettida.\ntat'thātit'thi embāṭa ittalē uḷiyittu\nrēkaṇṇapriya nāginādhā !",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 62,
+    "akshara" : "ha",
+    "kannada" : "ಹಲವು ತೀರ್ಥಂಗಳಲ್ಲಿ ಮೀಯಲು ಬಹುದಲ್ಲದೆ\nಜಂಗಮದ ಪಾದೋದಕವ ಕೊಳಬಾರದು.\nಅಂಗದಿಚ್ಫೆಗೆ ಅಂಗನೆಯರ ಅಧರವ ಮುಟ್ಟಬಹುದಲ್ಲದೆ\nಜಂಗಮದ ಪ್ರಸಾದವ ಕೊಳಬಾರದು.\nಊರಗೋಲ ನೆರೆ ನಡುನೀರಲದ್ದಿದಂತಾಯಿತ್ತಯ್ಯಾ, ಎನ್ನ [ಮನದಿರ]ವು.\nಪಾಪಿಯ ಕೂಸಿಂಗೆ ಏನು ಬುದ್ಧಿಯ ಹೇಳಿದಡೆ ಕೇಳೂದೆ ?\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾ, ನಿಮ್ಮನರಿದ ಶರಣನಲ್ಲದೆ.",
+    "transliteration" : "halavu tīrthaṅgaḷalli mīyalu bahudallade\njaṅgamada pādōdakava koḷabāradu.\naṅgadicphege aṅganeyara adharava muṭṭabahudallade\njaṅgamada prasādava koḷabāradu.\nūragōla nere naḍunīraladdidantāyittayyā, enna [manadira]vu.\npāpiya kūsiṅge ēnu bud'dhiya hēḷidaḍe kēḷūde ?\nrēkaṇṇapriya nāgināthā, nim'manarida śaraṇanallade.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 63,
+    "akshara" : "ha",
+    "kannada" : "ಹುಟ್ಟುಗೆಟ್ಟ ಹಾಳ ಮೇಲೆ ಬಟ್ಟಬಯಲಲೊಬ್ಬನ ಕಂಡೆ.\nಅಂಗವಿಲ್ಲದವಯವಕ್ಕೆ ಸಂಗವೆಲ್ಲಿಯದಯ್ಯ ?\nಹಿಂಗದ ಅವಯವಕ್ಕೆ ಹಿಂಗುವ ತೊಡಿಗೆಯ\nತೊಡಿಸಿಹೆವೆಂಬ ಭಂಗಿತರನೇನೆಂಬೆನಯ್ಯ\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥಾ !",
+    "transliteration" : "huṭṭugeṭṭa hāḷa mēle baṭṭabayalalobbana kaṇḍe.\naṅgavilladavayavakke saṅgavelliyadayya ?\nhiṅgada avayavakke hiṅguva toḍigeya\ntoḍisihevemba bhaṅgitaranēnembenayya\nrēkaṇṇapriya nāgināthā !",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 64,
+    "akshara" : "ha",
+    "kannada" : "ಹತ್ತಿ ಕದಿರು ರಾಟಿ ಮೊದಲಿಲ್ಲ, ನೂಲುಂಟು.\nಸೆಲದಿಯ ಹೃದಯದಲ್ಲಿ ಲಿಂಗವುಂಟು.\nಭಕ್ತರ ಭಾವದಲ್ಲಿ ಲಿಂಗವುಂಟು.\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥನ ಶರಣರ\nಮನದ ಕೊನೆಯನೆತ್ತಿದಡೆ ಲಿಂಗದ ಗೊಂಚಲುಂಟು.",
+    "transliteration" : "hatti kadiru rāṭi modalilla, nūluṇṭu.\nseladiya hr̥dayadalli liṅgavuṇṭu.\nbhaktara bhāvadalli liṅgavuṇṭu.\nrēkaṇṇapriya nāgināthana śaraṇara\nmanada koneyanettidaḍe liṅgada gon̄caluṇṭu.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 65,
+    "akshara" : "ha",
+    "kannada" : "ಹಿರಿಯರೆಂತಿರ್ಪರಯ್ಯಾ ?\nಅಯ್ಯಾ, ದಿಟದ ರಾಸಿಗೆ ಅವರ ಘಟ ಲಕ್ಷಣ.\nನಿಸ್ಸೀಮರೆಂತಿರ್ಪರಯ್ಯಾ ?\nಅಯ್ಯಾ, ಸೀಮೆಗೆಡೆಗುಡದ ಬಯಲನೊಳಕೊಂಡಿರ್ಪರು.\nಭಾವರೆಂತಿರ್ಪರಯ್ಯಾ ?\nಅಯ್ಯಾ, ಕಣ್ಣಾಲಿ ದೃಷ್ಟಿಯ ನುಂಗಿದಂತೆ.\nನೀರೆಂತು ನೆನೆವುದೆಂದು ಬೆಸಗೊಂಡಡೆ\nಹೇಳುವ ಶಬ್ದದಂತಿಹುದದರ ನಿಲುವು.\nಲಿಂಗ ಮಧ್ಯೇ ಜಗತ್ಸರ್ವಂ ಲಿಂಗದಂಗ\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥನಂತಿರ್ಪರು.",
+    "transliteration" : "hiriyarentirparayyā ?\nayyā, diṭada rāsige avara ghaṭa lakṣaṇa.\nnis'sīmarentirparayyā ?\nayyā, sīmegeḍeguḍada bayalanoḷakoṇḍirparu.\nbhāvarentirparayyā ?\nayyā, kaṇṇāli dr̥ṣṭiya nuṅgidante.\nnīrentu nenevudendu besagoṇḍaḍe\nhēḷuva śabdadantihudadara niluvu.\nliṅga madhyē jagatsarvaṁ liṅgadaṅga\nrēkaṇṇapriya nāgināthanantirparu.",
+    "translation" : ""
+  }, {
+    "authorId" : 39,
+    "number" : 66,
+    "akshara" : "ha",
+    "kannada" : "ಹೆರಿಲ್ಲದ ಜವನಿಕೆಯ ಮರೆಯಲ್ಲಿ ಬಂದು\nಅಸುವಿನ ಬಹುರೂಪಮಂ ತೊಟ್ಟು\nಪಶುಪತಿಯ ಅವತಾರವನಾಡುತ್ತಿರಲಾಗಿ\nಹಸುಬೆಯ ತೆರೆಯ ಹರಿದು\nಆ ಅಸು ದೆಸೆಯಲ್ಲಿ ಇಲ್ಲಾ ಎಂದೆ.\nರೇಕಣ್ಣಪ್ರಿಯ ನಾಗಿನಾಥನಲ್ಲಿ ಪುರೆಹರೆ ಎನುತಿರ್ದೆನು.",
+    "transliteration" : "herillada javanikeya mareyalli bandu\nasuvina bahurūpamaṁ toṭṭu\npaśupatiya avatāravanāḍuttiralāgi\nhasubeya tereya haridu\nā asu deseyalli illā ende.\nrēkaṇṇapriya nāgināthanalli purehare enutirdenu.",
+    "translation" : ""
+  } ]
+}

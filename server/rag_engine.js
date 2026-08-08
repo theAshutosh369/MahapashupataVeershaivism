@@ -234,6 +234,35 @@ function buildPrompt(query, matched, answerMode, conversationContext) {
 // ─── Retrieval ──────────────────────────────────────────────────────────────
 
 /**
+ * Normalize the dataset selection into a Set of leaf dataset paths.
+ *
+ * Supports three forms:
+ *   - undefined/null/'__ALL__'/''  → null (no filtering; search all chunks)
+ *   - a single string path        → Set with one path (legacy backward compat)
+ *   - an array of path strings    → Set of paths (multi-select / folder selection)
+ *
+ * A path is a relative file path like "authors/basavaṇṇa.json" or
+ * "datasets/Suprabodha_Agama.json" or "Veershaiv Granthas/Notes.txt".
+ * Folder selection is resolved by every caller to the full set of leaf file
+ * paths it contains, so this function only needs to handle leaf paths.
+ */
+function normalizeDatasetSelection(selection) {
+    if (selection === null || selection === undefined) return null;
+    if (Array.isArray(selection)) {
+        if (selection.length === 0) return null;
+        var set = new Set();
+        for (var si = 0; si < selection.length; si++) {
+            var p = String(selection[si] || '').trim();
+            if (p && p !== '__ALL__') set.add(p);
+        }
+        return set.size > 0 ? set : null;
+    }
+    var s = String(selection || '').trim();
+    if (!s || s === '__ALL__') return null;
+    return new Set([s]);
+}
+
+/**
  * Retrieve chunks relevant to the query.
  *
  * Strategy:
@@ -243,26 +272,32 @@ function buildPrompt(query, matched, answerMode, conversationContext) {
  *    - Keyword/fuzzy/boost use chunk metadata
  * 3. If embedding/API unavailable → fall back to pure keyword search
  * 4. Return top 10 reranked results
+ *
+ * `datasetSelection` accepts a single path string OR an array of leaf paths;
+ * filtering is centralized here so every retrieval mode (hybrid, keyword,
+ * vector, rerank) respects the selected folders/files.
  */
-async function retrieveChunks(query, selectedDataset, topK) {
+async function retrieveChunks(query, datasetSelection, topK) {
     var index = getCurrentIndex();
     if (!index || !Array.isArray(index.chunks)) {
         console.log('[RAG Engine] No index available');
         return [];
     }
 
-    // Get all candidates (optionally filtered by dataset)
+    // Get all candidates (optionally filtered by dataset selection)
     var candidates = index.chunks;
-    if (selectedDataset && selectedDataset !== '__ALL__') {
+    var selectedSet = normalizeDatasetSelection(datasetSelection);
+    if (selectedSet) {
         var filtered = [];
         for (var ci = 0; ci < candidates.length; ci++) {
-            if (candidates[ci].dataset === selectedDataset) filtered.push(candidates[ci]);
+            if (selectedSet.has(candidates[ci].dataset)) filtered.push(candidates[ci]);
         }
         candidates = filtered;
     }
 
     if (candidates.length === 0) {
-        console.log('[RAG Engine] No candidates found for dataset: ' + selectedDataset);
+        console.log('[RAG Engine] No candidates found for the selected dataset(s): ' +
+            (Array.isArray(datasetSelection) ? datasetSelection.join(', ') : String(datasetSelection || 'ALL')));
         return [];
     }
 
@@ -495,12 +530,17 @@ async function generateAnswerStream(prompt, opts) {
 
 // ─── Public query API ───────────────────────────────────────────────────────
 
-export async function query(queryText, selectedDataset, topK, answerMode, includeConversationMemory, conversationHistory) {
+export async function query(queryText, selectedDataset, topK, answerMode, includeConversationMemory, conversationHistory, datasetSelection) {
     var startTime = Date.now();
     var queryStr = String(queryText || '');
-    console.log('[RAG Engine] Query: "' + queryStr.substring(0, 100) + '" dataset=' + selectedDataset);
+    // datasetSelection may be an array of leaf paths (multi/folder select) or
+    // null/undefined. Prefer it over the single legacy `selectedDataset`.
+    var selection = datasetSelection && datasetSelection.length > 0
+        ? datasetSelection
+        : (selectedDataset && selectedDataset !== '__ALL__' ? selectedDataset : null);
+    console.log('[RAG Engine] Query: "' + queryStr.substring(0, 100) + '" dataset=' + (Array.isArray(selection) ? selection.join(', ') : String(selection || 'ALL')));
 
-    var matched = await retrieveChunks(queryStr, selectedDataset, topK);
+    var matched = await retrieveChunks(queryStr, selection, topK);
 
     if (matched.length === 0) {
         return {
@@ -583,15 +623,20 @@ export async function query(queryText, selectedDataset, topK, answerMode, includ
     };
 }
 
-export async function queryStream(queryText, selectedDataset, topK, answerMode, includeConversationMemory, conversationHistory, streamOpts) {
+export async function queryStream(queryText, selectedDataset, topK, answerMode, includeConversationMemory, conversationHistory, streamOpts, datasetSelection) {
     var onToken = streamOpts ? streamOpts.onToken : null;
     var signal = streamOpts ? streamOpts.signal : null;
 
     var startTime = Date.now();
     var queryStr = String(queryText || '');
-    console.log('[RAG Engine] Stream query: "' + queryStr.substring(0, 100) + '" dataset=' + selectedDataset);
+    // datasetSelection may be an array of leaf paths (multi/folder select) or
+    // null/undefined. Prefer it over the single legacy `selectedDataset`.
+    var selection = datasetSelection && datasetSelection.length > 0
+        ? datasetSelection
+        : (selectedDataset && selectedDataset !== '__ALL__' ? selectedDataset : null);
+    console.log('[RAG Engine] Stream query: "' + queryStr.substring(0, 100) + '" dataset=' + (Array.isArray(selection) ? selection.join(', ') : String(selection || 'ALL')));
 
-    var matched = await retrieveChunks(queryStr, selectedDataset, topK);
+    var matched = await retrieveChunks(queryStr, selection, topK);
 
     if (matched.length === 0) {
         return {

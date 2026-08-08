@@ -1,0 +1,154 @@
+{
+  "id" : 63,
+  "kannadaName" : "ವೈದ್ಯ ಸಂಗಣ್ಣ",
+  "englishName" : "vaidya saṅgaṇṇa",
+  "vachanaCount" : 0,
+  "vachanas" : [ {
+    "authorId" : 63,
+    "number" : 1,
+    "akshara" : "a",
+    "kannada" : "ಅರಿಯದವಂಗೆ ಅರಿದಿಹೆನೆಂಬ ಬಯಲರೋಗ ಹುಟ್ಟಿ,\nಕಾಲುಗೆಟ್ಟು ದೃಷ್ಟಿ ನಷ್ಟವಾಗುತ್ತಿದೆ ನೋಡಾ !\nಅದಕ್ಕೆ ನಾನೊಂದ ಮದ್ದ ಕಂಡೆ. ಹೆಸರಿಲ್ಲದ ಗಿಡ, ಮೂಲವಿಲ್ಲದ ಬೇರು.\nಎಲೆ ಹೂ ನಷ್ಟವಾದ ಚಿಗುರಿನ ಕುಲಗೆಟ್ಟು,\nಸಹಮೂಲಮಂ ತಂದು, ಆ ಕಲ್ಲಿನಲ್ಲಿ ಇಕ್ಕಿ ನೀರನೆರೆದು,\nಆ ಗುಂಡಿನಲ್ಲಿ ಹಾಗರೆಯಲಾಗಿ, ತಟ್ಟೆಯಲ್ಲಿ ಇಕ್ಕುವದಕ್ಕೆ ಮೊದಲೆ,\nಮದ್ದಿನ ದೃಷ್ಟ ನಷ್ಟವಾಯಿತ್ತು ,\nಮರುಳಶಂಕರಪ್ರಿಯ  ಸಿದ್ಧರಾಮೇಶ್ವರಲಿಂಗವನರಿಯಲಾಗಿ.",
+    "transliteration" : "ariyadavaṅge aridihenemba bayalarōga huṭṭi,\nkālugeṭṭu dr̥ṣṭi naṣṭavāguttide nōḍā !\nadakke nānonda madda kaṇḍe. hesarillada giḍa, mūlavillada bēru.\nele hū naṣṭavāda cigurina kulageṭṭu,\nsahamūlamaṁ tandu, ā kallinalli ikki nīraneredu,\nā guṇḍinalli hāgareyalāgi, taṭṭeyalli ikkuvadakke modale,\nmaddina dr̥ṣṭa naṣṭavāyittu ,\nmaruḷaśaṅkarapriya  sid'dharāmēśvaraliṅgavanariyalāgi.",
+    "translation" : ""
+  }, {
+    "authorId" : 63,
+    "number" : 2,
+    "akshara" : "a",
+    "kannada" : "ಅಂಗಾಲ ಮೇಲಣ ದೊಡ್ಡಂಗುಷ್ಟ ಮಧ್ಯದಲ್ಲಿ ಪೃಥ್ವಿನಾಡಿ,\nನಾಬ್ಥಿ ಮೂತ್ರನಾಳದ ನಾಲ್ಕಂಗುಲ ಮಧ್ಯದಲ್ಲಿ ಅಪ್ಪುನಾಡಿ,\nಉಡಸೂತ್ರ ನಾಬ್ಥಿ ಮೊದಲಾದ\nಪಂಚಾಂಗುಲ ಮಧ್ಯದ ಮೇಲೆಸೆಯಲ್ಲಿ  [ತೇಜನಾಡಿ]\nಇಡಾ ಪಿಂಗಳ ಮಧ್ಯದಲ್ಲಿ ವಾಯುನಾಡಿ,\nಸುಷುಮ್ನನಾಳದ ಅಂಗುಲ ನಡುಮಧ್ಯದಲ್ಲಿ ಆಕಾಶಕೈದಿದನಾಡಿ,\nಇಂತೀ ಪಂಚಪಥವನೈದುವ ನಾಡಿಯಲ್ಲಿ  ಆಡುವ\nಆತ್ಮನ ವಿವರದ ದೆಸೆಯನರಿದು,\nಇಂತೀ ಐದು ಮುಚ್ಚಿ ಮೇಗಳ ಬ್ರಹ್ಮರಂಧ್ರದಲ್ಲಿಯೆಯಿದರೆಮ್ಮ ವೈದ್ಯರು.\nನಾದ ಬಿಂದು ಕಳೆಗತೀತ ನೋಡಾ,\nಮರುಳಶಂರಪ್ರಿಯ ಸಿದ್ಧರಾಮೇಶ್ವರಲಿಂಗವು.",
+    "transliteration" : "aṅgāla mēlaṇa doḍḍaṅguṣṭa madhyadalli pr̥thvināḍi,\nnābthi mūtranāḷada nālkaṅgula madhyadalli appunāḍi,\nuḍasūtra nābthi modalāda\npan̄cāṅgula madhyada mēleseyalli  [tējanāḍi]\niḍā piṅgaḷa madhyadalli vāyunāḍi,\nsuṣumnanāḷada aṅgula naḍumadhyadalli ākāśakaididanāḍi,\nintī pan̄capathavanaiduva nāḍiyalli  āḍuva\nātmana vivarada deseyanaridu,\nintī aidu mucci mēgaḷa brahmarandhradalliyeyidarem'ma vaidyaru.\nnāda bindu kaḷegatīta nōḍā,\nmaruḷaśanrapriya sid'dharāmēśvaraliṅgavu.",
+    "translation" : ""
+  }, {
+    "authorId" : 63,
+    "number" : 3,
+    "akshara" : "a",
+    "kannada" : "ಅಸ್ಥಿ ಮಾಂಸ ಶುಕ್ಲ ಶೋಣಿತವುಳ್ಳನ್ನಕ್ಕ\nಆರಿಗೂ ಅದಿವ್ಯಾದ್ಥಿಯ ತಾಪತ್ರಯದ ತನುತ್ರಯದ ಕೂಟಸ್ಥ ಬಿಡದು.\nರೋಗವನರಿದು ವೈದ್ಯವ ಮಾಡಿಹೆನೆಂದಡೆ,\nತನು ಪ್ರಮಾಣು, ಪೈತ್ಯಪ್ರಮಾಣು, ವಾತಪ್ರಮಾಣು,\nಶ್ಲೇಷ್ಮಪ್ರಮಾಣು, ಆತ್ಮತತ್ವಪ್ರಮಾಣು, ಚಂದ್ರ ಸೂರ್ಯ ಬಿಂದು ಪ್ರಮಾಣು,\nಮಿಕ್ಕಾದ ಸರ್ವಾಂಗ ಪ್ರಮಾಣ ಹೇಳಿಹೆನೆಂದಡೆ,\nಮರೀಚಿಕಾಜಲದಂತೆ, ಸುರಚಾಪದಂತೆ,\nಆಕಾಶದ ಪರಿಬಣ್ಣದಂತೆ, ಇಂತೀ ಶರೀರದ ತೆರ.\nಅಲ್ಪಾಂತರ ತಿರುಗುವನ್ನಕ್ಕರ ಶರೀರ ಸಿಕ್ಕುಹುದಲ್ಲದೆ,\nಮತ್ತೆಯೂ ಆತ್ಮನ ಕಟ್ಟಿಕೊಂಡಿಹೆನೆಂದಡೆ ಸತ್ವವುಂಟೆ ?\nವ್ಯಾದ್ಥಿಯಲ್ಲಿ ಹೊಂದುವ ತೆರನಾದಡೆ,\nಬ್ರಹ್ಮಂಗೆ ಸೃಷ್ಟಿಯಿಲ್ಲ, ವಿಷ್ಣುವಿಂಗೆ ಸ್ಥಿತಿ ಇಲ್ಲ, ರುದ್ರಂಗೆ ಲಯವಿಲ್ಲ.\nಇಂತೀ ಕರ್ಮಕಾಂಡದಲ್ಲಿ ಪ್ರಾಪ್ತಿ, ವರ್ಮಕಾಂಡದಲ್ಲಿ ಸರ್ವ,\nಜ್ಞಾನಕಾಂಡದಲ್ಲಿ ತ್ರಿವಿಧವಳಿದ ಮಹದೊಡಗೂಟ.\nಇಂತೀ ಜಗದಲ್ಲಿ ಒಂದನಹುದು,  ಒಂದನಲ್ಲಾ ಎಂದಡೆ,\nಅಮೃತಕ್ಕೂ ಸುರಾಪಾನಕ್ಕೂ ಸರಿಯೆಂದು  ಮಾರುವನ ತೆರದಂತೆ,\nಆರಾರ ತೆರನನು ನೋಡಿ ಸುಖಿಯಾಗಿ,\nತನ್ನನರಿವರಲ್ಲಿ ಮನಮುಕ್ತವಾಗಿ ಉಭಯವಳಿದು ಒಡಗೂಡಬೇಕು.\nಮರುಳಶಂಕರಪ್ರಿಯ ಸಿದ್ಧರಾಮೇಶ್ವರಲಿಂಗ ಕಳುಹಿದಂತೆ ಮಾಡಿ,\nಭಕ್ತಿಗೆ ಖೋಡಿ ಇಲ್ಲದೆ ಸತ್ಯವನೊಡಗೂಡಬೇಕು.",
+    "transliteration" : "asthi mānsa śukla śōṇitavuḷḷannakka\nārigū adivyādthiya tāpatrayada tanutrayada kūṭastha biḍadu.\nrōgavanaridu vaidyava māḍ'̔ihenendaḍe,\ntanu pramāṇu, paityapramāṇu, vātapramāṇu,\nślēṣmapramāṇu, ātmatatvapramāṇu, candra sūrya bindu pramāṇu,\nmikkāda sarvāṅga pramāṇa hēḷihenendaḍe,\nmarīcikājaladante, suracāpadante,\nākāśada paribaṇṇadante, intī śarīrada tera.\nalpāntara tiruguvannakkara śarīra sikkuhudallade,\nmatteyū ātmana kaṭṭikoṇḍ'̔ihenendaḍe satvavuṇṭe ?\nvyādthiyalli honduva teranādaḍe,\nbrahmaṅge sr̥ṣṭiyilla, viṣṇuviṅge sthiti illa, rudraṅge layavilla.\nintī karmakāṇḍadalli prāpti, varmakāṇḍadalli sarva,\njñānakāṇḍadalli trividhavaḷida mahadoḍagūṭa.\nintī jagadalli ondanahudu,  ondanallā endaḍe,\namr̥takkū surāpānakkū sariyendu  māruvana teradante,\nārāra terananu nōḍi sukhiyāgi,\ntannanarivaralli manamuktavāgi ubhayavaḷidu oḍagūḍabēku.\nmaruḷaśaṅkarapriya sid'dharāmēśvaraliṅga kaḷuhidante māḍi,\nbhaktige khōḍi illade satyavanoḍagūḍabēku.",
+    "translation" : ""
+  }, {
+    "authorId" : 63,
+    "number" : 4,
+    "akshara" : "a",
+    "kannada" : "ಅಷ್ಟೋತ್ತರಶತವ್ಯಾಧಿಗಳ ಧರಿಸಿಕೊಂಡಿಪ್ಪುದು ಆತ್ಮನೊ, ಘಟನೊ ?\nಆತ್ಮನೆಂದಡೆ ಸಾಯದು ಚಿತ್ತ ,\nಘಟವೆಂದಡೆ ಆತ್ಮನಿಲ್ಲದೆ ಅರಿಯದು ದೇಹ.\nಇಂತೀ ಒಂದ ಕಳೆದು, ಒಂದಕ್ಕೆ ಔಷಧಿಯ ಕೊಟ್ಟಿಹನೆಂದಡೆ,\nಆ ಎರಡರ ಸಂಗದಿಂದ ರುಜೆ ಪ್ರಮಾಣು.\nಇಂತೀ ಶರೀರಾತ್ಮ ಆದಿಯಾಗಿ ಬಂದ ವ್ಯಾಧಿಗೆ\nನಾನೊಂದು ಔಷಧಿಯ ಭೇದವ ಹೇಳಿಹೆ.\nಆಧಾರದಲ್ಲಿಪ್ಪ, ಮೂಲಿಕೆಯ ಬೇರನರದು, ಐದಿಂದ್ರಿಯವ ಕೂಡಿಕೊಂಡು.\nಮೂರು ಮುಟ್ಟದ ತಟ್ಟೆಯಲ್ಲಿ ಬೇಗ ತೆಗೆದುಕೊಳ್ಳಿ.\nಆ ಮದು ವಾಂತಿಗೆ ಸಲ್ಲ, ವಿರೋಚನವಿಲ್ಲ.\nನಾನಾ ವೈದ್ಯರ ಭೇದಗಾಹಿನ ಕ್ರಮವಲ್ಲ.\nಇದು ಸಿದ್ಧಾಂತ ಮೂಲಿಕೆ, ಇದ ಸಾಧಿಸಿಕೊಳ್ಳಿ.\nಎಂದೆಂದಿಗೂ ರುಜೆಯಿಲ್ಲ, ಸಂದುಸಂಶಯವಿಲ್ಲ,\nಮರುಳಶಂಕರಪ್ರಿಯ ಸಿದ್ಧರಾಮೇಶ್ವರಲಿಂಗದಲ್ಲಿ.",
+    "transliteration" : "aṣṭōttaraśatavyādhigaḷa dharisikoṇḍippudu ātmano, ghaṭano ?\nātmanendaḍe sāyadu citta ,\nghaṭavendaḍe ātmanillade ariyadu dēha.\nintī onda kaḷedu, ondakke auṣadhiya koṭṭihanendaḍe,\nā eraḍara saṅgadinda ruje pramāṇu.\nintī śarīrātma ādiyāgi banda vyādhige\nnānondu auṣadhiya bhēdava hēḷihe.\nādhāradallippa, mūlikeya bēranaradu, aidindriyava kūḍikoṇḍu.\nmūru muṭṭada taṭṭeyalli bēga tegedukoḷḷi.\nā madu vāntige salla, virōcanavilla.\nnānā vaidyara bhēdagāhina kramavalla.\nidu sid'dhānta mūlike, ida sādhisikoḷḷi.\nendendigū rujeyilla, sandusanśayavilla,\nmaruḷaśaṅkarapriya sid'dharāmēśvaraliṅgadalli.",
+    "translation" : ""
+  }, {
+    "authorId" : 63,
+    "number" : 5,
+    "akshara" : "a",
+    "kannada" : "ಅಪ್ಪು ತನುವಿನ ಶ್ರೇಷ*ವಾಗಲಾಗಿ, ವಾತ ಪಿತ್ತ ಶ್ಲೇಷ್ಮ ಬಲಿಯಿತ್ತು.\nಮಜ್ಜೆ ಮಾಂಸ ನರ ಅಸ್ಥಿಗಳಲ್ಲಿ ವೇಧಿಸಿತ್ತು.\nಆ ವೇಧನೆಯಿಂದ ಸರ್ವಾಂಗವ ದಹಿಸಿ, ದ್ವಾರದ್ವಾರಂಗಳಲ್ಲಿ ಮುಚ್ಚಿ,\nಅಗ್ನಿಯ ಗುಣ ಒಂದು, ಅಪ್ಪುವಿನ ಗುಣವೈದು.\nಇಂತೀ ಗುಣ ಶರೀರದಲ್ಲಿ ಲಕ್ಷಿಸಲಾಗಿ ಜೀರ್ಣಿಸದೆ,\nಆ ಜೀವನ ಪ್ರಮಾಣಿಸಿ ಕಲ್ಪನೆ ತೀರುವನ್ನಕ್ಕ ದೇಹದ ದರ್ಪಗೆಡಿಸಿ,\nಇಪ್ಪುದ ಸೋದಿಸಿಕೊಂಡು, ತ್ರೈಮಲ ಲಕ್ಷಣವ ಸೋಧಿಸಿಕೊಂಡು,\nವೈದ್ಯ ಪ್ರಯೋಗದಿಂದ ಆತ್ಮನ ಭೇದಿಸಿಕೊಂಡು,\nಹಂಸನು ಇಹ ಇರವೆಂಬ ತೆರನ ತಿಳಿದು,\nರಸ ನಾಲಗೆಯಲ್ಲಿ, ಗಂಧ ನಾಸಿಕದಲ್ಲಿ , ರೂಪು ಕಂಗಳಲ್ಲಿ,\nಶಬ ಕಿವಿಗಳಲ್ಲಿ, ಸ್ಪರುಶನ ಕೈಗಳಲ್ಲಿ ,\nಇಂತಿ ಪಂಚೇಂದ್ರಿಯಂಗಳಲ್ಲಿ ಉಷ್ಣ ಶೈಕ್ಯವಪ್ಪುದನರಿದು,\nನಾಲಿಗೆಯಲ್ಲಿ ದ್ರವವನರಿದು,\nನಾಸಿಕದಲ್ಲಿ ಗಂಧವ ಸೂಸುವ ವಾಯುವಶೈತ್ಯವನರಿದು,\nಕರ್ಣವಾಸದಲ್ಲಿ ಶಬ್ದ ಸೂತ್ರಗೆಟ್ಟು,\nನೇತ್ರದಲ್ಲಿ ಕಪೋತ ಸಿಕ್ಕಿ, ಶ್ವೇತವಿಹಿತವಾಗಿ ಗರ್ಭೀಕರಿಸಿದ ಮತ್ತೆ\nವೈದ್ಯದಲೇತರ ಗುಣ.\nಇಂದ್ರಿಯಗುಣರೋಗಕ್ಕೆ ಜ್ಞಾನವೈದ್ಯ ನೋಡಾ,\nಮರುಳಶಂಕರಪ್ರಿಯ ಸಿದ್ಧರಾಮೇಶ್ವರಾ.",
+    "transliteration" : "appu tanuvina śrēṣa*vāgalāgi, vāta pitta ślēṣma baliyittu.\nmajje mānsa nara asthigaḷalli vēdhisittu.\nā vēdhaneyinda sarvāṅgava dahisi, dvāradvāraṅgaḷalli mucci,\nagniya guṇa ondu, appuvina guṇavaidu.\nintī guṇa śarīradalli lakṣisalāgi jīrṇisade,\nā jīvana pramāṇisi kalpane tīruvannakka dēhada darpageḍisi,\nippuda sōdisikoṇḍu, traimala lakṣaṇava sōdhisikoṇḍu,\nvaidya prayōgadinda ātmana bhēdisikoṇḍu,\nhansanu iha iravemba terana tiḷidu,\nrasa nālageyalli, gandha nāsikadalli , rūpu kaṅgaḷalli,\nśaba kivigaḷalli, sparuśana kaigaḷalli ,\ninti pan̄cēndriyaṅgaḷalli uṣṇa śaikyavappudanaridu,\nnāligeyalli dravavanaridu,\nnāsikadalli gandhava sūsuva vāyuvaśaityavanaridu,\nkarṇavāsadalli śabda sūtrageṭṭu,\nnētradalli kapōta sikki, śvētavihitavāgi garbhīkarisida matte\nvaidyadalētara guṇa.\nindriyaguṇarōgakke jñānavaidya nōḍā,\nmaruḷaśaṅkarapriya sid'dharāmēśvarā.",
+    "translation" : ""
+  }, {
+    "authorId" : 63,
+    "number" : 6,
+    "akshara" : "ā",
+    "kannada" : "ಆರು ವರ್ಣದ ಬೇರು ಮೂರು ವರ್ಣದ ಉದಕ,\nರವೆ ತೋರಬಾರದ ಕಲ್ಲು, ಇಂತಿವ ಮೀರಬಾರದ ಗುಂಡು.\nಇಂತಿವ ಭೇದಿಸಿ ಅರೆಯಲಾಗಿ ಸವೆಯಿತ್ತು ಮದ್ದು , ವಿಶ್ವಾಸವೆಂಬ ತಟ್ಟೆಯಲ್ಲಿ.\nಭಕ್ತಂಗೆ ಮೂರು, ಮಾಹೇಶ್ವರಂಗೆ ನಾಲ್ಕು,\nಪ್ರಸಾದಿಗೆ ಐದು, ಪ್ರಾಣಲಿಂಗಿಗೆ ಆರು,\nಶರಣಂಗೆ ಎಂಟು, ಐಕ್ಯಂಗೆ ಹತ್ತು ಇಂತೀ ಕ್ರಮದಲ್ಲಿ ಕೊಂಡ ಮತ್ತೆ ,\nಮೂರು ನಾಲ್ಕುಗೂಡಿ, ಆರು ಎಂಟುಗೂಡಿ,\nಎಂಟುಹತ್ತುಗೂಡಿ ನಷ್ಟವಾದ ಮತ್ತೆ ,\nರೋಗದ ಕಟ್ಟು ತೊಟ್ಟು ಬಿಟ್ಟಿತು.\nಮರುಳಶಂಕರಪ್ರಿಯ ಸಿದ್ಧರಾಮೇಶ್ವರಲಿಂಗವನರಿಯಲಾಗಿ.",
+    "transliteration" : "āru varṇada bēru mūru varṇada udaka,\nrave tōrabārada kallu, intiva mīrabārada guṇḍu.\nintiva bhēdisi areyalāgi saveyittu maddu , viśvāsavemba taṭṭeyalli.\nbhaktaṅge mūru, māhēśvaraṅge nālku,\nprasādige aidu, prāṇaliṅgige āru,\nśaraṇaṅge eṇṭu, aikyaṅge hattu intī kramadalli koṇḍa matte ,\nmūru nālkugūḍi, āru eṇṭugūḍi,\neṇṭuhattugūḍi naṣṭavāda matte ,\nrōgada kaṭṭu toṭṭu biṭṭitu.\nmaruḷaśaṅkarapriya sid'dharāmēśvaraliṅgavanariyalāgi.",
+    "translation" : ""
+  }, {
+    "authorId" : 63,
+    "number" : 7,
+    "akshara" : "i",
+    "kannada" : "ಇಂತು ಐದುನಾಡಿಗಳೊಳಗಾದ ಇಪ್ಪತ್ತೇಳು ನಾಡಿ, ಬಾಹ್ಯದಲ್ಲಿ ಆಡುವವು.\nಜೀವಗತಿಯಾಗಿ ಅಸ್ಥಿನರನಾಳ ಮಧ್ಯದಲ್ಲಿ ಅಂತ್ಯನಾಡಿ.\nಆತ್ಮ ಚೇತನ ಅಸ್ಥಿಯೊಳಗಾದ ಸಂದುಸಂದಿನ ಮಜ್ಜೆಯ ಮಧ್ಯದಲ್ಲಿ\nಸ್ವಪ್ನನಾಡಿ.\nಇಂತೀ ಉಭಯನಾಡಿ ಸುಷುಪ್ತಿಯ ಸುಷುಪ್ತಿಯಲ್ಲಿ\nಪರವಶನಾದ ಪರಬ್ರಹ್ಮನೋಡಾ,\nಮರುಳಶಂಕರಪ್ರಿಯ ಸಿದ್ಧರಾಮೇಶ್ವಲಿಂಗವು.",
+    "transliteration" : "intu aidunāḍigaḷoḷagāda ippattēḷu nāḍi, bāhyadalli āḍuvavu.\njīvagatiyāgi asthinaranāḷa madhyadalli antyanāḍi.\nātma cētana asthiyoḷagāda sandusandina majjeya madhyadalli\nsvapnanāḍi.\nintī ubhayanāḍi suṣuptiya suṣuptiyalli\nparavaśanāda parabrahmanōḍā,\nmaruḷaśaṅkarapriya sid'dharāmēśvaliṅgavu.",
+    "translation" : ""
+  }, {
+    "authorId" : 63,
+    "number" : 8,
+    "akshara" : "ai",
+    "kannada" : "ಐದು ತತ್ತ್ವಂಗಳಿಂದಾದ ದೇಹಕ್ಕೆ ರೋಗರುಜೆಯಹುದೆ ?\nಕಾಯತತ್ವಂಗಳ ಗೊತ್ತಿನಲ್ಲಿ ನಿಂದು,\nಅವರವರ ಚಿಕಿತ್ಸೆಯಲ್ಲಿ ಹೊತ್ತು ನಿತ್ತರಿಸುವುದೆ ಕ್ರಮ.\nಅದೆಂತೆಂದಡೆ :\nಭಕ್ತಿನಿಷೆ* , ವಿಶ್ವಾಸನಿಷೆ*, ಜ್ಞಾನನಿಷೆ*.\nಇಂತಿ ಸದ್ಭಾವ ನೆಲೆಗೊಳ್ಳದ ಕಾರಣ,\nತನುವಿಂಗೆ ಅನುಪಾನವ ಪಾನವ ಮಾಡಬೇಕು.\nಮೇಲೆ ಅರಿದಡೆ, ಮನವು ಮನದಲ್ಲಿ ನಿಲಬೇಕು.\nಮರುಳಶಂಕರಪ್ರಿಯ ಸಿದ್ಧರಾಮೇಶ್ವರಲಿಂಗವನೊಡಗೂಡಬೇಕು.",
+    "transliteration" : "aidu tattvaṅgaḷindāda dēhakke rōgarujeyahude ?\nkāyatatvaṅgaḷa gottinalli nindu,\navaravara cikitseyalli hottu nittarisuvude krama.\nadentendaḍe :\nbhaktiniṣe* , viśvāsaniṣe*, jñānaniṣe*.\ninti sadbhāva nelegoḷḷada kāraṇa,\ntanuviṅge anupānava pānava māḍabēku.\nmēle aridaḍe, manavu manadalli nilabēku.\nmaruḷaśaṅkarapriya sid'dharāmēśvaraliṅgavanoḍagūḍabēku.",
+    "translation" : ""
+  }, {
+    "authorId" : 63,
+    "number" : 9,
+    "akshara" : "ka",
+    "kannada" : "ಕಣ್ಣು ಕಳೆದ ಮತ್ತೆ ಅಂಜನಕ್ಕೆ ತಿಳಿವುದೆ ?\nಆತ್ಮನಿದ್ದಲ್ಲಿ ಅರಿಯದೆ ಹಸು ಸತ್ತ ಮತ್ತೆ ಮೋಕ್ಷವನರಸಲುಂಟೆ ?\nಎಚ್ಚರಿಕೆ ತನಗಿದ್ದಲ್ಲಿ ನಾನೊಂದು ನಿಶ್ಚಯದ ಮದ್ದ ತಂದೆ.\nಆ ಮದ್ದಿನ ಭೇದ ಘಟಕ್ಕೆ ಕೇಡಿಲ್ಲ.\nಆತ್ಮಂಗೆ ಭವವಿಲ್ಲ. ಅರಿವಿಂಗೆ ತುದಿಮೊದಲಿಲ್ಲ.\nಇದು ನಿರಿಗೆ ಕೊಳಬಲ್ಲಡೆ,\nಗುರುವಿಂಗೆ ತನು, ಲಿಂಗಕ್ಕೆ ಮನ, ಜಂಗಮಕ್ಕೆ ಧನ.\nರೋಗ ಹೋಯಿತ್ತು, ಬೇಗ ಅರಿದುಕೊಳ್ಳಿ,\nಮರುಳಶಂಕರಪ್ರಿಯ ಸಿದ್ಧರಾಮೇಶ್ವರಲಿಂಗ ಸಾಕ್ಷಿಯಾಗಿ.",
+    "transliteration" : "kaṇṇu kaḷeda matte an̄janakke tiḷivude ?\nātmaniddalli ariyade hasu satta matte mōkṣavanarasaluṇṭe ?\neccarike tanagiddalli nānondu niścayada madda tande.\nā maddina bhēda ghaṭakke kēḍilla.\nātmaṅge bhavavilla. ariviṅge tudimodalilla.\nidu nirige koḷaballaḍe,\nguruviṅge tanu, liṅgakke mana, jaṅgamakke dhana.\nrōga hōyittu, bēga aridukoḷḷi,\nmaruḷaśaṅkarapriya sid'dharāmēśvaraliṅga sākṣiyāgi.",
+    "translation" : ""
+  }, {
+    "authorId" : 63,
+    "number" : 10,
+    "akshara" : "ka",
+    "kannada" : "ಕಕ್ಕಯ್ಯನೆನಗೆ ಕಾಮಧೇನುವಯ್ಯ. ಚೆನ್ನಯ್ಯನೆನಗೆ\nಕಲ್ಪವೃಕ್ಷವಯ್ಯಾ.\nಹರಳಯ್ಯನೆನಗೆ ಚಿಂತಾಮಣಿಯಯ್ಯಾ.\nಕೆಂಭಾವಿಯ ಭೋಗಯ್ಯನೆನಗೆ ಸುದಾಬ್ಧಿಯಯ್ಯಾ.\nಶಿವನಾಗಮಯ್ಯನೆನಗೆ ಪರುಷದ ಗಿರಿಯಯ್ಯಾ.\nಇಂತೀ ಐವರ ಕಾರುಣ್ಯ ಪ್ರಸಾದವ ಕೊಂಡು ಬದುಕಿದೆನಯ್ಯಾ.\nಮರುಶಂಕರಪ್ರಿಯ ಸಿದ್ಧರಾಮೇಶ್ವರಯ್ಯಾ.",
+    "transliteration" : "kakkayyanenage kāmadhēnuvayya. cennayyanenage\nkalpavr̥kṣavayyā.\nharaḷayyanenage cintāmaṇiyayyā.\nkembhāviya bhōgayyanenage sudābdhiyayyā.\nśivanāgamayyanenage paruṣada giriyayyā.\nintī aivara kāruṇya prasādava koṇḍu badukidenayyā.\nmaruśaṅkarapriya sid'dharāmēśvarayyā.",
+    "translation" : ""
+  }, {
+    "authorId" : 63,
+    "number" : 11,
+    "akshara" : "ka",
+    "kannada" : "ಕಾಯಕರ್ಮವ ಅನುಭವಿಸುತ್ತ  ಮತ್ತೆ , ದಿವ್ಯಜ್ಞಾನದ ಮಾತದೇತಕ್ಕೆ ?\nವಾಗ್ವಾದಕ್ಕೂ ದಿವ್ಯಜ್ಞಾನಕ್ಕೂ ಅನುಪಾನಉಂಟೆ ?\nರಸವಾದದ ಬೇರ ಕದ್ದ ಚೋರನಂತೆ,\nಅದರ ಭೇದವನರಿಯ, ಅದ ವೇಧಿಸಿ ಕಾಣ.\nಕಳಂಕ ಹೋದ ಹೊಲಬನರಿಯ, ಆ ಚೋರನ ಮಾತ ವೇದಿಗಳೊಪ್ಪುವರೆ ?\nಇಂತಿ ಭೇದವ ತಿಳಿದು, ಷಡುಸ್ಥಲವೇದಿಗಳಾಗಬೇಕು.\nಮರುಳಶಂಕರಪ್ರಿಯ ಸಿದ್ಧರಾಮೇಶ್ವರಲಿಂಗವ,\nಅರಿವಿನಲ್ಲಿ ವೇಧಿಸಿಕೊಳ್ಳಬೇಕು.",
+    "transliteration" : "kāyakarmava anubhavisutta  matte , divyajñānada mātadētakke ?\nvāgvādakkū divyajñānakkū anupāna'uṇṭe ?\nrasavādada bēra kadda cōranante,\nadara bhēdavanariya, ada vēdhisi kāṇa.\nkaḷaṅka hōda holabanariya, ā cōrana māta vēdigaḷoppuvare ?\ninti bhēdava tiḷidu, ṣaḍusthalavēdigaḷāgabēku.\nmaruḷaśaṅkarapriya sid'dharāmēśvaraliṅgava,\narivinalli vēdhisikoḷḷabēku.",
+    "translation" : ""
+  }, {
+    "authorId" : 63,
+    "number" : 12,
+    "akshara" : "ja",
+    "kannada" : "ಜಿಹ್ವೆಂದ್ರಿಯವೆಂಬ ರೋಗ ಬಾಯಲ್ಲಿ ಹುಟ್ಟಿ,\nಗುಹ್ಯೇಂದ್ರಿಯವೆಂಬ ರೋಗ ಚಿತ್ತದಲ್ಲಿ ತತ್ತರಿಸುತ್ತಿದೆ ನೋಡಾ.\nಆಸೆಯೆಂಬ ರೋಗ ಸರ್ವಾಂಗದಲ್ಲಿ ಹೊಕ್ಕು,\nಸರ್ವರಿಗೆಲ್ಲಕ್ಕೂ ಪಾಷಂಡಿ ವೇಷಧಾರಿಗಳೆನಿಸುತ್ತಿದೆ ನೋಡಾ.\nಈ ರೋಗ ನಿರೋಗವಹುದಕ್ಕೊಂದು ಮದ್ದುಂಟು.\nಅದು ಬೇರು ಮೂರು, ಶಾಖೆ ಐದು, ಎಲೆ ಆರು, ಕೊನೆ ಇಪ್ಪತ್ತೈದು.\nಇಂತೀ ಗಿಡುವ ಸಹ ಮೂಲಸಹಿತ ತಂದು, ಕಂಗಳ ಕಲ್ಲಿನಲ್ಲಿ ಇಂಗಿಸಿ,\nಆನಂದಾಶ್ರುವೆಂಬ ಜಲವನೆರೆದು,\nಚಿತ್ತಶುದ್ಧವೆಂಬ ಗುಂಡಿನಲ್ಲಿ ಲಕ್ಷಿಸಿ ಅರೆಯಲಾಗಿ, ಮದ್ದು  ನೀರೊಳಡಗಿತ್ತು .\nಕಲ್ಲು ಗುಂಡಿನಲ್ಲಿಗೆ ಸಾಧ್ಯವಲ್ಲದೆ ಹೋಯಿತ್ತು,\nಮರುಳಶಂಕರಪ್ರಿಯ ಸಿದ್ಧರಾಮೇಶ್ವರಲಿಂಗದಲ್ಲಿಗೆ.",
+    "transliteration" : "jihvendriyavemba rōga bāyalli huṭṭi,\nguhyēndriyavemba rōga cittadalli tattarisuttide nōḍā.\nāseyemba rōga sarvāṅgadalli hokku,\nsarvarigellakkū pāṣaṇḍi vēṣadhārigaḷenisuttide nōḍā.\nī rōga nirōgavahudakkondu madduṇṭu.\nadu bēru mūru, śākhe aidu, ele āru, kone ippattaidu.\nintī giḍuva saha mūlasahita tandu, kaṅgaḷa kallinalli iṅgisi,\nānandāśruvemba jalavaneredu,\ncittaśud'dhavemba guṇḍinalli lakṣisi areyalāgi, maddu  nīroḷaḍagittu .\nkallu guṇḍinallige sādhyavallade hōyittu,\nmaruḷaśaṅkarapriya sid'dharāmēśvaraliṅgadallige.",
+    "translation" : ""
+  }, {
+    "authorId" : 63,
+    "number" : 13,
+    "akshara" : "ta",
+    "kannada" : "ತ್ರಿದೋಷದ ಗುಣದಿಂದ ನಾನಾ ಬಹುತಾಪತ್ರಯದ\nವ್ಯಾದ್ಥಿಯ ಚಿಕಿತ್ಸೆಯನಾರು ಅರಿಯರಲ್ಲಾ !\nತನುವಿಂಗೆ ವಾತ, ಪೈತ್ಯ, ಶ್ಲೇಷ್ಮ , ಆತ್ಮಂಗೆ ಆಣವ, ಮಾಯಾ, ಕಾರ್ಮಿಕ.\nಇಂತೀ ತ್ರಿವಿಧ ಮಲತ್ರಯದ ರೋಗರುಜೆಯಡಸಿ,\nಬಂಧನದಲ್ಲಿ ಸಾವುತ್ತಿದೆ ಅಂಗ.\nಈ ರೋಗ ನಿರೋಗವಹುದಕ್ಕೆ ನಾ ಮೂರು ಬೇರ ತಂದೆ.\nಒಂದ ಅಂಗದಲ್ಲಿ ಮರ್ದಿಸಿ, ಒಂದು ಆತ್ಮನಲ್ಲಿ ಮಥನಿಸಿ,\nಒಂದ ಅರಿವಿನಲ್ಲಿ ಪಾನವ ಮಾಡಿ, ಈ ರೋಗ ಹರಿವುದು.\nಇದಕ್ಕನುಪಾನ ಇದಿರೆಡೆಯಿಲ್ಲ ,\nಮರುಳಶಂಕರಪ್ರಿಯ ಸಿದ್ಧರಾಮೇಶ್ವರಲಿಂಗ ಸಾಕ್ಷಿಯಾಗಿ.",
+    "transliteration" : "tridōṣada guṇadinda nānā bahutāpatrayada\nvyādthiya cikitseyanāru ariyarallā !\ntanuviṅge vāta, paitya, ślēṣma , ātmaṅge āṇava, māyā, kārmika.\nintī trividha malatrayada rōgarujeyaḍasi,\nbandhanadalli sāvuttide aṅga.\nī rōga nirōgavahudakke nā mūru bēra tande.\nonda aṅgadalli mardisi, ondu ātmanalli mathanisi,\nonda arivinalli pānava māḍi, ī rōga harivudu.\nidakkanupāna idireḍeyilla ,\nmaruḷaśaṅkarapriya sid'dharāmēśvaraliṅga sākṣiyāgi.",
+    "translation" : ""
+  }, {
+    "authorId" : 63,
+    "number" : 14,
+    "akshara" : "na",
+    "kannada" : "ನಾನಾ ರೋಗಂಗಳು ಬಂದು ದೇಹವ ಹಿಡಿದಲ್ಲಿ ಶಿವಾರ್ಚನೆಯ ಬೆರಕೊಳ್ಳಿ,\nಸಕಲಪುಷ್ಪಂಗಳಿಂದ ಪೂಜೆಯ ಮಾಡಿಕೊಳ್ಳಿ,\nಪಂಚಾಕ್ಷರಿ ಪ್ರಣಮವ ತಪ್ಪದೆ ತ್ರಿಸಂದ್ಥಿಯಲ್ಲಿ ನೆನಹುಗೊಳ್ಳಿ,\nಇವರಿಂದ ರುಜೆದರ್ಪಂಗಡಗು,\nಮರುಳಶಂಕರಪ್ರಿಯ ಸಿದ್ಧರಾಮೇಶ್ವರ ಲಿಂಗ ಸಾಕ್ಷಿಯಾಗಿ.",
+    "transliteration" : "nānā rōgaṅgaḷu bandu dēhava hiḍidalli śivārcaneya berakoḷḷi,\nsakalapuṣpaṅgaḷinda pūjeya māḍikoḷḷi,\npan̄cākṣari praṇamava tappade trisandthiyalli nenahugoḷḷi,\nivarinda rujedarpaṅgaḍagu,\nmaruḷaśaṅkarapriya sid'dharāmēśvara liṅga sākṣiyāgi.",
+    "translation" : ""
+  }, {
+    "authorId" : 63,
+    "number" : 15,
+    "akshara" : "na",
+    "kannada" : "ನವಪಾಷಾಣ ರಸ ಮುಂತಾದ ಔಷಧಿಗಳೆಲ್ಲವೂ\nಈ ಮೂರು ಮೂಲಿಕದೊಳಗು. ಇವು ಮತ್ರ್ಯದ ಜೀವರ ಚಿಕಿತ್ಸೆ.\nಭಕ್ತಂಗೆ, ನಿಷಾ*ಪರಂಗೆ, ಸುಚಿತ್ತ ನಿರ್ಮಲ ವಿರಕ್ತಂಗೆ,\nರೋಗರುಜೆಯಡಸಿದಲ್ಲಿ ತನುವಿಂಗೆ ಕ್ರೀ ಮಾಡಿದಡೂ ದೋಷವಿಲ್ಲ.\nಅದೆಂತೆಂದಡೆ :\nಉಷ್ಣಕ್ಕೆ ಶೈತ್ಯ ನೆರವಣಿಗೆಯಾದಂತೆ,\nಪಂಚಭೌತಿಕದಿಂದಾದ ಶರೀರಕ್ಕೆ ಚಿಕಿತ್ಸೆ,\nಅರಿವು ತಲೆದೋರಿದ ರೇತಕ್ಕೆ ಸಾವಧಾನದಲ್ಲಿ ತ್ರಿವಿಧದ ಬಿಡುಗಡೆ.\nತ್ರಿವಿಧಕಿತ್ತು ವಸ್ತುವನೊಡಗೂಡಿ ಎಂಯ್ದಿದವಂಗೆ\nರೋಗದಡಿಯಲ್ಲಿ ಸತ್ತವನಲ್ಲ,\nಮರುಳಶಂಕರರಪ್ರಿಯ ಸಿದ್ಧರಾಮೇಶ್ವರಲಿಂಗದಡಿಯೊಳಗಡಗಿದವಾ.",
+    "transliteration" : "navapāṣāṇa rasa muntāda auṣadhigaḷellavū\nī mūru mūlikadoḷagu. ivu matryada jīvara cikitse.\nbhaktaṅge, niṣā*paraṅge, sucitta nirmala viraktaṅge,\nrōgarujeyaḍasidalli tanuviṅge krī māḍidaḍū dōṣavilla.\nadentendaḍe :\nuṣṇakke śaitya neravaṇigeyādante,\npan̄cabhautikadindāda śarīrakke cikitse,\narivu taledōrida rētakke sāvadhānadalli trividhada biḍugaḍe.\ntrividhakittu vastuvanoḍagūḍi enydidavaṅge\nrōgadaḍiyalli sattavanalla,\nmaruḷaśaṅkararapriya sid'dharāmēśvaraliṅgadaḍiyoḷagaḍagidavā.",
+    "translation" : ""
+  }, {
+    "authorId" : 63,
+    "number" : 16,
+    "akshara" : "pa",
+    "kannada" : "ಪಿಂಡ ಪ್ರಾಣ ಆರೋಗ್ಯಂಗಳ ಚಿಕಿತ್ಸೆಯನರಿದು,\nವೈದ್ಯವ ಮಾಡಬಲ್ಲಡೆ ಪಂಡಿತನಪ್ಪ.\nಘಟತ್ರಯದ ಭೇದವನರಿದು ಮಾಡುವ ಕ್ರಮವೆಂತುಂಟೆಂದಡೆ :\nಕಟಿ ಮೊದಲಾದ ಕೀಳುದೆಸೆಯಲ್ಲಿ ಸಂದಿನ ಭೇದ.\nಅಂಗುಲಿ ಸಂದು ಇಪ್ಪತ್ತು, ಮಡಸಂದು ಎರಡು, ಪಚ್ಚಳ ಸಂದು ಎರಡು.\nಇಂತೀ ಅಧಮನಾಳದಿಂದ ಕೆಳಗಾದ ನಾಳ ನಾಡಿಗಳ ಸೋಧಿಸಿಕೊಂಡು,\nಊಧ್ರ್ವದಂಡದಲ್ಲಿ ಉಭಯಪಕ್ಷದಲ್ಲಿ ಕೆಲವರಿದ ಸಂದು ಅರುವತ್ತಾರು.\nಅಂತು ಕೀಳು ಮೊದಲಾದ ಸಂದು ನರ ಇಪ್ಪತ್ತನಾಲ್ಕು.\nಅದರಿಂದ ಮೊದಲಾದ ಉಭಯಕರದ ಸಂದು,\nಅಂಗುಲಿಯ ಸಂದು ಇಪ್ಪತ್ತಂಟು. ಇಂತೀ ಉಭಯಕರದ ಸಂದಾರು.\nಇಂತೀ ಕರದೊಳಗಾದ ಮೂವತ್ತುನಾಲ್ಕರ ಸಂದಿನ\nನಾಳನಾಡಿಗಳನರಿದು, ಅದರಿಂದ ಮೇಲೆ ಸಂಪುಟವೆರಡು.\nಜಿಹ್ವೆ ಮೊದಲಾದ ಏಳುದ್ವಾರಂಗಳ ಸೋಧಿಸಿಕೊಂಡು,\nಕಪಾಲದ ತ್ರಿವಿಧದ ಹೊಲಿಗೆಯ ಕಂಡು, ಅಂಗುಷ್ಟ ತೊಟ್ಟು\nವಾಣಾಗ್ರಪರಿಯಂತರದಲ್ಲಿ ಸ್ಥಾನವ ಮುಟ್ಟಿ ನೋಡಿ,\nರವಿ ಶಶಿ ಪವನ ಪಾವಕ ಮುಟ್ಟಿ ಎಡೆಯಾಡುವ ಲಕ್ಷಣವ ಕಂಡು,\nಅವಕ್ಕೆ ಚಿಕಿತ್ಸೆಯಪ್ಪ ಅನ್ನ ಔಷಧಿ ಪಯಪಾನ ಉದಕ\nಮುಂತಾದ ತೆರವನರಿದಡೆ, ಆತನೆ ಇರವನರಿದವ.\nಇಂತೀ ಕಾಯಕದ ವೈದ್ಯವ ಮಾಡಬಲ್ಲವ,\nಮೇಲನರಿದು ಕೀಳ ಮರೆಯಬಲ್ಲಡೆ, ಆತ ವೈದ್ಯಪಂಡಿತನೆಂಬೆ,\nಮರುಳಶಂಕರಪ್ರಿಯ ಸಿದ್ಧರಾಮೇಶ್ವರಲಿಂಗವ ಬಲ್ಲವ.",
+    "transliteration" : "piṇḍa prāṇa ārōgyaṅgaḷa cikitseyanaridu,\nvaidyava māḍaballaḍe paṇḍitanappa.\nghaṭatrayada bhēdavanaridu māḍuva kramaventuṇṭendaḍe :\nkaṭi modalāda kīḷudeseyalli sandina bhēda.\naṅguli sandu ippattu, maḍasandu eraḍu, paccaḷa sandu eraḍu.\nintī adhamanāḷadinda keḷagāda nāḷa nāḍigaḷa sōdhisikoṇḍu,\nūdhrvadaṇḍadalli ubhayapakṣadalli kelavarida sandu aruvattāru.\nantu kīḷu modalāda sandu nara ippattanālku.\nadarinda modalāda ubhayakarada sandu,\naṅguliya sandu ippattaṇṭu. intī ubhayakarada sandāru.\nintī karadoḷagāda mūvattunālkara sandina\nnāḷanāḍigaḷanaridu, adarinda mēle sampuṭaveraḍu.\njihve modalāda ēḷudvāraṅgaḷa sōdhisikoṇḍu,\nkapālada trividhada holigeya kaṇḍu, aṅguṣṭa toṭṭu\nvāṇāgrapariyantaradalli sthānava muṭṭi nōḍi,\nravi śaśi pavana pāvaka muṭṭi eḍeyāḍuva lakṣaṇava kaṇḍu,\navakke cikitseyappa anna auṣadhi payapāna udaka\nmuntāda teravanaridaḍe, ātane iravanaridava.\nintī kāyakada vaidyava māḍaballava,\nmēlanaridu kīḷa mareyaballaḍe, āta vaidyapaṇḍitanembe,\nmaruḷaśaṅkarapriya sid'dharāmēśvaraliṅgava ballava.",
+    "translation" : ""
+  }, {
+    "authorId" : 63,
+    "number" : 17,
+    "akshara" : "bha",
+    "kannada" : "ಭಕ್ತಂಗೊಂದೆ ವಾಕ್ಯಸ ಬಾಳೆಗೊಂದೆ ಫಲ.\nವಿರಕ್ತ ಬಿಟ್ಟುದ ಹಿಡಿದಲ್ಲಿ ಮತ್ತೆ ಮುಟ್ಟಿದಡೆ ಸತ್ತನಾಯ ಹಡುಹು.\nಮತ್ತೆ ಸತ್ಕ್ರಿಯೆಯಲ್ಲಿ ನಡೆವವ ತನ್ನ ನಿತ್ಯನೇಮವ ತಪ್ಪಿ,\nಕೆಟ್ಟು ನಡೆದು, ಮತ್ತೆ ದ್ರವ್ಯವ ಕೊಟ್ಟು,\nಭಕ್ತರೊಡೆಯರಲ್ಲಿ ತಪ್ಪ ಪರಿಹರಿಸಿಕೊಂಡಿಹೆನೆಂದು\nಬಹಮಿಟ್ಟೆಯ ಭಂಡರ ಕಂಡಡೆ,\nಮರುಳಶಂಕರಪ್ರಿಯ ಸಿದ್ಧರಾಮೇಶ್ವರ\nಲಿಂಗವಾಯಿತ್ತಾದಡೂ ಒಡಗೂಡಲೊಲ್ಲೆ.",
+    "transliteration" : "bhaktaṅgonde vākyasa bāḷegonde phala.\nvirakta biṭṭuda hiḍidalli matte muṭṭidaḍe sattanāya haḍ'̔uhu.\nmatte satkriyeyalli naḍevava tanna nityanēmava tappi,\nkeṭṭu naḍedu, matte dravyava koṭṭu,\nbhaktaroḍeyaralli tappa pariharisikoṇḍ'̔ihenendu\nbahamiṭṭeya bhaṇḍara kaṇḍaḍe,\nmaruḷaśaṅkarapriya sid'dharāmēśvara\nliṅgavāyittādaḍū oḍagūḍalolle.",
+    "translation" : ""
+  }, {
+    "authorId" : 63,
+    "number" : 18,
+    "akshara" : "ma",
+    "kannada" : "ಮಯೂರನಾಡಿ, ಮಂಡೂಕನಾಡಿ, ಜಳೂಕನಾಡಿ, ಅಹಿವಳಿನಾಡಿ,\nಮಂಡಲಗಮಕನಾಡಿ, ಷಂಡೇತಪಥನಾಡಿ, ದೀರ್ಘನಾಡಿ,\nಅಧಮನಾಡಿ, ಉತ್ತರನಾಡಿ, ಪೂರ್ವನಾಡಿ. ಪಶ್ಚಿಮನಾಡಿ,\nಗಜಗಮನನಾಡಿ, ಹಚ್ಚೋತಿನಾಡಿ, ವಿಕ್ರಮನಾಡಿ, ಸೂತ್ರನಾಡಿ,\nಸಂಚುನಾಡಿ, ಸಂಚಲನಾಡಿ, ಶೈತ್ಯನಾಡಿ, ಉಷ್ಣನಾಡಿ,\nವಿಹಂಗನಾಡಿ, ಕೂರ್ಮನಾಡಿ, ಮರ್ಕಟನಾಡಿ,\nಪಿಪೀಲಿಕಾನಾಡಿ, ದಂಷ್ಟ್ರನಾಡಿ, ಮಕರನಾಡಿ, ಕರ್ಕೋಟಕನಾಡಿ,\nಸಮರಸನಾಡಿ, ಸಂತೋಷನಾಡಿ.\nಇಂತೀ ಪ್ರಥಮನಾಡಿಯೊಳಗಾದ ಶರೀರದಲ್ಲಿ ತೋರುವ ನಾಡಿ\nಜೀರ್ಣ ಪರ್ಣದಂತೆ ರೋಮಕೂಪದಲ್ಲಿ ಸೂಸುವ ವಾಯು,\nಇಂತಿವ ನೋಡಿ ವ್ಯಾಧಿಕ್ರಮವನರಿತೆಹೆನೆಂದಡೆ ಅದಾರಿಗೂ ಅಸಾಧ್ಯ.\nನಾ ಮೂರುನಾಡಿಯ ಬಲ್ಲೆ,\nಉತ್ಪತ್ಯ ಒಂದು ಸ್ಥಿತಿ ಎರಡು, ಲಯ ಮೂರು.\nನಾಳದ ನಾಡಿಯ ಬಲ್ಲೆ, ಭಕ್ತಿಯೆಂಬ ಹಸ್ತವಿಡಿದು ನೋಡಲಾಗಿ.\nಗುರುನಾಡಿ ಉಭಯವ ಕೊಂಡೆಡೆಯಾಡುತ್ತಿದೆ,\nಲಿಂಗನಾಡಿ ತ್ರಿವಿಧಸಂಧಿಯೊಳಗೆ ಸೂಸುತ್ತಿದೆ.\nಜಂಗಮನಾಡಿ ಮೂರರ ಹಂಗು ಬಿಟ್ಟು ಮಹದಲ್ಲಿ ಸಂದಿರುತ್ತದೇಕೊ ?\nಇದು ಲಿಂಗಾಂಗಿಗಳ ವೈದ್ಯ.\nಸಂಗನಬಸವಣ್ಣ ಬಂದಾಗ ಎನ್ನ ಕೊಂಡು ಬಂದ,\nತನ್ನ ವಶಕ್ಕೆ ವೈದ್ಯನೆಂದು.\nಈ ವೈದ್ಯದ ಚೀಲವ ಹೊತ್ತು ಗಸಣಿಗೊಳ್ಳುತ್ತಿದೇನೆ.\nಈ ಕಾಯಕದ ಸೇವೆಯ ಬಿಡಿಸಿ, ಕರಣಪ್ರಸಾದವ ಕೊಟ್ಟು,\nಮರುಳಶಂಕರಪ್ರಿಯ ಸಿದ್ಧರಾಮೇಶ್ವರಲಿಂಗ ನಿಮ್ಮಡಿಯೊಳಗೆನ್ನನಿರಿಸು.",
+    "transliteration" : "mayūranāḍi, maṇḍūkanāḍi, jaḷūkanāḍi, ahivaḷināḍi,\nmaṇḍalagamakanāḍi, ṣaṇḍētapathanāḍi, dīrghanāḍi,\nadhamanāḍi, uttaranāḍi, pūrvanāḍi. paścimanāḍi,\ngajagamananāḍi, haccōtināḍi, vikramanāḍi, sūtranāḍi,\nsan̄cunāḍi, san̄calanāḍi, śaityanāḍi, uṣṇanāḍi,\nvihaṅganāḍi, kūrmanāḍi, markaṭanāḍi,\npipīlikānāḍi, danṣṭranāḍi, makaranāḍi, karkōṭakanāḍi,\nsamarasanāḍi, santōṣanāḍi.\nintī prathamanāḍiyoḷagāda śarīradalli tōruva nāḍi\njīrṇa parṇadante rōmakūpadalli sūsuva vāyu,\nintiva nōḍi vyādhikramavanaritehenendaḍe adārigū asādhya.\nnā mūrunāḍiya balle,\nutpatya ondu sthiti eraḍu, laya mūru.\nnāḷada nāḍiya balle, bhaktiyemba hastaviḍidu nōḍalāgi.\ngurunāḍi ubhayava koṇḍeḍeyāḍuttide,\nliṅganāḍi trividhasandhiyoḷage sūsuttide.\njaṅgamanāḍi mūrara haṅgu biṭṭu mahadalli sandiruttadēko ?\nidu liṅgāṅgigaḷa vaidya.\nsaṅganabasavaṇṇa bandāga enna koṇḍu banda,\ntanna vaśakke vaidyanendu.\nī vaidyada cīlava hottu gasaṇigoḷḷuttidēne.\nī kāyakada sēveya biḍisi, karaṇaprasādava koṭṭu,\nmaruḷaśaṅkarapriya sid'dharāmēśvaraliṅga nim'maḍiyoḷagennanirisu.",
+    "translation" : ""
+  }, {
+    "authorId" : 63,
+    "number" : 19,
+    "akshara" : "va",
+    "kannada" : "ವೈದ್ಯವೆಂದು  ಮಾಡುವಲ್ಲಿ ನಾನಾಮೂಲಿಕೆ, ವನದ್ರವ್ಯ ಸಹ ಮುಂತಾಗಿ,\nಲವಣ, ಪಾಷಾಣ, ಲೋಹ, ಪಂಚಸಿಂಧೂರಂಗಳಿಂದ\nರಸ ದ್ರವ್ಯ ಮುಂತಾದ ಸಾರಂಗಳ ಕ್ರಮಂಗಳಲ್ಲಿ\nಸರ ಸಂದಾನ ವಿಹಂಗ ಮೃಗ ನರ ಮತ್ತಿವರೊಳಗಾದ\nನಾನಾ ಜೀವಂಗಳ ನಿಮಿತ್ಯವ ಪ್ರಮಾಣಿಸಿ, ತನ್ನಾತ್ಮಸಿದ್ಧಿಯಾಗಿ,\nತಾ ಮಾಡಿದ ಔಷಧ ಪ್ರಸಿದ್ಧವಾಗಿ,\nಇಂತಿವ ಪ್ರಮಾಣಿಸಿಕೊಂಡು, ಇದರ ರುಜೆಯ ಪರಿಹರಿಸಿದೆನೆಂಬಲ್ಲಿ,\nಅವನ ದೃಷ್ಟಿ ಮುಟ್ಟಿ, ಸತ್ವ ಸಮಾಧಾನ ಅವಗಡಿಸಿದ\nವ್ಯಾಧಿಯ ಚಿತ್ತವನರಿದು, ವೈದ್ಯವ ಲಕ್ಷಿಸಬೇಕು.\nಅವನ ಶರೀರದ ಕಟ್ಟಳೆಯನರಿದು, ತನ್ನ ಔಷಧಿಯ ದೃಷ್ಟವ\nಪ್ರಮಾಣಿಸಿ, ಅವನಂಗದ ಪೃಥ್ವಿಗುಣ, ಅಗ್ನಿಗುಣ,\nವಾಯುಗುಣ, ಆಕಾಶಗುಣ,\nಇಂತೀ ಪಂಚಗುಣ ಕರತಳನಾಡಿಯಲ್ಲಿದು ಆಡುವ\nಐದು ಜೀವದ ಗುಣಮಂ ತಿಳಿದು,\nಷಡಾಧಾರಂಗಳ ಸ್ವಸ್ಥಾನಮಂ  ಮುಟ್ಟಿ ನೋಡಿ,\nಆ ಮನ ವಿರೋಚನಕ್ಕೆ ಪ್ರಮಾಣದಲ್ಲಿ ಪ್ರಮಾಣಿಸಿ,\nಸುಮನ ಸುಗತಿಯಲ್ಲಿ ಪಿಂಡ ಪ್ರಾಣಾರೋಗ್ಯದಿಂದ ರುಜೆಯ\nಸಂಬಂಧವ ಮುರಿದವ ಪಂಡಿತನಪ್ಪ.\nಅದರಂದವ ತಿಳಿದು ಬಂದೆ, ಸರ್ವಾಂಗಲಿಂಗಿಗಳಿಗೆ  ಪಂಡಿತನಾಗಿ,\nಮೂರ ಮುರಿದು, ಆರನರದು, ಏಳ ಕಿತ್ತು,\nಎಂಟು ಗಂಟನಿಕ್ಕಿ, ಈರಾರ ಮಾರಿ, ಹದಿನಾರ ವೇಧಿಸಿ,\nಇಪ್ಪತ್ತೈದು ನಷ್ಟವಮಾಡಿ, ಮುೂವತ್ತಾರ ತೂರಿ,\nಗಾರುಮಾಡಿ, ಐವತ್ತೆರಡರ ಉಲುಹಿನ ಬಲೆಯ ಹರಿದು,\nಸಿಂಧೂರ ಬಂದಿದೆ ಕೊಳಬಲ್ಲಡೆ ಕೊಳಬಾರದೆ ?\nಕೊಂಡಡೆ ತ್ರಿವಿಧದ ತೊಟ್ಟು ಬಿಟ್ಟು,\nಭವಮಾಲೆಯ ಕಟ್ಟಿದ ಕ್ರಮ ಒಡೆದು,\nವಸ್ತುವಿನ ನಿಜನಿಳಯದ ಬಟ್ಟೆಯ ಹೋಹೆ.\nಇದು ದೃಷ್ಟ, ಪ್ರಮಥರ ಪ್ರಸನ್ನ ಸಾಕ್ಷಿ.\nಎನ್ನ ವೈದ್ಯದ ಕ್ರಮ ಸರ್ವವಿಕಾರದ ಭವಹರಿವ ತೆರ,\nಮರುಳಶಂಕರಪ್ರಿಯ ಸಿದ್ಧರಾಮೇಶ್ವರಲಿಂಗ ವೈದ್ಯ ವೈದ್ಯನಾದ.",
+    "transliteration" : "vaidyavendu  māḍuvalli nānāmūlike, vanadravya saha muntāgi,\nlavaṇa, pāṣāṇa, lōha, pan̄casindhūraṅgaḷinda\nrasa dravya muntāda sāraṅgaḷa kramaṅgaḷalli\nsara sandāna vihaṅga mr̥ga nara mattivaroḷagāda\nnānā jīvaṅgaḷa nimityava pramāṇisi, tannātmasid'dhiyāgi,\ntā māḍida auṣadha prasid'dhavāgi,\nintiva pramāṇisikoṇḍu, idara rujeya pariharisidenemballi,\navana dr̥ṣṭi muṭṭi, satva samādhāna avagaḍisida\nvyādhiya cittavanaridu, vaidyava lakṣisabēku.\navana śarīrada kaṭṭaḷeyanaridu, tanna auṣadhiya dr̥ṣṭava\npramāṇisi, avanaṅgada pr̥thviguṇa, agniguṇa,\nvāyuguṇa, ākāśaguṇa,\nintī pan̄caguṇa karataḷanāḍiyallidu āḍuva\naidu jīvada guṇamaṁ tiḷidu,\nṣaḍādhāraṅgaḷa svasthānamaṁ  muṭṭi nōḍi,\nā mana virōcanakke pramāṇadalli pramāṇisi,\nsumana sugatiyalli piṇḍa prāṇārōgyadinda rujeya\nsambandhava muridava paṇḍitanappa.\nadarandava tiḷidu bande, sarvāṅgaliṅgigaḷige  paṇḍitanāgi,\nmūra muridu, āranaradu, ēḷa kittu,\neṇṭu gaṇṭanikki, īrāra māri, hadināra vēdhisi,\nippattaidu naṣṭavamāḍi, muūvattāra tūri,\ngārumāḍi, aivatteraḍara uluhina baleya haridu,\nsindhūra bandide koḷaballaḍe koḷabārade ?\nkoṇḍaḍe trividhada toṭṭu biṭṭu,\nbhavamāleya kaṭṭida krama oḍedu,\nvastuvina nijaniḷayada baṭṭeya hōhe.\nidu dr̥ṣṭa, pramathara prasanna sākṣi.\nenna vaidyada krama sarvavikārada bhavahariva tera,\nmaruḷaśaṅkarapriya sid'dharāmēśvaraliṅga vaidya vaidyanāda.",
+    "translation" : ""
+  }, {
+    "authorId" : 63,
+    "number" : 20,
+    "akshara" : "va",
+    "kannada" : "ವಾತ ಪಿತ್ತ  ಶ್ಲೇಷ್ಮಂಗಳಿಂದ ವ್ಯಾಧಿ ಬಂದಿತ್ತೆಂದು ನುಡಿವರು,\nಪಂಡಿತ ವರ್ಗಂಗಳೆಲ್ಲರು.\nಕರಣನಾಳದ ನಾಡಿಯ ಮುಟ್ಟಿ ನೋಡಿ,\nವಾಯುಗತಿ ನಡೆವ ವರ್ಗಂಗಳ ನೋಡಿ,\nಮಂದಗತಿ, ತಮಂಧಗತಿ, ತಾರುಗತಿ, ತ್ರಯಗತಿ, ಚತುರ್ಗತಿ, ಪಂಚಗತಿ.\nಇಂತೀ ಐದಂಗುಲಿಗೈದು, ನಾಳದ ನಾಡಿ ಸೂತ್ರಗಳ ಭೇದವನರಿದೆವೆಂದು,\nದೀಪನ ಪಚನ ಪೈತ್ಯ ಶ್ಲೇಷ್ಮವಿದೆಯೆಂದು\nಆತ್ಮನ ನಿಹಿತವನರಿಯದ ತೂತವೈದ್ಯನಲ್ಲ.\nಆತ್ಮಹಂಸನು ಷಡಾಧಾರವ ಮುಟ್ಟಿ, ಅಷ್ಟದಳ ಕಮಲವ ಮೆಟ್ಟಿ,\nಮಿಕ್ಕಾದ ದ್ವಾರಂಗಳಲ್ಲಿ ತಟ್ಟಿ ಮುಟ್ಟದೆ ಹೋಹ\nಭೇದವ ಬಲ್ಲಡೆ, ನಾಡಿಯಲಾಡುವ ಆತ್ಮನ ಭೇದವ ಬಲ್ಲವ.\nಆತ್ಮನ ಸೋದಿಸಿ ತಿಳಿದಡೆ, ರುಜೆ ರೋಗವಳಿಯಿತ್ತಲ್ಲಿಯೆ,\nಮರುಳಶಂಕರಪ್ರಿಯ ಸಿದ್ಧರಾಮೇಶ್ವರಲಿಂಗದಲ್ಲಿ.",
+    "transliteration" : "vāta pitta  ślēṣmaṅgaḷinda vyādhi bandittendu nuḍivaru,\npaṇḍita vargaṅgaḷellaru.\nkaraṇanāḷada nāḍiya muṭṭi nōḍi,\nvāyugati naḍeva vargaṅgaḷa nōḍi,\nmandagati, tamandhagati, tārugati, trayagati, caturgati, pan̄cagati.\nintī aidaṅguligaidu, nāḷada nāḍi sūtragaḷa bhēdavanaridevendu,\ndīpana pacana paitya ślēṣmavideyendu\nātmana nihitavanariyada tūtavaidyanalla.\nātmahansanu ṣaḍādhārava muṭṭi, aṣṭadaḷa kamalava meṭṭi,\nmikkāda dvāraṅgaḷalli taṭṭi muṭṭade hōha\nbhēdava ballaḍe, nāḍiyalāḍuva ātmana bhēdava ballava.\nātmana sōdisi tiḷidaḍe, ruje rōgavaḷiyittalliye,\nmaruḷaśaṅkarapriya sid'dharāmēśvaraliṅgadalli.",
+    "translation" : ""
+  }, {
+    "authorId" : 63,
+    "number" : 21,
+    "akshara" : "ha",
+    "kannada" : "ಹೊರನಾಳ ಎಂಟುಕೋಟಿ, ಒಳನಾಳ ನೂರೆಂಟು.\nಹೊರದ್ವಾರ ಒಂಬತ್ತು, ಒಳದ್ವಾರ ಸರ್ವಾಂಗಮಯ.\nಇಂತೀ ಪಂಚತತ್ವ, ಅಷ್ಟಗುಣಂಗಳು ಕೂಡಿ,\nಘಟ್ಟಿಗೊಂಡ ತನು ಶುಕ್ಲ ಶೋಣಿತ ಮಜ್ಜೆ ಮಾಂಸ\nಎಲುವು ಸರ ಚರ್ಮ ರೋಮ.\nಇಂತೀ ಅಷ್ಟಗುಣಂಗಳ ಕಷ್ಟೋತ್ತರದಲ್ಲಿ ಸಿಕ್ಕಿದ ಆತ್ಮಂಗೆ,\nಇಂದ್ರಿಯಂಗಳ ರೋಗವಿಡಿದು ಬಂಧ ಮೋಕ್ಷ ಕರ್ಮಂಗಳೆಂಬ\nಶೀತ ಜ್ವರ ತಾಪಂಗಳಲ್ಲಿ ವ್ಯವಹರಿಸುವ ಆತ್ಮಂಗೆ,\nನಾನೊಂದು ನಿಹಿತದ ಮದ್ದ ಕಂಡೆ.\nಅದು ಅರೆವಡೆ ಅಸಾದ್ಯ, ಸುಮ್ಮನೆ ಮೆಲುವಡೆ ಸವೆಯದು.\nದೃಷ್ಟಿ ನಟ್ಟು ಮುಚ್ಚಿರಲಿಕ್ಕಾಗಿ ರೋಗರುಜೆ ಬಚ್ಚಬಯಲು,\nಮರುಳಶಂಕರಪ್ರಿಯ ಸಿದ್ಧರಾಮೇಶ್ವರಲಿಂಗವನರಿಯಲಾಗಿ.",
+    "transliteration" : "horanāḷa eṇṭukōṭi, oḷanāḷa nūreṇṭu.\nhoradvāra ombattu, oḷadvāra sarvāṅgamaya.\nintī pan̄catatva, aṣṭaguṇaṅgaḷu kūḍi,\nghaṭṭigoṇḍa tanu śukla śōṇita majje mānsa\neluvu sara carma rōma.\nintī aṣṭaguṇaṅgaḷa kaṣṭōttaradalli sikkida ātmaṅge,\nindriyaṅgaḷa rōgaviḍidu bandha mōkṣa karmaṅgaḷemba\nśīta jvara tāpaṅgaḷalli vyavaharisuva ātmaṅge,\nnānondu nihitada madda kaṇḍe.\nadu arevaḍe asādya, sum'mane meluvaḍe saveyadu.\ndr̥ṣṭi naṭṭu mucciralikkāgi rōgaruje baccabayalu,\nmaruḷaśaṅkarapriya sid'dharāmēśvaraliṅgavanariyalāgi.",
+    "translation" : ""
+  } ]
+}

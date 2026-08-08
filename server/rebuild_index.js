@@ -46,8 +46,15 @@ for (const f of [INDEX_FILE, EMBEDDINGS_FILE]) {
 const dataRoot = path.resolve(PROJECT_ROOT, 'public', 'data');
 console.log('Rebuilding index from:', dataRoot);
 
+// CLI flags:
+//   --upload   → after the rebuild, upload index files to Supabase Storage
+//   --skip-upload → (default) do not upload
+const SHOULD_UPLOAD = process.argv.includes('--upload');
+
 const { ensureIndex } = await import('./index_manager.js');
-const index = await ensureIndex(dataRoot);
+// skipSupabaseDownload: a rebuild always starts from scratch — never pull a
+// pre-built index down first (that would defeat the purpose of a rebuild).
+const index = await ensureIndex(dataRoot, { skipSupabaseDownload: true });
 
 console.log('=== REBUILD COMPLETE ===');
 console.log('Chunks:', index.chunks.length);
@@ -63,4 +70,25 @@ for (const c of index.chunks) {
     }
 }
 console.log('Datasets with missing embeddings:', zeroDatasets.size);
+
+// Optional: upload the freshly built index to Supabase Storage so a production
+// server can download it on startup instead of rebuilding.
+if (SHOULD_UPLOAD) {
+    console.log('');
+    console.log('Uploading index files to Supabase Storage...');
+    try {
+        const { uploadIndexFiles } = await import('./supabase_storage.js');
+        const result = await uploadIndexFiles();
+        if (result.ok) {
+            console.log('Upload OK → bucket:', result.bucket, 'prefix:', result.prefix || '(root)');
+        } else {
+            console.warn('Upload skipped/disabled:', result.reason || 'unknown');
+        }
+    } catch (uploadErr) {
+        console.warn('Upload failed:', uploadErr?.message || String(uploadErr));
+    }
+} else {
+    console.log('');
+    console.log('Tip: run with --upload to push the index to Supabase Storage for production use.');
+}
 

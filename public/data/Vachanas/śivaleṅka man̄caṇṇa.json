@@ -1,0 +1,924 @@
+{
+  "id" : 62,
+  "kannadaName" : "ಶಿವಲೆಂಕ ಮಂಚಣ್ಣ",
+  "englishName" : "śivaleṅka man̄caṇṇa",
+  "vachanaCount" : 0,
+  "vachanas" : [ {
+    "authorId" : 62,
+    "number" : 1,
+    "akshara" : "a",
+    "kannada" : "ಅರ್ಥಪ್ರಾಣವ ಕೊಟ್ಟಲ್ಲಿ,\nಅಪಮಾನಕ್ಕೆ ಮುಚ್ಚಳನಿಕ್ಕುವ ಲೆಂಕನುಂಟೆ ಅಯ್ಯಾ ?\nತಲೆಯ ಮಾರಿದವಂಗೆ ಕಣ್ಣು ಹೊರಗಾದುದುಂಟೆ ?\nಭಕ್ತನಾದಲ್ಲಿ ಸತ್ಯ ಬೇಕಾದಡೆ,\nಅರ್ಥ ಪ್ರಾಣ ಅಪಮಾನಕ್ಕೆ ಹೊರಗಾಗಬೇಕು.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವನರಿವುದಕ್ಕೆ.",
+    "transliteration" : "arthaprāṇava koṭṭalli,\napamānakke muccaḷanikkuva leṅkanuṇṭe ayyā ?\ntaleya māridavaṅge kaṇṇu horagāduduṇṭe ?\nbhaktanādalli satya bēkādaḍe,\nartha prāṇa apamānakke horagāgabēku.\nīśān'yamūrti mallikārjunaliṅgavanarivudakke.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 2,
+    "akshara" : "a",
+    "kannada" : "ಅಂಗದೇಹಿ ಲಿಂಗೋದಕವ ಕೊಳಲಾಗದು.\nಪ್ರಕೃತಿಜೀವಿ ಪಾದೋದಕವ ಕೊಳ್ಳಲಾಗದು.\nಭವಜೀವ ಪ್ರಸಾದೋದಕವ ಕೊಳಲಾಗದು.\nಇಂತೀ ತ್ರಿವಿಧಭೇದಂಗಳಲ್ಲಿ ತ್ರಿವಿಧಶುದ್ಧವಾಗಿ ಕೊಳಬಲ್ಲಡೆ,\nತ್ರಿವಿಧೋದಕ ಸಮರ್ಪಣ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗಕ್ಕೆ ಅರ್ಪಿತ.",
+    "transliteration" : "aṅgadēhi liṅgōdakava koḷalāgadu.\nprakr̥tijīvi pādōdakava koḷḷalāgadu.\nbhavajīva prasādōdakava koḷalāgadu.\nintī trividhabhēdaṅgaḷalli trividhaśud'dhavāgi koḷaballaḍe,\ntrividhōdaka samarpaṇa,\nīśān'yamūrti mallikārjunaliṅgakke arpita.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 3,
+    "akshara" : "a",
+    "kannada" : "ಅರ್ತಿಯಿಂದ ಮಾಡುವ ಭಕ್ತಿ , ಕರ್ತಾರನ ಕಮ್ಮಟಕ್ಕೊಳಗಾಯಿತ್ತು.\nಸತ್ಯದಿಂದ ಮಾಡುವ ಭಕ್ತಿ, ಕರ್ತಾರನ ಕಮ್ಮಟಕ್ಕೆ ಹೊರಗಾಯಿತ್ತು.\nಅರ್ತಿ ಲೌಕಿಕಕ್ಕೆ, ಸತ್ಯ ಪರಮಾರ್ಥಕ್ಕೆ.\nಉಭಯದ ಗೊತ್ತನರಿದು ಮಾಡುವನ ಭಕ್ತಿ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗಕ್ಕರ್ಪಿತವಾಯಿತ್ತು.",
+    "transliteration" : "artiyinda māḍuva bhakti , kartārana kam'maṭakkoḷagāyittu.\nsatyadinda māḍuva bhakti, kartārana kam'maṭakke horagāyittu.\narti laukikakke, satya paramārthakke.\nubhayada gottanaridu māḍuvana bhakti,\nīśān'yamūrti mallikārjunaliṅgakkarpitavāyittu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 4,
+    "akshara" : "a",
+    "kannada" : "ಅಂಗದಲ್ಲಿ ಸೋಂಕಿದ ಸುಳುಹ ಮನವರಿದು,\nಅಲ್ಲ ಅಹುದೆಂದು ಸಂದೇಹ ಬಿಟ್ಟಲ್ಲಿ ಅರ್ಪಿತವಲ್ಲದೆ,\nಬಂದುದ ಬಂದಂತೆ, ಕಂಡುದ ಕಂಡಂತೆ,\nದೃಕ್ಕಿಂಗೊಳಗಾದುದೆಲ್ಲವು ಲಿಂಗಾರ್ಪಿತವುಂಟೆ ?\nಅರ್ಪಿಸಬಲ್ಲಡೆ ಅಲ್ಲ ಅಹುದೆಂಬುದ ಮುನ್ನವೆ ಅರಿದು,\nಆ ಮನ ಲಿಂಗದೊಳಗಡಗಿ,\nಅಂಬಿನ ಕಣೆಯಂತೆ ಮನ ಲಿಂಗದ ಅನು.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನದ ಘನ",
+    "transliteration" : "aṅgadalli sōṅkida suḷuha manavaridu,\nalla ahudendu sandēha biṭṭalli arpitavallade,\nbanduda bandante, kaṇḍuda kaṇḍante,\ndr̥kkiṅgoḷagādudellavu liṅgārpitavuṇṭe ?\narpisaballaḍe alla ahudembuda munnave aridu,\nā mana liṅgadoḷagaḍagi,\nambina kaṇeyante mana liṅgada anu.\nīśān'yamūrti mallikārjunada ghana",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 5,
+    "akshara" : "a",
+    "kannada" : "ಅಕಾರತತ್ವ ಆಕಾಶದೊಡಲಾಯಿತ್ತು.\nಇಕಾರತತ್ವ  ನಿರಾಕಾರದೊಡಲಾಯಿತ್ತು.\nಉಕಾರತತ್ವ ನಾದದೊಳಗಾಗಿ ಒಡಗೂಡಿತ್ತು.\nತ್ರಿವಿಧರೂಪು ಲೇಪ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ಸ್ವಯಂಭುವಾದ",
+    "transliteration" : "akāratatva ākāśadoḍalāyittu.\nikāratatva  nirākāradoḍalāyittu.\nukāratatva nādadoḷagāgi oḍagūḍittu.\ntrividharūpu lēpa,\nīśān'yamūrti mallikārjunaliṅgavu svayambhuvāda",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 6,
+    "akshara" : "a",
+    "kannada" : "ಅಪ್ಪು ಲವಣವೆಲ್ಲವು ಸರಿ, ಪರಿಪಾಪಕವೆಲ್ಲವು ಸರಿ.\nಇವೆಲ್ಲಾಯೆಂದು ಬಿಟ್ಟ ಮತ್ತೆ,\nಲೌಕಿಕಕ್ಕೆ ದೂರಸ್ತನಾಗಿ, ಪರಮಾರ್ಥಕ್ಕೆ ಸಂಪದನಾಗಿ,\nತನಗೆ  ಕರ್ತುವಾದ ಗುರುಚರದಲ್ಲಿ ಭೃತ್ಯನಾಗಿರಬೇಕು.\nಗೆಲ್ಲಸೋಲಕ್ಕೆ ಹೊತ್ತುಹೋರದೆ,\nಶರಣರ ಸಮೂಹದಲ್ಲಿ ಅಲ್ಲ ಅಹುದೆನದಿಪ್ಪುದೆ ?\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗಕ್ಕೆ ನೇಮ ಸಂದಿತ್ತು.",
+    "transliteration" : "appu lavaṇavellavu sari, paripāpakavellavu sari.\nivellāyendu biṭṭa matte,\nlaukikakke dūrastanāgi, paramārthakke sampadanāgi,\ntanage  kartuvāda gurucaradalli bhr̥tyanāgirabēku.\ngellasōlakke hottuhōrade,\nśaraṇara samūhadalli alla ahudenadippude ?\nīśān'yamūrti mallikārjunaliṅgakke nēma sandittu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 7,
+    "akshara" : "a",
+    "kannada" : "ಅಂಗಕ್ಕೆ ಲಿಂಗವ ಕೊಟ್ಟವ ಆಚಾರ್ಯನಾದ.\nಮನಕ್ಕರಿವ ತೋರಿದಾತ ಮೋಕ್ಷ ಆಚಾರ್ಯನಾದ.\nಮೋಕ್ಷ ವಿಮೋಕ್ಷವಾಗಿ ಉಭಯದ ಗೊತ್ತ ತೋರಿ,\nಕಾಯದ ಕರ್ಮವ ಕೆಡಿಸಿ, ಜೀವನ ಭವವ ಛೇದಿಸಿ,\nತದ್ರೂಪ ತೋರಿದ ಜ್ಞಾನಗುರು.\nಆತ ಪ್ರಕಾಶ, ಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ತಾನೆ.",
+    "transliteration" : "aṅgakke liṅgava koṭṭava ācāryanāda.\nmanakkariva tōridāta mōkṣa ācāryanāda.\nmōkṣa vimōkṣavāgi ubhayada gotta tōri,\nkāyada karmava keḍisi, jīvana bhavava chēdisi,\ntadrūpa tōrida jñānaguru.\nāta prakāśa, īśān'yamūrti mallikārjunaliṅgavu tāne.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 8,
+    "akshara" : "a",
+    "kannada" : "ಅಂಗದಲ್ಲಿ ಅರಿದು ನಡೆವ ಆಚರಣೆ,\nನೆನಹಿನಲ್ಲಿ ಕುರುಹುಗೊಂಡು ನಿಂದು,\nಆ ನೆನಹೆ, ಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗಕ್ಕೆ\nಸಲೆ ಸಂದುದು.",
+    "transliteration" : "aṅgadalli aridu naḍeva ācaraṇe,\nnenahinalli kuruhugoṇḍu nindu,\nā nenahe, īśān'yamūrti mallikārjunaliṅgakke\nsale sandudu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 9,
+    "akshara" : "a",
+    "kannada" : "ಅರ್ತಿ ಅಭ್ಯಾಸ ಮಚ್ಚು ಕಾರಣದಿಂದ ಮಾಡುವ ಭಕ್ತಿ ,\nದ್ರವ್ಯದ ಕೇಡಾಯಿತ್ತು.\nಮನ ನೆಮ್ಮಿದ ಅರ್ತಿ, ಘನವ ನೆಮ್ಮಿದ ಅಭ್ಯಾಸ,\nಎಡೆಬಿಡುವಿಲ್ಲದ ಮಚ್ಚು, ಘನಲಿಂಗವ ಕೂಡುವುದೊಂದಚ್ಚು,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವ ಕೂಡುವ ಸುಚಿತ್ತದ ಗೊತ್ತು.",
+    "transliteration" : "arti abhyāsa maccu kāraṇadinda māḍuva bhakti ,\ndravyada kēḍāyittu.\nmana nem'mida arti, ghanava nem'mida abhyāsa,\neḍebiḍuvillada maccu, ghanaliṅgava kūḍuvudondaccu,\nīśān'yamūrti mallikārjunaliṅgava kūḍuva sucittada gottu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 10,
+    "akshara" : "a",
+    "kannada" : "ಅಂಗ ಶಿರದ ಮಲಿನವ ಕಳೆದಲ್ಲಿ, ಮನಕ್ಕೆ ಲಂಘನೆಯಾದಂತೆ,\nಶಿವಲಿಂಗಪೂಜೆಯ ಕೈಕೊಂಡನ್ನಬರ, ಕಂಗಳ ಜಲ ತುಂಬುವನ್ನಬರ,\nಮನಮೂರ್ತಿ ಧ್ಯಾನ ಜಾಹೆ ಅಹನ್ನಬರ,\nಅಂಗಕ್ಕೆ ತೆರಪಿಲ್ಲದೆ, ಮನಕ್ಕೆಡೆಯಿಲ್ಲದೆ,\nಅರಿವುದಕ್ಕೆ ಹೆರೆಹಿಂಗದೆ, ಪೂಜಾಲೋಲನಾಗಿರಬೇಕು,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವನರಿವುದಕ್ಕೆ.",
+    "transliteration" : "aṅga śirada malinava kaḷedalli, manakke laṅghaneyādante,\nśivaliṅgapūjeya kaikoṇḍannabara, kaṅgaḷa jala tumbuvannabara,\nmanamūrti dhyāna jāhe ahannabara,\naṅgakke terapillade, manakkeḍeyillade,\narivudakke herehiṅgade, pūjālōlanāgirabēku,\nīśān'yamūrti mallikārjunaliṅgavanarivudakke.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 11,
+    "akshara" : "a",
+    "kannada" : "ಅಂಗವನಳಿವನ್ನಕ್ಕ ಶಿವಲಿಂಗಪೂಜೆಯ ಮಾಡಬೇಕು.\nಆತ್ಮನ ಕ್ಷುಧೆಯುಳ್ಳನ್ನಕ್ಕ ಬಂದ ಪದಾರ್ಥವ ಲಿಂಗಾರ್ಪಿತ ಮಾಡಬೇಕು.\nಇದು ಅರಿವಿನ ಭಿತ್ತಿ , ಜ್ಞಾನದ ಗೊತ್ತು, ಸರ್ವಮಯದ ಯುಕ್ತಿ.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವನರಿವ ಶಕ್ತಿ.",
+    "transliteration" : "aṅgavanaḷivannakka śivaliṅgapūjeya māḍabēku.\nātmana kṣudheyuḷḷannakka banda padārthava liṅgārpita māḍabēku.\nidu arivina bhitti , jñānada gottu, sarvamayada yukti.\nīśān'yamūrti mallikārjunaliṅgavanariva śakti.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 12,
+    "akshara" : "a",
+    "kannada" : "ಅರಿವನರಿತೆನೆಂಬಲ್ಲಿ ಮರೆದುದೇನು ಅರಿವೋ ಮರವೆಯೋ ?\nಉಭಯದಲ್ಲಿ ಶರೀರ ನಿಂದು ಇಪ್ಪುದು,\nಬಿಂದುವೋ ? ನಾದವೋ ? ಕಳೆಯೋ ? ಎಂಬುದನರಿದಲ್ಲಿ\nಅರಿವಿನ ಸಂದೇಹ ನಿಂದಿತ್ತು.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ಸ್ವಯಂಭುವಾದ.",
+    "transliteration" : "arivanaritenemballi maredudēnu arivō maraveyō ?\nubhayadalli śarīra nindu ippudu,\nbinduvō ? nādavō ? kaḷeyō ? embudanaridalli\narivina sandēha nindittu.\nīśān'yamūrti mallikārjunaliṅgavu svayambhuvāda.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 13,
+    "akshara" : "a",
+    "kannada" : "ಅಂಗದ ಮೇಲಣ ಲಿಂಗ,\nಪ್ರಾಣದ ಮೇಲೆ ಬಂದು ನಿಲುವನ್ನಕ್ಕ ಪೂಜಿಸಬೇಕು.\nಪ್ರಾಣದ ಮೇಲಣ ಅರಿವು ಕರಿಗೊಂಬನ್ನಕ್ಕ ನೆನೆಯಬೇಕು.\nನೆನಹು ನಿಃಪತಿಯಾದ ಮತ್ತೆ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮ ಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವೆಂಬ ನಾಮವಡಗಿತ್ತು.",
+    "transliteration" : "aṅgada mēlaṇa liṅga,\nprāṇada mēle bandu niluvannakka pūjisabēku.\nprāṇada mēlaṇa arivu karigombannakka neneyabēku.\nnenahu niḥpatiyāda matte,\nīśān'yamūrti ma llikārjunaliṅgavemba nāmavaḍagittu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 14,
+    "akshara" : "a",
+    "kannada" : "ಅಂಗ ಲಿಂಗವ ಪೂಜಿಸಿ, ಪ್ರಾಣ ಜ್ಞಾನವ ಕಂಡು,\nಅಂಗ ಲಿಂಗ ಹಿಂಗಿ, ಪ್ರಾಣಲಿಂಗವಾಗಿ.\nಆ ಪ್ರಾಣ ಲಿಂಗದಲ್ಲಿ ನಿಂದು, ಜ್ಞಾನಲಿಂಗವಾಯಿತ್ತು.\nಲಿಂಗಭಾವವಳಿದು ಮಹದೊಡಗೂಡಿ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ಸ್ವಯಂಭುವಾದ",
+    "transliteration" : "aṅga liṅgava pūjisi, prāṇa jñānava kaṇḍu,\naṅga liṅga hiṅgi, prāṇaliṅgavāgi.\nā prāṇa liṅgadalli nindu, jñānaliṅgavāyittu.\nliṅgabhāvavaḷidu mahadoḍagūḍi,\nīśān'yamūrti mallikārjunaliṅgavu svayambhuvāda",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 15,
+    "akshara" : "a",
+    "kannada" : "ಅಂದಳ ಸತ್ತಿಗೆ ಕರಿ ತುರಗಂಗಳಿಂದ ಮನಗುಂದದೆ,\nಗುರುಚರವೆಂದು ಪ್ರಮಾಣಿಸಿ,\nಪರಿಯನರಿದೆನೆಂದು ಓಸರಿಸಿದಲ್ಲಿಯೆ, ಸರಿಯಿತ್ತು ಸತ್ಯ.\nಮತ್ತೇನ ಮಾಡಿಯೂ ಪರಿಹರಿಸುವುದಿಲ್ಲ.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ಅವರಿಗೆ ಒಲವರವಿಲ್ಲ.",
+    "transliteration" : "andaḷa sattige kari turagaṅgaḷinda managundade,\ngurucaravendu pramāṇisi,\npariyanaridenendu ōsarisidalliye, sariyittu satya.\nmattēna māḍiyū pariharisuvudilla.\nīśān'yamūrti mallikārjunaliṅgavu avarige olavaravilla.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 16,
+    "akshara" : "a",
+    "kannada" : "ಅರ್ಪಿತ ಅವಧಾನವನರಿವ ಸತ್ಯನ ನಿತ್ಯನ ಇರವು,\nಮಯೂರನ ಜಾಹೆಯಂತೆ, ಪಟುಭಟನ ಎಚ್ಚರಿಕೆಯಂತೆ,\nಗತಿವಾದ್ಯದಲ್ಲಿ ಮುಟ್ಟಿ ತೋರುವ ಅಂಗುಲ ಆತ್ಮದಂತೆ,\nಶಿವಲಿಂಗದಲ್ಲಿ ಹಿಂಗದ ಭಾವ.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗದಲ್ಲಿ,\nಸಲೆಸಂದ ಭಾವ ಹೀಗಿರಬೇಕು.",
+    "transliteration" : "arpita avadhānavanariva satyana nityana iravu,\nmayūrana jāheyante, paṭubhaṭana eccarikeyante,\ngativādyadalli muṭṭi tōruva aṅgula ātmadante,\nśivaliṅgadalli hiṅgada bhāva.\nīśān'yamūrti mallikārjunaliṅgadalli,\nsalesanda bhāva hīgirabēku.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 17,
+    "akshara" : "a",
+    "kannada" : "ಅಪ್ಪು ಮೂಲಾಧಾರವಾಗಿ ಬೀಜದ ಮೇಲೆ ಬೀಳೆ,\nಪೃಥ್ವಿ ಗರ್ಭ ಬೆಸನಾಯಿತ್ತು.\nತ್ರಿವಿಧದ ಆದಿಯಿಂದ ಗುರುವಾಯಿತ್ತು,\nತ್ರಿವಿಧದ  ಭೇದದಿಂದ ಲಿಂಗವಾಯಿತ್ತು,\nತ್ರಿವಿಧವನಳಿದು ಜಂಗಮವಾಯಿತ್ತು.\nಜಂಗಮವಳಿದು, ಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು\nಸ್ವಯಂಭುವಾಯಿತ್ತು.",
+    "transliteration" : "appu mūlādhāravāgi bījada mēle bīḷe,\npr̥thvi garbha besanāyittu.\ntrividhada ādiyinda guruvāyittu,\ntrividhada  bhēdadinda liṅgavāyittu,\ntrividhavanaḷidu jaṅgamavāyittu.\njaṅgamavaḷidu, īśān'yamūrti mallikārjunaliṅgavu\nsvayambhuvāyittu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 18,
+    "akshara" : "a",
+    "kannada" : "ಅಂಗ ಮುಟ್ಟಿ ಅಪ್ಪಿ, ಕಂಗಳು ತುಂಬಿ ನೋಡಿ,\nಕೈಯಾಟ ಹೆರೆಹಿಂಗದೆ ಪೂಜಿಸಿ,\nಮನಕ್ಕೆ ತೆರಪಿಲ್ಲದೆ ಅರಿದು, ಎಡೆಬಿಡುವಿಲ್ಲದ ಸುಖ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವ ಕೂಡುವ ಕೂಟ.",
+    "transliteration" : "aṅga muṭṭi appi, kaṅgaḷu tumbi nōḍi,\nkaiyāṭa herehiṅgade pūjisi,\nmanakke terapillade aridu, eḍebiḍuvillada sukha,\nīśān'yamūrti mallikārjunaliṅgava kūḍuva kūṭa.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 19,
+    "akshara" : "a",
+    "kannada" : "ಅರ್ಚನೆ ಪೂಜೆಯ ಕುರಿತು ಮಾಡಿದಲ್ಲಿ,\nಚತುರ್ವಿಧಫಲಪದಂಗಳೆಂಬವು ತನ್ನ ಹಿತ್ತಿಲ ಬೆಳೆ.\nಇಷ್ಟಾರ್ಥ ಮೋಕ್ಷ್ಯಾರ್ಥ ಕಾಮ್ಯಾರ್ಥವೆಂಬಿವು, ತನ್ನ ಬಾಗಿಲ ನೆಟ್ಟ ಸ್ಥಾಣು.\nಇವು ಹೊರಗಾಗಿ ಮೀರಿ ಕಂಡ ತೆರ,\nಉರಿ ಕೊಂಡ ಕರ್ಪುರದಂತೆ, ಇಂತೀ ಉಭಯ ನಿಶ್ಚಯ ಪೂಜೆ.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗಕ್ಕೆ ಎರವಿಲ್ಲದ ಭಾವ.",
+    "transliteration" : "arcane pūjeya kuritu māḍidalli,\ncaturvidhaphalapadaṅgaḷembavu tanna hittila beḷe.\niṣṭārtha mōkṣyārtha kāmyārthavembivu, tanna bāgila neṭṭa sthāṇu.\nivu horagāgi mīri kaṇḍa tera,\nuri koṇḍa karpuradante, intī ubhaya niścaya pūje.\nīśān'yamūrti mallikārjunaliṅgakke eravillada bhāva.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 20,
+    "akshara" : "ā",
+    "kannada" : "ಆದಿವಸ್ತು, ಅನಾದಿವಸ್ತುವೆಂದು ಭೇದವ ಮಾಡಿದಲ್ಲಿ,\nತನ್ನಿರವಿನ ಭೇದವೊ ? ವಸ್ತುವಿನ ಸ್ವಯರೂಪದಂಗವೊ ?\nಇಕ್ಷುದಂಡಕ್ಕೆ ಕಡೆ ನಡು ಮೊದಲಲ್ಲದೆ ಸಕ್ಕರೆಗುಂಟೆ?\nಆದಿ ಅನಾದಿ ವಸ್ತು ವೆಂಬುದು ತನ್ನಯ ಚಿತ್ತದ ಗೊತ್ತಲ್ಲದೆ ಅದು ನಿಶ್ಚಯ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ಏಕಮೂರ್ತಿ ಸ್ವಯಂಭು.",
+    "transliteration" : "ādivastu, anādivastuvendu bhēdava māḍidalli,\ntanniravina bhēdavo ? vastuvina svayarūpadaṅgavo ?\nikṣudaṇḍakke kaḍe naḍu modalallade sakkareguṇṭe?\nādi anādi vastu vembudu tannaya cittada gottallade adu niścaya,\nīśān'yamūrti mallikārjunaliṅgavu ēkamūrti svayambhu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 21,
+    "akshara" : "ā",
+    "kannada" : "ಆರುಸ್ಥಲವಿಟ್ಟು ಬೇರೆ ಕರೆದ ಭಾವವಾವುದಯ್ಯಾ ?\nಸಕಲಗುಣಂಗಳನರತು,\nಸರ್ವಜೀವಕ್ಕೆ ದಯಾಪರನಾಗಿಪ್ಪುದು, ಭಕ್ತಿಸ್ಥಲ.\nಸಕಲದೇಹಭಾವಂಗಳಲ್ಲಿ ಕಲೆದೋರದಿಪ್ಪುದು, ಗುರುಸ್ಥಲ.\nಉತ್ಪತ್ಯ ಸ್ಥಿತಿ ಲಯಕ್ಕೆ ಹೊರಗಾದುದು, ಲಿಂಗಸ್ಥಲ.\nಆ ಮೂರ ಹೆರೆಹಿಂಗಿ ನಿಂದುದು, ಜಂಗಮಸ್ಥಲ.\nಆ ಚತುರ್ವಿಧವನೊಳಕೊಂಡದುದು, ಶರಣಸ್ಥಲ.\nಆ ಅಯಿದನವಗವಿಸಿ ನಿಂದುದು, ಐಕ್ಯಸ್ಥಲ.\nಇಂತೀ ಷಡುಸ್ಥಲದ ಭಕ್ತ ಮಾಹೇಶ್ವರ ಪ್ರಸಾದಿ ಪ್ರಾಣಲಿಂಗಿ\nಶರಣ ಐಕ್ಯನೆಂದು ನಿಂದುದು, ಒಂದೆ ಸ್ಥಲ.\nಮರೆದು ಅರಿದಲ್ಲಿ ಆಯಿತ್ತು.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು,\nಷಡಂಗಲೇಪವಾಗಿ ಸ್ವಯಂಭುವಾಯಿತ್ತು.",
+    "transliteration" : "ārusthalaviṭṭu bēre kareda bhāvavāvudayyā ?\nsakalaguṇaṅgaḷanaratu,\nsarvajīvakke dayāparanāgippudu, bhaktisthala.\nsakaladēhabhāvaṅgaḷalli kaledōradippudu, gurusthala.\nutpatya sthiti layakke horagādudu, liṅgasthala.\nā mūra herehiṅgi nindudu, jaṅgamasthala.\nā caturvidhavanoḷakoṇḍadudu, śaraṇasthala.\nā ayidanavagavisi nindudu, aikyasthala.\nintī ṣaḍusthalada bhakta māhēśvara prasādi prāṇaliṅgi\nśaraṇa aikyanendu nindudu, onde sthala.\nmaredu aridalli āyittu.\nīśān'yamūrti mallikārjunaliṅgavu,\nṣaḍaṅgalēpavāgi svayambhuvāyittu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 22,
+    "akshara" : "ā",
+    "kannada" : "ಆದಿಶಕ್ತಿ ರೂಪಾಗಿ, ಅನಾದಿಶಕ್ತಿ ಪ್ರಾಣವಾಗಿ,\nಚಿದಾದಿತ್ಯದ ಬೆಳಗು ಅರಿವಾಗಿ,\nಎನ್ನ ಹೃತ್ಕಮಲಮಧ್ಯದಲ್ಲಿ ತೊಳಗಿ ಬೆಳಗುತ್ತಿರಯ್ಯಾ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವೆ.",
+    "transliteration" : "ādiśakti rūpāgi, anādiśakti prāṇavāgi,\ncidādityada beḷagu arivāgi,\nenna hr̥tkamalamadhyadalli toḷagi beḷaguttirayyā,\nīśān'yamūrti mallikārjunaliṅgave.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 23,
+    "akshara" : "i",
+    "kannada" : "ಇಚ್ಛಾಶಕ್ತಿ ಮರ್ಕಟರೂಪಾದಲ್ಲಿ, ಕ್ರಿಯಾಶಕ್ತಿ ವಿಹಂಗರೂಪಾದಲ್ಲಿ,\nಜ್ಞಾನಶಕ್ತಿ  ಪಿಪೀಲಿಕಾರೂಪಾದಲ್ಲಿ , ತ್ರಿವಿಧಮಾರ್ಗರೂಪಾಯಿತ್ತು.\nಕಾಬುದು, ಕಾಣಿಸಿಕೊಂಬುದು ಕಂಡೆನೆಂದು ನಿಶ್ಚಯವಾದಲ್ಲಿ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು,\nಮಹದಾಕಾಶದಲ್ಲಿ  ವಾಸಿತನಾಗಿದ.",
+    "transliteration" : "icchāśakti markaṭarūpādalli, kriyāśakti vihaṅgarūpādalli,\njñānaśakti  pipīlikārūpādalli , trividhamārgarūpāyittu.\nkābudu, kāṇisikombudu kaṇḍenendu niścayavādalli,\nīśān'yamūrti mallikārjunaliṅgavu,\nmahadākāśadalli  vāsitanāgida.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 24,
+    "akshara" : "ī",
+    "kannada" : "ಈಶ್ವರರೂಪ ತಾಳಿ ಜಗ ಜೀವಾಳರುಗಳ ಬಾಗಿಲಲ್ಲಿ\nಬೆಳುಗರೆವನ್ನಬರ ಹೋಯಿತ್ತು, ವೇಷವಾಟದಲ್ಲಿ .\nಈ ಆಸೆಯ ಬಿಟ್ಟು, ಈಶನ ರೂಪ ತಾಳಿದ ವಸ್ತು,\nಆತ ಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ತಾನೆ.",
+    "transliteration" : "īśvararūpa tāḷi jaga jīvāḷarugaḷa bāgilalli\nbeḷugarevannabara hōyittu, vēṣavāṭadalli .\nī āseya biṭṭu, īśana rūpa tāḷida vastu,\nāta īśān'yamūrti mallikārjunaliṅgavu tāne.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 25,
+    "akshara" : "u",
+    "kannada" : "ಉಭಯವನರಿವ ಚಿತ್ತಕ್ಕೆ ಅರಿವೆ ಇಷ್ಟಲಿಂಗಕ್ಕೆ ಗೊತ್ತು.\nಉಭಯದಂಗ ಏಕೀಕರವಾದಲ್ಲಿ ಜಲ ಬಲಿದು ಶುಕ್ತಿಯಾದಂತೆ,\nಕರಂಡಗರ್ಭದಲ್ಲಿ ಬಲಿದು ಕರಂಡವನೊ[ಡೆ]ದರಿದಂತೆ,\nಅಂಗದಲ್ಲಿದ್ದರಿದು, ಘನಲಿಂಗವನರಿಯಬೇಕು.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವೆಂಬ ಕುರುಹಾಯಿತ್ತು.",
+    "transliteration" : "ubhayavanariva cittakke arive iṣṭaliṅgakke gottu.\nubhayadaṅga ēkīkaravādalli jala balidu śuktiyādante,\nkaraṇḍagarbhadalli balidu karaṇḍavano[ḍe]daridante,\naṅgadalliddaridu, ghanaliṅgavanariyabēku.\nīśān'yamūrti mallikārjunaliṅgavemba kuruhāyittu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 26,
+    "akshara" : "u",
+    "kannada" : "ಉಂಡಿಗೆಯನೆತ್ತಿದವನ ಮನದಂಗದಂತೆ, ಮತ್ತುಂಟೆ ಹಸಿಗೆಯ ತೋಟಿ ?\nಹಿಡಿದ ವ್ರತಕ್ಕೆ, ಅರಿದ ಮನಕ್ಕೆ, ಮರೆದ ಮತ್ತೆ ಒಲಿವುದೆ ಲಿಂಗ ?\nಅದು ಸಲೆ ನೆಲೆಯಲ್ಲ.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗಕ್ಕೆ ಒಲವರವಲ್ಲ.",
+    "transliteration" : "uṇḍigeyanettidavana manadaṅgadante, mattuṇṭe hasigeya tōṭi ?\nhiḍida vratakke, arida manakke, mareda matte olivude liṅga ?\nadu sale neleyalla.\nīśān'yamūrti mallikārjunaliṅgakke olavaravalla.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 27,
+    "akshara" : "u",
+    "kannada" : "ಉತ್ತರಕ್ಷೆಯನರಿತು, ಪೂರ್ವಕಕ್ಷೆಯನರಿತು,\nಘಟಪಟಕಕ್ಷೆಯಲ್ಲಿ ತಿಳಿದು, ದಿಟಪುಟವಾಗಿ\nಚತುರ್ವಿಧ ಮಠವ ಬಲ್ಲಡೆ, ನಿರ್ಧರ ಅರ್ಪಿತ.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗಕ್ಕೆ\nಸರ್ವ ಅವಧಾನದಲ್ಲಿ ಅರ್ಪಿತ.",
+    "transliteration" : "uttarakṣeyanaritu, pūrvakakṣeyanaritu,\nghaṭapaṭakakṣeyalli tiḷidu, diṭapuṭavāgi\ncaturvidha maṭhava ballaḍe, nirdhara arpita.\nīśān'yamūrti mallikārjunaliṅgakke\nsarva avadhānadalli arpita.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 28,
+    "akshara" : "ē",
+    "kannada" : "ಏಕಮಯ ವಸ್ತು ತನ್ಮಯ ರೂಪಾದಲ್ಲಿ ,\nಪಂಚಭೂತಿಕಂಗಳು ನಾಮರೂಪಾಯಿತ್ತು.\nಆ ಪರಬ್ರಹ್ಮ ಪರವಸ್ತುವಾದಲ್ಲಿ, ಪರವಶವಾಯಿತ್ತು  ಪಂಚಬ್ರಹ್ಮ.\nಆ ಬ್ರಹ್ಮ ಬ್ರಹ್ಮನ ಕುಕ್ಷಿಗೆ ಹೊರಗಾದಲ್ಲಿ, ವಸ್ತು ನಿರ್ಧರವಾಯಿತ್ತು ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗದಲ್ಲಿ.",
+    "transliteration" : "ēkamaya vastu tanmaya rūpādalli ,\npan̄cabhūtikaṅgaḷu nāmarūpāyittu.\nā parabrahma paravastuvādalli, paravaśavāyittu  pan̄cabrahma.\nā brahma brahmana kukṣige horagādalli, vastu nirdharavāyittu ,\nīśān'yamūrti mallikārjunaliṅgadalli.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 29,
+    "akshara" : "ai",
+    "kannada" : "ಐವತ್ತೊಂದು ಶಾಖೆಯಲ್ಲಿ, ಮೂವತ್ತೊಂದು ಬಿಂದುವಿನಲ್ಲಿ,\nಇಪ್ಪತ್ತೈದು ತತ್ವದಲ್ಲಿ, ಹೊತ್ತುಹೋರಿಯಾಡುತ್ತಿಪ್ಪುದು ಜಗ.\nಸ್ಥೂಲದಲ್ಲಿ ಸಂಬಂಧವಾಗಿ, ಸೂಕ್ಷ್ಮದಲ್ಲಿ ಲೇಪವಾಗಿ, ಕಾರಣದಲ್ಲಿ  ಸ್ವಯವಾಗಿ,\nತ್ರಿವಿಧದ ಉಳುಮೆಯ ಜಾರಿ ನಿಂದುದು ಸ್ವಯಂಜ್ಯೋತಿ.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ಸ್ವಯಂಭುವಾದ",
+    "transliteration" : "aivattondu śākheyalli, mūvattondu binduvinalli,\nippattaidu tatvadalli, hottuhōriyāḍuttippudu jaga.\nsthūladalli sambandhavāgi, sūkṣmadalli lēpavāgi, kāraṇadalli  svayavāgi,\ntrividhada uḷumeya jāri nindudu svayan̄jyōti.\nīśān'yamūrti mallikārjunaliṅgavu svayambhuvāda",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 30,
+    "akshara" : "ka",
+    "kannada" : "ಕಾಯ ಲಿಂಗದರುಶನವನರಿದಲ್ಲಿ, ಮನವನರಿದು ತನುವೊಪ್ಪುವಂತೆ,\nತನು ಸೋಂಕಿದ ಸುಖವ, ಆತ್ಮನರಿದು ಅರ್ಪಿಸುವಂತೆ,\nಜಾಹೆಯಲ್ಲಿ ಮರೆದೊರಗಿರಲಾಗಿ,\nತನುವ ತಟ್ಟಿದಡೆ, ಆತ್ಮನೆಚ್ಚರುವಂತೆ ಇಪ್ಪುದು,\nಇಷ್ಟಪ್ರಾಣಸಂಬಂಧಯೋಗ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವನರಿದಲ್ಲಿ.",
+    "transliteration" : "kāya liṅgadaruśanavanaridalli, manavanaridu tanuvoppuvante,\ntanu sōṅkida sukhava, ātmanaridu arpisuvante,\njāheyalli maredoragiralāgi,\ntanuva taṭṭidaḍe, ātmaneccaruvante ippudu,\niṣṭaprāṇasambandhayōga,\nīśān'yamūrti mallikārjunaliṅgavanaridalli.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 31,
+    "akshara" : "ka",
+    "kannada" : "ಕಾಯವಿದಲ್ಲದೆ ಜೀವಕ್ಕೆ ಬೆಲೆಯಿಲ್ಲ, ಜೀವವಿದ್ದಲ್ಲದೆ ಜ್ಞಾನಕ್ಕೆ ಕುರುಹಿಲ್ಲ.\nಜ್ಞಾನವಿದ್ದಲ್ಲದೆ ಬೆಳಗಿಗೆ ಒಡಲಿಲ್ಲ.\nಒಂದಕ್ಕೊಂದ ಹಿಂಗಿ ಕಾಬ ಠಾವ ಹೇಳಾ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವೆ.",
+    "transliteration" : "kāyavidallade jīvakke beleyilla, jīvaviddallade jñānakke kuruhilla.\njñānaviddallade beḷagige oḍalilla.\nondakkonda hiṅgi kāba ṭhāva hēḷā,\nīśān'yamūrti mallikārjunaliṅgave.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 32,
+    "akshara" : "ka",
+    "kannada" : "ಕಾಲಿನಲ್ಲಿ ನಡೆವುದು, ಕೈಯಲ್ಲಿ ಮುಟ್ಟುವುದು,\nಕಣ್ಣಿನಲ್ಲಿ ನೋಡುವುದು, ಕಿವಿಯಲ್ಲಿ ಕೇಳುವುದು,\nಮೂಗಿನಲ್ಲಿ ವಾಸಿಸುವುದು. ಬಾಯಲ್ಲಿ ಉಂಬ ಭೇದದಿಂದ\nಅಯಿದರಾಟಿ, ಆರರ ಕೂಟ, ಏಳರ ಬೇಟ,\nಎಂಟರ ಮದ, ಹದಿನಾರರ ಕಳೆ. ಇಂತಿವೆಲ್ಲವು ಮೂರ ಮರೆದಲ್ಲಿ ನಿಂದವು.\nಮೂರನರಿದಲ್ಲಿ ಸಂದವು. ಇಂತಿವು ಉಳ್ಳನ್ನಕ್ಕ ಪೂಜಿಸಬೇಕು.\nನಾ ನೀನೆಂಬನ್ನಕ್ಕ ಅರ್ಪಿಸಬೇಕು. ಅದಳಿಯೆ ಮತ್ತೇನೂ ಎನಲಿಲ್ಲ.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವೆಂಬದಕ್ಕೆ ಎಡೆಯಿಲ್ಲ.",
+    "transliteration" : "kālinalli naḍevudu, kaiyalli muṭṭuvudu,\nkaṇṇinalli nōḍuvudu, kiviyalli kēḷuvudu,\nmūginalli vāsisuvudu. bāyalli umba bhēdadinda\nayidarāṭi, ārara kūṭa, ēḷara bēṭa,\neṇṭara mada, hadinārara kaḷe. intivellavu mūra maredalli nindavu.\nmūranaridalli sandavu. intivu uḷḷannakka pūjisabēku.\nnā nīnembannakka arpisabēku. adaḷiye mattēnū enalilla.\nīśān'yamūrti mallikārjunaliṅgavembadakke eḍeyilla.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 33,
+    "akshara" : "ka",
+    "kannada" : "ಕಂಡು ತವಕ ಸಂಗದಿಂದಳಿವಂತೆ,\nನಿನ್ನ ನೋಡುವ ನೋಟ,\nಎನ್ನಯ ಮನದ ಕೂಟದಿಂದ ಹರಿಯಿತ್ತು.\nಮತ್ತೆ ನಿಮ್ಮಾಸೆ ಮುಟ್ಟುವ ಭೇದ ಬಿಡದು.\nನೀವು ರೂಪಾಗಿ, ನಾ ಸಾಕಾರವಾಗಿ ಉಭಯವುಳ್ಳನ್ನಕ್ಕ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ವಾಸ ರೂಪಾದೆ.",
+    "transliteration" : "kaṇḍu tavaka saṅgadindaḷivante,\nninna nōḍuva nōṭa,\nennaya manada kūṭadinda hariyittu.\nmatte nim'māse muṭṭuva bhēda biḍadu.\nnīvu rūpāgi, nā sākāravāgi ubhayavuḷḷannakka,\nīśān'yamūrti mallikārjunaliṅgavu vāsa rūpāde.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 34,
+    "akshara" : "ka",
+    "kannada" : "ಕಾಯಕವೆಂದು ಕಾಯವ ಬಳಲಿಸದೆ, ತನು ಕರಗದೆ, ಮನ ನೋಯದೆ,\nಕಾಡಿ ಬೇಡಿ ಮಾಡುವುದು ದಾಸೋಹವೆ ?\nಆವ ಕಾಯಕವು ಪ್ರಾಣವೆ ಕಡೆಯಾಗಿ, ದ್ರವ್ಯ ಮೊದಲಾಗಿ,\nಚಿತ್ತ ಶುದ್ಧದಲ್ಲಿ ಗುರುಚರಕ್ಕೆ ಮುಯ್ಯಾಂತು ಬಂದುದಕ್ಕೆ ಸರಿಗಂಡು,\nಲಿಂಗದೇಹಿಗಳಿಗೆಲ್ಲಾ ಒಂದೇ ಪ್ರಮಾಣದಲ್ಲಿ ಸಂದುದು,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗಕ್ಕೆ ತೃಪ್ತಿ.",
+    "transliteration" : "kāyakavendu kāyava baḷalisade, tanu karagade, mana nōyade,\nkāḍi bēḍi māḍuvudu dāsōhave ?\nāva kāyakavu prāṇave kaḍeyāgi, dravya modalāgi,\ncitta śud'dhadalli gurucarakke muyyāntu bandudakke sarigaṇḍu,\nliṅgadēhigaḷigellā ondē pramāṇadalli sandudu,\nīśān'yamūrti mallikārjunaliṅgakke tr̥pti.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 35,
+    "akshara" : "ka",
+    "kannada" : "ಕಾಮವೆಂಬುದು ಕಂಗಳ ಮುಂದೆ ಸುಳಿದಾಡುತ್ತಿದೆ.\nಕ್ರೋಧವೆಂಬುದೆ ಮನದ ಮುಂದೆ ಇಕ್ಕಿ ಹರಿದಾಡುತ್ತಿದೆ.\nಲೋಭವೆಂಬುದೆ ಸರ್ವವೆಲ್ಲರಲ್ಲಿ ಬೆರಸಿ ಕುಕ್ಕುಳಗುದಿವುತ್ತಿದೆ.\nಆಮಿಷ ತಾಮಸ ರಾಗದಿಂದ ಬರಿಹೊರೆ ಹೋಗುತ್ತಿದೆ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವನರಿಯದೆ.",
+    "transliteration" : "kāmavembudu kaṅgaḷa munde suḷidāḍuttide.\nkrōdhavembude manada munde ikki haridāḍuttide.\nlōbhavembude sarvavellaralli berasi kukkuḷagudivuttide.\nāmiṣa tāmasa rāgadinda barihore hōguttide,\nīśān'yamūrti mallikārjunaliṅgavanariyade.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 36,
+    "akshara" : "ka",
+    "kannada" : "ಕಾಯವ ಮರೆದು ಜೀವವನರಿಯಬೇಕು.\nಜೀವವ ಮರೆದು ಜ್ಞಾನವನರಿಯಬೇಕು.\nಜ್ಞಾನವ ಮರೆದು ಬೆಳಗನರಿಯಬೇಕು.\nಬೆಳಗಿನ ಮರೆಯ\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವನರಿಯಬೇಕು.",
+    "transliteration" : "kāyava maredu jīvavanariyabēku.\njīvava maredu jñānavanariyabēku.\njñānava maredu beḷaganariyabēku.\nbeḷagina mareya\nīśān'yamūrti mallikārjunaliṅgavanariyabēku.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 37,
+    "akshara" : "ka",
+    "kannada" : "ಕಾಯ ಜೀವವನರಿದಲ್ಲಿ , ಇಷ್ಟ ಪೂಜೆಯ ಮರೆದಿರಬೇಕು.\nದಿವದಲ್ಲಿ ನಡೆಯದೆ, ರಾತ್ರಿಯಲ್ಲಿ ಒರಗದೆ,\nಉಭಯವನಳಿದಿದ್ದಲ್ಲಿ, ಅರ್ಪಿತವಿಲ್ಲದಿರಬೇಕು.\nಸ್ತುತಿ ನಿಂದೆಗೆ ಹೊರಗಾದಲ್ಲಿ, ಋತು ಕಾಲವ ಮರೆದಿರಬೇಕು.\nಮಾತಿನಲ್ಲಿ ಶೂನ್ಯ, ಆತ್ಮನಲ್ಲಿ ಆಸೆಯ ಪಾಶ.\nಇಂತೀ ವೇಷದ ಚೋರರನೊಪ್ಪ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು.",
+    "transliteration" : "kāya jīvavanaridalli , iṣṭa pūjeya maredirabēku.\ndivadalli naḍeyade, rātriyalli oragade,\nubhayavanaḷididdalli, arpitavilladirabēku.\nstuti nindege horagādalli, r̥tu kālava maredirabēku.\nmātinalli śūn'ya, ātmanalli āseya pāśa.\nintī vēṣada cōraranoppa,\nīśān'yamūrti mallikārjunaliṅgavu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 38,
+    "akshara" : "ka",
+    "kannada" : "ಕಂಗಳ ಮುಂದೆ ಬಂದು ನಿಂದು, ಕಂಡುದೆಲ್ಲವು ಲಿಂಗಾರ್ಪಿತವೆ ?\nಫಲಾದಿಗಳಲ್ಲಿ ಪಾಕವಾದ ಕಡ್ಡಿ ತೊಟ್ಟು ಬಿತ್ತು ಮೊದಲಾದ\nತುಷ ಪಾಷಾಣ ಬೋನದೊಳಗಾದ ಸಮೂಹವೆಲ್ಲವು,\nಲಿಂಗನೈವೇದ್ಯ ಸಮರ್ಪಣವೆ ?\nಸಾರೂಪ ದ್ರವ್ಯಂಗಳಲ್ಲಿ ಅರೋಚಕವ ಕಳೆದು,\nಮನದಲ್ಲಿ ನೇಮಿಸಿ, ಇಷ್ಟಲಿಂಗಕ್ಕೆ ಇದಿರಿಟ್ಟು,\nಪದಾರ್ಥವ ಕೊಡುವಲ್ಲಿ, ಪ್ರಾಣಲಿಂಗಕ್ಕೆ ನಾನಾ ರಸಂಗಳ ಸಾಗಿಸುವಲ್ಲಿ,\nಅರ್ಪಿತ ಅನರ್ಪಿತವೆಂಬ ಉಭಯದ ಗೊತ್ತ ಮುಟ್ಟಿ ಅರ್ಪಿಸಬಲ್ಲಡೆ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗಕ್ಕೆ ಅರ್ಪಿತವಾಯಿತ್ತು.",
+    "transliteration" : "kaṅgaḷa munde bandu nindu, kaṇḍudellavu liṅgārpitave ?\nphalādigaḷalli pākavāda kaḍḍi toṭṭu bittu modalāda\ntuṣa pāṣāṇa bōnadoḷagāda samūhavellavu,\nliṅganaivēdya samarpaṇave ?\nsārūpa dravyaṅgaḷalli arōcakava kaḷedu,\nmanadalli nēmisi, iṣṭaliṅgakke idiriṭṭu,\npadārthava koḍuvalli, prāṇaliṅgakke nānā rasaṅgaḷa sāgisuvalli,\narpita anarpitavemba ubhayada gotta muṭṭi arpisaballaḍe,\nīśān'yamūrti mallikārjunaliṅgakke arpitavāyittu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 39,
+    "akshara" : "ka",
+    "kannada" : "ಕಾರುಕನ ಕೈ  ಮುಟ್ಟುವುದಕ್ಕೆ ಮುನ್ನವೆ,\nಗುರುವಿನ ಕರ ಮುಟ್ಟುವುದಕ್ಕೆ ಮುನ್ನವೆ,\nಮನಸಿಜನ ಮನ ಮುಟ್ಟುವುದಕ್ಕೆ ಮುನ್ನವೆ,\nನಾಮ ರೂಪು ಬಹುದಕ್ಕೆ ಮುನ್ನವೆ, ಅದಾವ ರೂಪು ಎಂದರಿತಡೆ,\nಆ ವಸ್ತು ಪ್ರಮಾಣಕ್ಕೆ ರೂಪಹ ಪರಿಯಿನ್ನೆಂತುಂಟು ?\nಅದು ಭಾವಕ್ಕೆ ಅಗೋಚರ, ಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು.",
+    "transliteration" : "kārukana kai  muṭṭuvudakke munnave,\nguruvina kara muṭṭuvudakke munnave,\nmanasijana mana muṭṭuvudakke munnave,\nnāma rūpu bahudakke munnave, adāva rūpu endaritaḍe,\nā vastu pramāṇakke rūpaha pariyinnentuṇṭu ?\nadu bhāvakke agōcara, īśān'yamūrti mallikārjunaliṅgavu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 40,
+    "akshara" : "ka",
+    "kannada" : "ಕಾಯದಲ್ಲಿ ಪರಿಪೂರ್ಣನಾಗಿ ಜೀವನಿಪ್ಪ ಭೇದವ,\nಜೀವದಲ್ಲಿ ಜ್ಞಾನಪರಿಪೂರ್ಣವಾಗಿಪ್ಪ ಭೇದವ,\nಜ್ಞಾನದಲ್ಲಿ ಬೆಳಗು ಬಿಂಬಿಸುತಿಪ್ಪ ಭೇದವ [ಅರಿಯಬೇಕು.]\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು,\nಜ್ಯೋತಿರ್ಮಯವಾಗಿಪ್ಪುದು.",
+    "transliteration" : "kāyadalli paripūrṇanāgi jīvanippa bhēdava,\njīvadalli jñānaparipūrṇavāgippa bhēdava,\njñānadalli beḷagu bimbisutippa bhēdava [ariyabēku.]\nīśān'yamūrti mallikārjunaliṅgavu,\njyōtirmayavāgippudu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 41,
+    "akshara" : "ka",
+    "kannada" : "ಕ್ರೀಯ ಮರೆದಲ್ಲಿ, ಅರಿವು ಹೀನವಾಗಿಪ್ಪುದು.\nಅರಿವ ಮರೆದಲ್ಲಿ, ಜ್ಞಾನ ಹೀನವಾಗಿಪ್ಪುದು.\nಜ್ಞಾನವ ಮರೆದಲ್ಲಿ, ಬೆಳಗಿನ ಕಳೆ ಹೋಯಿತ್ತು.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು\nಅವರಿಗೆ ಮರೆಯಾಗಿ ತೊಲಗಿದ.",
+    "transliteration" : "krīya maredalli, arivu hīnavāgippudu.\nariva maredalli, jñāna hīnavāgippudu.\njñānava maredalli, beḷagina kaḷe hōyittu.\nīśān'yamūrti mallikārjunaliṅgavu\navarige mareyāgi tolagida.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 42,
+    "akshara" : "ka",
+    "kannada" : "ಕಾಯಭ್ರಮೆಯಿಂದ ಮಾಡುವುದು ದೇವಪೂಜೆಯಲ್ಲ.\nಜೀವಭ್ರಮೆಯಿಂದ ಅರ್ಪಿಸುವುದು ಲಿಂಗಾರ್ಪಿತವಲ್ಲ.\nಕಾಯದ ಸೂತಕವನಳಿದು ಪೂಜಿಸಿ, ಜೀವನ ಪ್ರಕೃತಿಯ ಮರೆದರ್ಪಿಸಿ,\nಉಭಯವನರಿಯಬಲ್ಲಡೆ, ಕಾಯವೆ ಒಡೆಯ, ಪ್ರಾಣವೆ ಲೆಂಕ.\nಇಂತೀ ಉಭಯ ಲೇಪವಾದಲ್ಲಿ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ತಾನೆ.",
+    "transliteration" : "kāyabhrameyinda māḍuvudu dēvapūjeyalla.\njīvabhrameyinda arpisuvudu liṅgārpitavalla.\nkāyada sūtakavanaḷidu pūjisi, jīvana prakr̥tiya maredarpisi,\nubhayavanariyaballaḍe, kāyave oḍeya, prāṇave leṅka.\nintī ubhaya lēpavādalli,\nīśān'yamūrti mallikārjunaliṅgavu tāne.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 43,
+    "akshara" : "ka",
+    "kannada" : "ಕಾಮದಿಂದ ಕಾಬುದೆಲ್ಲವು ಗುರುವಿಂಗೊಳಗಾಗಿ.\nಮೋಹದಿಂದ ಕಾಬುದೆಲ್ಲವು ಲಿಂಗಕ್ಕೊಳಗಾಗಿ.\nಲೋಭದಿಂದ ಕಾಬುದೆಲ್ಲವು ಜಂಗಮಕ್ಕೊಳಗಾಗಿ.\nಇಂತೀ ತ್ರಿವಿಧದಲ್ಲಿ ಮುಟ್ಟಿಪ್ಪನ ಸತ್ಯ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗದ\nಉಭಯವಳಿದ ಕುರುಹಿನ ಗೊತ್ತು.",
+    "transliteration" : "kāmadinda kābudellavu guruviṅgoḷagāgi.\nmōhadinda kābudellavu liṅgakkoḷagāgi.\nlōbhadinda kābudellavu jaṅgamakkoḷagāgi.\nintī trividhadalli muṭṭippana satya,\nīśān'yamūrti mallikārjunaliṅgada\nubhayavaḷida kuruhina gottu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 44,
+    "akshara" : "ka",
+    "kannada" : "ಕಲ್ಲ ತಾಗಿದ ಕಠಿಣಸರದಂತೆ, ವಲ್ಲಭನೊಲ್ಲದ ಸತಿಯಂತೆ,\nಬಲ್ಲವರು ಹೇಳಿದ ಮಾತ, ಕಲ್ಲೆದೆಯವ ಕಾಣದಂತೆ,\nಮಾತು ಮನಸ್ಸು ಸಿಕ್ಕಿ,\nಭವವ್ಯಾಕುಲದಲ್ಲಿ ಅದೇತರ ಪೂಜೆ ?\nಅದೇತರ ಅರ್ಪಿತ ? ಅದೇತರ ಯಾಚಕತ್ವ ?\nಅವ ನೇತಿಗಳೆದಲ್ಲಿ ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವನರಿದುದು.",
+    "transliteration" : "kalla tāgida kaṭhiṇasaradante, vallabhanollada satiyante,\nballavaru hēḷida māta, kalledeyava kāṇadante,\nmātu manas'su sikki,\nbhavavyākuladalli adētara pūje ?\nadētara arpita ? adētara yācakatva ?\nava nētigaḷedalli ,\nīśān'yamūrti mallikārjunaliṅgavanaridudu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 45,
+    "akshara" : "ka",
+    "kannada" : "ಕಾಯವೆ ದೇಗುಲವಾಗಿ, ಕುರುಹಿಟ್ಟು ಕೊಟ್ಟ ಕುರುಹೆ ದೇವರಾಗಿ,\nನೋಡುವ ಕಣ್ಣೆ ಪೂಜಿಸುವ ಹೂವಾಗಿ,\nಆನಂದಾಶ್ರುಗಳೆ\nಸಕಲಭೋಗ ಅಷ್ಟವಿಧಾರ್ಚನೆ ಷೋಡಶೋಪಚರಿಯವಾಗಿ,\nಅರತುದೆ ಅಡ್ಡವಣಿಗೆ ಪರಿಯಾಣವಾಗಿ, ಪರಿಣಾಮವೆ ನೈವೇದ್ಯವಾಗಿ,\nಅಖಂಡಭಕ್ತಿರತಿಯೆ ತಾಂಬೂಲವಾಗಿ ಪೂಜಿಸುತಿರ್ದೆನಯ್ಯಾ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವೆ\nಎನ್ನ ಪ್ರಾಣಪೂಜೆಯ ನಿಮಗೆ.",
+    "transliteration" : "kāyave dēgulavāgi, kuruhiṭṭu koṭṭa kuruhe dēvarāgi,\nnōḍuva kaṇṇe pūjisuva hūvāgi,\nānandāśrugaḷe\nsakalabhōga aṣṭavidhārcane ṣōḍaśōpacariyavāgi,\naratude aḍḍavaṇige pariyāṇavāgi, pariṇāmave naivēdyavāgi,\nakhaṇḍabhaktiratiye tāmbūlavāgi pūjisutirdenayyā,\nīśān'yamūrti mallikārjunaliṅgave\nenna prāṇapūjeya nimage.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 46,
+    "akshara" : "ka",
+    "kannada" : "ಕಂಡೆಹೆನೆಂಬನ್ನಕ್ಕ ಆತುರ ಕಂಡು ಮನ ನಿಂದಲ್ಲಿ,\nಹಿಂದಣ ಇರುವ, ಮುಂದಣ ಬಯಲ, ಉಭಯದ ಸಂದನಳಿಯಬೇಕು,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವನರಿವುದಕ್ಕೆ.",
+    "transliteration" : "kaṇḍ'̔ehenembannakka ātura kaṇḍu mana nindalli,\nhindaṇa iruva, mundaṇa bayala, ubhayada sandanaḷiyabēku,\nīśān'yamūrti mallikārjunaliṅgavanarivudakke.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 47,
+    "akshara" : "ka",
+    "kannada" : "ಕಾಯವಿದ್ದು ಕಾಬುದು ಗುರುಸ್ಥಲ, ಜೀವವಿದು ಕಾಬುದು ಲಿಂಗಸ್ಥಲ,\nಭಾವವಿದ್ದು ಕಾಬುದು ಜಂಗಮಸ್ಥಲ,\nತ್ರಿವಿಧವ ಒಡಗೂಡಿ ಕಾಬುದು ಭಕ್ತಿಸ್ಥಲ.\nಭಕ್ತಿ ನಿಶ್ಚಯವಾಗಿ ನಿಂದಲ್ಲಿ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗ ನಿಶ್ಚಯವಾದ ಸ್ಥಲ.",
+    "transliteration" : "kāyaviddu kābudu gurusthala, jīvavidu kābudu liṅgasthala,\nbhāvaviddu kābudu jaṅgamasthala,\ntrividhava oḍagūḍi kābudu bhaktisthala.\nbhakti niścayavāgi nindalli,\nīśān'yamūrti mallikārjunaliṅga niścayavāda sthala.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 48,
+    "akshara" : "ka",
+    "kannada" : "ಕಾರುಕ ಮುಟ್ಟಿ ಗುರುವಿನ ಕೈಗೆ ಬಂದುದಲ್ಲ.\nಮನಮುಟ್ಟಿ ನೆನಹಿಂಗೆ ಈಡಾದುದಲ್ಲ.\nಅರಿದರುಹಿಸಿಕೊಂಬುದಲ್ಲ, ಮರೆದು ನೆನಹಿಸಿಕೊಂಬುದಲ್ಲ.\nಪರುಷರಸದಂತೆ ಮಾಟಕ್ಕೊಳಗಲ್ಲ.\nಅದು ಮುಟ್ಟಿ ಲೋಹ ಶುದ್ಧವಲ್ಲದೆ ಪುನರಪಿ ಶುದ್ಧವಾದುದಿಲ್ಲ.\nಇಂತೀ ಭೇದಂಗಳಲ್ಲಿ ನಿಂದು ನಿಶ್ಚಯವಾದುದು ಜೀವನ್ಮುಕ್ತಿಲಿಂಗ.\nಅದು, ಈಶಾನ್ಯ ಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗ ಸ್ವಯಂಭುವಾಗಿಹುದು",
+    "transliteration" : "kāruka muṭṭi guruvina kaige bandudalla.\nmanamuṭṭi nenahiṅge īḍādudalla.\naridaruhisikombudalla, maredu nenahisikombudalla.\nparuṣarasadante māṭakkoḷagalla.\nadu muṭṭi lōha śud'dhavallade punarapi śud'dhavādudilla.\nintī bhēdaṅgaḷalli nindu niścayavādudu jīvanmuktiliṅga.\nadu, īśān'ya mūrti mallikārjunaliṅga svayambhuvāgihudu",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 49,
+    "akshara" : "ga",
+    "kannada" : "ಗುರು ಮೂರು ಕೂಡಿ ಗುರುವಾದಲ್ಲಿ,\nಬಿಂದು ಅಯಿದು ಕೂಡಿ ಲಿಂಗವಾದಲ್ಲಿ,\nವಿಂಶತಿ ಆರು ಕೂಡಿ ವಿಸರ್ಜನವಾದಲ್ಲಿ, ಜಂಗಮವಾಯಿತ್ತು.\nಆ ಜಂಗಮ, ಜಾಯತೇ ಭಾವವಳಿದು,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವಾಯಿತ್ತು.",
+    "transliteration" : "guru mūru kūḍi guruvādalli,\nbindu ayidu kūḍi liṅgavādalli,\nvinśati āru kūḍi visarjanavādalli, jaṅgamavāyittu.\nā jaṅgama, jāyatē bhāvavaḷidu,\nīśān'yamūrti mallikārjunaliṅgavāyittu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 50,
+    "akshara" : "ga",
+    "kannada" : "ಗಂಗೆವಾಳುಕ ರುದ್ರರೆಲ್ಲರು ಅಂಗವರತು ಲಿಂಗವನರಿದಲ್ಲದೆ,\nಅಂಗಗುಣವರಿಯದೆ, ಲಿಂಗತ್ರಯವೆಂಬುದ ಸಂಘಟಿಸಲರಿಯದೆ,\nನಿಂದು ಕಾಬ ನೆಲೆಯಿನ್ನೆಂತು ? ಮಾತ ಕಂಡಾಡಿದಲ್ಲಿ ವಾಗದ್ವೈತಿ.\nಬಳಗನರಿದು ಪೂಜಿಸುವಲ್ಲಿ ಡಂಬಕಧಾರಿ.\nಏನ ಮುಟ್ಟಿದಲ್ಲಿ ಕೇಡಿಲ್ಲಾ ಎಂದು\nಮನ ಬ್ರಹ್ಮವನಾಡಿ, ಮನುಜರಂತೆ ಹರಿದಾಡುತ್ತ,\nಗಂಪವ ಕೂಡಿಕೊಂಡು, ಶಂಕೆಯಿಲ್ಲಾಯೆಂದು\nನಿಶ್ಶಂಕೆಯ ನುಡಿಯಬಹುದೆ ಅಯ್ಯಾ ?\nನಡೆ ನುಡಿ ಸಿದ್ಧಾಂತವಾದಲ್ಲಿ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು\nಅವರಲ್ಲಿ ಪ್ರಸಿದ್ಧವಾಗಿಪ್ಪನು.",
+    "transliteration" : "gaṅgevāḷuka rudrarellaru aṅgavaratu liṅgavanaridallade,\naṅgaguṇavariyade, liṅgatrayavembuda saṅghaṭisalariyade,\nnindu kāba neleyinnentu ? māta kaṇḍāḍidalli vāgadvaiti.\nbaḷaganaridu pūjisuvalli ḍambakadhāri.\nēna muṭṭidalli kēḍillā endu\nmana brahmavanāḍi, manujarante haridāḍutta,\ngampava kūḍikoṇḍu, śaṅkeyillāyendu\nniśśaṅkeya nuḍiyabahude ayyā ?\nnaḍe nuḍi sid'dhāntavādalli,\nīśān'yamūrti mallikārjunaliṅgavu\navaralli prasid'dhavāgippanu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 51,
+    "akshara" : "ga",
+    "kannada" : "ಗುರುವಿರೆ ಲಿಂಗಪ್ರಸಾದವ ಕೊಳಲಾಗದು.\nಲಿಂಗವಿರೆ ಜಂಗಮಪ್ರಸಾದವ ಕೊಳಲಾಗದು.\nಜಂಗಮವಿರೆ ಉಭಯಪ್ರಸಾದವ ಕೊಳಲಾಗದು.\nಇಂತೀ ಪ್ರಸಾದದ ವಿವರವನರಿತಲ್ಲಿ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ಪ್ರಸನ್ನ ಪ್ರಸಾದವಾದ.",
+    "transliteration" : "guruvire liṅgaprasādava koḷalāgadu.\nliṅgavire jaṅgamaprasādava koḷalāgadu.\njaṅgamavire ubhayaprasādava koḷalāgadu.\nintī prasādada vivaravanaritalli,\nīśān'yamūrti mallikārjunaliṅgavu prasanna prasādavāda.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 52,
+    "akshara" : "ga",
+    "kannada" : "ಗುರುಲಿಂಗ ಬ್ರಹ್ಮರೂಪವಾಯಿತ್ತು. ಚರಲಿಂಗ ವಿಷ್ಣುರೂಪಾಯಿತ್ತು.\nಸ್ಥಾವರಲಿಂಗ ರುದ್ರರೂಪಾಯಿತ್ತು.\nಗುರುಚರಲಿಂಗರೂಪು ತ್ರಿವಿಧಮಲ ಕಾರಣವಾಯಿತ್ತು.\nಆ ಮಲಗುಣ, ಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು\nನಾಮಕ್ಕೆ ಹೊರಗಾದ.",
+    "transliteration" : "guruliṅga brahmarūpavāyittu. caraliṅga viṣṇurūpāyittu.\nsthāvaraliṅga rudrarūpāyittu.\ngurucaraliṅgarūpu trividhamala kāraṇavāyittu.\nā malaguṇa, īśān'yamūrti mallikārjunaliṅgavu\nnāmakke horagāda.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 53,
+    "akshara" : "ga",
+    "kannada" : "ಗುರುಪ್ರಸಾದವ ಲಿಂಗಕ್ಕೆ ಕೊಡಲಿಲ್ಲ,\nಜಂಗಮಪ್ರಸಾದವ ಲಿಂಗಕ್ಕೆ ಕೊಡಲಿಲ್ಲ.\nಅದೆಂತೆಂಡಡೆ :\nಆ  ಗುರುವಿಗೂ ಲಿಂಗಪ್ರಾಣ, ಆ ಜಂಗಮಕ್ಕೂ ಲಿಂಗಪ್ರಾಣ.\nಆ ಲಿಂಗಬಾಹ್ಯವಾಗಿ ಗುರುವಾಗಬಲ್ಲಡೆ,\nಆ ಲಿಂಗಬಾಹ್ಯವಾಗಿ ಜಂಗಮವಾಗಬಲ್ಲಡೆ,\nಉಭಯಪ್ರಸಾದವ ಲಿಂಗಕ್ಕೆ ಕೊಡಬಹುದು.\nಇದನರಿಯದೆ ಉದೇಶಿಸಿ ನುಡಿವ ಭೇದಹೀನರಿಗೆ ತ್ರಿವಿಧವಿಲ್ಲಾ  ಎಂದೆ.\nಅವರು, ಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗಕ್ಕೆ ದೂರ.",
+    "transliteration" : "guruprasādava liṅgakke koḍalilla,\njaṅgamaprasādava liṅgakke koḍalilla.\nadenteṇḍaḍe :\nā  guruvigū liṅgaprāṇa, ā jaṅgamakkū liṅgaprāṇa.\nā liṅgabāhyavāgi guruvāgaballaḍe,\nā liṅgabāhyavāgi jaṅgamavāgaballaḍe,\nubhayaprasādava liṅgakke koḍabahudu.\nidanariyade udēśisi nuḍiva bhēdahīnarige trividhavillā  ende.\navaru, īśān'yamūrti mallikārjunaliṅgakke dūra.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 54,
+    "akshara" : "ga",
+    "kannada" : "ಗುರು ವೈಭವಕ್ಕೆ ಸಿಕ್ಕಿದಾಗಲೆ ಶಿಷ್ಯಂಗೆ ನರಕ ಪ್ರಾಪ್ತಿ .\nಲಿಂಗ ಭಜನೆಗೆ ಸಿಕ್ಕಿದಾಗಲೆ ಮರಣಕ್ಕೊಳಗು.\nಜಂಗಮ ಜಂಗುಳಿಯಾಗಿ,\nಕಂಡಕಂಡವರಂಗಳಕ್ಕೆ ಜಂಘೆಯನಿಕ್ಕಲಾಗಿ, ನಿರಂಗಕ್ಕೆ ಹೊರಗು.\nಇಂತೀ ಇವರು ನಿಂದುದಕ್ಕೆ ಬಂಧವಿಲ್ಲದಿರಬೇಕು,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವನರಿವುದಕ್ಕೆ.",
+    "transliteration" : "guru vaibhavakke sikkidāgale śiṣyaṅge naraka prāpti .\nliṅga bhajanege sikkidāgale maraṇakkoḷagu.\njaṅgama jaṅguḷiyāgi,\nkaṇḍakaṇḍavaraṅgaḷakke jaṅgheyanikkalāgi, niraṅgakke horagu.\nintī ivaru nindudakke bandhavilladirabēku,\nīśān'yamūrti mallikārjunaliṅgavanarivudakke.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 55,
+    "akshara" : "ga",
+    "kannada" : "ಗುರುಸೇವೆಯಲ್ಲಿ ತನು ಕರಗಿ, ಲಿಂಗಸೇವೆಯಲ್ಲಿ ಮನ ಕರಗಿ,\nಜಂಗಮಸೇವೆಯಲ್ಲಿ ಧನ ಕರಗಿ, ಮಹಾಘನವನರಿದಲ್ಲಿ ಪ್ರಕೃತಿ ಕರಗಿ,\nನಿಜ ನಿಶ್ಚಯವಾಗಿ ನಿಂದಾತನೆ ಸದ್ಭಕ್ತನು,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗದಲ್ಲಿ.",
+    "transliteration" : "gurusēveyalli tanu karagi, liṅgasēveyalli mana karagi,\njaṅgamasēveyalli dhana karagi, mahāghanavanaridalli prakr̥ti karagi,\nnija niścayavāgi nindātane sadbhaktanu,\nīśān'yamūrti mallikārjunaliṅgadalli.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 56,
+    "akshara" : "ga",
+    "kannada" : "ಗುರುವೆಂದಡೂ ಕಾಯವುಳ್ಳನ್ನಕ್ಕ, ದೋಷಕ್ಕೆ ಹೊರಗಾಗಬೇಕು.\nಲಿಂಗವೆಂದಡೂ ಪೀಠಕ್ಕೆ ಸಿಕ್ಕಹನ್ನಕ್ಕ,\nಜಗದ ಆಗುಚೇಗೆಯನರಿಯಬೇಕು.\nಜಂಗಮವೆಂದಡೂ ಸುಖದುಃಖವುಳ್ಳನ್ನಕ್ಕ,\nಕಾಯವಿಡಿದು ಇಹ ಕಾರಣ, ಪಾಪ ತಾಪಕ್ಕೆ ಹೊರಗಾಗಬೇಕು.\nಶೂನ್ಯವಾದಡೂ ಆ ಕುರುಹುಳ್ಳನ್ನಕ್ಕ, ಸುಖದುಃಖಕ್ಕೊಳಗು.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವಾದಡೂ ಮರೆದಲ್ಲಿ ಭವಕ್ಕೆ ಬೀಜ.",
+    "transliteration" : "guruvendaḍū kāyavuḷḷannakka, dōṣakke horagāgabēku.\nliṅgavendaḍū pīṭhakke sikkahannakka,\njagada āgucēgeyanariyabēku.\njaṅgamavendaḍū sukhaduḥkhavuḷḷannakka,\nkāyaviḍidu iha kāraṇa, pāpa tāpakke horagāgabēku.\nśūn'yavādaḍū ā kuruhuḷḷannakka, sukhaduḥkhakkoḷagu.\nīśān'yamūrti mallikārjunaliṅgavādaḍū maredalli bhavakke bīja.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 57,
+    "akshara" : "ga",
+    "kannada" : "ಗುರುವೆಂಬ ಅಂಗವ ಧರಿಸಿದಡೇನು?\nಚಿತ್ರದ ಸತಿಯ ಕೈಯ ದೀಪಕ್ಕೆ ಮೊತ್ತದ ತಮ ಹರಿದುದುಂಟೆ?\nನಿಃಕಳೆಯ ಲಿಂಗವ ಧರಿಸಿದಲ್ಲಿ ಫಲವೇನು?\nಮೃತ್ತಿಕೆಯ ಬೊಂಬೆಯ ಕೈಯಲ್ಲಿ\nನಿಶ್ಚಯದ ಖಂಡೆಯವಿರೆ, ಕುಟ್ಟಬಲ್ಲುದೆ?\nವಿಧಾಂತ ರೂಪು ಲಾಂಛನದ ತೊಟ್ಟು, ಬಹುರೂಪಿಯಾದಲ್ಲಿ\nನೆರೆ ಈಶನ ಯುಕ್ತಿಯ ವಿರಕ್ತಿ ಜಂಗಮವಾಗಬಲ್ಲನೆ?\nಇಂತೀ ಮಾತಿನ ಬಳಕೆಯ ವೇಷವ ಬಿಟ್ಟು,\nನಿಜತತ್ವದ ಸಾಕಾರವೆ ಮೂರ್ತಿಯಾದ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ತಾನೆ.",
+    "transliteration" : "guruvemba aṅgava dharisidaḍēnu?\ncitrada satiya kaiya dīpakke mottada tama hariduduṇṭe?\nniḥkaḷeya liṅgava dharisidalli phalavēnu?\nmr̥ttikeya bombeya kaiyalli\nniścayada khaṇḍeyavire, kuṭṭaballude?\nvidhānta rūpu lān̄chanada toṭṭu, bahurūpiyādalli\nnere īśana yuktiya virakti jaṅgamavāgaballane?\nintī mātina baḷakeya vēṣava biṭṭu,\nnijatatvada sākārave mūrtiyāda,\nīśān'yamūrti mallikārjunaliṅgavu tāne.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 58,
+    "akshara" : "gha",
+    "kannada" : "ಘಟದಲ್ಲಿದ ಗಂಧ ಅಡಗುವುದಲ್ಲದೆ, ಸಂಚಾರವ ನೆಮ್ಮಿದ ಗಂಧ ಅಡಗುವುದೆ?\nಮನ ಕ್ರೀಯಲ್ಲಿ ನಿಂದು, ಅಂಗ ಆಚಾರವನರಿದು,\nಅಂಗ ಮನಸ್ಸು ಕೂಡಿದಲ್ಲಿ, ಘನಲಿಂಗದ ಸಂಗ.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗಕ್ಕೆ ಎರವಿಲ್ಲದ ಕೂಟ.",
+    "transliteration" : "ghaṭadallida gandha aḍaguvudallade, san̄cārava nem'mida gandha aḍaguvude?\nmana krīyalli nindu, aṅga ācāravanaridu,\naṅga manas'su kūḍidalli, ghanaliṅgada saṅga.\nīśān'yamūrti mallikārjunaliṅgakke eravillada kūṭa.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 59,
+    "akshara" : "ca",
+    "kannada" : "ಚಚ್ಚೆಗೊಟ್ಟಿಯಿಂದ ಒಡೆಯತನ ಹುಚ್ಚಾಗಿ ಕೆಟ್ಟಿತ್ತು.\nಪ್ರತ್ಯುತ್ತರದಿಂದ ಭೃತ್ಯತನವಡಗಿತ್ತು.\nಮೂರರ ಗೊತ್ತಿನ ಆಸೆಯಿಂದ ಗುರುಚರಪರವೆಂಬ ಹರವರಿ ನಿಂದಿತ್ತು.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗಕ್ಕೆ ಈ ಗುಣ ದೂರವಾಯಿತ್ತು.",
+    "transliteration" : "caccegoṭṭiyinda oḍeyatana huccāgi keṭṭittu.\npratyuttaradinda bhr̥tyatanavaḍagittu.\nmūrara gottina āseyinda gurucaraparavemba haravari nindittu.\nīśān'yamūrti mallikārjunaliṅgakke ī guṇa dūravāyittu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 60,
+    "akshara" : "ja",
+    "kannada" : "ಜಲದೊಳಗಣ ಮತ್ಸ್ಯ, ವನದೊಳಗಣ ಮರ್ಕಟ, ಆಕಾಶದ ಪಕ್ಷಿ,\nಇವು ಕೂಡಿ ಮಾತನಾಡುವಲ್ಲಿ,\nಶಬರ ಮತ್ಸ್ಯವ ನೋಡಿ, ಜೋಗಿ ವನಚರವ ಕಂಡು,\nಅಂಟಿನ ಡೊಂಬ ಹಕ್ಕಿಯ ಕಂಡು,\nಇಂತೀ ಮೂವರ ಹಡಹ ಕೆಡಿಸಿತ್ತು.\nಕಾರಮಳೆ ಸೋನೆಯೆದ್ದು ಸುರಿಯಿತ್ತು. ಇಂತಿನ್ನಾರ ಕೇಳುವೆ ?\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವೆ ನೀನೆ ಬಲ್ಲೆ.",
+    "transliteration" : "jaladoḷagaṇa matsya, vanadoḷagaṇa markaṭa, ākāśada pakṣi,\nivu kūḍi mātanāḍuvalli,\nśabara matsyava nōḍi, jōgi vanacarava kaṇḍu,\naṇṭina ḍomba hakkiya kaṇḍu,\nintī mūvara haḍaha keḍisittu.\nkāramaḷe sōneyeddu suriyittu. intinnāra kēḷuve ?\nīśān'yamūrti mallikārjunaliṅgave nīne balle.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 61,
+    "akshara" : "ja",
+    "kannada" : "ಜ್ಞಾನಾದ್ವೈತದ ಹೆಚ್ಚುಗೆ, ಭಾವಾದ್ವೈತಕ್ಕೆ ಸಂಬಂಧವಾಗಿಹುದು.\nಭಾವಾದ್ವೆ ೈತದ ಹೆಚ್ಚುಗೆ, ಕ್ರಿಯಾದ್ವೈತವ ಸಂಬಂದ್ಥಿಸಿಕೊಂಡಿಹುದು.\nಕ್ರಿಯಾದ್ವೈತದ ಹೆಚ್ಚುಗೆ,\nಸರ್ವಮಯವಾಗಿ ಘನಲಿಂಗವ ಗಬ್ರ್ಥೀಕರಿಸಿಕೊಂಡಿಪ್ಪುದು.\nಇಂತೀ ಭೇದ.\nಕ್ರೀ ಜ್ಞಾನಕ್ಕೆ ಒಡಲಾಗಿ, ಮಥನದಿಂದ ವಹ್ನಿ ಕುರುಹಿಗೆ ಬಂದಂತೆ,\nಕ್ರೀಯಿಂದ ಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು,\nಸ್ವಯಂಭುವಾಯಿತ್ತು.",
+    "transliteration" : "jñānādvaitada heccuge, bhāvādvaitakke sambandhavāgihudu.\nbhāvādve ̔aitada heccuge, kriyādvaitava sambandthisikoṇḍ'̔ihudu.\nkriyādvaitada heccuge,\nsarvamayavāgi ghanaliṅgava gabrthīkarisikoṇḍippudu.\nintī bhēda.\nkrī jñānakke oḍalāgi, mathanadinda vahni kuruhige bandante,\nkrīyinda īśān'yamūrti mallikārjunaliṅgavu,\nsvayambhuvāyittu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 62,
+    "akshara" : "ja",
+    "kannada" : "ಜಲ ಕೆಯ್ಯಿ ಭಾಜನ ವಾಸ ಇವು ಮುಂತಾಗಿ\nಭವಿಸಂಗ ಭವಿ ನಿರೀಕ್ಷಣೆ, ಲೌಕಿಕಕ್ಕೆ ಇವ ಬಿಟ್ಟು, ಮನ ಭಾವದಲ್ಲಿ ಶುದ್ಧವಾಗಿ,\nಪೂಜಿಸುವ ಲಿಂಗದಲ್ಲಿ, ಪ್ರಮಾಣಿಸುವ ಜಂಗಮದಲ್ಲಿ,\nಆರಾಧಿಸುವ ಗುರುವಿನಲ್ಲಿ ಪಂಚಾಚಾರ ಶುದ್ಧವಾಗಿ,\nಮನ ವಚನ ಕಾಯ ತ್ರಿಕರಣದಲ್ಲಿ ಶುದ್ಧಾತ್ಮನಾಗಿಪ್ಪುದೆ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗಕ್ಕೆ ಸರ್ವವ್ರತ ಸಂದಿತ್ತು.",
+    "transliteration" : "jala keyyi bhājana vāsa ivu muntāgi\nbhavisaṅga bhavi nirīkṣaṇe, laukikakke iva biṭṭu, mana bhāvadalli śud'dhavāgi,\npūjisuva liṅgadalli, pramāṇisuva jaṅgamadalli,\nārādhisuva guruvinalli pan̄cācāra śud'dhavāgi,\nmana vacana kāya trikaraṇadalli śud'dhātmanāgippude,\nīśān'yamūrti mallikārjunaliṅgakke sarvavrata sandittu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 63,
+    "akshara" : "ja",
+    "kannada" : "ಜಂಗಮದ ಪಾದತೀರ್ಥವ ಲಿಂಗಕ್ಕೆ ಮಜ್ಜನವ ಮಾಡಲಾಗಿ,\nಲಿಂಗತೀರ್ಥವಾಯಿತ್ತು.\nಜಂಗಮದ ಪ್ರಸಾದವ ಲಿಂಗಕ್ಕರ್ಪಿಸಲಾಗಿ, ಲಿಂಗಪ್ರಸಾದವಾಯಿತ್ತು.\nಶುದ್ಧ ಗುರುವಿನಲ್ಲಿ,  ಸಿದ್ಧ ಲಿಂಗದಲ್ಲಿ,  ಪ್ರಸಿದ್ಧ ಜಂಗಮದಲಾದ ಮತ್ತೆ ,\nಸಿಕ್ಕಿತ್ತು ಪ್ರಸಿದ್ಧ ಸಂಖ್ಯೆಯಲ್ಲಿ.\nಇದನರಿತು ಅರ್ಪಿಸಬಲ್ಲಡೆ,  ಆತನೇ ಪ್ರಸಾದಕಾಯ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗದಲ್ಲಿ ಅರ್ಪಿತ ಅವಧಾನಿ.",
+    "transliteration" : "jaṅgamada pādatīrthava liṅgakke majjanava māḍalāgi,\nliṅgatīrthavāyittu.\njaṅgamada prasādava liṅgakkarpisalāgi, liṅgaprasādavāyittu.\nśud'dha guruvinalli,  sid'dha liṅgadalli,  prasid'dha jaṅgamadalāda matte ,\nsikkittu prasid'dha saṅkhyeyalli.\nidanaritu arpisaballaḍe,  ātanē prasādakāya,\nīśān'yamūrti mallikārjunaliṅgadalli arpita avadhāni.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 64,
+    "akshara" : "ja",
+    "kannada" : "ಜಗಕ್ಕೆ ಹೊರಗಾಗಿ ಅರಿವ ಠಾವಿಲ್ಲ, ಜಗಕ್ಕೆ ಒಳಗಾಗಿ ಮರೆವ ಠಾವಿಲ್ಲ ,\nಒಳಹೊರಗೆಂಬುದು ಒಂದೇ ಭೇದವಾದ ಕಾರಣ\nಕುಡಿಕೆಯ ಘೃತ ಅಗಲಿಕೆ ಬಂದಂತೆ, ಅದು ಮುಂದಣ ಬಯಕೆ.\nಇದು ಇಂದಿನ ಇರವು ಎಂಬುದನರಿದಲ್ಲಿ,\nಉಂಟು, ಇಲ್ಲಾ ಎಂಬ ಸಂದೇಹ ಹರಿಯಿತ್ತು,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವನರಿದಲ್ಲಿ.",
+    "transliteration" : "jagakke horagāgi ariva ṭhāvilla, jagakke oḷagāgi mareva ṭhāvilla ,\noḷahoragembudu ondē bhēdavāda kāraṇa\nkuḍikeya ghr̥ta agalike bandante, adu mundaṇa bayake.\nidu indina iravu embudanaridalli,\nuṇṭu, illā emba sandēha hariyittu,\nīśān'yamūrti mallikārjunaliṅgavanaridalli.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 65,
+    "akshara" : "ja",
+    "kannada" : "ಜಲದಲ್ಲಿ ಹುಟ್ಟಿದ ಚೇತನ, ಜಲವುಳಿದು ಜೀವಿಸಬಲ್ಲುದೆ ?\nಅರಿವನರಿದಲ್ಲಿ, ಕುರುಹಿನ ಮರೆಯಲ್ಲಿ,\nಇದೆಯೆಂದು ತೋರಿದ ಮತ್ತೆ ,\nಕುರುಹುನುಳಿದು, ಅರಿವ ಪರಿಯಿನ್ನೆಂತೊ ?\nಆ ಉಭಯ, ಆತ್ಮದೃಷ್ಟಿಯಂತೆ.\nಶಿವಲೆಂಕನ ಮಾತು,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗಕ್ಕೆ\nಉಂಟು ಇಲ್ಲಾ ಎಂಬಲ್ಲಿ ಹಾಕಿದ ಮುಂಡಿಗೆ.",
+    "transliteration" : "jaladalli huṭṭida cētana, jalavuḷidu jīvisaballude ?\narivanaridalli, kuruhina mareyalli,\nideyendu tōrida matte ,\nkuruhunuḷidu, ariva pariyinnento ?\nā ubhaya, ātmadr̥ṣṭiyante.\nśivaleṅkana mātu,\nīśān'yamūrti mallikārjunaliṅgakke\nuṇṭu illā emballi hākida muṇḍige.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 66,
+    "akshara" : "ja",
+    "kannada" : "ಜ್ಞಾನವುಳ್ಳನ್ನಕ್ಕ ಅರಿವು, ಅರಿವುಳ್ಳನ್ನಕ್ಕ ಆತ್ಮ ,\nಆತ್ಮವುಳ್ಳನ್ನಕ್ಕ ಜೀವ, ಜೀವವುಳ್ಳನ್ನಕ್ಕ ಕಾಯ,\nಕಾಯವುಳ್ಳನ್ನಕ್ಕ ಸಕಲಸುಖಭೋಗಂಗಳು.\nಅದೆಂತೆಂದಡೆ :\nಬೀಜಳಿದು ಬೆಳೆದು ಪುನರಪಿ ಬೀಜವಾದಂತೆ.\nಅದರ ಆಗುಚೇಗೆಯನರಿದಲ್ಲಿ, ಇಷ್ಟಪ್ರಾಣಯೋಗ ಕ್ರಿಯಾದ್ವೈತ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವನರಿದುದು.",
+    "transliteration" : "jñānavuḷḷannakka arivu, arivuḷḷannakka ātma ,\nātmavuḷḷannakka jīva, jīvavuḷḷannakka kāya,\nkāyavuḷḷannakka sakalasukhabhōgaṅgaḷu.\nadentendaḍe :\nbījaḷidu beḷedu punarapi bījavādante.\nadara āgucēgeyanaridalli, iṣṭaprāṇayōga kriyādvaita,\nīśān'yamūrti mallikārjunaliṅgavanaridudu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 67,
+    "akshara" : "ta",
+    "kannada" : "ತನುವಿಗೆ  ರುಜೆಯಡಸಿದಲ್ಲಿ ಆತ್ಮಕ್ಕೆ  ಅವಗಡೆ ಬಂದಿತ್ತು.\nಅದು ಉಭಯದ ಕೇಡೊ ? ಒಂದರ ಕೇಡೊ ? ಎಂಬುದನರಿತಲ್ಲಿ ,\nಲಿಂಗ ಜಂಗಮದ ಪ್ರಸಾದವೊಂದೆಯಾಯಿತ್ತು.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವನರಿಯಲಾಗಿ,\nಸ್ವಯಂಭವಾಯಿತ್ತು.",
+    "transliteration" : "tanuvige  rujeyaḍasidalli ātmakke  avagaḍe bandittu.\nadu ubhayada kēḍo ? ondara kēḍo ? embudanaritalli ,\nliṅga jaṅgamada prasādavondeyāyittu.\nīśān'yamūrti mallikārjunaliṅgavanariyalāgi,\nsvayambhavāyittu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 68,
+    "akshara" : "ta",
+    "kannada" : "ತನುವಿಂಗೆ ಗುರುಲಿಂಗ, ಮನಕ್ಕೆ ಆಚಾರಲಿಂಗ,\nಆಚಾರಕ್ಕೆ ಅರಿವೆ ಲಿಂಗವಾಗಿ,\nಅರಿವೇ ಈಶಾನ್ಯಮೂರ್ತಿ\nಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವೆಂಬುದಕ್ಕೆ ಕುರುಹಾಯಿತ್ತು .",
+    "transliteration" : "tanuviṅge guruliṅga, manakke ācāraliṅga,\nācārakke arive liṅgavāgi,\narivē īśān'yamūrti\nmallikārjunaliṅgavembudakke kuruhāyittu .",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 69,
+    "akshara" : "ta",
+    "kannada" : "ತರ್ವಾಯಕ್ಕೆ ಸಿಕ್ಕಿದಲ್ಲಿ ವೇದಾಂತಿಯಾದ.\nಆಗುಚೇಗೆಯನಾಡೆಹೆನೆಂದು ಆಗಮಿಕನಾದ.\nಹಿಂದುಮುಂದಣ ನಿಂದ ಹರಟೆಯ ಹೇಳಿಹೆನೆಂದು ಪುರಾಣಿಕನಾದ.\nಇಂತಿವು ಪಂಚವಿಂಶತಿತತ್ವದ ಶಾಖೆಯಲ್ಲಿ ಅದ ಜಾಳಿಸುವ ವಾರ್ದಿಕ ಪರ್ಣ.\nಇಂತಿವ ನೇತಿಗಳೆದು ನಿಂದುದು,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗದಲ್ಲಿ ಸ್ವಯಂಭುವಾದ.",
+    "transliteration" : "tarvāyakke sikkidalli vēdāntiyāda.\nāgucēgeyanāḍ'̔ehenendu āgamikanāda.\nhindumundaṇa ninda haraṭeya hēḷihenendu purāṇikanāda.\nintivu pan̄cavinśatitatvada śākheyalli ada jāḷisuva vārdika parṇa.\nintiva nētigaḷedu nindudu,\nīśān'yamūrti mallikārjunaliṅgadalli svayambhuvāda.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 70,
+    "akshara" : "ta",
+    "kannada" : "ತನುವಿನಲ್ಲಿ  ಮನೋಮೂರ್ತಿಯಾಗಿ,\nಜಿಹ್ವೆಯಲ್ಲಿ ರುಚಿಸುವವ ನೀನಾಗಿ,\nಕರ್ಣದಲ್ಲಿ ಆದರಿಸಿ ಕೇಳುವವ ನೀನಾಗಿ,\nನಯನದಲ್ಲಿ ಎವೆ ಹಳಚದೆ ನೋಡುವವ ನೀನಾಗಿ,\nನಾಸಿಕದಲ್ಲಿ ಸುವಾಸನೆಯ ಗ್ರಹಿಸುವವ ನೀನಾಗಿ,\nಪಾದ ಪ್ರಾಣಿಗಳಲ್ಲಿ ಸರ್ವಾಂಗಮುಖವಾಗಿ,\nಸಕಲಸುಖಿಯಾಗಿ, ಭೋಗಮೂರ್ತಿಯಾದೆಯಲ್ಲಾ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವೆ.",
+    "transliteration" : "tanuvinalli  manōmūrtiyāgi,\njihveyalli rucisuvava nīnāgi,\nkarṇadalli ādarisi kēḷuvava nīnāgi,\nnayanadalli eve haḷacade nōḍuvava nīnāgi,\nnāsikadalli suvāsaneya grahisuvava nīnāgi,\npāda prāṇigaḷalli sarvāṅgamukhavāgi,\nsakalasukhiyāgi, bhōgamūrtiyādeyallā,\nīśān'yamūrti mallikārjunaliṅgave.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 71,
+    "akshara" : "ta",
+    "kannada" : "ತಮಕ್ಕೂ ದಿವಕ್ಕೂ ಸೂರ್ಯನಾದ ಮತ್ತೆ,\nದಿನ ಮಾಸಂಗಳೆಂಬವು ನಷ್ಟವಾಯಿತ್ತು.\nಭಕ್ತನೂ ನಾನೆ, ವಿರಕ್ತನೂ ನಾನೆ ಎಂದಲ್ಲಿ, ಕೈಲಾಸದ ಬಟ್ಟೆ ಕಟ್ಟಿತ್ತು .\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ಎತ್ತ ಹೋದರೆಂದರಿಯು.",
+    "transliteration" : "tamakkū divakkū sūryanāda matte,\ndina māsaṅgaḷembavu naṣṭavāyittu.\nbhaktanū nāne, viraktanū nāne endalli, kailāsada baṭṭe kaṭṭittu .\nīśān'yamūrti mallikārjunaliṅgavu etta hōdarendariyu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 72,
+    "akshara" : "ta",
+    "kannada" : "ತನುವಿಂಗೆ ಕುರುಹಾದಲ್ಲಿ, ಅರ್ಚನೆ ಆವರಿಸಬೇಕು.\nಪೂಜೆ ಪುಣ್ಯವನರಿಯಬೇಕು.\nಅರಿದರಿವು,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವ ಕುರುಹಿಡಬೇಕು.",
+    "transliteration" : "tanuviṅge kuruhādalli, arcane āvarisabēku.\npūje puṇyavanariyabēku.\naridarivu,\nīśān'yamūrti mallikārjunaliṅgava kuruhiḍabēku.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 73,
+    "akshara" : "ta",
+    "kannada" : "ತುಷವಿದ್ದಲ್ಲಿ ಭತ್ತವಾಯಿತ್ತು, ತುಷ ಹೆರಹಿಂಗೆ ತಂಡುಲವಾಯಿತ್ತು,\nತಂಡುಲ ದಗ್ಧವಾಗಿ ಬ್ರಹ್ಮವಾಯಿತ್ತು,\nಈ ಗುಣ ಒಂದನೊಂದ ಬಿಟ್ಟು ನಿಂದುದನರಿತಲ್ಲಿ,\nಜಂಗಮಪ್ರಸಾದ ಲಿಂಗಕ್ಕರ್ಪಿತ.\nಈಶಾಮ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗಕ್ಕೆ ಅರಿತಲ್ಲಿಯೆ ಅರ್ಪಿತ.",
+    "transliteration" : "tuṣaviddalli bhattavāyittu, tuṣa herahiṅge taṇḍulavāyittu,\ntaṇḍula dagdhavāgi brahmavāyittu,\nī guṇa ondanonda biṭṭu nindudanaritalli,\njaṅgamaprasāda liṅgakkarpita.\nīśāmyamūrti mallikārjunaliṅgakke aritalliye arpita.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 74,
+    "akshara" : "ta",
+    "kannada" : "ತ್ರಿವಿಧಕ್ಕೆ ಮನ ಎಷ್ಟರಾಸೆ ಉಂಟು\nಅಷ್ಟು ಬೇಕು ಗುರುಲಿಂಗಜಂಗಮವ ಪೂಜಿಸುವುದಕ್ಕೆ.\nಬಾಳೆಗೆ ಫಲ ಕಡೆಯಾದಂತೆ, ಚೇಳಿಗೆ ಗರ್ಭವುದಯಿಸಿದಂತೆ,\nಭಕ್ತಂಗೆ ಅಂದಂದಿಗೆ ಸಂದುದೆ ಸರಿಯಾಗಿ ನಿಂದ ಭಕ್ತನಿರವು,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗದಿರವೆ ತಾನಾಗಿ.",
+    "transliteration" : "trividhakke mana eṣṭarāse uṇṭu\naṣṭu bēku guruliṅgajaṅgamava pūjisuvudakke.\nbāḷege phala kaḍeyādante, cēḷige garbhavudayisidante,\nbhaktaṅge andandige sandude sariyāgi ninda bhaktaniravu,\nīśān'yamūrti mallikārjunaliṅgadirave tānāgi.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 75,
+    "akshara" : "dha",
+    "kannada" : "ಧರೆ ಆಕಾಶವಿಲ್ಲದಿರೆ, ಆಡುವ ಘಟಪಟ, ಚರಸ್ಥಾವರ,\nಆಡುವ ಚೇತನಾದಿಗಳಿರಬಲ್ಲವೆ ?\nವಸ್ತುವಿನ ಸಾಕಾರವೆ ಭೂಮಿಯಾಗಿ,\nಆ ವಸ್ತುವಿನ ಆಕಾಶವೆ ಶಲಾಕೆ ರೂಪಾಗಿ,\nಸಂಘಟಿಸಲಾಗಿ ಜೀವಕಾಯವಾಯಿತ್ತು.\nಇಂತೀ ರೂಪಿಂಗೆ ರೂಪುಪೂಜೆ, ಅರಿವಿಂಗೆ ಜ್ಞಾನಪೂಜೆ.\nಉಭಯವು ನಿಂದಲ್ಲಿ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗ, ಏನೂ ಎನಲಿಲ್ಲ.",
+    "transliteration" : "dhare ākāśavilladire, āḍuva ghaṭapaṭa, carasthāvara,\nāḍuva cētanādigaḷiraballave ?\nvastuvina sākārave bhūmiyāgi,\nā vastuvina ākāśave śalāke rūpāgi,\nsaṅghaṭisalāgi jīvakāyavāyittu.\nintī rūpiṅge rūpupūje, ariviṅge jñānapūje.\nubhayavu nindalli,\nīśān'yamūrti mallikārjunaliṅga, ēnū enalilla.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 76,
+    "akshara" : "dha",
+    "kannada" : "ಧ್ಯಾನ ಧಾರಣ ಸಮಾಧಿ ಯೋಗಂಗಳಿಂದ ಕಾಬುದು ತನುಪ್ರಾಪ್ತಿ ಐಸೆ ?\nಅದು ಸ್ಥೂಲ ಸೂಕ್ಷ್ಮ ಕಾರಣಕ್ಕೆ ಘಟಯೋಗಸಂಬಂಧ.\nಅದು ಬ್ರಹ್ಮನ ಭಿತ್ತಿ, ವಿಷ್ಣುವಿನ ಆಗು, ರುದ್ರನ ಚೇಗೆ,\nಅದು ಗುರು ಚರ ಪರಕ್ಕೆ ಕೊಟ್ಟ ಹಸಿಗೆ.\nಸಾಕಾರದಲ್ಲಿ ಕಂಡು, ನಿರಾಕಾರದಲ್ಲಿ ಅರಿದು,\nಬೆಳಗಿನ ಬಯಲಲ್ಲಿ  ನಿರವಯಾಂಗನಾಗಿ ಇರಬೇಕು,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ಸ್ವಯಂಭುವನರಿವುದಕ್ಕೆ.",
+    "transliteration" : "dhyāna dhāraṇa samādhi yōgaṅgaḷinda kābudu tanuprāpti aise ?\nadu sthūla sūkṣma kāraṇakke ghaṭayōgasambandha.\nadu brahmana bhitti, viṣṇuvina āgu, rudrana cēge,\nadu guru cara parakke koṭṭa hasige.\nsākāradalli kaṇḍu, nirākāradalli aridu,\nbeḷagina bayalalli  niravayāṅganāgi irabēku,\nīśān'yamūrti mallikārjunaliṅgavu svayambhuvanarivudakke.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 77,
+    "akshara" : "dha",
+    "kannada" : "ಧರೆಯ ಕೃಷಿ ಶುದ್ಧವಾಗಿಯಲ್ಲದೆ, ಸಸಿ ಶುದ್ಧವಿಲ್ಲ.\nಅರ್ಚನೆ ಅರ್ಪಿತ ಮೂರ್ತಿಧ್ಯಾನದಿಂದಲ್ಲದೆ, ಚಿತ್ತ ಶುದ್ಧವಿಲ್ಲ.\nಇದು ನಿಶ್ಚಯ, ಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವನರಿವುದಕ್ಕೆ.",
+    "transliteration" : "dhareya kr̥ṣi śud'dhavāgiyallade, sasi śud'dhavilla.\narcane arpita mūrtidhyānadindallade, citta śud'dhavilla.\nidu niścaya, īśān'yamūrti mallikārjunaliṅgavanarivudakke.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 78,
+    "akshara" : "na",
+    "kannada" : "ನಡೆದು ನಡೆಯದವನ ಕಂಡು, ನುಡಿದು ನುಡಿಯದವನ ಕಂಡು,\nಅರಿದು ಅರಿಯದವನ ಕಂಡು,\nತ್ರಿವಿಧ ಭೇದಂಗಳಲ್ಲಿ ಭೇದಿಸಿ ಛೇದಿಸಿ ನಿಂದುದು,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ನಿಂದ ವಾಸ.",
+    "transliteration" : "naḍedu naḍeyadavana kaṇḍu, nuḍidu nuḍiyadavana kaṇḍu,\naridu ariyadavana kaṇḍu,\ntrividha bhēdaṅgaḷalli bhēdisi chēdisi nindudu,\nīśān'yamūrti mallikārjunaliṅgavu ninda vāsa.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 79,
+    "akshara" : "na",
+    "kannada" : "ನಿತ್ಯ ಚಿಲಮೆಯ ನೋಡುವಾತಂಗೆ ಉಚ್ಚೆಯ ಬಚ್ಚಲ ತೋಡಲಾಗದು.\nಭಕ್ತರನಲ್ಲದೆ ಭವಿಗಳ ಬೇಡೆನೆಂಬಾತಂಗೆ\nಅಚ್ಚೊತ್ತಿದ ಲಕ್ಷ್ಮಿಯ ಮುದ್ರೆಯ ಹಿಡಿಯಲಾಗದು.\nಕೊಂಡ ವ್ರತಕ್ಕೆ ಸಂದೇಹ ಕುಳ್ಳಿರೆ, ಅಂಗವ ಹೊರಲಾಗದು.\nಇಂತಿವನರಿಯದೆ,\nನಾ ವ್ರತಸ್ಥನೆಂದು ಕೊಂಡಾಡುತಿಪ್ಪ ಭಂಡರನೊಪ್ಪ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನವು.",
+    "transliteration" : "nitya cilameya nōḍuvātaṅge ucceya baccala tōḍalāgadu.\nbhaktaranallade bhavigaḷa bēḍenembātaṅge\naccottida lakṣmiya mudreya hiḍiyalāgadu.\nkoṇḍa vratakke sandēha kuḷḷire, aṅgava horalāgadu.\nintivanariyade,\nnā vratasthanendu koṇḍāḍutippa bhaṇḍaranoppa,\nīśān'yamūrti mallikārjunavu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 80,
+    "akshara" : "na",
+    "kannada" : "ನೀ ಹಾಕಿದ ಮುಂಡಿಗೆ ಎನಗೂ ಸರಿ, ನಿನಗೂ ಸರಿ.\nನಾ ಹಾಕಿದ ಮುಂಡಿಗೆ ನಿನ್ನ ಕೇಡು, ಎನ್ನ ಕೇಡು.\nಗರ್ಭವ ಹೊತ್ತಿದ ಸ್ತ್ರೀ ಅಳಿದಂತೆ.\nಶಿವಲೆಂಕನ ಮಾತು,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗಕ್ಕೆ ಹಾಕಿದ ಮುಂಡಿಗೆ.",
+    "transliteration" : "nī hākida muṇḍige enagū sari, ninagū sari.\nnā hākida muṇḍige ninna kēḍu, enna kēḍu.\ngarbhava hottida strī aḷidante.\nśivaleṅkana mātu,\nīśān'yamūrti mallikārjunaliṅgakke hākida muṇḍige.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 81,
+    "akshara" : "na",
+    "kannada" : "ನಾದವಿಲ್ಲದೆ ಬಿಂದುವಿಲ್ಲ, ಬಿಂದುವಿಲ್ಲೆದ ಕಳೆಯಿಲ್ಲ,\nಕಳೆಯಿಲ್ಲದೆ ಲಿಂಗವಿಲ್ಲ.\nಇಂತೀ ತ್ರಿವಿಧಭೇದಂಗಳಲ್ಲಿ ಗುರುವಿನ  ಆದಿಯನರಿತು,\nಲಿಂಗದ ಭೇದವನರಿತು, ಜಂಗಮದ ಪೂರ್ವವನರಿತು,\nತಾ ಪುನರ್ಜಾತನಾಗಬೇಕು. ಇಂತೀ ಅರ್ಪಿತಭೇದ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವನರಿತಲ್ಲದಾಗದು.",
+    "transliteration" : "nādavillade binduvilla, binduvilleda kaḷeyilla,\nkaḷeyillade liṅgavilla.\nintī trividhabhēdaṅgaḷalli guruvina  ādiyanaritu,\nliṅgada bhēdavanaritu, jaṅgamada pūrvavanaritu,\ntā punarjātanāgabēku. intī arpitabhēda,\nīśān'yamūrti mallikārjunaliṅgavanaritalladāgadu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 82,
+    "akshara" : "pa",
+    "kannada" : "ಪಾತಕ ಹೊಲೆಯೆಂದರಿದು ಬಿಟ್ಟಲ್ಲಿ, ಮತ್ತಾ ಗುಣ ಸ್ವೀಕರಿಸಬಹುದೆ ?\nಇವೆಲ್ಲ ಅಲ್ಲಾ ಎಂದು ಬಲ್ಲತನವ ತಾನರಿದು,\nಮತ್ತೆಲ್ಲರಲ್ಲಿ ಬೆರಸಬಹುದೆ ?\nಒಡೆದ ಹಂಚಿಂಗೆ, ಹಿಡಿದು ಬಿಟ್ಟ ವ್ರತಕ್ಕೆ,\nಮತ್ತಿವ ಒಡಗೂಡಬಹುದೆ ?\nಇಂತೀ ಬಿಡುಗಡೆಯನರಿದಲ್ಲಿ, ಅನುಸರಣೆಯ ಮಾಡಿದಡೆ,\nಎನ್ನೊಡೆಯ ಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವಾದಡೂ\nಹರಶರಣರಿಗೆ ದೂರ.",
+    "transliteration" : "pātaka holeyendaridu biṭṭalli, mattā guṇa svīkarisabahude ?\nivella allā endu ballatanava tānaridu,\nmattellaralli berasabahude ?\noḍeda han̄ciṅge, hiḍidu biṭṭa vratakke,\nmattiva oḍagūḍabahude ?\nintī biḍugaḍeyanaridalli, anusaraṇeya māḍidaḍe,\nennoḍeya īśān'yamūrti mallikārjunaliṅgavādaḍū\nharaśaraṇarige dūra.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 83,
+    "akshara" : "pa",
+    "kannada" : "ಪಿಪೀಲಿಕ ಮಧುರವ ಕಾಂಬಂತೆ, ಮರ್ಕಟ ಲಂಘನವ ಕಾಂಬಂತೆ,\nವಿಹಂಗ ಆಕಾಶವನಡರುವಂತೆ, ತ್ರಿವಿಧದ ಭೇದ.\nಜ್ಞಾನವನರಿತು, ಕಾಯಬಿಂದು, ಜೀವಬಿಂದು, ಜ್ಞಾನಬಿಂದು,\nತ್ರಿವಿಧಬಿಂದುವಿನಲ್ಲಿ ನಿಂದು ಕಂಡು,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗದಲ್ಲಿ, ಸ್ವಯಂಭುವನರಿಯಬೇಕು.",
+    "transliteration" : "pipīlika madhurava kāmbante, markaṭa laṅghanava kāmbante,\nvihaṅga ākāśavanaḍaruvante, trividhada bhēda.\njñānavanaritu, kāyabindu, jīvabindu, jñānabindu,\ntrividhabinduvinalli nindu kaṇḍu,\nīśān'yamūrti mallikārjunaliṅgadalli, svayambhuvanariyabēku.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 84,
+    "akshara" : "pa",
+    "kannada" : "ಪೂಜೆ ಅರತಲ್ಲಿ, ಎಲೆ ಉದುರಿದ ವೃಕ್ಷ ಉಲುಹಡಗಿದಂತಿರಬೇಕು.\nಜಲವಿಲ್ಲದ ತಟಾಕದ ಕೆಳೆಯಲ್ಲಿ, ಬೆಳೆಯ ಬಿತ್ತಿದಂತಿರಬೇಕು.\nವಾರಣಸಿದ ಕುಂಭದಲ್ಲಿ, ವಾರಿಯ ತುಂಬಿಸಿದಂತಿರಬೇಕು.\nಬಯಲ ಬಡಿವಡೆದ ಪಾಣಿ ಅಸಿಯಂತಿರಬೇಕು.\nಸುರಚಾಪದಂತೆ, ಮಾರುತ ಧ್ವನಿಯಂತೆ,\nನಾಮರೂಪಿಂಗೆ ಹೊರಗಾದ ಮತ್ತೆ, ಏನೂ ಎನಲಿಲ್ಲ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವೆಂದೆನಲಿಲ್ಲ.",
+    "transliteration" : "pūje aratalli, ele udurida vr̥kṣa uluhaḍagidantirabēku.\njalavillada taṭākada keḷeyalli, beḷeya bittidantirabēku.\nvāraṇasida kumbhadalli, vāriya tumbisidantirabēku.\nbayala baḍivaḍeda pāṇi asiyantirabēku.\nsuracāpadante, māruta dhvaniyante,\nnāmarūpiṅge horagāda matte, ēnū enalilla,\nīśān'yamūrti mallikārjunaliṅgavendenalilla.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 85,
+    "akshara" : "pa",
+    "kannada" : "ಪಾದತೀರ್ಥವ ಕೊಂಡಲ್ಲಿ ತೃಷೆಯರತು.\nಪ್ರಸಾದವ ಕೊಂಡಲ್ಲಿ ಹಸಿವರತು,\nಭೃತ್ಯಭಾವವಾದಲ್ಲಿ ಪ್ರತ್ಯುತ್ತರವಿಲ್ಲದೆಯಿಪ್ಪುದು,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗಕ್ಕೆ ಲೆಂಕತ್ವಭಾವ.",
+    "transliteration" : "pādatīrthava koṇḍalli tr̥ṣeyaratu.\nprasādava koṇḍalli hasivaratu,\nbhr̥tyabhāvavādalli pratyuttaravilladeyippudu,\nīśān'yamūrti mallikārjunaliṅgakke leṅkatvabhāva.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 86,
+    "akshara" : "pa",
+    "kannada" : "ಪ್ರಸಾದವ ನೆಮ್ಮಿದ ಭಕ್ತನಲ್ಲಿ, ಪರಶಿವನು ಪ್ರಸನ್ನನಾಗಿರ್ಪನು.\nಪಾದತೀರ್ಥವನರಿದು ವಿಶ್ವಾಸಿಸಿಕೊಂಬ ಭಕ್ತನಲ್ಲಿ,\nಆ ಪರಶಿವನು ಪರಂಜ್ಯೋತಿ ಪ್ರಕಾಶವಾಗಿಪ್ಪನು.\nಸಲುವ ಸೈದಾನದ ತೆರಪನರಿದು ಬಹ ಗುರುಚರದ ಅನುವನರಿದು,\nಬಂದುದಕ್ಕೂ ಸಂದುದಕ್ಕೂ ಸಂದಿಲ್ಲದೆ ನಿಂದ ಭಕ್ತನ ಅಂಗಳವೆ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನನ ಮಂಗಳವಾಸ.",
+    "transliteration" : "prasādava nem'mida bhaktanalli, paraśivanu prasannanāgirpanu.\npādatīrthavanaridu viśvāsisikomba bhaktanalli,\nā paraśivanu paran̄jyōti prakāśavāgippanu.\nsaluva saidānada terapanaridu baha gurucarada anuvanaridu,\nbandudakkū sandudakkū sandillade ninda bhaktana aṅgaḷave,\nīśān'yamūrti mallikārjunana maṅgaḷavāsa.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 87,
+    "akshara" : "pa",
+    "kannada" : "ಪೃಥ್ವಿ ಸಾಕಾರವ ಮಾಡಿದಲ್ಲಿ, ಅಪ್ಪು ಆಸ್ತಿಕವಾದಲ್ಲಿ,",
+    "transliteration" : "pr̥thvi sākārava māḍidalli, appu āstikavādalli,",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 88,
+    "akshara" : "pa",
+    "kannada" : "ಪರಶಿವಮೂರ್ತಿಯ ರೂಪತಾಳಿ,\nಎನ್ನ ಶಿವಭಕ್ತರ ಕುಲ ಬಳಗಂಗಳ ಪವಿತ್ರವ ಮಾಡಿಹೆನೆಂದು ನೀ ಬಂದು,\nಅಪವಿತ್ರವ ಮುಟ್ಟಲೇತಕ್ಕೆ ?\nನಿನ್ನ ಕೃಪೆ ಎನಗೆ, ಎನ್ನ ಹೃತ್ಕಮಲಮಧ್ಯ ನಿನಗೆ.\nಎನಗೂ ನಿನಗೂ ತ್ರಿವಿಧದ ಹಂಗಿಲ್ಲ.\nನಾ ನೀನಲ್ಲದೆ ಬೇರೊಂದ ಎಣಿಸಿದಡೆ,\nನೀ ನಾನಲ್ಲದೆ ಬೇರೊಂದ ಮುಟ್ಟಿದಡೆ,\nನಿನ್ನ ಸತ್ಯಕ್ಕೆ, ಎನ್ನ ಭಕ್ತಿಗೆ, ಉಭಯಕ್ಕೂ ನೀನೆ ಮುಂಡಿಗೆ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವೆ.",
+    "transliteration" : "paraśivamūrtiya rūpatāḷi,\nenna śivabhaktara kula baḷagaṅgaḷa pavitrava māḍ'̔ihenendu nī bandu,\napavitrava muṭṭalētakke ?\nninna kr̥pe enage, enna hr̥tkamalamadhya ninage.\nenagū ninagū trividhada haṅgilla.\nnā nīnallade bēronda eṇisidaḍe,\nnī nānallade bēronda muṭṭidaḍe,\nninna satyakke, enna bhaktige, ubhayakkū nīne muṇḍige,\nīśān'yamūrti mallikārjunaliṅgave.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 89,
+    "akshara" : "pa",
+    "kannada" : "ಪರಸ್ತ್ರೀಯರ ಬಿಟ್ಟಾಗಲೆ ಗುರುವಿನ ಇರವು ಸಾಧ್ಯವಾಯಿತ್ತು.\nಪರಧನವ ಬಿಟ್ಟಾಗಲೆ ಲಿಂಗದ ಇರವು ಅಂಗದಲ್ಲಿ ಸಲೆ ಸಂದಿತ್ತು.\nನಿಂದೆಯೆಂಬುದು ನಿಂದಾಗಲೆ, ಜಂಗಮಭಕ್ತಿ ಸಾಧ್ಯವಾಯಿತ್ತು.\nಇಂತೀ ತ್ರಿವಿಧದಲ್ಲಿ  ತಟ್ಟದಿಪ್ಪಾತನು,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜು ಲಿಂಗವ ಮುಟ್ಟಿಪ್ಪನು.",
+    "transliteration" : "parastrīyara biṭṭāgale guruvina iravu sādhyavāyittu.\nparadhanava biṭṭāgale liṅgada iravu aṅgadalli sale sandittu.\nnindeyembudu nindāgale, jaṅgamabhakti sādhyavāyittu.\nintī trividhadalli  taṭṭadippātanu,\nīśān'yamūrti mallikārju liṅgava muṭṭippanu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 90,
+    "akshara" : "pa",
+    "kannada" : "ಪರಧನವನೊಲ್ಲದಿಪ್ಪುದೆ ವ್ರತ, ಪರಸ್ತ್ರೀಯರ ಕೂಡದಿಪ್ಪುದೆ ಶೀಲ.\nಸರ್ವಜೀವವ ಕೊಲ್ಲದಿಪ್ಪುದೆ ನೇಮ.\nತಥ್ಯಮಿಥ್ಯವನಳಿದಿಪ್ಪುದೆ ನೇಮ.\nಇದು, ಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗಕ್ಕೆ ಸಂದೇಹವಿಲ್ಲದ ವ್ರತ.",
+    "transliteration" : "paradhanavanolladippude vrata, parastrīyara kūḍadippude śīla.\nsarvajīvava kolladippude nēma.\ntathyamithyavanaḷidippude nēma.\nidu, īśān'yamūrti mallikārjunaliṅgakke sandēhavillada vrata.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 91,
+    "akshara" : "pa",
+    "kannada" : "ಪೂಜಿಸಿ ಕಾಬುದು ಗುರುವಿನ ಭೇದ,  ಧ್ಯಾನಿಸಿ ಕಾಬುದು ಲಿಂಗದ ಭೇದ,\nಉಭಯದಲ್ಲಿ ನಿಂದು ವಿಚಾರಿಸಿ ಕಾಬುದು ಜಂಗಮದ ಭೇದ.\nಜ ಎಂದಲ್ಲಿ ಜನನ ನಾಸ್ತಿ , ಗ ಎಂದಲ್ಲಿ ಗಗನ ನಾಸ್ತಿ ,\nಮ ಎಂದಲ್ಲಿ ಮರಣ ನಾಸ್ತಿ . ತ್ರಿವಿಧ ನಾಸ್ತಿಯಾಗಿ ನಿಂದುದು,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ನಿಂದ ನಿಲವು.",
+    "transliteration" : "pūjisi kābudu guruvina bhēda,  dhyānisi kābudu liṅgada bhēda,\nubhayadalli nindu vicārisi kābudu jaṅgamada bhēda.\nja endalli janana nāsti , ga endalli gagana nāsti ,\nma endalli maraṇa nāsti . trividha nāstiyāgi nindudu,\nīśān'yamūrti mallikārjunaliṅgavu ninda nilavu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 92,
+    "akshara" : "pa",
+    "kannada" : "ಪೃಥ್ವಿ ರೂಪಾದಲ್ಲಿ ಸದ್ಯೋಜಾತನಾದ,\nಅಪ್ಪು ರೂಪಾದಲ್ಲಿ  ವಾಮದೇವನಾದ\nಅಗ್ನಿ ರೂಪಾದಲ್ಲಿ ಅಘೋರನಾದ, ವಾಯು ರೂಪಾದಲ್ಲಿ ತತ್ಪುರುಷನಾದ,\nಗಗನ ರೂಪಾದಲ್ಲಿ ಈಶಾನ್ಯನಾದ.\nಇಂತೀ ಪಂಚಕೋಶಂಗಳಲ್ಲಿ ನಿಂದು, ಜಗಕ್ಕೆ ಶಾಂತಿಯನಿತ್ತು,\nತಾ ಸ್ವಯಂಜ್ಯೋತಿಯಾಗಿ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ಸ್ವಯಂಭುವಾದ.",
+    "transliteration" : "pr̥thvi rūpādalli sadyōjātanāda,\nappu rūpādalli  vāmadēvanāda\nagni rūpādalli aghōranāda, vāyu rūpādalli tatpuruṣanāda,\ngagana rūpādalli īśān'yanāda.\nintī pan̄cakōśaṅgaḷalli nindu, jagakke śāntiyanittu,\ntā svayan̄jyōtiyāgi,\nīśān'yamūrti mallikārjunaliṅgavu svayambhuvāda.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 93,
+    "akshara" : "ba",
+    "kannada" : "ಬಾಹ್ಯವ್ರತ, ಭ್ರಮೆವ್ರತ, ಸೀಮೋಲ್ಲಂಘನವ್ರತ,\nಉಪಚರಿಯಕೂಟಸ್ಥವ್ರತ, ಸಮಕ್ರೀ ಭೋಜನವ್ರತ,\nಇಷ್ಟಸಂಬಂಧಕೂಟವ್ರತ, ದ್ರವ್ಯ ಉಪಚರಿಯ ಸಂಪದವ್ರತ,\nಅಹುದಲ್ಲವೆಂಬ ಸಂದೇಹ ಸಂಕಲ್ಪವ್ರತ,\nತಿಲ ಮಧುರ ಕ್ರಮಕ ಲವಣ ಪರಿಪಾಕ ವಿಸರ್ಜನವ್ರತ,\nಗಮನ ಸುಮನ ಸಮತೆ ನೇಮ ಸಂತೋಷವ್ರತ.\nಇಂತೀ ಸೀಮೆಯೊಳಗಾದ ಅರುವತ್ತನಾಲ್ಕು ಶೀಲವನರಿದಡೇನು?\nಪರವಧುವಿಂಗೆ ಪಲ್ಲಟಿಸದೆ, ಪರಧನಕ್ಕೆ ಕೈದುಡುಕದೆ,\nಅನರ್ಪಿತಕ್ಕೆ ಮನ ಮುಟ್ಟದೆ, ತಾ ಕೊಂಡ ಸೀಮೆಯಲ್ಲಿ ಭಾವಭ್ರಮೆಯಿಲ್ಲದೆ,\nಮನ ವಚನ ಕಾಯದಲ್ಲಿ ಕೊಂಡ ವ್ರತಕ್ಕೆ ಪೂಜಿಸುವ.\nಗುರುಲಿಂಗಜಂಗಮಕ್ಕೆ ಉಭಯದೋರದೆ ನಿಂದುದು,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗಕ್ಕೆ ಸಂದುದು.",
+    "transliteration" : "bāhyavrata, bhramevrata, sīmōllaṅghanavrata,\nupacariyakūṭasthavrata, samakrī bhōjanavrata,\niṣṭasambandhakūṭavrata, dravya upacariya sampadavrata,\nahudallavemba sandēha saṅkalpavrata,\ntila madhura kramaka lavaṇa paripāka visarjanavrata,\ngamana sumana samate nēma santōṣavrata.\nintī sīmeyoḷagāda aruvattanālku śīlavanaridaḍēnu?\nparavadhuviṅge pallaṭisade, paradhanakke kaiduḍukade,\nanarpitakke mana muṭṭade, tā koṇḍa sīmeyalli bhāvabhrameyillade,\nmana vacana kāyadalli koṇḍa vratakke pūjisuva.\nguruliṅgajaṅgamakke ubhayadōrade nindudu,\nīśān'yamūrti mallikārjunaliṅgakke sandudu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 94,
+    "akshara" : "ba",
+    "kannada" : "ಬರಿಹುಂಡನ ಗಡಿವಾಡದಲ್ಲಿರಿಸಿದಂತೆ,\nಒಡೆಯರಿಲ್ಲದ ಮನೆಯ ತುಡುಗುಣಿ ಹೊಕ್ಕು, ಗಡಬಡಿಯ ಮಾಡಿದಂತೆ,\nಅಂಗಕ್ಕೆ ಕುರುಹಿಲ್ಲದೆ, ಮನಕ್ಕರಿವಿಲ್ಲದೆ\nತ್ರಿಭಂಗಿಯಲ್ಲಿ ನೊಂದವಂಗೆ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವಿಲ್ಲಾ ಎಂದೆ.",
+    "transliteration" : "barihuṇḍana gaḍivāḍadallirisidante,\noḍeyarillada maneya tuḍuguṇi hokku, gaḍabaḍiya māḍidante,\naṅgakke kuruhillade, manakkarivillade\ntribhaṅgiyalli nondavaṅge,\nīśān'yamūrti mallikārjunaliṅgavillā ende.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 95,
+    "akshara" : "ba",
+    "kannada" : "ಬಂಗಾರದ ರೂಪಿದ್ದಲ್ಲದೆ ಬಣ್ಣ ವನವಗವಿಸದು.\nಬಣ್ಣ ರಂಜನೆಯಾಗಿ ರಂಜಿಸುತ್ತಿರೆ ಎಲ್ಲರ ಕಣ್ಣಿಗೆ ಮಂಗಲ.\nಇಂತೀ ಕಾಯ ಜೀವ ಜ್ಞಾನದ ಬೆಳಗು.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗದ ಒದಗು.",
+    "transliteration" : "baṅgārada rūpiddallade baṇṇa vanavagavisadu.\nbaṇṇa ran̄janeyāgi ran̄jisuttire ellara kaṇṇige maṅgala.\nintī kāya jīva jñānada beḷagu.\nīśān'yamūrti mallikārjunaliṅgada odagu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 96,
+    "akshara" : "ba",
+    "kannada" : "ಬಹುರೂಪಕ್ಕೆ ಭಾಷಾಂಗವಿಲ್ಲದಿರೆ ಮೆಚ್ಚದು ಜಗ.\nಗುರುಚರರೂಪ ತಾಳಲ್ಲಿ, ಗುರುವಿಂಗೆ ಗಂಭೀರತೆ, ಚರಕ್ಕೆ ನಿಸ್ಪೃಹತ್ವ.\nಇಂತೀ ಉಭಯಮೂರ್ತಿ ಅಪೇಕ್ಷೆವಿರಹಿತವಾಗಿ ನಿಂದುದು,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ತಾನೆ.",
+    "transliteration" : "bahurūpakke bhāṣāṅgavilladire meccadu jaga.\ngurucararūpa tāḷalli, guruviṅge gambhīrate, carakke nispr̥hatva.\nintī ubhayamūrti apēkṣevirahitavāgi nindudu,\nīśān'yamūrti mallikārjunaliṅgavu tāne.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 97,
+    "akshara" : "bha",
+    "kannada" : "ಭಕ್ತನ ಭಾಷೆ ಗುರುಲಿಂಗಜಂಗಮವಲ್ಲ.\nತ್ರಿವಿಧ ಕರ್ತೃವಿನ ಭಾಷೆ,\nತನ್ನ ಮುಟ್ಟಿ ಪೂಜಿಸುವ ಭಕ್ತನಲ್ಲ.\nಇಂತೀ ಉಭಯದ ಭಾಷೆ, ಕರ್ತೃ ಭೃತ್ಯಂಗಲ್ಲ [ವೆ]?\nಶಿವಲೆಂಕನ ಮಾತು,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗಕ್ಕೆ ಹಾಕಿದ ಮುಂಡಿಗೆ.",
+    "transliteration" : "bhaktana bhāṣe guruliṅgajaṅgamavalla.\ntrividha kartr̥vina bhāṣe,\ntanna muṭṭi pūjisuva bhaktanalla.\nintī ubhayada bhāṣe, kartr̥ bhr̥tyaṅgalla [ve]?\nśivaleṅkana mātu,\nīśān'yamūrti mallikārjunaliṅgakke hākida muṇḍige.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 98,
+    "akshara" : "bha",
+    "kannada" : "ಭಕ್ತನಾಗಿದ್ದಲ್ಲಿ, ಗುರುಲಿಂಗಜಂಗಮ\nಪಾದತೀರ್ಥಪ್ರಸಾದ ಪಂಚಾಚಾರ ಶುದ್ಧಕ್ಕೆ ನಿರತನಾಗಿರಬೇಕು.\nಗುರುಚರವಾದಲ್ಲಿ, ಅಪರಕ್ಕೆ ದೂರನಾಗದೆ ಇರಬೇಕು.\nಈ ಉಭಯ ನಿಧಾನಿಸಿ ನಿಂದಲ್ಲಿ,\nಶಿವಲೆಂಕನೊಡೆಯ, ಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ತಾನೆ.",
+    "transliteration" : "bhaktanāgiddalli, guruliṅgajaṅgama\npādatīrthaprasāda pan̄cācāra śud'dhakke niratanāgirabēku.\ngurucaravādalli, aparakke dūranāgade irabēku.\nī ubhaya nidhānisi nindalli,\nśivaleṅkanoḍeya, īśān'yamūrti mallikārjunaliṅgavu tāne.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 99,
+    "akshara" : "bha",
+    "kannada" : "ಭಕ್ತ ನಾನೆ ಎಂದು ತನ್ನ ತಾನೆ ನಿಶ್ಚೆ ೈಸುವನ್ನಬರ,\nವಿರಕ್ತ ನಾನೆ ಎಂದು ತನ್ನ ತಾನೆ ಬೀಗುವನ್ನಬರ,\nಅಂಧಕಸಮೂಹದಲ್ಲಿದ್ದು, ನಗೆಯ ಕೇಳಿ ತಾ ಕಾಣದೆ ನಗುವಂತೆ,\nಉಭಯದಿರವ ಮೆಚ್ಚ ಶಿವಲೆಂಕನೊಡೆಯ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು.",
+    "transliteration" : "bhakta nāne endu tanna tāne niśce ̔aisuvannabara,\nvirakta nāne endu tanna tāne bīguvannabara,\nandhakasamūhadalliddu, nageya kēḷi tā kāṇade naguvante,\nubhayadirava mecca śivaleṅkanoḍeya,\nīśān'yamūrti mallikārjunaliṅgavu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 100,
+    "akshara" : "ma",
+    "kannada" : "ಮನ ಅರೋಚಕವಾದಲ್ಲಿ,\nಲವಣ ವಾರಿ ಪರಿಪಾಕ ಮುಂತಾದ ರಸದ್ರವ್ಯವನೊಲ್ಲದೆಯಿಪ್ಪುದು ವ್ರತವೆ ?\nಅಲ್ಲ, ಅದು ಸೌಕರಿಯವಲ್ಲದೆ.\nಅದೆಂತೆಂದಡೆ:\nಪರದ್ರವ್ಯ ಪರಸತಿ ಹುಸಿ ಕೊಲೆ ಕಳವು ಅತಿಕಾಂಕ್ಷೆಯಂ ಬಿಟ್ಟು,\nಬಂದುದ ನಿಂದಂತೆ ಕಂಡು, ಬಾರದುದಕ್ಕೆ ಕಾಂಕ್ಷೆಯ ಮಾಡದಿಪ್ಪುದೆ,\nಅರುವತ್ತನಾಲ್ಕು ವ್ರತ, ಅಯಿವತ್ತಾರು ಶೀಲ,\nಮೂವತ್ತೆರಡು ನೇಮ ಸಂದಿತ್ತು.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗದಲ್ಲಿ ಸ್ವಯಂಭುವಾಯಿತ್ತು.",
+    "transliteration" : "mana arōcakavādalli,\nlavaṇa vāri paripāka muntāda rasadravyavanolladeyippudu vratave ?\nalla, adu saukariyavallade.\nadentendaḍe:\nparadravya parasati husi kole kaḷavu atikāṅkṣeyaṁ biṭṭu,\nbanduda nindante kaṇḍu, bāradudakke kāṅkṣeya māḍadippude,\naruvattanālku vrata, ayivattāru śīla,\nmūvatteraḍu nēma sandittu.\nīśān'yamūrti mallikārjunaliṅgadalli svayambhuvāyittu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 101,
+    "akshara" : "ma",
+    "kannada" : "ಮಾಟ ಕೂಟವ ಮಾಡುವನ್ನಬರ\nಮನ ನಲಿದು, ತನು ಕರಗಿ ಮಾಡುವ ದ್ರವ್ಯಕ್ಕೆ\nಕೇಡಿಲ್ಲದಂತೆ ಮಾಡುತ್ತಿಪ್ಪ ಭಕ್ತನ ಅಂಗವೆ\nಎನ್ನ ಹೃದಯಾಲಯ.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ಅಲ್ಲ್ಲಿ ತಾನಾಗಿಪ್ಪನು.",
+    "transliteration" : "māṭa kūṭava māḍuvannabara\nmana nalidu, tanu karagi māḍuva dravyakke\nkēḍilladante māḍuttippa bhaktana aṅgave\nenna hr̥dayālaya.\nīśān'yamūrti mallikārjunaliṅgavu allli tānāgippanu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 102,
+    "akshara" : "ma",
+    "kannada" : "ಮಡಿಕೆಗೆ ಮುಸುಕು, ತಮಗೆ ಗುಹ್ಯಕ್ಕೆ ದಶಾವಸ್ಥೆ.\nಬಾಹ್ಯದಲ್ಲಿ  ಶೀಲ, ಅಂತರ್ಯಾಮಿಯಲ್ಲಿ ದುಶ್ಶೀಲ.\nಹೊರಗೆ ವ್ರತ, ಒಳಗೆ ಗದಕ.\nಮಾಡಿಕೊಂಡ ವಿಧಿಯನೀಸುವುದಕ್ಕೆ ವಾದ್ಯದ  ಒತ್ತೆಯ ಹಿಡಿದ ದಾಸಿಯಂತೆ,\nಇನ್ನಾರಿಗೆ ಹೇಳುವೆ ?\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವೆ  ನೀನೆ ಬಲ್ಲೆ.",
+    "transliteration" : "maḍikege musuku, tamage guhyakke daśāvasthe.\nbāhyadalli  śīla, antaryāmiyalli duśśīla.\nhorage vrata, oḷage gadaka.\nmāḍikoṇḍa vidhiyanīsuvudakke vādyada  otteya hiḍida dāsiyante,\ninnārige hēḷuve ?\nīśān'yamūrti mallikārjunaliṅgave  nīne balle.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 103,
+    "akshara" : "ma",
+    "kannada" : "ಮಹಾರ್ಣವವುರಿದು ಬೇವಲ್ಲಿ, ಕರಗದ ಜಲಕ್ಕೆ ಹೊಡೆಗೆಡೆವುದೆ ?\nಮಹಾಪಾತಕಕ್ಕೆ ಒಳಗಾದಂಗ,\nಮಾತಿನ ಬಣಬೆಯಲ್ಲಿ ನೀತಿಯಾಗಿ ನುಡಿದಡೆ,\nಅಜಾತನ ಶರಣರು ಒಪ್ಪುವರೆ ? ಅದು ನಿಹಿತವಲ್ಲ.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ಇಂತೀ ಕಾಕರನೊಲ್ಲ",
+    "transliteration" : "mahārṇavavuridu bēvalli, karagada jalakke hoḍegeḍevude ?\nmahāpātakakke oḷagādaṅga,\nmātina baṇabeyalli nītiyāgi nuḍidaḍe,\najātana śaraṇaru oppuvare ? adu nihitavalla.\nīśān'yamūrti mallikārjunaliṅgavu intī kākaranolla",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 104,
+    "akshara" : "ma",
+    "kannada" : "ಮನಸಿಜನ ಇರವುಳ್ಳನ್ನಕ್ಕ ಶೃಂಗಾರವ ಹಾರಬೇಕು.\nಅವರಂಗವುಳ್ಳನ್ನಕ್ಕ ಅಂಗನೆಯರ ಸಂಗಬೇಕು.\nಸಂಗಸುಖಕ್ಕೊಡಲಹನ್ನ ಬರ ಶಿವಲಿಂಗ ಪೂಜೆಯ ಮಾಡಬೇಕು.\nಅದು ಅರುವಿನ ಗೊತ್ತು, ಜ್ಞಾನದ ಚಿತ್ತು,\nಪರಬ್ರಹ್ಮದ ಕೂಟ, ಶಿವಪೂಜೆಯ ಮಾಟ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವನರಿವುದಕ್ಕೆ.",
+    "transliteration" : "manasijana iravuḷḷannakka śr̥ṅgārava hārabēku.\navaraṅgavuḷḷannakka aṅganeyara saṅgabēku.\nsaṅgasukhakkoḍalahanna bara śivaliṅga pūjeya māḍabēku.\nadu aruvina gottu, jñānada cittu,\nparabrahmada kūṭa, śivapūjeya māṭa,\nīśān'yamūrti mallikārjunaliṅgavanarivudakke.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 105,
+    "akshara" : "ma",
+    "kannada" : "ಮಧುರ ದಂಡ ಒರಳಿಗೆ ಬಂದು,\nಮರಳಿ ಬೆಂದು, ತ್ರಿಗುಣದಲ್ಲಿ ಹೊಂದಿ, ಕಡೆಯಾಣೆಯಾದಂತೆ,\nಒಂದನೊಂದು ಕಂಡು ಸಂದನಳಿದು ನಿಂದುದು,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ತಾನೆ.",
+    "transliteration" : "madhura daṇḍa oraḷige bandu,\nmaraḷi bendu, triguṇadalli hondi, kaḍeyāṇeyādante,\nondanondu kaṇḍu sandanaḷidu nindudu,\nīśān'yamūrti mallikārjunaliṅgavu tāne.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 106,
+    "akshara" : "ma",
+    "kannada" : "ಮರೀಚಿಕಾಜಲದಂತೆ ತೋರುತ್ತಿಹ ವಸ್ತು\nನಾದಬಿಂದುವಿನಲ್ಲಿ ಒಡಗೂಡುವ ಪರಿಯಿನ್ನೆಂತೊ ?\nನಾದ ದೀರ್ಘವಾಗಿ, ಬಿಂದು ವರ್ತುಳವಾಗಿ,\nಕಳೆ ಪರಿಪೂರ್ಣವಾಗಿ, ಅವಗವಿಸಲ್ಲದೆ ಉಭಯನಾಮವಡಗದು.\nಅಡಗಿದ ಮತ್ತೆ ಈಶಾನ್ಯಮೂರ್ತಿ  ಅಮೂರ್ತಿಯಾಯಿತ್ತು,\nಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ಸ್ವಯಂಭುವಾದ.",
+    "transliteration" : "marīcikājaladante tōruttiha vastu\nnādabinduvinalli oḍagūḍuva pariyinnento ?\nnāda dīrghavāgi, bindu vartuḷavāgi,\nkaḷe paripūrṇavāgi, avagavisallade ubhayanāmavaḍagadu.\naḍagida matte īśān'yamūrti  amūrtiyāyittu,\nmallikārjunaliṅgavu svayambhuvāda.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 107,
+    "akshara" : "ma",
+    "kannada" : "ಮೇಲು ಹೇಮದಲ್ಲಿ ಕೀಳುಕೊಡೆ,\nಅದು ತನ್ನಯ ಕೀಳು ಕೊಡೆ ಮೇಲುಮಟ್ಟವ ಮರಸಿತ್ತು.\nಜಂಗಮದ ಪ್ರಸಾದವ ಲಿಂಗಕ್ಕೆ ಕೊಡಲಾಗಿ,\nಪ್ರಸಿದ್ಧಪ್ರಸಾದ ಸಿದ್ಧಪ್ರಸಾದವಾಯಿತ್ತು.\nಒಡೆದ ಕ್ಷೀರಕ್ಕೆ  ಹೆಪ್ಪನಿಕ್ಕಿದಡೆ ದಧಿಯಾಗಬಲ್ಲುದೆ ?\nಅರಿಯದವನ ಅರ್ಪಿತ, ಶರಧಿಯ ಹೊಯಿದ ಕರವಾಳಿನಂತಾಯಿತ್ತು.\nಇಂತೀ  ವಿವರದಲ್ಲಿ ಅರ್ಪಿತವನರಿಯಬೇಕು.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುಲಿಂಗವು,\nಇಂತೀ ಅರ್ಪಿತವನರಿಯದಲ್ಲದೊಲ್ಲನು.",
+    "transliteration" : "mēlu hēmadalli kīḷukoḍe,\nadu tannaya kīḷu koḍe mēlumaṭṭava marasittu.\njaṅgamada prasādava liṅgakke koḍalāgi,\nprasid'dhaprasāda sid'dhaprasādavāyittu.\noḍeda kṣīrakke  heppanikkidaḍe dadhiyāgaballude ?\nariyadavana arpita, śaradhiya hoyida karavāḷinantāyittu.\nintī  vivaradalli arpitavanariyabēku.\nīśān'yamūrti mallikārjuliṅgavu,\nintī arpitavanariyadalladollanu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 108,
+    "akshara" : "ma",
+    "kannada" : "ಮಣ್ಣು ಮೂರು, ಹೆಣ್ಣು  ಆರು, ಹೊನ್ನು ಒಂಬತ್ತು ,\nಇವಾದಿಯಾದ ಸಕಲಪ್ರಪಂಚಿನ ಜವನಿಕೆಯನರಿದು ಹರಿಯಬೇಕು,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವನರಿವುದಕ್ಕೆ.",
+    "transliteration" : "maṇṇu mūru, heṇṇu  āru, honnu ombattu ,\nivādiyāda sakalaprapan̄cina javanikeyanaridu hariyabēku,\nīśān'yamūrti mallikārjunaliṅgavanarivudakke.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 109,
+    "akshara" : "ra",
+    "kannada" : "ರೂಪಿನಲ್ಲಿ ಉಂಟೆಂದು ಹೋರುವಾಗ, ಅದು ಅಚೇನಮೂರ್ತಿ.\nನಿರೂಪಿನಲ್ಲಿ ಕಂಡೆನೆಂದು ಹೇಳುವಾಗ, ಅದು ನಾಮಕ್ಕೆ ಬಾರದ ಬಯಲು.\nಉಭಯದಲ್ಲಿ ವಿಚಾರಿಸಿ ಕಾಬುದೊಂದೆ ತನ್ನಯ ದೃಢಚಿತ್ತ.\nಆ ಚಿತ್ತ ಒಪ್ಪಿನಿಂದಲ್ಲಿ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು, ನಿಶ್ಚಯವಾಗಿರ್ಪನು.",
+    "transliteration" : "rūpinalli uṇṭendu hōruvāga, adu acēnamūrti.\nnirūpinalli kaṇḍenendu hēḷuvāga, adu nāmakke bārada bayalu.\nubhayadalli vicārisi kābudonde tannaya dr̥ḍhacitta.\nā citta oppinindalli,\nīśān'yamūrti mallikārjunaliṅgavu, niścayavāgirpanu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 110,
+    "akshara" : "ra",
+    "kannada" : "ರೂಪು ರುಚಿ ಚಿತ್ತ, ಈ ಮೂರು ಏಕವಾಗಿ ನಿಂದಲ್ಲಿ, ಲಿಂಗಾರ್ಪಿತ.\nರೂಪ ಭಾವಿಸದೆ, ರುಚಿಯ ಭಿನ್ನವನರಿಯದೆ,\nಚಿತ್ತದ ಗೊತ್ತ ಮುಟ್ಟದೆ, ಅದೆತ್ತಣ ಅರ್ಪಿತ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗಕ್ಕೆ ?",
+    "transliteration" : "rūpu ruci citta, ī mūru ēkavāgi nindalli, liṅgārpita.\nrūpa bhāvisade, ruciya bhinnavanariyade,\ncittada gotta muṭṭade, adettaṇa arpita,\nīśān'yamūrti mallikārjunaliṅgakke ?",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 111,
+    "akshara" : "ra",
+    "kannada" : "ರಸವನರಿವುದಕ್ಕೆ ಜಿಹ್ವೆಯಾಗಿ ಬಂದು,\nಗಂಧವನರಿವುದಕ್ಕೆ ನಾಸಿಕವಾಗಿ ಬಂದು,\nರೂಪವನರಿವುದಕ್ಕೆ ಅಕ್ಷಿಯಾಗಿ ಬಂದು,\nಶಬ್ದವನರಿವುದಕ್ಕೆ ಶ್ರೋತ್ರವಾಗಿ ಬಂದು,\nಸ್ಪರುಶನವನರಿವುದಕ್ಕೆ ತತ್ವಕ್ಕಾಗಿ ಬಂದು,\nಇಂತೀ ಘಟದ ಮಧ್ಯದಲ್ಲಿ ನಿಂದು  ಪಂಚವಕ್ತ್ರನಾದೆಯಲ್ಲಾ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವೆ.",
+    "transliteration" : "rasavanarivudakke jihveyāgi bandu,\ngandhavanarivudakke nāsikavāgi bandu,\nrūpavanarivudakke akṣiyāgi bandu,\nśabdavanarivudakke śrōtravāgi bandu,\nsparuśanavanarivudakke tatvakkāgi bandu,\nintī ghaṭada madhyadalli nindu  pan̄cavaktranādeyallā,\nīśān'yamūrti mallikārjunaliṅgave.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 112,
+    "akshara" : "la",
+    "kannada" : "ಲಿಂಗವಸ್ತುವಾದಲ್ಲಿ, ನಂಬುವ ಮನ ವಿಶ್ವಾಸವಾಗಬೇಕು.\nಆಸೆವಿರಹಿತ ಗುರುವಾದಲ್ಲಿ, ಪಾಶವಿರಹಿತ ಪೂಜಿಸುವ ಶಿಷ್ಯನಾಗಬೇಕು.\nಸರ್ವದೋಷನಾಶನನಾಗಿ, ಆಸೆಯೆಂಬುದು ಎಳ್ಳನಿತು ತೋರದಿದ್ದಡೆ,\nಆತ ಈಶಾನ್ಯಮೂರ್ತಿ ಪೂಜಿಸುವಾತ, ಅಜಾತ ಶಂಭು.\nಇಂತೀ ಉಭಯ ಏಕಮಯ\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನ ಲಿಂಗವು ತಾನೆ.",
+    "transliteration" : "liṅgavastuvādalli, nambuva mana viśvāsavāgabēku.\nāsevirahita guruvādalli, pāśavirahita pūjisuva śiṣyanāgabēku.\nsarvadōṣanāśananāgi, āseyembudu eḷḷanitu tōradiddaḍe,\nāta īśān'yamūrti pūjisuvāta, ajāta śambhu.\nintī ubhaya ēkamaya\nīśān'yamūrti mallikārjuna liṅgavu tāne.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 113,
+    "akshara" : "va",
+    "kannada" : "ವಾಗದ್ವೈತದಲ್ಲಿ ನಿಂದು, ಸ್ವಯಾದ್ವೆ ೈತವನರಿಯಬೇಕು.\nಆ ಗುಣ ಸ್ವಯವಾಗಿ ನಿಂದು, ಗುರುಮೂರ್ತಿಯಾಗಬೇಕು.\nಗುರುಮೂರ್ತಿ ನಿಶ್ಚಯವಾಗಿ ನಿಂದು,\nಚರಲಿಂಗದಲ್ಲಿ ನಿಃಪತಿಯಾಗಿ ನಿಂದುದು ದ್ವೈತ.\nಎರಡಳಿದು ಒಂದೆನಿಸಿ ನಿಂದುದು,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ತಾನೆ.",
+    "transliteration" : "vāgadvaitadalli nindu, svayādve ̔aitavanariyabēku.\nā guṇa svayavāgi nindu, gurumūrtiyāgabēku.\ngurumūrti niścayavāgi nindu,\ncaraliṅgadalli niḥpatiyāgi nindudu dvaita.\neraḍaḷidu ondenisi nindudu,\nīśān'yamūrti mallikārjunaliṅgavu tāne.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 114,
+    "akshara" : "va",
+    "kannada" : "ವ್ಯಾಧನ ಚಿತ್ತದಂತೆ, ಸಾಧನೆಯಯ್ಯನ ಮೈ ಲಾಗಿನಂತೆ,\nಭೇದಿಸಿಯೈದುವ ಪನ್ನಗನಂತೆ,\nಇಡುವ ತೊಡುವ, ಕೊಡುವ ಕೊಂಬಲ್ಲಿ, ಲಿಂಗಪ್ಪನ ಒಡಗೂಡಬೇಕು.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗ, ಬೆಚ್ಚಂತಿರಬೇಕು.",
+    "transliteration" : "vyādhana cittadante, sādhaneyayyana mai lāginante,\nbhēdisiyaiduva pannaganante,\niḍuva toḍuva, koḍuva komballi, liṅgappana oḍagūḍabēku.\nīśān'yamūrti mallikārjunaliṅga, beccantirabēku.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 115,
+    "akshara" : "va",
+    "kannada" : "ವಟವೃಕ್ಷದ ಘಟದ ಮಧ್ಯದಲ್ಲಿ ಒಂದು ಮಠವಿಪ್ಪುದು.\nಆ ಮಠಕ್ಕೆ ಹಿಂದೆಸೆಯಿಂದ ಬಂದು, ಮುಂದಳ ಬಾಗಿಲ ತೆಗೆದು,\nವಿಚ್ಛಂದದ ಕೋಣೆಯ ಕಂಡು, ಕಿಡಿ ನಂದದೆ ದೀಪವ ಕೊಂಡು ಹೊಕ್ಕು,\nನಿಜದಂಗದ ಓಗರದ ಕುಂಭವ ಕಂಡು,\nಬಂಧವಿಲ್ಲದ ಓಗರವನುಂಡು, ಸದಮಲಲಿಂಗವೆ ತಾನಾದ,\nಈಶಾನ್ಯಮೂರ್ತಿ  ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ಸ್ವಯಂಭುವಾದ.",
+    "transliteration" : "vaṭavr̥kṣada ghaṭada madhyadalli ondu maṭhavippudu.\nā maṭhakke hindeseyinda bandu, mundaḷa bāgila tegedu,\nvicchandada kōṇeya kaṇḍu, kiḍi nandade dīpava koṇḍu hokku,\nnijadaṅgada ōgarada kumbhava kaṇḍu,\nbandhavillada ōgaravanuṇḍu, sadamalaliṅgave tānāda,\nīśān'yamūrti  mallikārjunaliṅgavu svayambhuvāda.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 116,
+    "akshara" : "va",
+    "kannada" : "ವಿಶ್ವಮಯ ರೂಪು ನೀನಾಗಿ, ಅರಿವ ಆತ್ಮ ಒಬ್ಬನಲ್ಲಿಯೇ ಅಡಗಿದೆಯಲ್ಲಾ!\nಬೀಗದ  ಎಸಳು ಹಲವಾದಡೇನು,\nಒಂದು ದ್ವಾರದಲ್ಲಿ ಅಡಗಿ ಓತಂತೆ ಇಪ್ಪ ತೆರ ನೀನಾಗಿ,\nಭಕ್ತರ ಚಿತ್ತದಲ್ಲಿ ನಿಶ್ಚಯನಾದೆ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವೆ.",
+    "transliteration" : "viśvamaya rūpu nīnāgi, ariva ātma obbanalliyē aḍagideyallā!\nbīgada  esaḷu halavādaḍēnu,\nondu dvāradalli aḍagi ōtante ippa tera nīnāgi,\nbhaktara cittadalli niścayanāde,\nīśān'yamūrti mallikārjunaliṅgave.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 117,
+    "akshara" : "va",
+    "kannada" : "ವ್ರತಸ್ಥನಾದಲ್ಲಿ,\nಕಾಮ ಕ್ರೋಧ ಲೋಭ ಮೋಹ ಮದ ಮಾತ್ಸರ್ಯಂಗಳಲ್ಲಿ ತಲೆದೋರದೆ,\nತನ್ನ ಆತ್ಮ ಸತಿ, ಲಿಂಗ ಪುರುಷನಾಗಿ,\nತನ್ನ ಸುಕಾಯಕದಿಂದಾದ ದ್ರವ್ಯಂಗಳ\nಗುರುಲಿಂಗಜಂಗಮದ ಮುಂದಿಟ್ಟು ಅರ್ಪಿತವಹನ್ನಕ್ಕ,\nದೃಕ್ಕು ತುಂಬಿ ನೋಡಿ, ಮನದಣಿವನ್ನಕ್ಕ ಹರುಷಿತನಾಗಿ,\nಮಿಕ್ಕ ಶೇಷವ, ಇಷ್ಟಪ್ರಾಣಲಿಂಗಕ್ಕೆ ತೃಪ್ತಿಯ ಮಾಡಿಪ್ಪ ಮಹಾಭಕ್ತಂಗೆ,\nಸಂಸಾರವೆಂಬ ತೊಟ್ಟು ಹರಿಯಿತ್ತು.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು\nವ್ರತವೆಂಬ ನಾಮಕ್ಕೆ ಒಳಗಾಯಿತ್ತು.",
+    "transliteration" : "vratasthanādalli,\nkāma krōdha lōbha mōha mada mātsaryaṅgaḷalli taledōrade,\ntanna ātma sati, liṅga puruṣanāgi,\ntanna sukāyakadindāda dravyaṅgaḷa\nguruliṅgajaṅgamada mundiṭṭu arpitavahannakka,\ndr̥kku tumbi nōḍi, manadaṇivannakka haruṣitanāgi,\nmikka śēṣava, iṣṭaprāṇaliṅgakke tr̥ptiya māḍippa mahābhaktaṅge,\nsansāravemba toṭṭu hariyittu.\nīśān'yamūrti mallikārjunaliṅgavu\nvratavemba nāmakke oḷagāyittu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 118,
+    "akshara" : "va",
+    "kannada" : "ವೇದ ಅಪರವನರಸಿತ್ತು, ಪುರಾಣ ಪುಣ್ಯವ ಬಯಸಿತ್ತು.\nಶಾಸ್ತ್ರ ಗೆಲ್ಲ ಸೋಲಕ್ಕೊಳಗಾದಲ್ಲಿ, ಶ್ರುತಿ ನಾದದೊಳಗೆ ಸಿಲ್ಕಿತ್ತು.\nನಾದ  ಶ್ರುತಿ ಬಿಂದುವಿನಲ್ಲಿ ನಿಂದು ಗೋಳಕಾಕಾರವಾದಲ್ಲಿ,\nತ್ರಿವಿಧಕ್ಕೆ ಹೊರಗಾಯಿತ್ತು.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ಸ್ವಯಂಭುವಾದ.",
+    "transliteration" : "vēda aparavanarasittu, purāṇa puṇyava bayasittu.\nśāstra gella sōlakkoḷagādalli, śruti nādadoḷage silkittu.\nnāda  śruti binduvinalli nindu gōḷakākāravādalli,\ntrividhakke horagāyittu.\nīśān'yamūrti mallikārjunaliṅgavu svayambhuvāda.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 119,
+    "akshara" : "va",
+    "kannada" : "ವ್ರತಾಚಾರವ ಹಿಡಿದು ಬಿಟ್ಟಲ್ಲಿ, ಗುರುವಾದಡೂ ಪರಿಹರಿಸಬಾರದು.\nಲಿಂಗವಾದಡೂ ಪರಿಹರಿಸಬಾರದು, ಜಂಗಮವಾದಡೂ ಪರಿಹರಿಸಬಾರದು.\nರತ್ನದ ಗುಂಡೆಂದಡೆ, ಶಿರದ ಮೇಲೆ ಹಾಕಿದಡೆ ಒಡೆಯದೆ ?\nನೀನೊಡೆಯನಾದಡೂ ಆ ಲೆಂಕನಾದಡೂ ಈ ಗುಣವಡಗಿಯಲ್ಲದೆ,\nಮೃಡಶರಣರ ಸಂಗಕ್ಕೊಳಗಲ್ಲ.\nಅಂಗದ ಮಲಿನವ, ಕೈ ಹಿಂಗಿ ಒರಸಿದಡೆ ಭಂಗವುಂಟೆ ?\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವಾದಡೂ ಆಗಲಿ,\nಲೆಂಕನ ಬಿನ್ನಹಕ್ಕೆ ಸಂಕಲ್ಪವಿಲ್ಲ.",
+    "transliteration" : "vratācārava hiḍidu biṭṭalli, guruvādaḍū pariharisabāradu.\nliṅgavādaḍū pariharisabāradu, jaṅgamavādaḍū pariharisabāradu.\nratnada guṇḍendaḍe, śirada mēle hākidaḍe oḍeyade ?\nnīnoḍeyanādaḍū ā leṅkanādaḍū ī guṇavaḍagiyallade,\nmr̥ḍaśaraṇara saṅgakkoḷagalla.\naṅgada malinava, kai hiṅgi orasidaḍe bhaṅgavuṇṭe ?\nīśān'yamūrti mallikārjunaliṅgavādaḍū āgali,\nleṅkana binnahakke saṅkalpavilla.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 120,
+    "akshara" : "va",
+    "kannada" : "ವಾಸದ ದೀಪಕ್ಕೆ ವಾಯು ವಿರೋಧವಲ್ಲದೆ\nಮಹಾಹೇತುವಿನ ವಹ್ನಿಗೆ ಅದು ಪ್ರೀತಿಯ ಸಂಗ.\nನೀತಿಯಲ್ಲಿ ನಡೆವನ ವಿರಕ್ತಿ, ಭಕ್ತಿ ಕುಲ ಅಜಾತಂಗೆ ಸಂಗ.\nಮಿಕ್ಕಾದ ದೂಷಣದ ಅಪಸರೆಯ ಮತ್ರ್ಯರ ವಿರೋಧ.\nಇಂತೀ ದ್ವಯ ಭೇದದಲ್ಲಿ ಅರಿದು ನಿಂದ\nಪರಮಪರಿಣಾಮಿಗೆ ಸ್ತುತಿ ನಿಂದೆಯೆಂಬುದಿಲ್ಲ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗದಲ್ಲಿ  ಸ್ವಯಂಭುವಾದವಂಗೆ.",
+    "transliteration" : "vāsada dīpakke vāyu virōdhavallade\nmahāhētuvina vahnige adu prītiya saṅga.\nnītiyalli naḍevana virakti, bhakti kula ajātaṅge saṅga.\nmikkāda dūṣaṇada apasareya matryara virōdha.\nintī dvaya bhēdadalli aridu ninda\nparamapariṇāmige stuti nindeyembudilla,\nīśān'yamūrti mallikārjunaliṅgadalli  svayambhuvādavaṅge.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 121,
+    "akshara" : "śa",
+    "kannada" : "ಶಿಲೆ ಕಾಷ*ದಲ್ಲಿ ಪಾವಕ ಜನಿಸುವ ಭೇದದಂತೆ,\nಮಾಡುವ ಸತ್ಕ್ರೀ ಭೇದ.\nಶಿಲೆಯ ವಹ್ನಿ ತಲೆದೋರಿ ಉಭಯವನುಳುಹಿದಂತೆ,\nಗುರು ಚರದ ಯುಕ್ತಿ.\nಕಾಷ*ದ ವಹ್ನಿ ತನ್ನಯ ಇರವ ಸುಟ್ಟು, ಹಲವು ಕಡೆಗೆ ಪರಿವಂತೆ,\nಆತ್ಮನ ಭೇದ.\nಇಂತೀ ನಾನಾ ವರ್ತಕಂಗಳಲ್ಲಿ ಕ್ರೀ ಶುದ್ಧವಾಗಿ ನಿಂದುದು,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವನರಿದುದು.",
+    "transliteration" : "śile kāṣa*dalli pāvaka janisuva bhēdadante,\nmāḍuva satkrī bhēda.\nśileya vahni taledōri ubhayavanuḷuhidante,\nguru carada yukti.\nkāṣa*da vahni tannaya irava suṭṭu, halavu kaḍege parivante,\nātmana bhēda.\nintī nānā vartakaṅgaḷalli krī śud'dhavāgi nindudu,\nīśān'yamūrti mallikārjunaliṅgavanaridudu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 122,
+    "akshara" : "śa",
+    "kannada" : "ಶಿವಭಕ್ತಂಗೆ ಭೃತ್ತಾಚಾರವಳವಟ್ಟಲ್ಲಿ, ಸದಾಚಾರವಿಪ್ಪುದು.\nಸದಾಚಾರ ಸನ್ನದ್ಧವಾದಲ್ಲಿ,\nಸಮಯೋಚಿತ ಸತ್ಕ್ರಿಯೆಗಳ ಬಲ್ಲ ಸದ್ಭಕ್ತಯೆಲ್ಲಿರ್ದ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ಅಲ್ಲಿಪ್ಪನು.",
+    "transliteration" : "śivabhaktaṅge bhr̥ttācāravaḷavaṭṭalli, sadācāravippudu.\nsadācāra sannad'dhavādalli,\nsamayōcita satkriyegaḷa balla sadbhaktayellirda,\nīśān'yamūrti mallikārjunaliṅgavu allippanu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 123,
+    "akshara" : "sa",
+    "kannada" : "ಸಕಲ ಬಹುಕೃತವೆಂಬ ಗಹನದಲ್ಲಿ,\nಜೀವವೆಂಬ ದಂತಿ ತಿರುಗಾಡುತ್ತಿರಲಾಗಿ,\nಅರಿವೆಂಬ ಕೇಸರಿ ಅದ ಕಂಡು ಒದಗಿಯೈದಿ,\nಮಸ್ತಕದ ಕುಂಭಸ್ಥಲವನೊಡೆದು ಸೇವಿಸುತ್ತಿರಲಾಗಿ,\nಶಾರ್ದೂಲ ಹೋಯಿತ್ತು, ಕೇಸರಿ ಬಿಟ್ಟಿತ್ತು ,\nಗಜ ಬದುಕಿತ್ತು, ಶಾರ್ದೂಲ ಶಂಕೆಯ ಹರಿಯಿತ್ತು .\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು,\nಲೀಲೆಗೆ ಹೊರಗಾಗಿ ಸ್ವಯಂಭುವಾಯಿತ್ತು.",
+    "transliteration" : "sakala bahukr̥tavemba gahanadalli,\njīvavemba danti tirugāḍuttiralāgi,\narivemba kēsari ada kaṇḍu odagiyaidi,\nmastakada kumbhasthalavanoḍedu sēvisuttiralāgi,\nśārdūla hōyittu, kēsari biṭṭittu ,\ngaja badukittu, śārdūla śaṅkeya hariyittu .\nīśān'yamūrti mallikārjunaliṅgavu,\nlīlege horagāgi svayambhuvāyittu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 124,
+    "akshara" : "sa",
+    "kannada" : "ಸಾರಿದುದ ಕಂಡು, ಕೇಳಿ ಮೀರಿ ನಡೆದಡೆ,\nಅವನ ಗಾರುಮಾಡಿದಡೆ, ಕೇಡುಂಟೆ ಅಯ್ಯಾ ?\nದೃಷ್ಟದಿಂದ, ಶರಣರ ಸಂಗದಿಂದ, ಶ್ರುತಿಸ್ಮೃತಿತತ್ವಂಗಳಿಂದ,\nಪಾಪಪುಣ್ಯಗಳೆಂಬುದನರಿದು ಮರೆಯಬಹುದೆ ?\nಗುರುವಿಗೂ ಆಚರಣೆ, ಲಿಂಗಕ್ಕೂ ಆಚರಣೆ, ಜಂಗಮಕ್ಕೂ ಆಚರಣೆ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗಕ್ಕೂ ಆಚರಣೆ,",
+    "transliteration" : "sāriduda kaṇḍu, kēḷi mīri naḍedaḍe,\navana gārumāḍidaḍe, kēḍuṇṭe ayyā ?\ndr̥ṣṭadinda, śaraṇara saṅgadinda, śrutismr̥titatvaṅgaḷinda,\npāpapuṇyagaḷembudanaridu mareyabahude ?\nguruvigū ācaraṇe, liṅgakkū ācaraṇe, jaṅgamakkū ācaraṇe,\nīśān'yamūrti mallikārjunaliṅgakkū ācaraṇe,",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 125,
+    "akshara" : "sa",
+    "kannada" : "ಸಕಲ ಗಂಧಕ್ಕೆ ವಾಯುವೆ ಬೀಜ, ಸಕಲ ಉತ್ಪತ್ಯಕ್ಕೆ ಅಪ್ಪುವೆ ಬೀಜ.\nಸಕಲ ಪ್ರಕೃತಿಗೆ ಜೀವವೆ ಬೀಜ.\nಇಂತೀ ಭೇದವನರಿತಲ್ಲಿ,\nಆತ್ಮನ ವಿವರ ಹೆರೆಹಿಂಗಿದಲ್ಲದೆ, ನಿಜತತ್ವ ಪರಮನಲ್ಲ.\nಪರಮ ಪರತತ್ವವ ಕೂಡಿ ಬೆರಸಿದಲ್ಲಿ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು ಸ್ವಯಂಭುವಾದ.",
+    "transliteration" : "sakala gandhakke vāyuve bīja, sakala utpatyakke appuve bīja.\nsakala prakr̥tige jīvave bīja.\nintī bhēdavanaritalli,\nātmana vivara herehiṅgidallade, nijatatva paramanalla.\nparama paratatvava kūḍi berasidalli,\nīśān'yamūrti mallikārjunaliṅgavu svayambhuvāda.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 126,
+    "akshara" : "sa",
+    "kannada" : "ಸ್ತ್ರೀಲಿಂಗ ನಾಸ್ತಿಯಾಗಿರಬೇಕು ಗುರುವಿನಿರವು.\nಪುಲ್ಲಿಂಗ ನಾಸ್ತಿಯಾಗಿರಬೇಕು ಲಿಂಗದಿರವು.\nನಪುಂಸಕಲಿಂಗ ನಾಸ್ತಿಯಾಗಿರಬೇಕು ಜಂಗಮದಿರವು.\nತ್ರಿವಿಧಬಿಂದು ಲಿಂಗ ನಾಸ್ತಿ.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು,\nನಾದ ಬಿಂದು ಕಳೆಗೆ ಹೊರಗಾಯಿತ್ತು.",
+    "transliteration" : "strīliṅga nāstiyāgirabēku guruviniravu.\npulliṅga nāstiyāgirabēku liṅgadiravu.\nnapunsakaliṅga nāstiyāgirabēku jaṅgamadiravu.\ntrividhabindu liṅga nāsti.\nīśān'yamūrti mallikārjunaliṅgavu,\nnāda bindu kaḷege horagāyittu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 127,
+    "akshara" : "sa",
+    "kannada" : "ಸ್ವಯಂಪಾಕದಲ್ಲಿ ಆದ ದ್ರವ್ಯವ,\nಪರರು ಕಂಡಹರೆಂದು ಮರೆಮಾಡಿಕೊಂಡಿಪ್ಪ ಪರಿಯಿನ್ನೆಂತೊ ?\nಮಹಾಘನವನಾ ಧರಿಸಿ  ನುಡಿವುತ್ತಿಪ್ಪ ನಾಲಗೆ,\nಛಂಡತಾಂಬೂಲ ಮೊದಲಾದ ಭಾವವನೆಲ್ಲರೂ ಕಾಣುತ್ತ,\nವ್ರತದ ಠಾವೆಲ್ಲಿ ಸಿಕ್ಕಿತ್ತು ?\nಮೊಲೆಯ ಮುಚ್ಚಿ, ಸೀರೆಯ ತೆಗೆದಂತಾಯಿತ್ತು.\nಇಂತಿವನರಿದು, ಇದಿರಿಚ್ಛೆಯ ಮರೆದು, ತನ್ನ ಸ್ವಯಿಚ್ಛೆಯನರಿದುದು,\nತನ್ನ ಮುಚ್ಚು, ಘನಲಿಂಗದ ಅಚ್ಚು.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗದ\nವ್ರತಾಚಾರಕ್ಕೆ ಇಕ್ಕದ ಗೊತ್ತು.",
+    "transliteration" : "svayampākadalli āda dravyava,\npararu kaṇḍaharendu maremāḍikoṇḍippa pariyinnento ?\nmahāghanavanā dharisi  nuḍivuttippa nālage,\nchaṇḍatāmbūla modalāda bhāvavanellarū kāṇutta,\nvratada ṭhāvelli sikkittu ?\nmoleya mucci, sīreya tegedantāyittu.\nintivanaridu, idiriccheya maredu, tanna svayiccheyanaridudu,\ntanna muccu, ghanaliṅgada accu.\nīśān'yamūrti mallikārjunaliṅgada\nvratācārakke ikkada gottu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 128,
+    "akshara" : "sa",
+    "kannada" : "ಸುಖದುಃಖಾದಿಗಳ ಮೀರುವ ಎನ್ನವರ ಕಾಣೆ.\nಸುಖದುಃಖಾದಿಗಳ ಮೀರುವ ನಿನ್ನವರ ಕಾಣೆ.\nಇನ್ನೇನು ಹೇಳುವೆ ? ನಡುಹೊಳೆಯಲ್ಲಿ ಹರುಗೋಲ ಹರಿದಂತೆ,\nಅಂಬಿಗನ ಕೊರಳ ಸುತ್ತಿ ಬಂದವರೆಲ್ಲರೂ\nಉಭಯವು ಹೊಂದಿದಂತಾಯಿತ್ತು.\nನೀ ಎನ್ನ ಬಟ್ಟೆ, ನಾ ನಿನ್ನ ಬಟ್ಟೆ.\nಉಭಯವು ಬಂದ ಬಟ್ಟೆಯಾದೆವಲ್ಲ.\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವೆ.",
+    "transliteration" : "sukhaduḥkhādigaḷa mīruva ennavara kāṇe.\nsukhaduḥkhādigaḷa mīruva ninnavara kāṇe.\ninnēnu hēḷuve ? naḍ'̔uhoḷeyalli harugōla haridante,\nambigana koraḷa sutti bandavarellarū\nubhayavu hondidantāyittu.\nnī enna baṭṭe, nā ninna baṭṭe.\nubhayavu banda baṭṭeyādevalla.\nīśān'yamūrti mallikārjunaliṅgave.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 129,
+    "akshara" : "ha",
+    "kannada" : "ಹೊರಗೆ ಚಿಲಮೆ,  ಒಳಗೆ ಮೂತ್ರದ ಕುಳಿ.\nಹೊರಗೆ ಸ್ವಯಂಪಾಕ, ಒಳಗೆ ಅಧರಪಾಕ.\nಹೊರಗೆ ಭವಿ ನಿರಸನ, ಒಳಗೆ ಭವಿಸಂಗ ಕೂಟ.\nಇಂತಿವೆಲ್ಲವು, ಆಡುವ ವಿಧಾಂತ, ನೇಮವ ಹಿಡಿದಂತಾಯಿತ್ತು.\nಇಂತೀ ಗುಣವನೊಪ್ಪ, ಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು.",
+    "transliteration" : "horage cilame,  oḷage mūtrada kuḷi.\nhorage svayampāka, oḷage adharapāka.\nhorage bhavi nirasana, oḷage bhavisaṅga kūṭa.\nintivellavu, āḍuva vidhānta, nēmava hiḍidantāyittu.\nintī guṇavanoppa, īśān'yamūrti mallikārjunaliṅgavu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 130,
+    "akshara" : "ha",
+    "kannada" : "ಹಲವಾಡುವಂತೆ ಕೆಲೆದಾಡಲಿಲ್ಲ.\nಕಂಡವರ ಕಂಡು, ಕೈಕೊಂಡು,\nಅವರು ನಿಂದನಿಂದ ವ್ರತಕ್ಕೆ ತಾ ನಿಂದೆಹೆನೆಂದು ಕೊಂಡಾಡಲಿಲ್ಲ.\nಕೂಲಿಗೆ ಹಾವ ಕಚ್ಚಿಸಿಕೊಂಡಡೆ, ಆದಾರ ಹರಣವಳಿವುದು ?\nತನು ಶುದ್ಧತೆಯಿಲ್ಲದೆ, ಮನ ಆಚಾರದ ಅನುವನರಿಯದೆ,\nನಡೆವರ ಬೆಂಬಳಿಯಲ್ಲಿ\nಗುಡಿಗಟ್ಟಿ ಹರಿದಾಡುವ ಸುರಿಗುಡಿಗಳನೊಪ್ಪ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವು.",
+    "transliteration" : "halavāḍuvante keledāḍalilla.\nkaṇḍavara kaṇḍu, kaikoṇḍu,\navaru nindaninda vratakke tā nindehenendu koṇḍāḍalilla.\nkūlige hāva kaccisikoṇḍaḍe, ādāra haraṇavaḷivudu ?\ntanu śud'dhateyillade, mana ācārada anuvanariyade,\nnaḍevara bembaḷiyalli\nguḍigaṭṭi haridāḍuva suriguḍigaḷanoppa,\nīśān'yamūrti mallikārjunaliṅgavu.",
+    "translation" : ""
+  }, {
+    "authorId" : 62,
+    "number" : 131,
+    "akshara" : "ha",
+    "kannada" : "ಹೇರನೊಪ್ಪಿಸಿದವಂಗೆ ಸುಂಕವ ಬೇಡಿ ಗಾರುಮಾಡಲೇತಕ್ಕೆ ?\nಮೊದಲು ತ್ರಿವಿಧವ ಎನಗೆಂದು ಕೊಟ್ಟು ಮತ್ತೆ ;\nನೀ ಬೇಡಿದಡೆ ನಿನಗಿತ್ತ ಮತ್ತೆ ,\nಎನ್ನಡಿಯ ನೋಡುವ ಬಿಡುಮುಡಿ ಯಾವುದು ?\nನಿನಗೆ ಶಿವಲೆಂಕ ಹಾಕಿದ ಮುಂಡಿಗೆಯ\nನೀನೆತ್ತಲಮ್ಮದೆ, ಎನ್ನ ಕೈಯೊಳಗಾದೆಯಲ್ಲಾ ,\nಈಶಾನ್ಯಮೂರ್ತಿ ಮಲ್ಲಿಕಾರ್ಜುನಲಿಂಗವೆ.",
+    "transliteration" : "hēranoppisidavaṅge suṅkava bēḍi gārumāḍalētakke ?\nmodalu trividhava enagendu koṭṭu matte ;\nnī bēḍidaḍe ninagitta matte ,\nennaḍiya nōḍuva biḍumuḍi yāvudu ?\nninage śivaleṅka hākida muṇḍigeya\nnīnettalam'made, enna kaiyoḷagādeyallā ,\nīśān'yamūrti mallikārjunaliṅgave.",
+    "translation" : ""
+  } ]
+}

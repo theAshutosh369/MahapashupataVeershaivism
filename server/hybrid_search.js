@@ -101,14 +101,91 @@ function getSearchableText(chunk) {
 
 /**
  * Compute keyword overlap score.
+ *
+ * A query token counts as a match if it appears verbatim in the chunk's
+ * searchable text, OR if it is a prefix/substring of a token in the chunk
+ * (e.g. query "renukacharya" matches chunk token "renuka"). This handles
+ * compound Sanskrit/Kannada names that are spelled slightly differently in
+ * the source text.
+ */
+var STOP_WORDS = new Set([
+    'a', 'an', 'the', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'who', 'what', 'which',
+    'when', 'where', 'why', 'how', 'whom', 'whose', 'do', 'does', 'did', 'done', 'has', 'have',
+    'had', 'of', 'to', 'in', 'on', 'at', 'for', 'with', 'by', 'from', 'as', 'and', 'or', 'but',
+    'not', 'no', 'yes', 'so', 'it', 'its', 'he', 'she', 'they', 'them', 'we', 'you', 'i', 'this',
+    'that', 'these', 'those', 'am', 'will', 'would', 'can', 'could', 'should', 'may', 'might',
+    'tell', 'tellme', 'about', 'give', 'me', 'some', 'info', 'information', 'explain', 'describe'
+]);
+
+function isStopWord(token) {
+    return STOP_WORDS.has(token);
+}
+
+/**
+ * Check whether a query token shares a meaningful common prefix with any chunk
+ * token. This matches compound names spelled slightly differently in the
+ * source, e.g. query "renukacharya" matches chunk token "renuka" (a prefix),
+ * while common suffixes like "acharya" are deliberately NOT matched because
+ * they are not a leading portion of the query name.
+ */
+function tokenHasSubstringMatch(queryToken, chunkTokens) {
+    if (queryToken.length < 5) return false;
+    for (var ti = 0; ti < chunkTokens.length; ti++) {
+        var ct = chunkTokens[ti];
+        if (ct.length < 5) continue;
+        var shorter = queryToken.length < ct.length ? queryToken : ct;
+        var longer = queryToken.length < ct.length ? ct : queryToken;
+        // The shorter token must be a prefix of the longer one AND be at least
+        // half the length of the longer, so "renuka" (6) matches "renukacharya"
+        // (12) but the suffix "acharya" (7) does not.
+        if (longer.indexOf(shorter) === 0 && shorter.length >= longer.length * 0.5) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * Compute keyword overlap score.
+ *
+ * A query token counts as a match if it appears verbatim in the chunk's
+ * searchable text, OR (for meaningful, non-stop tokens length >= 5) if it is
+ * a prefix/substring of a chunk token. Stop-words are down-weighted so a query
+ * like "who is renukacharya" is scored primarily by "renukacharya".
  */
 function computeKeywordScore(queryTokens, chunk) {
     var chunkText = normalizeText(getSearchableText(chunk));
-    var matches = 0;
+    var chunkTokens = tokenize(chunkText);
+
+    // Split query tokens into meaningful names/entities and stop/generic words.
+    var meaningful = [];
+    var generic = [];
     for (var ti = 0; ti < queryTokens.length; ti++) {
-        if (chunkText.indexOf(queryTokens[ti]) !== -1) matches += 1;
+        var qt = queryTokens[ti];
+        if (!isStopWord(qt)) meaningful.push(qt);
+        else generic.push(qt);
     }
-    return queryTokens.length > 0 ? matches / queryTokens.length : 0;
+
+    var meaningfulMatches = 0;
+    for (var mi = 0; mi < meaningful.length; mi++) {
+        var mq = meaningful[mi];
+        if (chunkText.indexOf(mq) !== -1) {
+            meaningfulMatches += 1;
+        } else if (tokenHasSubstringMatch(mq, chunkTokens)) {
+            meaningfulMatches += 1;
+        }
+    }
+    var meaningfulScore = meaningful.length > 0 ? meaningfulMatches / meaningful.length : 0;
+
+    var genericMatches = 0;
+    for (var gi = 0; gi < generic.length; gi++) {
+        if (chunkText.indexOf(generic[gi]) !== -1) genericMatches += 1;
+    }
+    var genericScore = generic.length > 0 ? genericMatches / generic.length : 0;
+
+    // Meaningful (entity/name) tokens dominate the score; generic words are
+    // a small tie-breaker so verbatim-phrase chunks still edge ahead.
+    return (meaningfulScore * 0.85) + (genericScore * 0.15);
 }
 
 /**
@@ -140,22 +217,41 @@ function computeFuzzyScore(queryTokens, chunk) {
 
 /**
  * Compute boost score for metadata/entity matches.
+ *
+ * A strong, dedicated boost is given when a meaningful query token (e.g. a
+ * proper noun like "renukacharya") matches the chunk text verbatim or via a
+ * shared prefix (e.g. "renuka"). This ensures that specific entity queries
+ * surface the genuinely relevant chunks even when the semantic (embedding)
+ * score is noisy.
  */
 function computeBoost(queryTokens, chunk) {
     var boost = 0;
     var authorNorm = normalizeText(chunk.author || '');
     var titleNorm = normalizeText(chunk.title || '');
     var datasetNorm = normalizeText(chunk.dataset || '');
+    var chunkTextNorm = normalizeText(chunk.text || '');
+    var chunkTokens = tokenize(chunk.text || '');
 
     for (var ti = 0; ti < queryTokens.length; ti++) {
         var token = queryTokens[ti];
+        if (isStopWord(token)) continue;
         if (authorNorm.indexOf(token) !== -1 || titleNorm.indexOf(token) !== -1) boost += 0.3;
         if (isProperNoun(token) && datasetNorm.indexOf(token) !== -1) boost += 0.2;
         if (hasKannada(token) && hasKannada(chunk.text || '')) boost += 0.15;
         if (isTransliteration(token)) boost += 0.1;
+
+        // Strong boost when the named entity appears in the chunk text
+        // (verbatim or via a shared prefix for compound names).
+        if (token.length >= 5) {
+            if (chunkTextNorm.indexOf(token) !== -1) {
+                boost += 0.45;
+            } else if (tokenHasSubstringMatch(token, chunkTokens)) {
+                boost += 0.4;
+            }
+        }
     }
 
-    return Math.min(boost, 0.5);
+    return Math.min(boost, 0.9);
 }
 
 /**
@@ -189,14 +285,18 @@ function hasValidEmbeddings(chunks) {
 }
 
 /**
- * Hybrid search: semantic (0.5) + keyword (0.25) + fuzzy (0.15) + boost (0.10).
+ * Hybrid search: semantic (0.25) + keyword (0.35) + fuzzy (0.15) + boost (0.25).
  * If no chunks have embeddings, falls back to keyword+fuzzy only.
- * Retrieve 25, rerank, return topK.
+ * Retrieve 50, rerank, return topK.
+ *
+ * Keyword and boost are weighted more heavily than the raw semantic score so
+ * that specific entity queries (e.g. "who is renukacharya") surface the
+ * genuinely relevant chunks even when the embedding similarity is noisy.
  */
 export function hybridSearch(queryEmbedding, query, chunks, opts) {
     if (!opts) opts = {};
     var topK = opts.topK || 10;
-    var retrieveK = opts.retrieveK || 25;
+    var retrieveK = opts.retrieveK || 50;
 
     if (!chunks || chunks.length === 0) {
         return [];
@@ -221,7 +321,7 @@ export function hybridSearch(queryEmbedding, query, chunks, opts) {
         var keywordScore = computeKeywordScore(queryTokens, chunk);
         var fuzzyScore = computeFuzzyScore(queryTokens, chunk);
         var boost = computeBoost(queryTokens, chunk);
-        var combinedScore = (semanticScore * 0.50) + (keywordScore * 0.25) + (fuzzyScore * 0.15) + (boost * 0.10);
+        var combinedScore = (semanticScore * 0.25) + (keywordScore * 0.35) + (fuzzyScore * 0.15) + (boost * 0.25);
 
         scored.push({
             chunk: chunk,

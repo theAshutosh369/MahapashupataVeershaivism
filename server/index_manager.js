@@ -26,6 +26,7 @@ import { fileURLToPath } from 'node:url';
 import { VectorStore, logMemorySnapshot, ensureZeroVector, ZERO_VECTOR } from './vector_store.js';
 import { chunkDatasetFile, chunkAuthorFile, chunkPdfFile, chunkTxtFile } from './chunker.js';
 import { extractPdf } from './pdf_extractor.js';
+import { downloadIndexFiles } from './supabase_storage.js';
 
 // ─── Debug flag ────────────────────────────────────────────────────────────
 const DEBUG = false;
@@ -135,10 +136,11 @@ function computeFileHash(filePath) {
  * Hashes make change detection robust against git checkout mtime changes.
  */
 async function getSourceFiles(dataRoot, existingMeta) {
-    var datasetRoot = path.join(dataRoot, 'datasets');
-    var authorRoot = path.join(dataRoot, 'authors');
-    var datasetFiles = await scanJsonFiles(datasetRoot);
-    var authorFiles = await scanJsonFiles(authorRoot);
+    // Recursively scan the ENTIRE data root for every supported file type
+    // (JSON/PDF/TXT) regardless of folder structure. This makes the index
+    // automatically pick up renamed, added, or reorganized folders without
+    // hardcoding a fixed directory layout.
+    var jsonFiles = await scanJsonFiles(dataRoot);
     var pdfFiles = await scanPdfFiles(dataRoot);
     var txtFiles = await scanTxtFiles(dataRoot);
     var sourceFiles = [];
@@ -152,8 +154,7 @@ async function getSourceFiles(dataRoot, existingMeta) {
     }
 
     var allFiles = [];
-    for (var di = 0; di < datasetFiles.length; di++) allFiles.push(datasetFiles[di]);
-    for (var ai = 0; ai < authorFiles.length; ai++) allFiles.push(authorFiles[ai]);
+    for (var di = 0; di < jsonFiles.length; di++) allFiles.push(jsonFiles[di]);
     for (var pi = 0; pi < pdfFiles.length; pi++) allFiles.push(pdfFiles[pi]);
     for (var ti = 0; ti < txtFiles.length; ti++) allFiles.push(txtFiles[ti]);
 
@@ -341,12 +342,23 @@ function isValidApiKey(key) {
 
 function chunkFile(relPath, parsed) {
     var result = [];
-    if (relPath.startsWith('datasets/')) {
-        var ds = chunkDatasetFile(relPath, parsed);
-        for (var di = 0; di < ds.length; di++) result.push(ds[di]);
-    } else if (relPath.startsWith('authors/')) {
-        var au = chunkAuthorFile(relPath, parsed);
-        for (var ai = 0; ai < au.length; ai++) result.push(au[ai]);
+    // Auto-detect the JSON structure instead of relying on a fixed folder layout.
+    // This lets the indexer handle any folder the user creates:
+    //   - { vachanas: [...] }  → author-style file
+    //   - { data: [...] }      → dataset-style file
+    //   - { name/title, ... }  → single-document style file
+    if (parsed && typeof parsed === 'object') {
+        if (Array.isArray(parsed.vachanas) && parsed.vachanas.length > 0) {
+            var au = chunkAuthorFile(relPath, parsed);
+            for (var ai = 0; ai < au.length; ai++) result.push(au[ai]);
+        } else if (Array.isArray(parsed.data) && parsed.data.length > 0) {
+            var ds = chunkDatasetFile(relPath, parsed);
+            for (var di = 0; di < ds.length; di++) result.push(ds[di]);
+        } else {
+            // Fallback: treat the whole object as a single dataset file.
+            var fallback = chunkDatasetFile(relPath, { data: [parsed], name: parsed.name || parsed.title || path.basename(relPath) });
+            for (var fi2 = 0; fi2 < fallback.length; fi2++) result.push(fallback[fi2]);
+        }
     }
     return result;
 }
@@ -949,13 +961,31 @@ async function cleanupTempFiles() {
     } catch { /* ignore */ }
 }
 
-export async function ensureIndex(dataRoot) {
+export async function ensureIndex(dataRoot, opts) {
     if (indexBuildPromise) return indexBuildPromise;
 
     indexBuildPromise = (async function () {
         var startTime = Date.now();
         console.log('[IndexManager] Ensuring index...');
         logMemorySnapshot('[IndexManager] Start');
+
+        // Persistence workflow: if there is no local index, try to download a
+        // pre-built index (rag_index.json + rag_embeddings.bin) from Supabase
+        // Storage so the production server loads in seconds instead of
+        // rebuilding from scratch. Disabled when env vars are not set, or when
+        // the caller explicitly requests a fresh rebuild (skipSupabaseDownload).
+        if (!(opts && opts.skipSupabaseDownload) && !existsSync(INDEX_FILE)) {
+            try {
+                var dl = await downloadIndexFiles();
+                if (dl && dl.downloaded && dl.downloaded.length > 0) {
+                    console.log('[IndexManager] Downloaded index files from Supabase Storage: ' + dl.downloaded.join(', '));
+                } else if (dl && dl.skipped && dl.skipped.length > 0) {
+                    console.log('[IndexManager] Local index files already present, skipped Supabase download.');
+                }
+            } catch (e) {
+                console.warn('[IndexManager] Supabase download attempt failed: ' + (e && e.message ? e.message : String(e)));
+            }
+        }
 
         var existing = await loadSavedIndex();
         var sourceFiles = await getSourceFiles(dataRoot, existing);

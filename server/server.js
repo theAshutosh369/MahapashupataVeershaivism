@@ -14,7 +14,7 @@ const PUBLIC_DIR = path.resolve(PROJECT_ROOT, 'public');
 const DIST_DIR = path.resolve(PROJECT_ROOT, 'dist');
 const DATA_DIR = path.resolve(PUBLIC_DIR, 'data');
 const DATASETS_DIR = path.resolve(DATA_DIR, 'datasets');
-const AUTHORS_DIR = path.resolve(DATA_DIR, 'authors');
+const AUTHORS_DIR = path.resolve(DATA_DIR, 'Vachanas');
 
 // Determine if we are in production (dist folder exists)
 const isProduction = existsSync(DIST_DIR);
@@ -123,6 +123,25 @@ function authorFilePath(authorFile) {
         // ignore
     }
 
+    // 3) Recursive scan fallback (folder-agnostic discovery)
+    try {
+        const dirFiles = fs.readdirSync(DATA_DIR, { withFileTypes: true });
+        const toVisit = dirFiles
+            .filter(e => e.isDirectory())
+            .map(e => path.join(DATA_DIR, e.name));
+        for (const dir of toVisit) {
+            const files = fs.readdirSync(dir);
+            for (const filename of filenames) {
+                if (files.includes(filename)) {
+                    const fullPath = path.join(dir, filename);
+                    if (fullPath.startsWith(DATA_DIR)) return fullPath;
+                }
+            }
+        }
+    } catch {
+        // ignore
+    }
+
     return null;
 }
 
@@ -197,7 +216,7 @@ app.put('/api/authors/:authorFile/vachanas/:vachanaNumber/:field', async (req, r
         await fs.rename(tmpPath, filePath);
 
         // Sync to GitHub (fire-and-forget — don't block the response)
-        const repoPath = 'public/data/authors/' + path.basename(filePath);
+        const repoPath = 'public/data/Vachanas/' + path.basename(filePath);
         const updatedContent = JSON.stringify(json, null, 2) + '\n';
         commitFile(repoPath, updatedContent, `Update ${field} for vachana #${vachanaNumber} [auto-save]`).catch(() => { });
 
@@ -234,7 +253,7 @@ app.put('/api/authors/:authorFile/vachanas/:vachanaNumber/translation', async (r
         await fs.rename(tmpPath, filePath);
 
         // Sync to GitHub (fire-and-forget — don't block the response)
-        const repoPath = 'public/data/authors/' + path.basename(filePath);
+        const repoPath = 'public/data/Vachanas/' + path.basename(filePath);
         const updatedContent = JSON.stringify(json, null, 2) + '\n';
         commitFile(repoPath, updatedContent, `Update translation for vachana #${vachanaNumber} [auto-save]`).catch(() => { });
 

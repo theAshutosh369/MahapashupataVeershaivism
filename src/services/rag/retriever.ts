@@ -18,13 +18,10 @@ export async function listRagDatasets(): Promise<RAGDataset[]> {
     }
 
     // Dataset names can be relative paths like "datasets/Hariharataratamyam.json",
-    // "authors/basavaṇṇa.json", or top-level "SomeBook.pdf". Strip the directory
-    // prefix and the file extension (.json or .pdf) for display.
+    // "authors/basavaṇṇa.json", "MyFolder/Sub/x.pdf", or top-level "SomeBook.pdf".
+    // Strip the directory prefix and the file extension (.json/.pdf/.txt) for display.
     function formatDatasetName(raw: string): string {
-        // Remove directory prefix (e.g., "datasets/", "authors/")
-        let name = raw.replace(/^(datasets\/|authors\/)/i, '');
-        // Remove .json, .pdf, or .txt extension
-        name = name.replace(/\.(json|pdf|txt)$/i, '');
+        let name = raw.replace(/\.(json|pdf|txt)$/i, '');
         // Decode URL-encoded characters
         try {
             name = decodeURIComponent(name);
