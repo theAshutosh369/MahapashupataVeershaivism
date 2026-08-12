@@ -1,7 +1,8 @@
 /**
  * RAG Routes - Thin route handlers only.
  * All business logic is delegated to rag_engine.js and index_manager.js.
- * ONLY Google Gemini is used (no Ollama, no OpenAI).
+ * Answer generation flows through the pluggable LLM provider layer
+ * (Gemini / OpenAI / auto-fallback) — see server/llm/.
  */
 
 import path from 'node:path';
@@ -9,6 +10,7 @@ import { ensureIndex, getCurrentIndex, getEmbeddingModelName, getEmbeddingDimens
 import { query, queryStream, clearEmbeddingCache } from './rag_engine.js';
 import { getCurrentEmbeddingStore } from './index_manager.js';
 import { uploadIndexFiles } from './supabase_storage.js';
+import { getLLMInfo, validateLLMConfig } from './llm/index.js';
 
 const DEBUG = process.env.RAG_DEBUG === '1';
 
@@ -19,7 +21,13 @@ function debugLog(...args) {
 export function attachRagRoutes(app, { publicRoot }) {
     const dataRoot = path.join(publicRoot, 'data');
     console.log('[RAG Routes] Initialized. Data root:', dataRoot);
-    console.log('[RAG Routes] Embedding: Google gemini-embedding-001 (768-dim) | LLM: Google gemini-flash-latest');
+    console.log('[RAG Routes] Embedding: Google gemini-embedding-001 (768-dim)');
+
+    // Validate LLM provider configuration at startup (logs clear config errors).
+    const llmConfig = validateLLMConfig();
+    const llmInfo = getLLMInfo();
+    console.log('[RAG Routes] LLM provider mode: ' + llmInfo.mode +
+        ' | primary: ' + llmInfo.primaryProvider + ' | model: ' + llmInfo.primaryModel);
 
     /**
      * GET /api/rag/status - Health check and index status
@@ -28,6 +36,7 @@ export function attachRagRoutes(app, { publicRoot }) {
         try {
             await ensureIndex(dataRoot);
             const index = getCurrentIndex();
+            const llm = getLLMInfo();
             res.json({
                 ok: true,
                 ready: true,
@@ -35,8 +44,10 @@ export function attachRagRoutes(app, { publicRoot }) {
                 chunkCount: index?.chunks?.length || 0,
                 embeddingModel: getEmbeddingModelName(),
                 embeddingDimension: getEmbeddingDimension(),
-                llmProvider: 'gemini',
-                llmModel: process.env.GEMINI_MODEL || 'models/gemini-flash-latest',
+                llmProvider: llm.primaryProvider || 'none',
+                llmModel: llm.primaryModel,
+                llmMode: llm.mode,
+                llmChain: llm.chain,
                 embeddingStorage: 'Float32 binary',
                 embeddingFilePath: getEmbeddingFilePath(),
                 embeddingsLoaded: getCurrentEmbeddingStore() ? getCurrentEmbeddingStore().isLoaded() : false,

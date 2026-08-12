@@ -1,0 +1,1828 @@
+--- Page 1 ---
+MAKUTĀGAMA
+KRIYĀPĀDA & CARYĀPĀDA
+English Translation and Notes
+by Dr. Rama Ghose
+राधि प्रतिष्ठान, जगमवाडामठ Palkble
+वाराणसी
+Sanskrit Text Edited by Pt. Vrajavallabha Dwivedi
+SHAIVA BHARATI SHODHA PRATISHTHANAM D. 35/77, Jangamawadimath, Varanasi - 221 001
+
+
+--- Page 2 ---
+
+
+--- Page 3 ---
+Research Publications Series - 10
+MAKUȚĀGAMA
+KRIYĀPĀDA & CARYĀPĀDA
+English Translation and Notes
+by Dr. Rama Ghose Reader in Philosophy Arya Mahila Degree College, Varanasi
+Sanskrit Text Edited by Pt. Vrajavallabha Dwivedi Director, Shaiva Bharati Shodha Pratishthanam
+SHAIVA BHARATI SHODHA PRATISHTHANAM D. 35/77, Jangamawadimath, Varanasi - 221 001
+
+
+--- Page 4 ---
+Published by:
+SHAIVA BHARATI SHODHA PRATISHTHANAM
+D. 35/77, Jangamawadimath
+Varanasi - 221 001
+Shaiva Bharati Shodha Pratishthanam
+ΧΑΜ
+First published 1996
+This publication is partially financed by Mrs. C. U. Uma Devi and Mr. C. Uma Shankar, Vijayanagar, Bangalore.
+Price: Rs. 200 (Hb)
+Rs. 150 (Pb)
+Laser Typeset at :
+Shiva-Shakti Computer Process Jangamawadimath, Varanasi - 221 001
+Printed at:
+Jauhari Printers
+Mahmoorganj, Varanasi - 221 010
+
+
+--- Page 5 ---
+DEDICATION
+This gem of Agama is dedicated to the noble soul, the 85th pontiff of the Kāśī Viśvārādhya Jñānasimhāsana, Late Śrī 1008 Jagadguru Viśveśvara Śivācārya Mahāswamiji.
+
+
+--- Page 6 ---
+
+
+--- Page 7 ---
+CONTENTS
+Blessings Introduction
+Page
+vii
+xi
+1
+5
+Part - I Kriyāpāda
+1. Śāmbhavavrata: Glory and importance
+2. Āhnik: Method and procedure
+3. Worship: Method and procedure
+16
+4. Worship: Accessories
+20
+5. Invocation: Method and procedure
+30
+Part - II Caryāpāda
+1. Last rites: Śāmbhava-devotee
+36
+2. Utkarmaņa: Duties and procedures
+42
+3. Samādhi: Prior preparations and rituals
+50
+54
+4. Samādhi: Process and procedure
+58.
+5. Installation of Linga: Procedure
+64
+6. Last rites (eleventh day): Rites and rituals
+69
+7. Last rites (twelfth day): Rites and rituals
+74
+8. Prakīrņaka: Procedure
+80
+9. Pratyābdik: Procedure
+91
+10. Purification: Process and procedure
+98
+Index of half verses
+112
+Bibliography
+115
+Index
+
+
+--- Page 8 ---
+DE
+211
+
+
+--- Page 9 ---
+Founder of Shaiva Bharati Shodha Pratishthanam
+Shri Kashi Vishwaradhya Jnanasimhasanadhishwar
+Shri 1008 Jagadguru Dr. Chandrashekhar
+Shivacharya Mahaswamiji
+BLESSINGS
+God Śiva revealed four vedas-Rk, Yajuḥ, Sāma, Atharva and twenty eight Āgamas by his five faces namely Sadyojāta, Vāmadeva, Aghora, Tatpuruşa and Iśāna respectively for the welfare of mankind. There are twenty eight Śaivāgamas right from the Kamika to Vātula, each divided into four parts viz. jñānapāda, kriyāpāda, yogapāda and caryāpāda. These aforesaid Nigamāgamas are the main sources of the religious philosophy of the 'Sanatana dharma'. The ardent followers of this eternal religion attain the summumbonum of life, by adhering to the paths directed by the Agamas and Nigamas.
+Since Nigama and Āgama are emanated from the God Śiva, can never be contradictory. Sri Nīlakantha Śivācārya, in the first verse of his book Kriyāsāra supports the view
+परस्पराविरुद्धार्थाः शिवोक्ता निगमागमाः । अल्पबुद्धिभिरन्योन्यं विरोधः परिकल्प्यते ।।
+
+
+--- Page 10 ---
+Makulāgama
+The religious rites and duties of the Śaivas and Vīraśaivas propounded in the former part and the later part of the twenty eight Śaivāgamas respectively have been indicated in the following verse of the Siddhanta Śikhāmaņi
+सिद्धान्ताख्ये महातन्त्रे कामिकाद्ये शिवोदिते । निर्दिष्टमुत्तरे भागे वीरशैवमतं परम् ।।
+Five great teachers namely Sri Renuka, Sri Dāruka, Sri Ghanţakarņa, Sri Dhenukarņa and Sri Viśvakarņa have established the doctrine of the Vīraśaiva philosophy which is propounded by the God Śiva Himself in the later portion of Śaivāgamas. The aforesaid sages preached this revelation to the eminent rșis as per the will of the Lord Śiva. Those teachings are compiled in the scriptures like Siddhānta Śikhāmaņi etc. Thus, the utterances of Śiva as the Vīraśaiva philosophy have been instituted in the world by the five great saints. Therefore, these five illustrious preachers are regarded as the founders of the religion of Viraśaivism.
+It is a matter of regret that the age old scriptures of Śaivāgamas have become rare now-a-days. With a view to rediscovering and publishing the obscured śaivāgamas, a research Institute namely 'Śaiva Bharati Shodha Pratishthanam' was founded in 1993 in the famous 'Sri Jangamawadimath', Varanasi. Four Āgamas viz. Candrajñānāgama, Sūkṣmāgama, Makuțāgama and Kāraṇāgama, with their Hindi translations have already been published from the Research Institute on the occasion of the Mahāśivarātri in 1994.
+The Parameśvarāgama (with Hindi translation) edited by Pt. Vrajavallabha Dwivedi, the Director of the Institute and the Candrajñānāgama rendered into English by Dr. Rama Ghose along with some other books on Śaivism by the learned scholars were published by the Research Institute in 1995.
+I feel immense pleasure in dedicating to the learned scholars the Makuțāgama and Sūkṣmāgama (with Engligh translations), Īśā and Kena Upaniṣads (with Hindi translations of Vīraśaiva commentary), Śakti Viśiṣṭādvaita Tattvatraya Vimarśa and Siddhānta Prakāśikā, in 1996.
+
+
+--- Page 11 ---
+Blessings
+ix
+To   the ancient literature of Śaivāgamas into the international language like English along with the Indian languages is one of the aims of our Institute. This will also facilitate the study and practice of Agamic principles for the Western scholars. With a view to fulfil this aim Dr. Rama Ghose, Reader, Deptt. of Philosophy, Arya Mahila Mahavidyalaya, Varanasi, has made a laudable effort in rendering a faithful English translation of Candrajñānāgama and Makutāgama in a lucid language. Dr. Rama Ghose possesses an immense regard for and a deep inclination to the Śaivasiddhānta as well as the Vīraśaivism. She is a sincere scholar and has made a deep study of Siddhānta Śikhāmaņi and Anubhava Sutra for the last six years and aspires to write commentaries on those scriptures.
+The Astāvarana and Pañcācāra advocated in the Vīraśaiva philosophy have been aptly propounded in the kriyāpāda and caryāpāda of Candrajñānāgama. Adherence to these disciplines is essential for all the devotees of Vīraśaiva religion. Guru, Linga, Jangama, Pādodaka, Prasāda, Vibhūti, Rudrākṣa and Mantra are eightfold protectors from the six types of enemies such as lust, anger etc. That is the reason why they are named as sheaths (avaraņas). Five 'Acāras' such as Lingācāra, Sadācāra, Śivācāra, Gaņācāra and Bhrityācāra are the means for the external and internal purification of the Sadhaka. Thus, purified, the devotee attains the state of Lingānga-Samarasya after ascending the stages of the Șatasthalas.
+आचार एवं सर्वेषामलङ्काराय कल्पते । आचारहीनः पुरुषो लोके भवति निन्दितः ।।
+Therefore, according to Siddhānta Śikhāmaņi, one who does not practice these fivefold 'Acāras' can never be venerated by the people even if he attains great scholarships. Because of this reason Pañcācāra has been accorded the utmost importance in Viraśaiva religion. It has been dealt with in detail in Candrajñānāgama. This scripture can play a very important role in establishing peace and tranquility in the world after eliminating the opposite forces aroused as a consequence of the non-prevalence of the Pañcācāras.
+Vīraśaivāgamas believe in the integration of knowledge and action (ज्ञान-कर्म-समुच्चयवाद) as the means for the attainment of liberation. I have already described this subject in detail in my book namely
+
+
+--- Page 12 ---
+x
+Makulāgama
+'Siddhānta Šikhāmaņi Samīkṣā'. In the Kriyāpāda of Makuțāgama, Śāmbhavavrata, also named as 'Śirovrata' has been enunciated as the supreme means to liberation. Here, the regular duties of the observer of Śāmbhavavrata, three kinds of worships along with the process of drawing the mandalas have been narrated in detail. Performance of worship on the mandalas drawn as per the prescribed procedure, is rarely observed now-a-days. Almost all the Śaivāgamas, as well as Vaisnava and Bauddha Tantras have fully described the procedures and significance of the various mandalas and their ritualistic application in the worships. The special features of the 'Pañcasūtra' linga, the rites of Sannidhānam, Avagunthanam, Sakalīkaraņa, Amṛtikaraņa etc. have also been narrated as the inevitable processes of worship. The glory of 'Prasād', one of the eight protective aura i.e. Aşțāvaraņa, has been advocated in the present scripture.
+Therefore, I have no doubt in my mind that this translation rendered by Dr. Rama Ghose will be very useful for the study of this Agama both by the Oriental and Western scholars.
+I wish her to achieve success and recognition in the field of religious literature for which she is making a sincere and constant effort. Dr. G. C. Kendadamath of the Central Library of the Banaras Hindu University, Varanasi, has constantly extended his sincere co-operation by way of valuable suggestions along with the reading of the proof to accomplish the book in a nice way. Shri Chidananda O. Hiremath (Kasgi) and Rajashekhar G. Hiremath have very carefully composed the manuscript in the computer and the Proprietor and the staff of the Shiva-Shakti Computer Process have always been helpful in printing the book in a short period of time. May Jagadguru Vishwaradhya, Lord Vishwanath and Goddess Annapurna protect them and bestow all affluences.
+Mahāśivarātri
+17.2.1996
+इत्याशिषः
+***
+
+
+--- Page 13 ---
+INTRODUCTION
+Indian culture is an amalgamation of both the vedic and non-vedic traditions. Aryan civilization has merged within itself many an element of the alien cultures. Not only that various trends of almost all the great traditions of the world have mingled with and constituted an integral part of the culture of India. A thorough study of the special features of the cultural and spiritual life of India, compels one to recognise the vast Puranic and Tantrik literatures also along with the vedic and non-vedic traditions.
+A subtle and deep perspective of the Indian philosophy will reveal the truth that the unconscious elements are neither different from nor opposed to the consciousness, rather are complementary and included in the all embracing experience of the Reality. Yoga and Tantra literatures also are in conformity with the above view. Tantra is much more wider in its spiritual disciplines and approach than yoga which advocates the internal spiritual path in accordance with the outer or the general characteristics of the human personality. So, the word 'śruti' denotes both Veda and Tantra, the two expressions of the means, to one and the same spiritual end. To understand the true significance of Tāntric discipline, we have to follow the various revelations of the Āgamic, often called as Tantric scriptures.
+In Mrgendra Tantra, various divisions of Tantric literatures have duly been illustrated. The question arises as to how Parama Śiva, the embodiment of pure consciousness manifests and transmits the undivided transcendental knowledge to the experiential level. It is stated by way of reply that the supreme God revealed the pure knowledge through His famous five faces i.e. upper (Īśāna), eastern (Tatpurusa), southern (Aghora), northern (Vāmadeva) and western (Sadyojāta). It has also been stated that various knowledges have emerged from the above mentioned faces, such as, all the Siddhāntāgamas are revealed by the upper face Īsāna, Garuda Tantra by the eastern face namely Tatpuruşa, Bhūta Tantra by the western face namely Sadyojāta, Vāma Tantra by the northern face Vāmadeva and Bhairavāgama by the southern face- Aghora. The pure indivisible knowledge of transcendental Śiva is primarily manifested as nāda, the
+
+
+--- Page 14 ---
+xii
+Makutāgāma
+first expression of the pure consciousness in the form of vibration (Spanda). That vibration of consciousness - force assumes the form of scriptural knowledge after descending to the sphere of Sadāśiva. According to Kāmikāgama, five sources namely Laukik (empirical), Vaidik (Scriptural), Ādhyātmika (spiritual), Atimārga (transcendental) and Mantrātmak (aphoristic, the world of hymns) have emanated from each of the five faces of Sadāśiva. Hence the total number of sources comes to twentyfive. It is to be noted here that the knowledge emanated from the upper mouth, named as 'Siddhāntāgama', is the bestower of the liberation. In accordance with the spheres of the preachers, the knowledge is considered to be of different status. Hence, it is stated in Svāyambhūvāgama that the knowledge revealed by Śiva, though basically of the same nature, assumes different forms in association with the other elements. As one and the same knowledge adopts different modes because of the differences of the preachers, so also, it acquires a specific form as per the status of the recipients of the knowledge. Parama Śiva, the highest Principle, manifested ten Śivas, initially revealed and distributed the undivided knowledge to them. Then the knowledge was imparted to the rșis and divinities by the Śivas and Rudras.
+There are ten śaivāgamas manifested by ten Śivas and eighteen Rudrāgamas revealed by the eighteen Rudras. 28 Śaivāgamas that are bifercated into 66 in accordance with the number of recipients of the same i.e. 3 for Śaivāgamas (10 * 3 = 30) and 2 for Rudrāgamas ( 18 * 2 = 36 Total 66), are known as the whole literature of Śaivāgamas.
+Sanskrit lexicon 'Nighantu' names the veda as 'Nigama' and Tantra as the 'Agama' and hence both have been regarded under a common caption as 'Śruti', as stated above. Āgama and Nigama are the vast, unfathomable treasures of the Indian Religion and Philosophy. Vedas are mostly of the nature of mantra and so in the form of aphorisms; Āgamas, on the other hand, are composed in verses. It is believed to be emanated from God and hence termed as 'Agama'. The syllable 'A' denotes that which is originated, 'ga' signifies 'falling' i.e. falling to the Goddess Parvatī and 'ma' means the religion or the dectrine for the devotee. It is the exposition of divine knowledge, the supreme Reality and the way to attain it through the means of prescribed procedures and meditation with the hymns. According to
+
+
+--- Page 15 ---
+Introduction
+some Śaiva sects 'Āgama' illustrates the knowledge (a), the liberation (ga) and the means to destroy the bonds (ma). It has been emphasised that the adherers of Agama aim at the ultimate Reality as pure consciousness and bliss, enhance the power of the body and mind for apprehending Reality in and through their own being. It is to be noted here that in Agama and Tantra, emphasis has been laid down on the fact that the human body (anda) consists of the potentiality of the divinity and the supreme power inherent in the whole creation (pinda). Macrocosm is implied in Microcosm. That implicit Power can be awakened by being immersed in the unflinching deep meditation on the particular points in the body (cakra) which are regarded to be the base of the power. Mantras are the potent fire that kindle the consciousness-power within, religious rites and duties are the helping processes that prepare the ground and the congenial state to get the ultimate power manifested within.
+In the history of the Tantric literature, ten śaivāgamas and eighteen Rudrāgamas have been recognised. Though some of the above Āgamas sometime indicate the dualistic stand, where as others advocate non-dualism, but the authenticity of all the Agamas is considered to be unquestionable. Pauşkar Āgama maintains that all the twenty eight Āgamas, may it be dualistic or non-dualistic, are known as the Siddhanta-Agama. It is indeed a matter of regret that only a small part of this vast religious scripture is available, major portion has already been lost in oblivion. This has been stated in Kiraņāgama and Śrikanthi-Samhita that though the knowldge by itself is undivided and indivisible but Parama Śiva, the omniscient ultimate Reality, out of compassion for the welfare of the world, manifested this eternal knowledge primarily to the ten Śivas and eighteen Rudras for the purpose of revealing it to the empirical world through the divinities and the rșis. It is pertinent to note here that Vedas also represent indivisible eternal knowledge which is revealed to the rșis in a state of spiritual trance of deep meditation.
+Parama Śiva revealed the first Agama to Śiva named as Pranava.¹ It is said that the number of verses in this Kāmika Āgama are more than a billion. A rşi named Hara received this Agama from Trikāl who received It from Pranava.
+1. Tantra o āgamaśāstrer digdarśan (Bengali Ed.), Gopinath Kaviraj, p. 51.
+
+
+--- Page 16 ---
+xiv
+Makulāgāma
+The name of the second Agama is yogaja, containing one lac verses and divided in five parts, originally revealed to Sudhā (Śiva) and then-passed on to Bhasma and Prabhu respectively.
+The third Agama named Cintya, containing one lac verses and divided in six parts was originally revealed to Dipta and delivered to Gopati and then to Ambikā.
+The fourth Agama known as Kāraṇa, containing one crore verses and divided in seven parts was initially revealed to Kāraṇa and given to Śarva and by him to Prajāpati.
+The fifth Agama namely Ajit consisting of one lac verses, divided in four parts was manifested first to Suśiva and then by him preached to Umeśa who again taught the same to Acyut.
+The sixth Agama called Sudiptak containing one lac verses, divided in nine parts originally revealed to Īśa who gave it to Trimūrti who again transmits it to Hutāsana.
+The seventh Agama named Sūkşma having billions of verses, and having no parts, was initially revealed to Sūkşma and from him to Bhava and then from Bhava to Prabhanjana.
+The eighth Agama known as Sahasra, divided in ten parts, was primarily revealed to Kāla and then passed on to Bhima and Dharma respectively.
+The ninth Agama is Suprabheda, consisting of three crore verses, was first revealed to Daśeśa and then passed on to Vigraheśa and Śası respectively.
+The tenth and the last Śaivāgama, namely Anśumāna, divided in twelve parts, was revealed to Anśu, then preached to ugra and Ravi respectively.
+It is to be noted here that in Śrikanthī Samhitā, Makuțāgama has been mentioned in place of Suprabheda.
+Now, the Rudrāgamas, numbering eighteen, originally revealed to the Rudras who preached the sacred knowledge to the rsis and the divinities are respectively described hereunder as per the enumeration made in Kiraņāgama
+1. See Kiraņāgama, vidyāpāda, Tantrāvatāra palala (10th Ch.) Napoli, 1975.
+
+
+--- Page 17 ---
+Introduction
+Name of Agama
+First Recipient
+Second Recipient
+1. Vijaya
+Anādi
+Parameśvara
+2. Pārameśvara
+Śrirūpa
+Uśanā
+3. Nihśvāsa
+Daśākṣa
+Śailasambhavā
+4. Protgīta
+Rudra
+Kaca
+5. Mukhabimba
+Praśānta
+Dadhīci
+6. Siddhamat
+Bindu
+Candeśvar
+7. Santāna
+Śivaniştha
+Sānspāyan
+8. Nārasimha
+Saumya
+Nrsimha
+9. Candrahāsa
+Anant
+Bṛhaspati
+10. Bhadra
+Sarvātmā
+Vīrabhadra
+11. Svāyambhuva
+Nidhan
+Brahmā
+12. Viraja
+Tej
+Prajāpati
+Nandikeśvara
+13. Raurava
+Brahmā
+Vilāśraya
+14. Mākuta
+Śiva
+Samvartaka
+15. Kirana
+Devapitā
+Bhairava
+16. Lalita
+Ālaya
+Hutbhuk
+17. Āgneya
+Vyom
+Mahākāla
+18. Parākhya
+Śiva
+It is noted in the commentary of Tantrālok by Jayrath that in Śrikanthi Samhitā, Makuța and Dipta have been replaced in place of Kāraņa and Sudīpta. Śrīkanthī maintains that the ten śaivāgamas possess the dualistic trend where as eighteen Rudrāgamas mainly preach the view of non-dualism. There are other differences in Śrīkanthi Samhitā such as the Candrānsu in place of Candrahāsa, Virabhadra in place of Bhadra, Raurava in place of Kauravya and Vimala in place of Makuta have been mentioned. In other places, the name Candrajñāna is mentioned in place of Mukhbimba. Ofcourse there are some other differences of names of Rudrāgamas in Nihśvās Tantra Samhitā, Brahmayāmal Tantra and Kāmikāgama etc. A detailed discussion has here been avoided in order to refrain from the unnecessary elaboration.
+The present scripture, consisting of Kriyāpāda and Caryāpāda, is the later portion of the scripture Makutāgama-one of the eighteen Rudrāgamas among the twenty eight Siddhāntāgamas including the other ten śaivāgamas. The Kriyāpāda of this scripture is contained in five chapters where as Caryāpāda consists of ten. The presentation adopts the form of discourse between Parama Śiva and Rudra. It has
+
+
+--- Page 18 ---
+xvi
+Makulāgāma
+been maintained by all the ācāryās that Nigama and Agama are the spontaneous expression like the inhilation and exhilation of the Lord Śiva, the resident of the mount Kailāśa. God Rudra, after bowing unto Him, humbly enquires about the eminent means of liberation named as Śāmbhavavrata manifested by the supreme Lord, compiled under the caption as 'Makutāgama'- the crown of all Agamas. It advocates the supremacy of Śāmbhavavrata, the procedures of regular worships to be observed by the devotees of Śiva, specific kinds of worship and various items to be offered through them and a detailed description of the different procedures of the last rite to be performed on the demise of the observer of the Sambhavavrata.
+Then Parama Śiva gradually illustrates in the first chapter of Kriyāpāda that one who aspires for emancipation from the turbulent ocean of the world, should observe Śāmbhavavrata, also named as 'Sirovrata', the supreme discipline, advocated in the later portion of veda and Āgama. The excellence of Śāmbhavavrata has unequivocally been stated here.
+By the grace of God, Sadhaka, on obtaining the three kinds of dīkṣās (vedha, manu and kriyā) from guru, getting rid of the three impurities (māyā, kārma and āņava), achieving the conditions of malaparipāka and karma-sāmya, becomes free from the cycle of birth and death and consequently attains the state of liberation. Śāmbhavavrata has emphatically been stated here as the only sure means to the end i.e. liberation. It is undeniably asserted that the person, who does not observe Śāmbhavavrata, even having been involved in karmayoga, is regarded as nothing but an animal and is sure to suffer a lot. Thus, after advocating the glory of Śāmbhavavrata, Parama Śiva, on the inquiry of Rudra, proceeds on describing, in the second chapter, the regular features of the principles of worship. Sambhavavrata is the supreme of all worships that terminates the bonds of the world and elevates one to the goal of life, the eternal state of bliss. Wise persons are advised to get-up from the bed in the early morning, get purified by washing, ease themselves observing the rules laid down before sitting for the worship and dedicating three oblations in the name of ātmavidyā, Śiva-tattva by enchanting the hymn 'ātma tattvāya svāhā', vidyā tattvāya svāhā' and Śiva tattvāya svāhā'. He should invoke the Śiva pilgrim in the water and take the bath before performing Tarpana and Aghamarşana in the
+
+
+--- Page 19 ---
+Introduction
+xvii
+name of gods and ancestors. Devotee should maintain all kinds of cleanliness and purity, as any deviation from purity would condemn to darkness of ignorance and consequently deprive him of the light of knowledge. Sacred ashes prepared in the Śivāgni should be besmeared by the process of Uddhūlan throughout the whole body. Not only that, Tripundraka are to be drawn after besmearing the sacred ashes in thirty two places, such as wrists, elbows, heart, two chests, navel, two anus, two thais, two hips, two knees, two muscles of the legs and two feet. Rudrākṣa should be worn by taking vow. Definite numbers of Rudrākṣas are prescribed for the various parts of the body - one in the crest, thirty on the head, thirty six on the neck, sixteen on each arm, twelve on the wrist, five hundred on the shoulder etc. A garland of 108 Rudrākṣas is to be prepared for the purpose of 'japa-yajña'. Rudrākṣa is to be worn on the head reciting Īsāna hyınn, on the face uttering Tatpuruşa hymn, on the neck and two hands enchanting the Aghora hyınn and on the belly reciting the Vyomvyāpī hymn. All the Rudrākṣas and garlands may also be worn enchanting only the original hymn i.e. Pañcākşara. Then fire is to be enkindled for the oblation aspiring for the fulfilment of the different purposes. There are seven names and places of the tongue of fire, viz. Suvarņā, Kanakā, Raktā, Krsņā, Suprabhā, Atiraktā, Bahurūpā existing in the west, middle, north, south, east, south-east (Āgneya) and north east (Īsāna) respectively. The oblations are to be offered to the Suvarņā tongue at the time of marriage, to the Kanakā tongue which exists in the middle, on the occasion of yajña (sacrifice), to the Raktā tongue during the time of sacred thread ceremony, to the Krsņā tongue, on the occasion of the last rites for the ancestors, to the Suprabhā tongue, for the fulfilment of the desired actions (kāmyakarma), to the Atiraktā tongue, to obtain peace and to the Bahurupā tongue, for the purpose of accomplishing the strong actions. Śivāgni is to be meditated upon, conceiving as having five red-coloured faces, seven tongues, ten hands, three eyes, possessing ten personal weapons, decorated with all kinds of ornaments, wearing red clothes and seated in a lotus posture on a lotus flower.
+Oblation, during morning and evening as per the procedure laid down should be offered to such Śivāgni for the attainment of both empirical and spiritual aspirations and take refuge of Guru and Jangama. All the aforesaid processes of worships should be completed by one eighth part of the day. Second part of the day is to be spent in
+
+
+--- Page 20 ---
+xviii
+Makulāgāma
+studying and discussing the scriptures like Agama and Nigama etc, and performing japa. The third part of the day should be utilized to collect the articles and accessories of the worship and earn the means of livelihood for the dependants. In the evening, bath should be completed by collecting the earth and conceiving in it the pilgrimage of Śiva. Five mahā yajñas are to be observed, by the house holders, after having fulfilled the regular rites of worship during day and evening as per the rules laid down. Worship of devas, rșis and ancestors are included within the regular duties of the day. One should observe the worship either three or six times during the whole day in accordance with the instruction of the scriptures. The worship of the day is to be completed after having performed the process of Vaiśvadeva.
+There are three kinds of worships namely Mahati, Gurvī and Laghvi. Devotee should perform the worship of Istalinga received from guru, duly purified by the Pañcākşara, with over whelming emotion and intense religious sentiments. The supreme worship should be performed on the Şatasthalas. All the worships are to be completed after offering the food to the Māheśvaras.
+Third chapter of Kriyāpāda depicts the aforesaid three kinds of worships i.e. Mahati, Gurvī and Laghvī. Person belonging to the first order is eligible to perform Mahati where as the persons who belong to the middle and third order should perform the Gurvi and Laghvi worships respectively. Tattva mandal, Bhadra mandal and Navapadma mandal are to be drawn and there is the tradition of litting hundred and eight, three hundred or one thousand lamps in Gurvī and Mahati worships, where as nine or twelve lamps should be kindled in Laghvi worship and thirty six or eighteen lamps are to be lit in Gurvī worship. It is to be noted here that only one, two or four lamps may be lighted in the Laghvi or Avasarā, Mahatī and Gurvī worships. One hundered eight times of original Pañcākşara hymn should be recited during Laghvī and Avasarā worships where as one thousand times in Gurvī and Mahati worships.
+Three kinds of 'Arati' namely Darśana, Avasarā and Uttarā have been assigned in Avasarā worship. Nine processes of Ārati namely Darśanākhya, Avasarākhya, Majjanākhya, Mangalyākhya, Karpür, Śringār, Mahānīrājan, Anandākhya, and Asankhyāta have been prescribed in Laghvī worship. By adding sānurāga and betel leaves,
+
+
+--- Page 21 ---
+Introduction
+xix
+eleven kinds of Arati have been laid down in Mahati and Gurvī worships. No worship should be performed without litting the lamp.
+Various ingredients used in worships have been narrated in the fourth chapter of Kriyāpāda. A mixture of honey, cow-milk curd, ghee and sugar in equal proportion with the sacred water is the most appropriate liquid for the sacred bath of the deity. Cardamom, khus, clove, Kastūrī and vermilion colour powder may also be added along with the above mixture. A mixed ointment consisting of rocanā, kumkum, cardamom, camphor, kūța, black agar, kastūrī, sandle, inner stuff of bilva, kritamal and the devadar fruit is very pleasant to God Śiva. Devotee should worship God with the precious flowers like Droņa, Bakul, Punnāg, Mandar, Nandyavart, Śriyāvart, Karavīr, Ark, Śatapatra, Utpal, Lodhra, Dhatūrā, Pāțal, Campak, Bilva leaves, Tamal, Kath Campā, Mālati, Mallikā, Nirgundi, Vikarņi, Bahuparņi, Ajitā, Kalhār, Atasī, Kusumbha and Lotus. White flowers are considered to be possessed of sattvik quality and so worshipping God with these flowers brings forth the liberation for the devotee. Red flowers containing the rājas quality are the bestower of the desired results. Flowers of yellow colour and having various mixed colours are known to be the conferrer of both the enjoyment and the liberation. Black flowers except the blue lotus should be abandoned in worshipping Śiva as those are said to be possessing the tāmas quality. Names of the particular flowers have duly been mentioned for the worship of different times, such as, morning, noon, evening and midnight. Flowers like yuthikā, Madayanti, Madhavi, Śirīşa, Bandhuk, Sarjak etc. should always be discarded. Leaves of bilva, Apāmārg, Campak, Kadamba, Damanak and Drona etc. are esteemed for the worship of Śiva. Then God proceeds to narrate the procedures of preparing the various dhūpas (incense powder). A mixture of ten ingredients, such as, Camphor, Agar, Takkol, Nutmeg, Clove, Jatāmānsī, Sinhī, Mustak, Sandle and ghee, is known as 'Daśānga dhūpa'. A mixture of Sandle, Agar, Camphor, Kastūrī, Kumkum, Takkol, Elā, Nāg flower, Clove and Cinnamon is named as 'Yakşakardam dhūp'. The dhup made of Sandle, Agar, Camphor, Clove, Cinnamon, Rhus succedenia, Cardamom, Jatāmānsi is famous as 'Prājāpatya' dhup. Dhupa prepared by the ingredients of Sandle, Agar, Camphor, Musk, Tilak, Clove, Hasitā and Mustā is known as the bestower of victory. Camphor, black Agar, Hyber, Saurasialapa and Sandle are to be mixed up gradually increasing
+
+
+--- Page 22 ---
+XX
+Makulāgāma
+the quantity and honey is to be added in the proportion of one, two, three, four, five and six times. The name of this dhūp is 'Sītāri' which is very dear to God. Sandle, Camphor, Agar, Rhus Succedenia and Sarjaras are to be addeed with the powder of Sausuria lapa (kostha) and Cyperus Rotundus (Mustā). Then the whole thing is to be added with 'Vijayākhya' dhūp and is named as the famous 'Karpur kalyān' dhup which is known to be the means of liberation. The dhup named as Amrta, prepared by the powder of Sandle, Agar, Musk, Cyperus Rotundus and Rhus Succedenia (Sinhak) is known to be the conferrer of immortality. 'Sugandhika' dhūp, prepared by Takkol, Pūg, Camphor, Nutmeg and Clove is the bestower of both the enjoyment and the liberation. It is also known as the conferrer of both the enjoyment and the wealth. Dhup prepared by white Agar, also imparts the liberation. Dhup, a mixture of Guggul and Ghee is the provider of immense enjoyment. Dhup prepared by mixing the powder of Tamāl and Mahisākşa is known to be the bestower of the status of Sāyujya to the devotee.
+Then the procedures of enkindling the lamp have been narrated in detail. Ghee prepared by cow-milk is considered to be the best, from buffalo milk, of medium quality and the oil squeezed from the sesamum seeds is said to be of the lowest kind. The oil of the Margosa and Castor seed etc. that produce bad smell should always be discarded.
+The special characteristics of linga have been narrated. Linga made of crystal etc, associated with Śakti, should be worshipped. Pañca-sūtra linga is the conferrer of all the desires and successes of life. The length, breadth and the vertical height of the base of linga (pītha) should be equal to the circumference of the linga and Gomukh (upper outlet) should be half of the size of the circumference of the linga. Linga possessing these five characteristics is named as Pañca-sūtra linga. One should be very careful about the size and shape of the linga because linga having Śiva and Śakti i.e. linga and its base, of the same size is the bestower of both the enjoyment and the liberation. Iştalinga, awarded by Guru, is stated to be the best since it has been purified by the touch of Guru. Devotee should wear the Pañca-sūtra linga. Above all, the worship brimming with the emotion and intense love, is the only means to success.
+
+
+--- Page 23 ---
+Introduction
+xxi
+In the fifth and the last chapter of Kriyāpāda, the rite of 'Sansthapana' (installation), 'Sannidhānam' (keeping face to face), 'Sannirodhana', 'Avagunthana' and 'Sakalikaraņa' have duly been illustrated. 'Sansthāpana' (installation) means the invocation of Śiva in the linga. Contemplating Śiva, facing towards one's self is known as 'Sannidhānam'. Praying God to remain infront of the devotee, face to face till the worship is completed is said 'Sannirodhana'. Protecting one's own body by enchanting Śiva-kavaca is called 'Avagunthana'. Performing nyasa on the point of heart etc. is known 'Sakalikaraņa'. Performing nyāsa concentrating on the different parts of the body, such as heart etc. and meditating Śiva on those parts is known as 'Amrtikarana'. Worship may be performed by invoking God in pot and image also. The devotee who aspires for both enjoyment and liberation, should contemplate on and worship the south face of God namely Aghora. Sadyojāta face is of the nature of Acaralinga. Vāmadeva of Gurulinga, Aghora of Śivalinga, Tatpuruşa of Caralinga and Īsāņa is of the nature of Prasadalinga. Mahālinga which is unique from all of them is only the Paramaśiva Himself. The devotee should offer all kinds of food viz. swallowable, devourable, gulpable and lickable to God and then accept them as offering which impart Dharma (spirituality) Artha (wealth), Kāma (enjoyment) and Mokşa (liberation). Offering submitted to own Iştalinga is stated to be immensely pure like the 'Caru' (offering) offered to the yajña (sacrifice). It has been affirned that the devotee who regularly observe the Sambhavavrata with utmost sincerity and intense love and remains immersed in meditating on Śiva, surely attains the state of 'Sayujya'.
+The first chapter of the Caryāpāda begins with the enunciation of the last rite named as the famous 'Śivamedha' which is meant for the observer of the Śāmbhavavrata. The body of the Sambhava devotee, the wearer of linga whatever he might be, a celibate, householder or a retired person from the active life, should never be cremated after the demise. For him the ritual of samādhi, the most apt means that bestows the ultimate end of life and ceases the cycle of birth and death, should be performed.
+The second chapter of Caryāpāda deals with the duties and rites of the devotee who leaves the body through the process of 'Utkraman'. The devotee should take bath in accordance with the procedure of
+
+
+--- Page 24 ---
+xxii
+Makulāgāma
+'Agneya' etc. wear Rudrākṣas on the different parts of the body, besmear the sacred ashes, install fire in his own soul by reciting the hymn "yā te Agne" etc. and then get ready to pass away peacefully by observing the process of Tattva-Sanyojana which is a very significant rite for attaining the freedom and getting rid of the bondage of transmigration. The Tattva-sanyojana signifies that the immersion of the different organs of the body in their respective original elements or divinities, has got an immense spiritual value in life. God advises the devotee to unite the hand along with its skill to the god Indra, ego along with all its elements to the Rudra, Citta to Brahma and the ego, intellect etc. to their respective causal sources. The devotee should contemplate on the Linga existing in the various parts of the body, viz. Prāņalinga in the self, Mahalinga in the heart, Prasādalinga in the ear, Caralinga in the skin, Śivalinga in the eyes, Gurulinga in the tongu. Ācāralinga in the nose. Likewise the lingas are to be conceived to reside in the motor organs also. Sacred water washing the feet of guru, linga and jangama annihilates all the sins and bestows the exalted status to the person irrespective of the sin committed by him. Only the recitation of the name of Śiva eradicates the cause of transmigration and enables the soul to attain the eternal excellence. Such is the glory of the recitation of the name and contemplation of Śiva.
+In the third chapter, the duties and rites that should be performed by the authorised person, specially son, after confirming the death of his father, have duly been enunciated by the God. Son, after taking bath, besmearing the sacred ashes and wearing the Rudrākṣa with restrained and pure mind, should donate alms to the gaņas and wellwishers of his father as per capacity. If there is any defilement like 'Urdhocchiștā', death on the cot and at night, during the period of dark fortnight or when the sun remains in southern hemisphere (Daksiņāyan), atonement of Prājāpatyavrata and the donation of cow or gold should be observed to condone the defilement caused by the above reasons. The rite of bathing the body of the deceased enchanting the hymns of Rudrādhyāy and worshipping the Iştalinga with the sacred ashes, keeping it on the palm of the left hand, should be performed for the welfare of the deceased. Then the body is to be carried on to the place of Samādhi by the special carriers named Mahoksa, Vrsabha, Nandiśa and Nandikeśvara along with the Istalinga enchanting the upaniṣads and the sacred hymns.
+
+
+--- Page 25 ---
+Introduction
+Now, in the fourth chapter of the Caryāpāda, the procedure of the ritual of samādhi has been illustrated, in details. The samādhi of the devotee of Śiva should be either near the Śiva temple, beneath the Bilva-tree or on the bank of a river. The procedure of digging the Samādhi has duly been described. The body of the deceased should be placed in a sitting position facing towards the north amidst various musical sounds, showering of flowers and enchanting of the hymns. The body should be dedicated to the God requesting Him to accept it. Then the samādhi is to be filled up with the sacred ashes, salts and earth, reciting the hymns meant for it. After fulfilling the rite of samādhi, the son should get the beard, mustache shaved and take 'sacail' bath, as the defilement produced by any bad action remains attached with the hairs.
+Fifth chapter proceeds on elucidating the other rites, such as, installation of linga on the samādhi, along with the image of bulls, for the performance of worship with the milk and other items enchanting the particular hymns assigned for. Then the conceptual body is formed gradually one by one on completion of the twelfth-day rites. After the observance of Ekoddişța and the Tattva-sanyojana, the deceased attains the status of Mahesa. If the son is not initiated at the time of the expiry of his father, then he should entrust the authority of the last rite to someone else. If the deceased is not initiated, then after making a body of the Kuśā, the act of initation should be fulfilled in order to get the deceased to the state of lingi. The son, after observing the twelfth day rite, should besmear the sacred ashes, draw Tripundrak, and wear Rudrākṣa and perform Tarpaņa. The linga, kept on the samādhi, is to be immersed in the water of the pilgrimage and then the sacrifice named Ganapatya and Ānanda should be performed. All the above mentioned sacraments and rituals are performed in order to obtain the pleasure along with the ancestors.
+In sixth chapter, the rites to be fulfilled on the eleventh day (Ekādaśāh) have duly been explained in detail. The rite of Vrsotsarga should be performed on the eleventh day for all śāmbhava devotees except the person who happens to be observing the Nirābhārī āśrama. Sixteen kinds of worships commencing from half monthly are prescribed for the ancestors. Eleventh day, twelfth day, monthly, fortnightly, three fortnightly, six monthly and yearly alongwith the Tattva-sanyojana and Edoddisța should be accomplished by the son. Eleven Maheśvaras
+
+
+--- Page 26 ---
+Makulāgāma
+are to be invited and fed with the delicious foods upto their satisfaction. Fifty Rudras that are related to Șatasthalas are also to be adored on the eleventh day.
+The rite of 'Dvādaśāh' i.e. the twelfth day rite has been narrated in the seventh chapter. After the observance of Tattva-sanyojana on the twelfth day, the deceased leaving his secluded fourth stage, unites himself with the ancestors. The devotee who remains attached with Śivalinga obtained from Guru at the time of dīkṣā, attains non-duality with Śiva by the unflinching meditation of God as the insect is transformed into a bee. As Śivahood is fully manifested in and through the dīkṣā, the sapinda rite on twelfth day for the devotee who althrough have worn the linga, is not necessary, because the sambhava devotee is not affected with the spirithood. The son should perform the rite of Tattva-sanyojana for the cessation of creaturehood. Ly adopting the procedure of Tattva-sanyojana and invoking the Kalas, Viśvadevas, Nandikeśa and Mahākāla and donating ten alms, the son conjoins his father with ancestors who have attained the nature of Mahesa and thus enables the father to achieve the status of Śivasāyujya.
+In the eighth chapter, the procedure of Prakīrņaka has been described as a response to the inquiry by god Rudra. He advocates that the eldest son has a unique and special position in the last rite. The rites of Udakadāna and Tattva-sanyojana must be peformed by the eldest son, even if already performed by his youngest or other brothers. If the Tattva-sanyojana is performed at the time of last rite, then Pārvanārādhana need not be observed, only Astakā is enough. Son should perform 'Pārvaṇaśrāddha' every month and year for his father who has already attained the state of Maheśa through the rite of Tattva-sanyojana. Two kinds of last rites for the ancestors who have attained the sphere of ancestors and the sphere of Śiva, have duly been prescribed. Oblation to fire, tyāga, pinda, viśvadeva, sesamum, kuśā, the sect of ancestors, the container for oblation (arghapātra), rakṣā-sūtra (the protective thread), apasavya and vikir are the main accessories for the last rite of the ancestors, where as viśvadeva, place of ancestors, tyāga and rakṣā-sūtra are the accessories to be utilised for the worship of the ancestors indwelling in Śivaloka. Sapinda śrāddha is strictly prohibited for the observer of Śāmbhavavrata. This worship is said to be of three kinds, namely with regard to householder, Nirābhārī and
+
+
+--- Page 27 ---
+Introduction
+Śankalpika. Devoted worship of linga three times a day knowing the mystery of Satasthalas and possessing deep regard for the Maheśvaras is known to be the supreme worship.
+The ninth chapter deals with the procedure of Pratyabdik (annual last rites). After performing the regular duties, brahmin, gaņas and Māheśvaras should respectively be adored with deep regard and the required accessories, such as, lamp, incenses, sacred ashes, betel leaves and money etc.
+It is to be noted here that apasavya, sesamum, darbh, pindadāna, havan, vikir and Arghapātra are prohibited for the last rite of Śaivas. One should pray for grace by offering flower, rice and turmeric etc. to the Viśvadevas viz. Nandi, Mahākāla and Maheśvaras etc. Then the procedure of drawing mandalas and worshipping the Maheśvaras with various items viz. the sacred ashes, rice, incenses, flowers, bilva, along with the sandle wood, lamp and offerings should be observed. The performer should enchant the proper hymn, observe prāṇāyām and offer rice to the vistaro uttering 'svāhā' and 'svadhā' in the name of divinities and ancestors respectively. Viśvadevas and ancestors are to be invoked and adored with the incenses and flowers etc. and donated clothes, gold as per capacity. Then the procedures and hymns of worshipping the Maheśvaras, the embodiment of Iśāna, have fully been illustrated in order to unite the deceased father with Śiva,
+In the last chapter of Caryāpāda, God unveils the sacred truth that the person who is unattached with the empirical world and always remains immersed in the devotion of God by observing Śāmbhavavrata, is never affected by the impurities like other beings. Attachment with the worldly affairs is the main cause for the contact of the impurity. Despite the state of impurity, God advocates, worshipping Iştalinga bestowed by guru at the time of initiation (dīkṣā) is capable of eradicating all impediments. Then various kinds of impurities regarding the different persons and their situations have been described along with the prescribed proçesses and procedures for their removal. Lastly, it is asserted that Sandhyā (regular worship) and the worship of Iştalinga should never be abandoned even on the occurence of impurity caused by the birth and death. Worship of Iştalinga, at that condition, should be performed by the process of upānsu. Thus, for the purpose of showering grace, the glory of the Sambhavavrata and the rites to be
+
+
+--- Page 28 ---
+xxvi
+Makulāgāma
+performed by the Sambhava-devotee have been narrated by God Himself.
+Now it is my pleasant duty to remember and acknowledge the blessings and help of my wellwishers rendered to me in fulfilling the mission of studying the scriptures. First of all I bow unto the feet of His Holiness Shri 1008 Jagadguru Dr. Chandrashekhar Shivacharya Mahaswamiji, the 86th Pontiff of the Kāśī Viśvārādhya Jñānasimhāsana, Jangamawadimath, Varanasi and most humbly pray for his blessings. I gratefully acknowledge the help and suggestions provided by Pt. Vrajavallabha Dwivediji, Director, Shaiva Bharati Shodha Pratisthanam, Jangamawadimath, Varanasi and extend my most sincere regard to the eminent scholar. My heartiest thanks are due to Dr. G. C. Kendadamath of the Central library B.H.U., Varanasi, whose sincere help in reading the proof and rendering valuable suggestions have made the book in the present form. I feel happy to extend my affectionate thanks to Shri Chidananda O. Hiremath (Kasgi) and Shri Rajashekhar G. Hiremath for their sincere effort in composing the book within a short period of time. Lastly i gratefully remember the help and inspirations imparted by my wellwishers and friends that have enabled me in rendering a little service to promote the cause of Śaivism. Learned scholars may find many mistakes for which I beg to be excused and humbly seek their suggestions for further rectification.
+I pray Lord Vishveshvar of Kashi to pardon me for the errors and omissions which may have occured in rendering this sacred scripture into English. Namaḥ śivāya.
+Mahāśivarātrī
+Varanasi
+17.2.1996
+Rama Ghose
+***
+
+
+--- Page 29 ---
+Kriyāpāda
+Chapter-1
+क्रियापादे प्रथमः पटलः
+कैलासशिखरावासः कालकालः कृपानिधिः । अपारमहिमाधारो महादेवो महेश्वरः
+अशेषजगदाधारं सर्वकारणकारणम् आदिमध्यान्तरहितमप्रमेयमनाकुलम्
+असंख्याताद्भुताचिन्त्यस्वशक्तिपरिशोभितम् । परं शिवं समागम्य प्रणम्योवाच भक्तिमान् ।।३।।
+रुद्र उवाच
+आदिदेव कृपासिन्धो पञ्चकृत्यपरायण । यतस्त्वं सर्वकर्ताऽसि सर्वज्ञः सर्वमप्यसि ।।४।।
+अतः सर्वोपकाराय निगमागमसंहिताः । शब्दार्थमुख्या भवता निःश्वासवदुदीरिताः ।।५।।
+God Rudra, the ardent devotee, humbly bowed unto and enquired to Parama Śiva who is the indweller of the mount Kailāśa, the annihilator of time, the ocean of compassion, the ground of the immeasurable glory, the supreme God, the infinite substratum of the universe, the ultimate cause of all causes, devoid of beginning, middle and the end, non-differentiated, unperturbed and adorned with His own innumerable, mysterious, unthinkable powers (1-3).
+God Rudra Enquires
+O the first among the gods, the ocean of mercy, who is adept in performing the fivefold actions (creation, sustenance, destruction, obscuration and grace)! You are the controller of everything, omniscient and the essence of all beings (4). So, for the benefit of all beings, you have revealed spontaneously like the inhilation and exhilation the various samhitās of Āgama and Nigama which are the base of the words as well as their meanings (5). Makutāgama, the crown of the expressions
+:
+
+
+--- Page 30 ---
+2
+Makulāgama
+श्रीमन्मुखादधिगतं मकुटं मकुटायितम् । भगवन् श्रोतुकामोऽस्मि तदीयं भागमुत्तरम् ।।६।।
+उत्तमा यत्र कथ्यन्ते साक्षान्मोक्षप्रदायिनः । विशिष्टधर्मा इति हि शाम्भवव्रतधारिणाम् । उक्तं पुरस्ताद् भवता तदिदानीं निबोध मे ।।७।।
+परशिव उवाच
+शृणुष्वावेदयिष्यामि रहस्यं मकुटोत्तरे । शाम्भवव्रतमाहात्म्यमाह्निकं व्रतिनामपि ।।८।।
+अर्चाविशेषाः पूजोपकरणानां च साधनम् । तदन्त्येष्टिप्रकारश्च कथ्यन्ते ह्यत्र संग्रहात् ।।९।।
+शाम्भवव्रताचरणम्
+तितीर्षुर्जन्मवाराशिं नानादुः खग्रहाकुलम् । वेदागमान्तविदितं शाम्भवव्रतमाचरेत् ।।१०।।
+from your exalted mouth, has been manifested by you. O God! now I pray to listen the later portion of this Agama (6). You have advocated the supreme knowledge of 'dharma', the bestower of liberation to the observer of Śāmbhavavrata in the later portion of this Makuțāgama¹. Kindly enlighten me (7).
+Paraśiva replies
+O Rudra! I shall illustrate to you the mystery of Makutottara Agama and also the glory of 'Sambhavavrata' along with the way of life of its observer. Please listen (8).
+The special kind of worship, means of collecting the various items of worship and the kinds of the rituals of the last rites have also been described here (9).
+The person who desires to cross the ocean of the births and deaths which is full of crocodiles of the various sufferings, should observe the 'Śāmbhavavrata', preached in the later portion of Veda and Āgama (10). The person who has dried up the ocean of the world in order to
+
+
+--- Page 31 ---
+Kriyāpāda
+*तनुत्रयगतानादिमलत्रयविशोधनाः
+लिङ्गत्रयानुसन्धानविशोषितभवाब्धयः
+कल्याणदेशिककृपाकर्तिताशेषबन्धनाः भक्तिदूतीसमानीतमुक्तिकान्तासमागमाः
+।।१२।।
+3
+ज्ञानसूर्योदयकृततमः कूटविपाटनाः वेधामनुक्रियादीक्षा यत्र ह्यन्तर्गताः पराः
+।।१३।।
+शिरोव्रतं महागुह्यमिदं तेनैव लभ्यते । यः कर्मसाम्यसंगत्या न पुनर्जन्मभाग् भवेत्
+।।१४।।
+मोक्षशाम्भवव्रतयोः साध्यसाधनात्मकत्वम्
+अमृतत्वं यदा रुद्र विषेण लभते जनः । व्रतमेतद् विहायाथ दुःखस्यान्तं समेष्यति
+।।१५।।
+न मामधन्यो यजते नाधन्यो मोक्षमिच्छति । नाप्यधन्यः समाप्नोति शाम्भवव्रतमुत्तमम्
+।।१६।।
+investigate three Lingas (Istalinga, Prāņalinga and Bhāvalinga) which is th purifier of the three eternal impurties (namely karma, māyā, and anava), the cause of the three bodies (gross, subtle and causal)2 (11); the person whose bonds have been pierced by the embracing grace of Guru, who has been united with the beloved liberation by the devotion playing as envoy (12); whose darkness of ignorance is eliminated with the sun of knowledge, who has received the three kinds of dīkṣās viz. vedhā, manu & kriyā (13); attains the most secret 'Śirovrata³ by which the state of karma-sāmya is attained and no transmigration occurs (14). O Rudra! If a person can attain immortality after drinking the poison, then he can attain liberation without observing the 'Sirovrata' (meaning thereby, as the attainment of immortality is impossible if one drinks the poison, so also liberation is unattainable without performing the 'Sirovrata') (15). One who is not blessed, does not worship Me and is not keen for liberation. Such non-blessed person can not obtain this supreme 'Sambhavavrata' (16).
+
+
+--- Page 32 ---
+4
+Makulāgama
+शाम्भवव्रतहीनः केवलः पशुः
+यः सर्वशास्त्रविदपि कर्मयोगरतोऽपि च । शाम्भवव्रतहीनोऽयं प्रोच्यते केवलः पशुः ।।१७।।
+शाम्भवव्रतमाहात्म्ये योऽर्थवादं हि मन्यते । स सर्वयातनाभोगी भवत्येव न संशयः ।।१८।।
+इति श्रीमकुटागमे क्रियापादे शाम्भवव्रतमाहात्म्यनिरूपणं नाम प्रथमः पटलः ।।१।। कही
+One who is the knower of all scriptures, always remains absorbed in observing the principle of action, but does not fulfil the rite of 'Sambhavavrata' is considered nothing but an animal (17). One who raises any doubt regarding the eminence of 'Śāmbhavavrata', laid down here, is sure to undergo all kinds of sufferings. There is no doubt in it (18).
+Here ends the first chapter of Kriyāpāda of Makutāgama describing the glory of 'Śāmbhavavrata'.
+Notes and References
+1. The place of Makutāgama is 17th in 28 Śiddhānta śaivāgamas starting from Kāmika to Vatula. References are found in Tantrālok and its commentary Vivek. See Luptāgama samgraha. Present scripture is the later portion of Makulāgama. Siddhānta Šikhāmaņi advocates that the doctrines of Vira Śaivism have been asserted in the later portion of Siddhāntāgama (v.14). It also calls this āgama as 'Makutottara' (v. 8).
+2. See Anubhava Sutra, v. 52-53.
+3. Śivavrata is named here as 'Sirovrata' since it is the supreme among all arites.
+4. Karma-sāmya signifies the state of equilibrium between good and bad (sin and virtue) action and which prepares the field for and occasions the onset of divine grace.
+5. Compare the verse with that of Śvetāśvatara upaniṣad (vi. 20) - "यदा चर्मवदाकाशं वेष्टयिष्यन्ति मानवाः । तदा शिवमविज्ञाय दुःखस्यान्तो भविष्यति।।"
+
+
+--- Page 33 ---
+Chapter-2
+द्वितीयः पटलः
+रुद्र उवाच
+परमेश्वर सर्वात्मन् परिपूर्णगुणाम्बुधे । शाम्भवानामनुष्ठेयमाह्निकं सङ्गिरस्व मे ।।१।।
+परशिव उवाच
+आह्निकं तु प्रवक्ष्यामि शाम्भवानामनुत्तमम् । शृणुष्वावहितो भूत्वा भवपाशनिकृन्तनम् ।।२।।
+प्रातः कृत्यानि
+बुद्ध्यमानो हि मद्भक्तो मुहूर्ते ब्रह्मसम्मिते । संस्मरन् मामिष्टलिङ्गं कराभ्यां स्पर्शयेद् दृशोः । धर्मार्थावनुचिन्त्याथ माहेशान् प्रणमेदपि ।।३।। व्रतिनं सत्रिणं दान्तं भक्तं लिङ्गाङ्गसङ्गिनम् । प्रातःकाले तु यः पश्येत् स ईप्सितमवाप्नुयात् ।।४।
+God Rudra enquires -
+O the Lord of lords! the beamed ocean of virtues, the inner self of all beings, please enlighten me about the regular procedure of 'Āhnik' performed by the devotees of Śiva who are the wearer of Iştalinga and accomplished with Śāmbhavavrata (1).
+Paraśiva replies -
+I am describing the supreme penance of Sambhava and the regular procedure of 'Ahnik' that terminates the bonds of the world. Please listen attentively (2).
+Devotee should getup in the 'brahma muhurt' (early dawn) and bow unto the Maheśvaras (jangamas) after having touched the Istalinga with the eyes keeping it on the palm of the hand and thinking of 'dharma' and 'artha' (3). One who beholds in the morning the devotee of Śiva who is the wearer of linga and a regular observer of 'vratas' and sacrifices, obtains the desired results (4). On the other hand if one
+
+
+--- Page 34 ---
+6
+Makutāgama
+पाषण्डं पतितं क्रूरमभक्तं देवनिन्दकम् । प्रातरुत्थाय यः पश्येत् सोऽनिष्टं समवाप्नुयात् ।।५।।
+शौचविधिः
+बहिर्गच्छेदपि ततो दूरादावसथाद् बुधः । उपवीतं लिङ्गसूत्रं पृष्ठतः कण्ठलम्बितम् । कृत्वा प्रावृत्य च शिरो विण्मूत्रोत्सर्गमाचरेत् ।।
+६ ।।
+ततो यावन्मनः शुद्धिर्मृत्स्नया च जलेन च । शौचं कुर्यात् प्रयत्नेन शौचहीनो पतत्यधः
+।।७।।
+प्रक्षालिता‌ङ्घ्रिपाणिश्च गण्डूषान् विसृजेदपि । आत्मविद्याशिवाख्यानि तत्त्वानि स्वाहया सह । आचामेदुच्चरन्नेवं त्रिवारं शाम्भवव्रती ।।८।।
+दन्तधावनस्नानादिविधानम्
+तत आम्रादिभिः काष्ठैर्दन्तधावनमाचरेत् । प्रक्षाल्य च मुखं धीमानाचम्य च ततः परम् । शिवतीर्थं विधायाथ प्रातः स्नानं समाचरेत् ।।९।।
+beholds in the morning a person who is deceitful, fallen, cruel, undevoted, abuser of gods, procures the undesired results (5).
+Learned person should go far from his house and ease himself by urinating and voiding excrement after having kept the sacred thread and pañcalinga thread towards the   through the throat¹ and covering the head (6). Then hands and legs should be washed with water till the mind feels purified because unpurified person is sure to be degraded (7). He should wash his mouth after washing hands and feet. Then devotee, the observer of sambhavavrata should observe 'ācamana' after having dedicated three oblations in the name of ātma, vidyā and Śivatattva by uttering 'atma tattvāya svāhā', vidyā tattvāya svāhā, Śiva tattvāya svāhā' (8).
+Then he should clean the teeth with sticks of mango tree. After washing mouth and hands he should observe 'ācamana' and take the
+
+
+--- Page 35 ---
+Kriyāpāda
+।।१०।। संकल्पः सूक्तपठनं मार्जनं चाघमर्षणम् । देवतातर्पणं चैव स्नानपञ्चाङ्गमुच्यते
+अप्रवाहोदकस्नानं विप्रपादावनेजनम् । गायत्रीजपमर्घ्य च आदित्याभिमुखश्चरेत् । देवर्षितर्पणं कुर्याद् यक्ष्माणमपि तर्पयेत् ।।११।।
+। ततो धौते परीदध्याद् वाससी भानुदर्शित । आचम्य चैव संकल्प्य भस्मस्नानं समाचरेत् ।।१२।।
+भस्मस्नानत्रिपुण्ड्रधारणादिकम्
+शिवाग्निजनितेनाथ यथाकल्पार्जितन वा । उद्धूल्य चैव सर्वाङ्ग भस्मना चावगुण्ठ्य च । द्वात्रिंशत्सु प्रदेशेषु त्रिपुण्डूं धारयेत् क्रमात् ।।१३।। उत्तमाङ्गे ललाटे च कर्णयोर्नेत्रयोर्द्वयोः । नासावक्त्रगलेष्वेवमंसद्वयमनन्तरम्
+।।१४।।
+7
+morning bath by invoking Śiva pilgrims (9). Performing 'Aghamarşaņa' and 'Tarpana' in the name of devas are being considered to be the five parts of the bath (10). Bathing in unflowing stagnant water of spacious well, small well, pond etc., worshipping the feet of lingi brahmin, reciting the Gayatri hymn and offering the oblation (arghya) are to be performed facing the sun; Tarpana in the name of gods, saints and ancestors should also be performed (11). Then clean cloth should be worn after drying it in the sun; anointing the whole body with the sacred ashes is to be performed after observing the rites of 'Acamana' and 'Sankalpa' (12).
+Sacred ash prepared in the 'Śivāgni' or by the procedure of 'Kalpa', is to be besmeared through out the whole body, by the process of 'Uddhūlan'; 'Tripundrak' in the thirty two places of the body is to be observed (13). Head, fore head, two ears, two eyes, two nostrils, face, throat and two shoulders are to be besmeared with sacred ashes (14). Wrists, elbows, heart, two chests, navel, two anus, two thais, two
+
+
+--- Page 36 ---
+8
+Makuțāgama
+कूपर मणिबन्धे च हृदये पार्श्वयोर्द्वयोः । नाभौ गुह्यद्वये चैव ऊर्वोः स्फिग्बिम्बजानुषु ।।१५।।
+ज‌ङ्घाद्वये पादयोश्च द्वात्रिंशत्स्थानमुत्तमम् । ततः पुनश्च संकल्प्य रुद्राक्षान् बिभृयान्नरः ।।१६।।
+रुद्राक्षधारणम्
+शिखायामेकरुद्राक्षं त्रिंशत्तु शिरसा वहेत् । ष‌ट्त्रिंशत्तु गले दद्याद् बाह्नोः षोडश षोडश ।।१७।।
+द्वादश मणिबन्धेऽपि स्कन्धे पञ्चशतं वहेत् । अष्टोत्तरशतैर्मालां जपयज्ञे प्रकल्पयेत् । सुप्ते पीते सदा कालं रुद्राक्षान् बिभृयान्नरः ।।१८।।
+त्रिशतं त्वधमं पञ्चशतं मध्यममुच्यते । सहस्त्रमुत्तमं प्रोक्तमेवं भेदेन धारयेत् ।।१९।।
+शिरसीशानमन्त्रेण मुखे तत्पुरुषेण तु । अघोरेण गले धार्यं तेनैव हृदयेऽपि च ।।२०।।
+hips, two knees, two muscles of the legs and two feet - these thirty two places are considered to be the best for besmearing the sacred ashes; then the procedure of wearing Rudrākṣa is to be observed after taking the vow (sankalpa) on completion of drawing the 'Tripundrak' and besmearing the sacred ashes (15-16).
+One Rudrākṣa in the crest, thirty on the head, thirty six on the neck and sixteen on each of the arms are to be worn (17). Twelve Rudrākṣas on the wrists and five hundred on the shoulders are to be worn. A garland of 108 Rudrākṣa beads should be made for the purpose of 'japa-yajña' (constant recitation of the sacred hymn). Garland of Rudrākṣa is to be worn always during sleeping, eating and waking state (18). Wearing of one thousand Rudrākṣas is considered to be of supreme value, five hundred of medium and three hundred of meagre value. One should accept any of the three as per his desire (19). Rudrākṣa is to be worn on the head reciting Īsāna hymn; on the face
+
+
+--- Page 37 ---
+Kriyāpāda
+अघोराख्येन मन्त्रेण करयोर्धारयेत् सुधीः । पञ्चाशदक्षसहितां व्योमव्यापीति चोदरे ।।२१।।
+पञ्चब्रह्मभिरङ्गैश्च त्रिमालाः पञ्च सप्त च । अथवा मूलमन्त्रेण सर्वाण्यक्षाणि धारयेत् ।।२२।।
+सूर्यार्घ्यदानं गायत्रीजपः
+ततो मद्वपुषे सूर्यायार्घ्यत्रितयमर्पयेत् । अथ मद्देवतां देवीं सावित्रीं प्रयतो जपेत् ।।२३।।
+शिवाग्निसप्तजिह्वोपासनम्
+घोरां मम तनुं वह्नि समुपासीत संयतः । सुवर्णा कनका रक्ता कृष्णा चैव तु सुप्रभा । बहुरूपाऽतिरक्ता च सप्त जिह्वाः प्रकीर्तिताः ।।२४।।
+सुवर्णा वारुणी जिह्वा कनका मध्यमा स्मृता । रक्ता चैवोत्तरा जिह्वा कृष्णा याम्यदिशि स्थिता ।। २५ ।।
+9
+uttering Tatpuruşa hymn and on neck enchanting the Aghora hymn (20). Wise should wear Rudrākṣa on two hands reciting Aghora hymn and the garland of fifty Rudrākṣas is to be worn on the belly by reciting the 'Vyomvyāpī hymn (21).
+Rudrākṣa garland of three, five and seven layers should be worn with 'Pañcabrahma' hymn such as Īsāna and six-anga hymn or all the Rudrākṣas and garlands may also be worn only reciting the original hymn (Pañcākşara, the five syllable hymn i.e. 'namah śivāya' (22).
+One should offer oblation three times to the sun residing in his own body. Thereafter my goddess Sāvitrī (Gāyatrī hymn) is to be recited with deep concentration. (23).
+Fire is my frightful nature. It should also be adored with restrained mind; Suvarnā (golden), Kanakā (gold), Raktā (red,) Krsņā (black), Suprabhā (effulgent) and Atiraktā (deep red) - these seven are the names of the tongue of fire (24). The position of Suvaraņā tongue is in the west, Kanakā in the middle, Raktā in north and the place of Krşņā is towards the southern direction (25). Suprabhā resides in the east,
+
+
+--- Page 38 ---
+10
+Makutāgama
+सुप्रभा पूर्वदिग्ञ्जिह्वा अतिरक्ताऽग्निगोचरा । ऐशानी बहुरूपा च जिह्वास्थानान्यनुक्रमात् ।।२६।।
+विवाहे वारुणी जिह्वा मध्यमा यज्ञकर्मसु । उत्तरा चोपनयने दक्षिणा पितृकर्मसु ।।२७।।
+पूर्वदिक् सर्वकाम्येषु आग्नेयी शान्तिकर्मसु । ऐशानी चोग्रकार्येषु सदा होमस्य शस्यते ।। २८ ।।
+पञ्चवक्त्रयुतं रक्तं सप्तजिह्वाविराजितम् । दशहस्तं त्रिनेत्रं च सर्वाभरणभूषितम् ।।२९।।
+रक्तवस्त्रपरीधानं पङ्कजोपरि संस्थितम् । बद्धपद्मासनासीनं दशायुधसमन्वितम् ।।३०।।
+कनका बहुरूपा चातिरक्ता तु ततः परम् । सुप्रभा चैव कृष्णा च रक्ता चान्या हिरण्मयी ।। ३१ ।।
+Atiraktā is in south east (agneya) direction and Bahurūpā resides in the north east (Īsāna) direction - these are the seven places of the tongue of the fire (26). The oblations are to be offered to the Suvarņā tongue at the time of marriage, to the Kanakā tongue which is situated in the middle, on the occasion of yajña (sacrifice); to the Raktā tongue during the time of sacred thread ceremony; to the Krsņā tongue of south on the occasion of last rites for the ancestors (27). Oblation should be offered to the Suprabhā tongue of eastern side for the fulfilment of desired action (kāmya karma), to the Atiraktā tongue of south-east (āgneya) corner to obtain peace and the oblation to the north-east (īsāna) tongue of fire namely 'Bahurūpā' for the purpose of fulfilment of strong actions, are always considered to be an accomplishment (28). Śivāgni should be meditated upon as the five faced red coloured having seven tongues, ten hands and three eyes, decorated with all kinds of ornaments; possessing ten personal weapons (āyudha) wearing the red clothes and seated in a lotus posture on a lotus flower (29-30). Out of the seven tongues namely Kanakā, Bahurūpā, Atiraktā, Suprabhā, Krsņā, Raktā, and Hiranmayī, first three are situated in the upper face (īsāna) and the rest four reside in the four faces of God Rudra (namely Tatpuruşa,
+
+
+--- Page 39 ---
+Kriyāpāda
+11
+ऊर्ध्ववक्त्रे स्थितास्तिस्त्रः शेषाः प्रागादिदिस्थिताः । शिवाग्निमेवं ध्यात्वैव सायंप्रातहुनेद् बुधः ।।३२।।
+गुरुशरणागतिः
+अग्निकार्यं विधायाथ कर्तव्यमभिवादनम् । शरणागतिस्तु कर्तव्या गुर्वादिभ्यो यथा शृणु ।। ३३ ।।
+दक्षहस्तेन संगृह्य निश्चलो लिङ्गपेटिकाम् । पादाङ्गुष्ठौ गुरोः सव्यहस्तेन परिगृह्य च । संस्पर्शयन्नेत्रयोस्त्रिर्गुर्वादीन् शरणं व्रजेत् ।।३४।।
+दिवसद्वितीयतृतीयचतुर्थभागकृत्यानि
+एभिश्चाष्टांशकमह आद्यमेवं समापयेत् । द्वितीये च तथा भागे ह्यभ्यसेन्निगमागमान् । जपेदध्यापयेच्चाथ शास्त्राप्यपि विचारयेत् ।।३५।।
+समित्पुष्पकुशादीनि यथालाभमुपाहरेत्. । भागे यतेत तार्तीये पोष्यवर्गार्थसिद्धये ।।३६।।
+Aghora, Sadyojāta and Vāmadeva) situated in the four directions i.e. east, west, north and south. Learned person should offer oblation during morning and evening by meditating such Śivāgni stated above (31-32).
+Devotee should pay obeisance to fire after completing the fire ritual as per the procedures laid down and take refuge of the Guru and Jangama (ardent devotee). Please listen carefully (33). After holding the box containing Linga, firmly, one should keep the left hand beneath the toe of Guru and get it in touch of (his own) eyes thrice (meaning thereby the disciple should get in touch his left eye with the left toe and the right eye with the right toe of Guru) and take refuge (34).
+Aforesaid rites should be completed by one eighth part of the day. Then the second part of the day is to be spent in studying Agama and Nigama¹o, performing japa and discussing the scriptures (35). During the third part of the day, one should collect the articles for worshipping, such as, fire wood, kuśā and flowers etc. and earn the means of
+
+
+--- Page 40 ---
+12
+Makutāgama
+भागे त्वथ चतुर्थे तु स्नानार्थं मृदमाहरेत् । शिवतीर्थं विधायाथ मध्याह्नस्नानमाचरेत् ।।३७।।
+मध्याह्नस्नानसन्ध्योपासनम्
+भस्मस्नानं विधायाथ त्रिपुण्ड्रमपि धारयेत् । माध्याह्निक्यौ तथा सन्ध्ये निर्वर्त्य च यथाविधि । अथ पञ्च महायज्ञाः कर्तव्या गृहिणाऽन्वहम् ।। ३८८।
+देवान् ऋषींस्तद्गणांश्च तर्पयित्वा यथाक्रमम् । पितृन् दिव्यानदिव्यांश्च तर्पयेत् पितृतीर्थतः । वैश्वदेवं तु निर्वर्त्य पूजां माध्याह्निकीं चरेत् ।। ३९ ।।
+मध्याह्नपूजाभेदाः
+महतीं वा गुरुं वापि लघ्वीं वा यतचेतनः । कालेषु षट्षु पूज्योऽहं त्रिसन्ध्यमथवा पुनः ।।४०।।
+अभोजने विनिर्दिष्टाऽवसरा त्वन्यदा परा । षट्स्थलोक्तविधानेन महापूजां समाचरेत् ।।४१।।
+livelihood for the dependants (36). Bath of the evening should be completed by collecting the earth and conceiving in it the pilgrimage of Śiva (37).
+Then Tripundrak should be drawn after taking bath by the sacred ashes. Householder should perform the five great sacrifices (Mahāyajña)¹¹ daily after having performed the regular rites of worship during day and evening¹2 as prescribed (38). After worshipping the devas and rșis as per the rules laid down in the scriptures, one should offer the sacramental water¹³ to the divine and non-divine ancestors by applying prescribed procedures. Then the worship of the day is to be completed after having performed the process of 'Vaiśvadeva'14 (39).
+Three kinds of worships namely Mahati, Gurvī, and Laghvi are to be observed attentively. One should worship Me either six times's (as per the instruction of the scriptures) or three times during the regular performance of ritual-worship (40). 'Avasarā' worship is to be performed without taking meal and 'Anavasarā' should be observed after taking
+
+
+--- Page 41 ---
+Kriyāpāda
+13
+भस्मशय्याञ्चिते वामकरपीठेऽभिमन्त्रिते । इष्टलिङ्गं सुविन्यस्य उत्तरास्याभिसम्मुखः । पूजयेद् अवधानेन भावनापूर्णसाधनः ।।४२।।
+पण्डितं वाऽ थ मूर्ख वाऽतिथिं पूजान्त आगतम् । मामेव मत्वा सम्पूज्य तोषयेन्मतिमान् नरः ।।४३।।
+भुञ्जानोऽपि हि मां ध्यायेद् वाचा संकीर्तयेदपि । न विद्यते तदाशौचं पवित्रः सर्वदाऽस्म्यहम् ।।४४।।
+उपभुज्य प्रसादं मे ततो माहेश्वरोऽन्वहम् । मुखं करं च प्रक्षाल्य द्विराचम्येक्षणे स्पृशेत् ।।४५।।
+स्तोत्राण्यपि पठन्नेवं तदन्नं परिणामयेत् । ततश्चासायमपि च साधयेदर्थमात्मनः ।।४६।।.
+सायंसन्ध्योपासनम्
+निर्वर्त्य स्नानमाग्नेयं सायं तु प्रयतः शुचिः । उपास्य पश्चिमे सन्ध्ये होमकार्यं विधाय च ।।४७।।
+the food. Devotee should perform supreme worship (Mahāpūjā) on the 'şatasthalas' (six centres in the body) in accordance with the procedures laid down (41). One should devoutedly perform worship with the overwhelming emotion and religious sentiments, facing the north, preparing the bed of sacred ashes and keeping the Istalinga on the left hand which has duly been purified with the sacred hymns (42). Не should welcome the guest, whoever he might be - learned or illiterate-thinking him as my image (43). One should always meditate on Me at the time of taking food and praise Me by words. Such persons are never considered to be impure, since I always remain pure (44). Thus, Māheśvara devotee should take his food as my offering and wash the hands and face, observe 'ācamana' twice and touch the eyes (45). Then allow the food to be digested by reciting various praisings of God and earn the livelihood till the evening (46).
+During dusk, after having been purified on taking 'Agneya' bath one should devotedly observe two kinds 16 of regular evening worship
+
+
+--- Page 42 ---
+14
+Makutāgama
+सायन्तनीमवसरां वैश्वदेवं समाचरेत् । अथार्धरात्रिकीं पूजां निर्वर्त्यातिथिमर्चयेत् ।।४८।।
+रात्रिशयनक्रमः
+ततः शय्यां सुखकरीमधिशय्य शुचिस्तु माम् । ध्यायन् शयीत च सुखमुत्सृष्टाखिलचिन्तनः ।।४९।।
+उक्तं मया कृत्यजातमाह्निकं मत्पदप्रदम् । ये नरा नानुतिष्ठन्ति ते यान्ति नरकान् बहून् ।।५०।।
+इति श्रीमकुटागमे क्रियापादे आह्निकविधिनिरूपणं नाम द्वितीयः पटलः ॥२॥
+facing the west and perform the sacrificial rituals (47). After performing the evening 'avasarā' worship, sacrifice to Vaiśvadeva is to be fulfilled. Then one should perform the midnight worship and adore the guests (48).
+Thereafter one should take the rest on comfortable bed, meditate on Me with pure mind and go to sleep abandoning all the anxieties of the world (49). O Rudra! I have narrated to you the regular rites of the Śaiva devotees. Worshipper attains the feet of Śiva by observing these regular rites. One who does not observe the same, suffers the miseries of the hell for unending time (50).
+Here ends the second chapter of the Kriyāpāda of Makutāgama stating the procedures of regular worship.
+Notes and References
+1. It is to be noted here that the sacred thread may be put towards   but it is not applicable for Linga-Sūtra. Iştalinga is to be tied up with Linga-Sutra and the rest of the sacred thread should be left to   side. According to Siddhānta Sikhāmaņi, Iştalinga should never be worn below the navel vi. 53. Sacred thread should be tied up with the ears at the time of nature's call.
+2. The concept of ātma, vidyā and śiva-tattva have been defined in Saubhagya Suddhodaya as - "मायान्तमात्मतत्त्वं विद्यातत्त्वं सदाशिवान्तं स्यात् । शक्तिशिवौ शिवतत्त्वम्" (1.89) see also Netratantra (Mrtyunjay Bhattārak).
+
+
+--- Page 43 ---
+Kriyāpāda
+15
+3. Water should be filled up in the right hand, it should be covered with left hand and the water should be poured in around the person from the right reciting the three hymn "ऋतं च सत्यं च" etc. This rite is named as 'Aghamarşaņa'.
+4. See the first Vidyeśvar Samhitā (18.62-69) of Śivapurāna for the concept of 'Śivāgni'.
+5. See Siddhanta Sikhāmani "शिखायामेकमेकास्यम्" (7.54-58).
+6. In Śaivāgamas "व्योमव्यापिन् व्यापिन्" etc. verses have been mentioned.
+7. "ईशानः सर्वविद्यानाम्, तत्पुरुषाय विद्महे, अघोरभ्योऽथ घोरेभ्यः, सद्योजातं प्रपद्यामि, वामदेवाय नमः" - These five verses, of Saivāgamas, are famous as Pañcabrahma (Taitt. Aranyak 10.43-47).
+8. हृदयाय नमः, शिरसे स्वाहा, शिखायै वषट्, कवचाय हूँ, नेत्रत्रयाय वौषट् and अस्त्राय फट् - these six are called the anga mantras.
+9. It is stated in the vivek commentary of Tantrāloka refering the Srikanthi Samhita that Garuda tantra has been emanated from the Tatpuruşa face, Bhairavāgamas from the south face namely Aghora, Bhūtatantras from the west face namely Sadyojāta, Vāmatantras from the north face namely Vāmadeva, and Siddhāntāgamas from the upper face namely Īsāna.
+10. Here the word 'Nigama' refers to vaidik scriptures and the word 'agama' indicates Śaivāgamas.
+11. It seems that here the five sacrifices of Manusmrti have been indicated. The Pañcayajña of Viraśaivas is different from that of Manusmrti which is described as 'Śivayajña' in Siddhānta Śikhāmaņi.
+12. There are two procedures of sandhyā advocated by the Vedas and Tantras. Both kinds have been prescribed for the followers of Śaivāgamas.
+13. "अङ्गुल्यग्रे तीर्थं दैवं स्वल्पाङ्गुल्योर्मूले कायम् । मध्येऽङ्गुष्ठोङ्गुल्योः पित्र्यं मूले त्वङ्गुष्ठस्य ब्राह्मम् ।।" (2.6.50) This verse of Amarkośa points out that the tip of the fingers is meant for devas, the root of the little finger signifies the 'kaya-tīrtha', the place in between the thumb and fore finger is called 'pity tīrtha', where as in the root of thumb 'brāhma-tirtha' is known to exist. Tarpan of different deities are performed with the respective portion i.e. of deities by devatirtha, of sages by 'kāya-tīrtha' and of ancestors by 'pitr-firtha'. Brāhma-tīrtha is used for 'acamana'.
+14. Viśvadevas are being sacrificed by the rite 'Viśvadeva'.
+15. In the Kriyāpāda of Candrajñānāgama (11.64) the whole day is divided into six parts i.e. dawn, sunrise, morning, noon, after noon and midnight.
+16. See note no.11,
+
+
+--- Page 44 ---
+Chapter-3
+तृतीयः पटलः
+रुद्र उवाच
+अप्रमेयगुणाधार जगदाधार शाश्वत । अर्चाविशेषानधुना निबोधय महागुरो ।।१।।
+परशिव उवाच
+शृणु रुद्र प्रवक्ष्यामि पूजाभेदाननुत्तमान् । पूजा हि त्रिविधा प्रोक्ता गुर्वी च महती लघुः ।।२।।
+त्रिविधा पूजा
+महतीमुत्तमः कुर्याद् गुर्वी मध्यम एव च । लघ्वीमशक्तः कुर्याच्च सायंमध्याह्नकालयोः ।।३।।
+अभोजने ह्यवसरा नियता प्रातरादिषु । षट्‌कालमर्चनां कुर्यात् त्रिकालमथवा बुधः ।।४।।
+Rudra enquires -
+O the eternal supreme teacher, the abode of all unknowable qualities, the substratum of the world! kindly enlighten me regarding the specific procedures of worship (1).
+Paraśiva replies
+O Rudra! I am describing unto you the superior kind of worship. Please listen. Worship is said to be of three kinds namely Mahati, Gurvī and Laghvi (2).
+The person of first order should observe Mahati worship and the person who belongs to the middle order should observe Gurvī worship and the person who is unable to perform the above should observe Laghvī worship. These are to be performed during evening and noon time (3). Worship in the morning, noon and evening without taking food, should regularly be performed. Wise person should observe worship either for six¹ or three times (4).
+
+
+--- Page 45 ---
+Kriyāpāda
+17
+मण्डलविधानम
+114
+पद्म त्ववसराख्यायां नवपद्म लघौ स्मृतम् । गुर्व्या महत्यामपि च भद्रं तत्त्वं हि मण्डलम् ।।५।।
+वर्तिकासंख्या
+तिस्त्रस्त्ववसरायां स्युर्वर्तिका विहिताः किल । लव्यां नव द्वादश वा ताः पुनः सम्प्रकीर्तिताः । षट्त्रिंशदष्टादश वा गुर्वर्चायां समीरिताः ।।६।।
+अष्टोत्तरशतं वापि त्रिशतं वा सहस्रकम् । गुर्व्या महत्यामपि च वर्तिका ज्वालयेदपि ।।७।।
+दीपाराधनम्
+लघ्व्यामवसरायां वा दीप एकः समीरितः । चत्वारो वा तथा द्वौ वा महत्यां च गुरावपि ।।८।।
+जपसंख्याविधानम्
+लघ्व्यामवसरायां चाप्यष्टोत्तरशतं जपेत् । गुर्व्या महत्यामपि च मूलं दशशतं जपेत् ।।९।।
+Padmamandal for Avasarā worship, Navapadma mandal for Laghvī worship, Bhadra mandal for Gurvī worship and Tattva mandal for Mahati worship are to be drawn (5).
+Three lamps should be kindled in Avasarā worship; nine or twelve in Laghvī worship and thirty six or eighteen lamps are to be lit in Gurvī worship (6). Further there is the tradition of enlighting hundred and eight, three hundred or one thousand lamps in Gurvī and Mahati worships (7).
+Only one light is to be kindled in Laghvi or Avasarā worship. Thus, four or two lamps are to be lighted in Mahati and Gurvī worships (8).
+During the Laghvi and Avasarā worships, the original five letter hymn should be recited for hundred and eight times. So also the original hymn is to be recited one thousand times in Gurvī and Mahati worships (9).
+
+
+--- Page 46 ---
+18
+Makutāgam
+नीराजनम्
+दर्शनं त्ववसराभिख्यमुत्तराभिख्यमित्यपि । नीराजनत्रयं प्रोक्तमवसरायां महामते ।।१०।।
+दर्शनाख्यावसराख्यां मज्जनाभिख्यमित्यपि । माङ्गल्याख्यं च कर्पूरं शृङ्गाराख्यं महाभिधम् ।। ११ ।।
+आनन्दाख्यमसंख्यातं नव नीराजनानि तु । लघ्वर्चनायामेतानि कीर्तितानि भवन्ति हि ।।१२।।
+सानुरागं च ताम्बूलाभिख्यं पूर्वोदितैः सह । एकादश महत्यां च गुर्थ्यां नीराजनानि हि ।।१३।।
+अप्रदीप्यैव दीपं तु न च संकल्पमाचरेत् । रङ्गवल्लीं प्रदीपं च गन्धाद्यैरभिपूजयेत् ।।१४।।
+नैवेद्यम्
+अवसरायामवसरं निवेद्यं सम्प्रकीर्तितम् । महानिवेदनं कार्यं लघ्व्यादिषु महामते ।।१५।।
+O learned one! three kinds of 'Arati' namely Darśana, Avasarā and Uttarā have been prescribed in Avasarā worship (10). Nine processes of Nirājan (Ārati) have been laid down in Laghvī worship. Those are named as Darśanākhya, Avasarākhya, Majjanākhya, Māngalyākhya, Karpur, Śringār, Mahānīrājan, Ānandākhya and Asankhyāta (11-12).
+Eleven kinds of 'Nīrājan' have been prescribed in Mahati and Gurvī worships. By adding Sānurāga and betel leaves, the total number of Nirajan comes to eleven (13). One should not perform the process of 'Sankalpa' (submitting the purpose of worship unto God) without litting the light. Rangavalli and light are to be adored with incenses (14).
+In Avasarā worship there should be a small offering named as 'Avasara'. O the wise one! a big offering should be offered on the occasion of Laghvi worship (15). The offering that is capable of
+
+
+--- Page 47 ---
+Kriyāpāda
+19
+महानिवेद्यं तत्प्रोक्तं क्षुच्छान्तिकरणक्षमम् । निवेद्यमवसरं तद्धि क्षुच्छान्त्यनुपयोगि यत् ।।१६।।
+इति श्रीमकुटागमे क्रियापादेऽर्चाविशेषविधिनिरूपणं
+नाम तृतीयः पटलः ।॥३॥
+satiating the appetite is termed as 'Mahā-naivedya' and the term 'Avasarā' is used for that offering which is not meant for appeasing the hunger (16).
+Here ends the third chapter of Kriyāpāda of Makuțāgama describing the specific procedures of worship.
+*
+Notes and References
+1. See note no. 15 of Chapter 2.
+2. See Karaņāgama (IV. 17-26) for the description of these mandalas.
+***
+
+
+--- Page 48 ---
+Chapter-4
+चतुर्थः पटलः
+रुद्र उवाच
+अचिन्त्यमहिमाधार कृपाकूपार शङ्कर । पूजोपयुक्तद्रव्याणां साधनं ब्रूहि मेऽधुना ।।१।।
+परशिव उवाच
+पञ्चामृतादिनाऽभिषेकः कर्तव्यः
+मधु गव्यं दधि क्षीरं घृतं शर्करया समम् । अभिषेकाय शस्तं स्याच्छुद्धोदकमनुत्तमम् ।।२।।
+एलोशीरलवङ्गानि कस्तूरी चन्द्रकं तथा । पञ्चद्रव्याणि वा चन्द्रं कस्तूरी कुङ्कुमं तु वा । अभिषेकजले योज्यमेलोशीरयुगं तु वा ।।३।।
+चन्दनम्
+रोचनं कुङ्कुमं चैला कर्पूरं कोष्ठमेव च । कृष्णागरुश्च कस्तूरी समचन्दनसंयुतम् ।।४।।
+Rudradeva enquires
+O Śankar, the abode of unthinkable glory, ocean of mercy! kindly tell me about the various ingredients used in worship (1).
+Paraśiva replies
+A mixture of honey, cow-milk, curd, ghee, sugar in equal proportion with the pure water is considered to be appropriate for the sacred bath (abhiseka) of the deity (2). cardamom, khus, clove, musk, and kumkum (vermilion colour powder) - these five ingredients are to be added with the above sacred bathing water or as an alternative process; camphor, musk and kumkum or cardamom and khus may also be mixed up with the sacred water for the purpose of sacred bathing of the deity (3).
+The smell of the mixed ointment of rocana, kumkum, cardamom, camphor, kūta, black agara, musk (kastūrī), sandle and inner stuff of
+
+
+--- Page 49 ---
+Kriyāpāda
+21
+क्षोदो वा विल्वखण्डस्य कृतमालस्य वा तथा गन्धो वा देवदारोश्च मम प्रियकराः स्मृताः ।।५।।
+पुष्पाणि
+द्रोणं बकं च पुन्नागं तथा मन्दारपुष्पकम् । नन्द्यावर्तं श्रियावर्त करवीरार्कके तथा ।।६।।
+शतपत्रं कुवलयं लोध्रं धत्तूरमेव च । पाटलं चम्पकं विल्वं तमालं कर्णिकारकम् ।।७।।
+मातुलुङ्गमुनी चैव प्रियङ्गुर्देवदारूकम् । कृतमालाग्निमन्थौ च मालती मल्लिका तथा ।।८।।
+निर्गुण्डी च विकर्णी च बहुपर्णी तथाऽजिता । कह्नारमतसीपुष्पं कुसुम्भं कमलं तथा । शस्तानि मम पूजायां तस्मात् तैर्मा सुपूजयेत् ।।९।।
+सात्त्विक-राजस-तामसपुष्पाणि
+शुभ्रवर्णानि पुष्पाणि सात्त्विकानि भवन्ति हि । तानि मुक्तिप्रदानि स्युर्भक्तानां मह्ममर्पणात् ।।१०।।
+bilva, kritamāl and the devadar fruit is very pleasant to Me. Please note (4-5).
+The flowers enumerated here - Leonurus sibiricus (Droņa), Mineasops Ellengi (Bakul), calophyllum Inophyllum (Punnāg) calotropic gigantea (Mandar), Nandyāvart, Śriyāvart, Oleander (Karavīr), and Ark, Centrifolia (Śatapatra), Kuvalay or Utpal, Lodhra, Stramonium (Dhatūrā), Pāțal, Magnolia (Campak), Bilva-leaves, Tamal and Karņikar or Kathcampā, Mātulunga, Munī, Priyangu, Devadār, Kṛtamāl, Agnimantha, Echites (Mālati) and Mallikā, Nirgundi, Vikarņi, Bahuparņi, Ajitā, Kalhar, Atasī, Kusumbha and Lotus are considered to be very precious. So devotee should worship Me with these flowers. (6-9)
+White flowers are considered to be possessed with sattvik quality. Worshipping Me with these flowers brings forth the liberation for the
+
+
+--- Page 50 ---
+22
+Makutāgama
+राजसान्यरुणान्येवं प्रदद्युर्भोगमीप्सितम् । मिश्राणि पीतवर्णानि भुक्तिमुक्तिप्रदानि हि । पुत्रपौत्रसुवर्णादिसर्वाभीष्टप्रदानि च ।।११।।
+कृष्णानि तामसानि स्युर्विना नीलोत्पलं भुवि । वर्जनीयानि यत्नेन न तैर्मामर्चयेज्जनः ।।१२।।
+कालभेदेन प्रशस्तानि पुष्पाणि
+नन्द्यावर्तं श्रियावर्त श्वेतार्क श्वेतपङ्कजम् । लक्ष्मीपाटलपुन्नागा मालती शङ्खिनी तथा ।।१३।।
+पलाशाशोकबकुलरक्तागस्त्यसुमानि च । प्रातःकालिकपूजायां प्रशस्तानि भवन्ति हि ।।१४।।
+कृतमालं च धत्तूरं करवीरं च द्रोणकम् । चम्पकं पाटलं चैव कमलं चोत्पलं तथा । मध्याह्नकालपूजायां प्रशस्तानि स्मृतानि हि ।।१५।।
+जातिर्नीलोत्पलं चैव कदम्बं केतकी तथा । स्थलपद्म च पूगं च नागदन्तिसुमं तथा । अर्धरात्रिकपूजायां प्रशस्तानि भवन्ति हि ।।१६।।
+devotee (10). Red flowers containing the rājas quality are the bestower of the desired results. Flowers having various mixed colours and of yellow colour confer both the enjoyment and liberation. Moreover these are the bestower of many desired things such as son, grandson, gold etc. (11). All black flowers except the blue lotus are known as possessing tāmas quality. So devotee should carefully discard it in worshipping Me (12).
+Nandyāvart, Śriyāvart, white Arka, white lotus, Lakṣmī Pāțal, Punnāg, Malati, Sankhini, flame of the forest (Palāsa), Aśoka, Mineasops Ellengi (Bakula) and red Agastya - these flowers are considered to be most esteemed for the morning worship (13-14). Kritamāl, Dhatūrā, Oleander (Karavīr), Leonurus sibiricus (Drona), Michelia champaka (Campaka), Pātal, Lotus and Nymphea Lotus
+
+
+--- Page 51 ---
+Kriyāpāda
+23
+कनकं च कदम्बं च केतकी जातिरेव च । अर्धरात्रेऽर्पणीयानि नान्यथा भक्तितत्परैः ।।१७।।
+पारिजातं प्रातरेव सायं स्याच्चन्द्रकान्तकम् । मध्याह्न एव युक्ता स्यान्नित्यं मध्याह्नमल्लिका ।। १८ ।।
+त्रिकालमल्लिका चैव कनकाम्बरमेव च । द्रोणं च विल्वपत्रं च प्रशस्तानि हि सर्वदा ।।१९।।
+वर्ज्यानि ग्राह्याणि च पुष्पाणि
+यूथिका मदयन्ती च माधवी च शिरीषकम् । बन्धूकं सर्जकं चैव विभीतं कुन्दमेव च ।।२०।।
+लाङ्गली दाडिमं दीप्तं निम्बं कार्पासमेव च । कूष्माण्डं शाल्मली चैव मत्स्याक्षी शिग्रुपुष्पकम् ।। २१ ।।
+श्रीकर्णं च कपित्थं च तिन्तिणीकुसुमं तथा । सर्वदा वर्जनीयानि मदनुग्रहका‌ङ्क्षिभिः ।।२२।।
+(utpal) - these flowers are known to be appropriate for the worship during the noon time (15). Jāti, blue Lotus, Antho cephalus Indicus (Kadamba), Odoratissimus (Ketaki), Hibiscus Mutalibis (Sthala-padma), Pug and Nāgadanti - these flowers should be offered in the midnight worship (16). Kanaka, Kadamba, Ketaki, Jāti flowers are to be offered only during the midnight worship, not in any other time by the devoted person (17). Canna Orientalis (Pārijāta) flower in the morning, Candrakanta in the evening and Jasminum Sembac (Mallikā) in the midday worship should regularly be used (18). Trikāla Mallikā, Kanakāmbara, Droņa and Bilva leaves are considered to be precious in worships for all time (19).
+Seekers of My grace should always discard Yuthikā, Madayanti, Mādhavī, Śirīşa, Bandhuk, Sarjak, Vibhītak, Kunda, Langli, Dādim, Dīpta, Nimba, Kārpās, Kuşmanda, Śālmalı, Matsyākṣī, and Sigru flowers along with Śrikarņa, Kapittha, Tintiņi (20-22). Bilva, Āragvadh, Dūrvā, Apāmārg and Campak leaves, jambu, Kadamba, Damanak, Drona and Maruvak leaves, Śankhinī, Lotus, Hyber and Sindhuvār leaves are esteemed for my proper worship (23-24). Bilva
+
+
+--- Page 52 ---
+24
+Makutāgama
+विल्वारग्वधदूर्वापामार्गचम्पकपत्रकम् जम्बूकदम्बदमनद्रोणमरुवकपत्रकम् ।।२३।।
+शङ्खिनीपद्मह्नीबेरसिन्धुवारादिपत्रकम् शस्तं स्यान्मम पूजायामेतैर्मा सम्यगर्चयेत् ।।२४।।
+विल्वपत्रं तु कथितं सर्वपत्रोत्तमोत्तमम् । नीलोत्पलं च पुष्पेषु करवीरं विशिष्यते ।।
+द्रोणमारग्वधं चैव सर्वपुष्पोत्तमोत्तमम् सौवर्णानि पत्रपुष्पाणि
+।।२५।।
+पुष्पपत्रैस्तु सौवर्णैरष्टोत्तरशतेन वा पञ्चाशता वा सम्पूज्य चानन्तफलमश्नुते
+।।२६।।
+नास्ति निर्माल्यतादोषः सौवर्णेषु सुमेष्वपि । पत्रेषु च ततस्तैस्तु भक्तो नित्यं समर्चयेत् ।।२७।।
+सौवर्णपत्रपुष्पाणां तथा विल्वदलस्य च । न पर्युषितता तस्मात् तानि संगृह्म पूजयेत् ।।
+२८ ।।
+विविधधूपसम्पादनम्
+धूपसम्पादनं वक्ष्ये शृणुष्वावहितः पुनः । कर्पूरागरुतक्कोलजातीफललवङ्गकम्
+।।२९।।
+leaf is said to be the best among all leaves. Thus blue Lotus and Karavīr are special and Droņa, Āragvadh have the highest position among all flowers (25).
+The devotee who performs worship with hundred and eight or fifty golden leaves or flowers becomes eligible for endless good results (26). Leaves and flowers made of gold are not defiled after worship. So the devotee should regularly worship Me with them (27). Such golden leaves and flowers are never considered to be stale and hence that may be used by collecting them again (i.e. by washing them with the water) (28).
+Now listen carefully the procedure of preparing the 'dhup' (incense powder) which I am narrating to you. The mixture of Camphor,
+
+
+--- Page 53 ---
+Kriyāpāda
+25
+जटामांसी च सिहीं च मुस्ता चन्दनमेव च । घृतमिश्रमिदं प्रोक्तं दशाङ्गं सुमनोहरम् ।।३०।।
+चन्दनागरुकर्पूरकस्तूरं कुङ्कुमं तथा । तक्कोलैला नागपुष्पं लवङ्गत्वक् तथैव च । यक्षकर्दममेतद्धि मम प्रीतिकरं स्मृतम् ।।३१।।
+चन्दनागरुकर्पूरलवङ्गत्वक् च सिंहकम् । एला तथा जटामांसी प्राजापत्याभिधं स्मृतम् ।। ३२ ।।
+चन्दनागरुकर्पूरं कस्तूरतिलकं तथा । लवङ्गं हसिता मुस्ता विजयाख्यं प्रकीर्तितम् ।।
+३३ ।।
+कर्पूरकृष्णागरु च ह्रीबेरं कुङ्कुमं तथा । कोष्ठं तथा चन्दनं च क्रमवृद्धियुतं यथा
+।।३४।।
+एकद्वित्रिचतुः पञ्चषड्भागं मधुमिश्रितम् । शीतारिसांज्ञमिदं मम प्रीतिकरं स्मृतम् ।।३५।।
+Agar, Takkol, Nutmeg (Jātiphal), Clove, Jatāmānsi, Rhus Succedenia (Sinhī), Cyperus Rotundus (Mustak), Sandle and ghee - these ten ingredients is known as the 'Daśānga dhūp' (a mixture of incense powder having ten ingredients) of pleasant smell (29-30), a mixture of Sandle, Agar, Camphor, Kastūrī, Kumkum, Takkol Elā, Nāg flower, Clove and Cinnamon is named as 'Yakşakardam dhūp' which is very dear to Me. Please note (31). The dhup made of Sandle, Agar, Camphor, Clove, Cinnamon, Rhus succedenia, Cardamom, Jatāmānsī is famous as 'Prājāpatya' (32). A mixed dhup prepared by the ingredients of Sandle, Agar, Camphor, Musk, Tilak, Clove, Hasitā and Cyperus Rotundus (Musta) is the conferrer of victory (33). Camphor, black Agar, Hyber, vermilion colour powder (Kumkum), Sausurialapa (Kostha) and Sandle are to be mixed up gradually increasing the quantity and honey is to be added in the proportion of one, two, three, four, five and six times. Such mixture is named as 'Śītāri' dhūp. Please remember that this also is very pleasant to Me (34-35). Sandle, Agar, Camphor, Rhus succedenia and Sarjaras are to be added with the
+
+
+--- Page 54 ---
+26
+Makutāgama
+चन्दनागरुकर्पूरसिंहीसर्जरसांस्तथा कोष्ठं मुस्तां च सञ्श्रूर्ण्य विजयाख्येन योजितम् । कर्पूरक्याणमिति कीर्तितं मुक्तिसाधनम्
+।।३६।।
+चन्दनागरुकस्तूरीमुस्तासिंहकचूर्णकम् अमृताख्यमिति प्रोक्तममृतत्वप्रदायकम्
+।।३७।।
+तक्कोलपूगकर्पूरजातीफललवङ्गकम् । सुगन्धसंज्ञितमिदं भोगमोक्षप्रदं मतम्
+।।३८।।
+गुग्गुलुः केवलं सप्तजन्मपापविनाशकः । तथा चन्दनधूपोऽपि सर्वाघौघनिषूदनः ।। एवं सौगन्धिको धूपः सर्वकामार्थसाधकः
+।।३९।।
+अथ श्वेतागरोधूपः केवलं मुक्तिदायकः । साज्यगुग्गुलुधूपस्तु महाभोगप्रदायकः
+।।४०।।
+तमालचूर्णसहितो महिषाक्षस्य धूपकः । मम प्रीतिकरस्तस्माद् मत्सायुज्यप्रदायकः
+।।४१।।
+powder of sausurialapa (Kostha) and Cyperus Rotundus (Mustā) Then the whole thing is to be added with the 'Vijayākhya' dhūp. This famous 'Karpūr kalyān' dhūp is known to be the means of liberation (36). The dhup prepared by the powder of Sandle, Agar, Musk, Cyperus Rotundus (Mustā), Rhus succedenia (Sinhak) is named as 'Amrta' which is the bestower of immortality (37). The mixture of the powder of Takkol, Pug, Camphor, Nutmeg and clove is named as 'Sugandha' dhūp which is known as the bestower of both enjoyment and liberation (38). 'Guggul' dhūp alone destroys the sin of seven births: Thus the dhup of Sandle also is capable of eradicating all the sins and 'Saugandhik' dhūp is considered to be the means to achieve the 'Kama' (enjoyment) and 'Artha' (wealth) (39). The dhūp prepared by white Agar is only the conferrer of liberation. The dhup of Guggul mixed with ghee is the provider of immense enjoyment (40). Dhup prepared by mixing the Mahişāksa with the powder of Tamal is pleasing to me and is the bestower of the status of 'Sayujya' to the devotee. (41).
+
+
+--- Page 55 ---
+Kriyāpāda
+27
+दीपसम्पादनम्
+दीपसम्पादनं वक्ष्ये संशृणुष्वावधानतः । उत्तमं गोघृतं प्रोक्तं मध्यमं महिषीघृतम् । अधमं तिलतैलं स्यादोशस्यान्तकसूदन ।।४२।।
+निम्बैरण्डकरञ्जानां तैलं यत्पूतिगन्धि च । नोपयोज्यमिदं पुत्र मद्दीपाय कदाचन ।।४३।।
+न दीपमप्रज्वाल्यैव शुभकर्म समाचरेत् । दैवं पैतृकमप्येवमन्यथा विफलं भवेत् ।।४४।।
+पञ्चसूत्रलिङ्गलक्षणम्
+शृणुष्वावहितः पुत्र वक्ष्ये लिङ्गस्य लक्षणम् । स्फाटिकादीनि लिङ्गानि शक्तियुक्तानि चार्पयेत् । पञ्चसूत्रात्मकं लिङ्गं पूजयेदिष्टसिद्धये ।।४५।।
+लिङ्गवृत्तसमं पीठं दीर्घ विस्तारमुन्नतम् । तदर्थं गोमुखं चैव पञ्चसूत्रं प्रकीर्तितम् ।।४६।।
+Now I am narrating the procedure of enkindling the lamp. Please listen to it attentively. O Antakasūdana (conquerer of death)! for the worship of Śiva, the ghee prepared from the cow milk is considered to be of best kind, from buffalo milk of medium quality and the oil from the sesamum seeds is known to be of the lowest kind (42). O son! the oil of Margosa, Castor seed, Carissa carands which produce bad smell should never be put in the lamp used in my worship (43). Any auspicious work should never be initiated without enkindling the lamp. Thus, any rite related to gods and ancestors becomes fruitless if performed without enlightening the lamp (44).
+O son! now I am telling you the characteristic features of Linga. Please listen to it carefully. The Linga made of crystal¹ etc. associated with Power, is to be adored. One should worship the Linga characterised with 'Pañcasūtra' for the accomplishment of his desires (45). The length, breadth and the vertical height of the base of Linga (Pitha) should be equal to the circumference of the Linga and Gomukh (upper
+
+
+--- Page 56 ---
+28
+Makulāgama
+शिवाधिक्ये भवेन्मृत्युः शत्क्त्याधिक्ये धनक्षयः शिवशक्तिसमं लिङ्ग भुक्तिमुक्तिफलप्रदम् ।।४७।।
+न न्यूनमर्धाङ्गुलतोऽधिकं नाङ्गुलमानतः । पञ्चसूत्रसमायुक्तमिष्टलिङ्गं धरेत् सदा ।।४८।।
+इष्टलिङ्गे कलापूर्णे गुरुदत्ते महोत्तमे । न लक्षणं परीक्षेत गुरुणा पावितं यतः ।।४९।।
+भक्तः स्वशत्क्त्यानुगुणार्जितं पुष्पं फलं तथा । मनसा सर्वसामग्रीं परिपूर्णां विभावयेत् ।।५०।।
+भक्त्यैव परिपूर्णा या सा पूजा सफला भवेत् सर्वमुक्तं समासेन किमतः श्रोतुमिच्छसि ।।५१।।
+इति श्रीमकुटागमे क्रियापादे पूजोपकरणसम्पादनं नाम चतुर्थः पटलः॥४॥
+outlet) should be half of the size of the circumference of the Linga. Linga, possessing these five characteristics is named as Pañcasūtra Linga (46). The worshipper expires if Linga is larger²; loss of wealth occurs if Śakti (base of Linga) is larger. Linga having Śiva and Śakti (i.e. Linga and its base) of the same size is the bestower of both enjoyment and liberation (47). The size of the Linga should never be less than half finger³ and more than one full finger. Worshipper should always wear the Linga of the size of 'Pañcasūtra' (48). The Iştalinga awarded by Guru is considered to be the best and is endowed with all attributes. No verification regarding the characteristics of the Linga should be made since it has been purified by the touch of Guru (49). Devotee should assume the abundance of the best possible flowers, fruits and other items in his mind (50). The worship brimming with devotion is known to be successful. I have narrated all the procedures of worship to you. Now, what more do you want to listen? (51).
+Here ends the fourth chapter of Kriyāpāda of Makuțāgama describing the procedures of preparing various articles for the worship.
+
+
+--- Page 57 ---
+Kriyāpāda
+29
+Notes and References
+1. "स्फटिकं शैलजं वापि" (6.22) - Siddhānta Śikhāmaņi. One of the Linga made of crystal, stone, moon-stone and sun-stone may be accepted for worship. The base (11.32) of the Linga is called 'Śakti'.
+2. See the verse "लिङ्गाधिक्ये" (Bhā. 3, p 41) of Kriyāsār.
+3. Size of the finger is equal to the size of eight Barleys.
+***
+
+
+--- Page 58 ---
+Chapter-5
+पञ्चमः पटलः
+रुद्र उवाच
+आवाहनं कथं देव तव सर्वगतस्य तु । संस्थापनं कथं नु स्यात् सन्निधानं कथं प्रभो । कस्मिन् मुखे समर्यं स्यान्नैवेद्यं ते वदस्व मे ।। १ ।। अभोज्यं भोज्यमिति च कथ्यते ते निवेदितम् । भोज्यं केषामभोज्यं च केषां स्यात् तद्विवेचय ।। २ ।।
+परशिव उवाच
+आवाहनम्
+देशान्तरप्राप्तिरूपावाहनं व्यापकस्य मे । न सम्भवेत् तथापि स्यात् कर्तुर्भावनया परम् ।।३।।
+लिङ्गाद्यभिमते देशे यदभिव्यञ्जनं मम । तदेवावाहनमिति भावयस्व महामते ।।४।।
+Rudradeva enquires -
+O Lord! you are omnipresent. How to invoke you? How may the rite of 'Sansthapana' (installation) and 'Sannidhānam' (keeping face to face) be performed? In which of your mouths the oblation should be offered? Kindly explain to me (1). Things offered to you are said to be eatable by some and unacceptable to others. Kindly explain to me as for whom it is acceptable and for whom it is not? (2).
+Paraśiva replies
+O learned Rudradeva! Invocation from one place to the other is not possible as I remain all pervasive, but revelation in and through the specific Linga and desired image at a particular place occurs as per the conception of the devotee. You can conceive it as invocation (3-4).
+
+
+--- Page 59 ---
+Kriyāpāda
+31
+संस्थापनम्
+लिङ्गबेराद्यभिमतसदाशिवहृदम्बुजे ममावस्थापनं यत्तत् संस्थापनमितीर्यते ।।५।।
+संनिधान-संनिरोध-अवगुण्ठन-सकलीकरणानि
+सन्निधानमिति प्रोक्तमात्मनोऽभिमुखीकृतिः । आपूजान्तं सन्निधानप्रार्थनं सन्निरोधनम् ।।६।।
+कवचेनाच्छादनं तु यत्तदेवावगुण्ठनम् । हृदयादिन्यास एव सकलीकरणं मतम् ।।७।।
+अमृतीकरणम्
+पञ्चानां हृदयादीनां नानावर्णजुषामपि । मद्वर्णतानुसन्धानममृतीकरणं हि तत् ।।८।।
+देवस्य कथं कुत्राभिमुखता
+स्थण्डिले चरलिङ्गे च साधकाभिमुखोऽ स्म्यहम् । प्रत्यग्वक्त्रस्तु कुम्भादौ स्थिरे द्वाराभिसम्मुखः ।। ९।।
+Installation is known as my invocation in the Linga which exists in the lotus heart of Sadāśiva and in the image (5).
+Contemplating Śiva facing towards one's self is named as 'sannidhānam'. Praying God to remain face to face infront of the devotee, till the worship is completed, is said 'sannirodhan' (6). Protecting one's own body by chanting Śivakavaca (sacred hymns of God) is called 'avagunthana'. Performing nyāsa on the point of heart etc. is known as 'sakalikarana' (7).
+Different letters of the original hymn are associated with the nyāsas of five points of the body viz. heart etc. Conceiving only my nature in those parts is called 'amrtikaraņa' (8).
+I always remain infront of the devotee in and through the 'Sthandil' and Caralinga'. I remain seated in the pot etc. towards west and I always exist in the fixed image facing towards the entrance (9).
+
+
+--- Page 60 ---
+32
+Makulāgama
+पञ्चवक्त्रपूजाप्रकारः
+प्रपत्तव्यं भोगमोक्षकामैमें दक्षिणं मुखम् । तस्मात् तदाभिमुख्येन कार्यं हि मम पूजनम् ।।१०।।
+बाहुहृद्गुह्यचरणैः साकमूर्ध्वमुखं मम । आत्मनोऽभिमुखत्वेन प्रकल्प्यैव समर्चयेत् ।।११।।
+भक्ष्यभोज्यान्नपानादि लेह्यं चोष्यमनेकधा । ऊर्ध्ववक्त्रे प्रदातव्यं यत्किञ्चिदिह चोदितम् ।।१२।।
+आचारलिङ्गादीनां स्थितिः
+पञ्चवक्त्रेषु नैवेद्यस्यार्पणं तद्विशिष्यते । सद्योजातः किलाचारो वामदेवो गुरुः स्मृतः ।।१३।।
+अघोरस्तु शिवः प्रोक्तश्चरस्तत्पुरुषो भवेत् । ईशानस्तु प्रसादः स्याद्विशिष्टस्तु महानहम् ।।१४।।
+प्रसादग्रहणम्
+तस्मादनुदिनं भक्तः सर्वं भोज्यं च सर्वदा । ष‌ड्लिङ्गेभ्यः समप्यैव गृहणीयादवधानतः ।।१५।।
+The devotee who aspires for both enjoyment and liberation should take refuge in my south face (Aghora). Such person should worship me sitting infront of south face (10). Contemplating hands, heart, private part and feet along with my south face infront, devotee should reveredly adore me (11). Various kinds of food, drinks etc. which are the objects to be eaten, licked, sucked, have been prescribed in the scriptures as the offerings to Śiva, should only be offered to my upper mouth (12).
+Surrendering offerings to the five faces of Śiva has got its unique glory. Sadyojāta face is of the nature of Acāralinga, Vāmadeva of Gurulinga, Aghora of Śivalinga, Tatpuruşa of Caralinga and Īsāna is of the nature of Prasadalinga. Mahālinga which is unique from all of them and is only Me alone (13-14).
+So, devotee should carefully accept the food regularly after submitting it to these six lingas (15).
+
+
+--- Page 61 ---
+Kriyāpāda
+33
+निर्माल्यविचारः
+मदीयभुक्तं निर्माल्यं भोज्यं चैव चतुर्विधम् । धर्ममर्थं च कामं च मोक्षं च ददते क्रमात् ।।१६।।
+निर्माल्यं निर्मलं शुद्धं निर्मलत्वादनिन्दितम् । तस्मादभोज्यं निर्माल्यमशुद्धैरशिवात्मकैः ।।१७।।
+अशुद्धात्मा शुद्धिलोभान्मद्भुक्तं पावनं परम् ।। भक्षयन्नाशमाप्नोति रसभोक्ता यथा द्विजः ।।१८।।
+जिह्वाचापल्यसंयुक्तः शैवसंस्कारवर्जितः । शैवनिर्माल्यभोजी चेद् रौरवं नरकं व्रजेत् ।।१९।।
+मल्लिङ्गधारिणो लोके देशिका मत्परायणाः । घदेकशरणास्तेषु योग्यं नैवान्यजन्तुषु ।।२०।।-
+चण्डो नाधिकृतः
+चण्डभोज्यं दुराधर्षं नान्यभोगाय कल्पितम् । बाणलिङ्गे चरे लोहे रत्नलिङ्गे स्वयम्भुवि । प्रतिमासु च सर्वासु न चण्डोऽधिकृतो भवेत् ।। २१ ।।
+The offerings and the food accepted by me are of four kinds i.e. swallowable, devourable, gulpable and lickable which impart dharma (spirituality), artha (wealth), kāma (enjoyment) and mokşa (liberation) respectively (16).
+The 'nirmalya' denotes, that which is undefiled, pure and can never be abused. Such, all pure offerings (nirmalya) are not eatable by impure and unauspicious persons (17). If the impure person, instead of controlling his temptation of being pure, eats pure offering, will go downward like that of a brahmin having drunk the wine (18). If a greedy person and one devoid of Śaiva culture accepts the offerings (nirmalya) is sure to suffer the 'Raurava' hell (extremely painful hell for the heinous criminals) (19). So the 'ācāryā' who has worn Śivalinga', remains absorved in Me and has taken my refuge, are eligible to accept My offering, no one else (20).
+The offering (food) of Canda is considered to be very abhorrent and can never be offered to any body else. But Canda does not claim
+
+
+--- Page 62 ---
+34
+Makulāgama
+असमर्ण्य ग्रहणे दोषः
+स्वेष्टलिङ्गे च यद्दत्तं चरुकं तन्न संशयः । पत्रं पुष्पं फलं तोयमन्नपानाद्यमौषधम् । आपद्यपि न भुञ्जीत यन्मह्यमसमर्पितम् ।।२२।।
+निवेदितभोजने सायुज्यप्राप्तिः मत्पूजापरमो नित्यं मन्निवेदितभोजनः । मन्द्ध्यानपरमो योगी मत्सायुज्याय कल्पते ।।२३।।
+इति श्रीमकुटागमे क्रियापादे आवाहनादिविधिकथनं नाम पञ्चमः पटलः ।।५।।
+क्रियापादश्च समाप्तः ।।
+to have any right on the offerings of vāņalinga, Caralinga, linga made of iron and gems, self-emanated linga and other images (21)
+Offerings submitted to own Iştalinga is considered to be im-mensely pure like the 'Caru' (offering) offered to the yajña (sacrifice). There is no doubt in it. Devotee should never eat, even in emergency, leaves, flowers, fruits, water, cereals, drinks, medicines etc. without offering Me (22).
+The devotee for whom my regular worship is supreme, always accepts the food offered to me in the worship, ever remains intensely immersed in meditating on me, surely attains the state of 'Sāyujya' (23)
+Here ends the fifth chapter of Kriyāpāda of Makutāgama enumerating the procedure of Invocation.
+End of Kriyāpāda
+***
+Notes and References
+1. See note No. 8 of second chapter; Prapañcasāra (6.6)
+
+
+--- Page 63 ---
+Kriyāpāda
+35
+2. The place cleaned for the purpose of sacrifice (yajña) is called 'Sthandil' (Amarkoşa - 2.7.18)..
+3. Śiva is of the form of five hymns. See Mrgendrāgama, vidyāpāda (3.8-13) and Matanga Pārameśvara, vidyāpāda (4.14-15).
+4. See Karmakāņda kramāvalī (pp. 32-34) of Soma Sambhu for the description of the nature of Candeśa and the procedure of His worship.
+***
+To reading all
+ને પ્રોત
+
+
+--- Page 64 ---
+Caryāpāda
+Chapter-1
+चर्यापादे प्रथमः पटलः
+कैलासवासी भगवान् महादेवो महेश्वरः । महाकैलासनिलयं महाकारुणिकोत्तमम् ।।१।।
+पञ्चपञ्चमुखं देवं पञ्चाशद्भुजमण्डितम् । पञ्चब्रह्ममयं शान्तं पञ्चकृत्यपरायणम् ।।२।।
+परं शिवं समालोक्य प्रणम्य विनयान्वितः । पप्रच्छैवं कृपाविष्टो लोकानुग्रहकाङ्क्षया ।।३।।
+रुद्र उवाच
+अशेषजगदाधार निराधार परात्पर सर्वतत्त्वादिभूत श्रीदेवदेव नमोऽस्तु ते ।।४।।
+श्रीमद्दिव्यागमान्तेषु निगमान्तेषु च स्फुटम् । शाम्भवव्रतमादिष्टं भवता शीघ्रमुक्तिदम् ।।५।।
+God Rudra, out of compassion and for the welfare of the world, approaches and most humbly bows unto Paramaśiva, the greatest of gods, the Lord of lords, the resident of great Kailāśa, the supreme among all the merciful beings residing on the mount Kailāśa, endowed with twenty five faces¹ and fifty hands, of the nature of Pañcabrahma hymn, immutable but ever engrossed in performing five-fold actions and enquires (1-3).
+Rudra enquires
+O the infinite substratum of the world, self sustained, transcendental, the substance of all elements, the God of the gods! I bow unto you (4). You have very clearly stated the procedure and nature of Śāmbhavavrata in the later portion of divine Agama and Nigama which is the immediate bestower of liberation (5). Please tell me the ritualistic procedures of the last rites of devoted worshippers, the
+
+
+--- Page 65 ---
+Caryāpāda
+37
+ये द्विजास्तदनुष्ठानतत्परा लिङ्गधारिणः । अवसानविधिं ब्रूहि तेषां सद्भक्तियोगिनाम् ।।६।।
+परशिव उवाच
+साधु पृष्टं त्वया वत्स भक्तलोकोद्दिधीर्षुणा । ११११ शृणु वक्ष्यामि भक्तानामवसानविधिं परम् ।।७।।
+शाम्भवव्रतनिष्ठानामवसानविधिः
+येनैव संस्कृतः शीघ्रं दीक्षितो मुक्तिमाप्नुयात् । येनैव संस्कृतः शीघ्रं दीक्षासाफल्यमश्नुते । येनैव संस्कृतो यायादभक्तोऽपि परां गतिम् ।।८। शाम्भवव्रतनिष्ठानामिष्टलिङ्गाङ्गसङ्गिनाम् । कथितो मत्पदावाप्त्यै शिवमेधविधिः श्रुतौ ।।९।।
+शिवमेधशब्दनिर्वचनम्
+शिवे मयि प्रविष्टानां मेध आराधनात्मकः । शिवमेध इति ख्यातः करणीयो मुमुक्षुभिः । विशिष्टः पितृमेधोऽयं शिवमेध इति स्मृतः ।।१०।।
+wearers of Iştalinga, the dvija who always remains absorbed in performing this sacred rite (Śāmbhavavrata) (6).
+Paraśiva replies -
+O son! you have asked an apt question in view of the emancipation of the devotees. I am elucidating the best possible procedure of the last rites for the devotee. Please listen carefully (7). The person who is initiated and endowed with the procedure, attains liberation early. Oriented with this rites one is able to achieve the success of 'Sambhava' initiation easily. Even non-devoted person also reaches the ultimate goal (8). For the devoted observer of 'Sambhavavrata' and wearer of Iştalinga on the body, the procedure of 'Śivamedha" has been enunciated in the scripture to attain my feet (9).
+For those who have entered into the closest unison with Me (sāmarasya), adoration itself is said as 'medha' (Śivamedha). Aspirant
+
+
+--- Page 66 ---
+38
+Makulāgama
+भक्तिज्ञानविहीनोऽपि शिवपदं प्राप्नोति
+सर्वस्य प्रतिशिवेति भूमिस्तोयस्य इत्यपि । श्रुतयो विदधत्येव समाधिं भक्तियोगिनाम्
+।।११।।
+भक्त्या ज्ञानेन हीनोऽपि युक्तोऽपि महतैनसा । सोऽपि मत्पदमागच्छेच्छिवमेधेन संस्कृतः
+।।१२।।
+मद्भक्तौ च मदर्चायां मज्ज्ञाने शाम्भवव्रते । यो मुक्तिसिध्दिं सन्दिग्धे स ध्रुवं नरकं व्रजेत् ।।
+१३ ।।
+शाम्भवीये व्रते चैव तदन्त्येष्टिविधावपि । अविश्वासपरो मूर्यो नरकान्नहि निःसरेत् ।।१४।।
+लिङ्गाङ्गिदेहदहने दोषः
+शाम्भवव्रतिनो देहं दहेद् यो मूढचेतनः । नरके दह्यते सोऽयं सर्वदा यमकिङ्करैः
+।।१५।।
+मद्भक्तानां मुमुक्षूणां संस्कारायैव देहिनाम् । पितृमेधे समाख्यातः समाधिविधिरुत्तमः
+।।१६।।
+must observe 'Śivamedha'. The specific kind of 'Pitrmedha' is known as 'Śivamedha' (10).
+Scriptural utterances like 'Sarvasya pratiśiva' (Śiva is ever present) and 'bhūmistoyasya' (earth is the substratum of wordly things) indicate the procedure of the samādhi for the devoted worshipper (11). It is supposed that the person observing only 'Śivamedha' attains my feet notwithstanding being devoid of devotion and knowledge (12). If a person is doubtful about the attainment of liberation, even after maintaining devotion in Me, performing worship, possessing my knowledge and observing 'Śāmbhavavrata', is sure to suffer the hell (13). The non-believer and unwise person can never be relieved from the hell if he does not keep faith in the prescribed ritualistic last rites for the observer of 'Sambhavavrata' (14). The attendants of 'Yama' burn the unwise person in the hell who inflames the body of the observer of 'Sambhavavrata' on pyre (15). Superior procedures of 'samādhi' in the
+
+
+--- Page 67 ---
+Caryāpāda
+39
+नृणां कर्मैकसक्तानां पुनरावृत्तिशालिनाम् । दहनोपस्कृतः प्रोक्तो ह्यवसानविधिर्मया ।।१७।।
+लिङ्गाङ्गसङ्गिनां वत्स चानावृत्तियुजां सताम् । समाध्युपस्कृतः प्रोक्तो ह्यवसानविधिः परः ।।१८।।
+ब्रह्मचारी गृहस्थो वा वानप्रस्थो यतिस्तु वा । चीर्णव्रतो यदि मृतस्तस्य देहं न दाहयेत् ।।१९।।
+शाम्भवव्रतनिष्ठानां प्रेतत्वं नास्ति
+शाम्भवव्रतनिष्ठानां प्रेतत्वं नहि विद्यते । प्रेतत्वेन विमुक्तस्य कर्मलोपो न शङ्कयते ।।२०।।
+अपसव्यादिनिषेधः
+लिङ्गभावयुजामेषामपसव्यं न युज्यते । अतः प्रेतक्रियाः सर्वाः शाम्भवेषु न योजयेत् ।। २१ ।।
+last rite for my devotees who aspires for liberation, has been illustrated in the 'Pitrmedha' (16).
+I have described the funeral to be performed with the fire for those who keep themselves attached in the worldly affairs and consequently remain within the cycle of transmigration (17). O son! for the devotee who always wears Iştalinga and does not come within the cycle of birth and death, the highest procedure of last rite namely 'samādhi' has been advocated by Me (18). The body of the person who has observed 'Śāmbhavavrata', should never be cremated in fire after his demise whatever he might be, celibate, householder, retired from the active life or sage (19).
+The devoted observer of 'Sambhavavrata' does not get the spirithood. So, the question of redemption from the spirithood does not arise (20).
+For the devotee who always remains immersed in the ntemplation of Linga, 'apasavya' (transferring the sacred thread from ift to right shoulder while performing the last rites) is not necessary. So, no ritual to remove the spirithood of the devotee who
+
+
+--- Page 68 ---
+40
+Makulāgama
+वीरशैवानां समाधिसंस्कारः
+समाधिर्मोक्षधर्मोऽयं सर्वधर्मापवादकः । समाधिसंस्कृते तस्माद्धर्मलोपो न शङ्कयते ।। २२ ।।
+समाधिसंस्क्रिया साक्षान्मत्सान्निध्यप्रदायिनी । दहनं प्रथितं लोके पितृलोकैकसाधकम् ।।२३।।
+मदीयभक्तगात्राणां समाधिर्विहितो मया । ये त्वविश्वासिनो लोके मदुक्तविधिषु ध्रुवम् । न बहिर्निःसरेयुस्ते कदाऽपि नरकार्णवात् ।।२४।।
+इति श्रीमकुटागमे चर्यापादे शाम्भवान्त्येष्टिप्रशंसा-नाम प्रथमः पटलः ।।१।।
+keeps himself ever engrossed in observing śāmbhava practice, is performed (21).
+'Samādhi' is the supreme procedure for the attainment of liberation. It is considered to be exceptionable for the other rites and rituals. So, once endowed with 'Samādhi', there is no question of lapse regarding the religious practices (22). 'Samādhi' is the most apt means that imparts proximity of Mine. The popular custom of the world to cremate the body in fire, is only the means of achieving the sphere of the ancestors (Pitrloka) (23). The only last rite of my devotee has been narrated by Me is 'Samādhi'. Those who do not maintain faith in the means narrated by Me, are surely unable to come out of the sea of hell (24).
+Here ends the first chapter of Caryāpāda of Makutāgama praising the last rites to be performed for the 'Sambhava-devotee'.
+Notes and References
+1. Indian scriptures have been divided by the Śaiva philosophers as Loukik (empirical) Vaidik (scriptural), Adhyatmik (spiritual), Atimārga (transcendental) and Mantra (hymn). Each is again divided into five and
+
+
+--- Page 69 ---
+Caryāpāda
+41
+thus twenty five in total number. Here it seems that twenty five faces are being imagined for the preaching of the twenty five kinds of the scriptures.
+2. The famous Pitrmedha rite of vedic scriptures is named here as 'Śiva-medha. Sec Šukla Yajurveda, Madhyandin samhita, ch. 35. "Dharma shastra k overline a itihāsa" P.V. Kane (Part III, pp. 1114-1122).
+2
+***
+
+
+--- Page 70 ---
+Chapter-2
+द्वितीयः पटलः
+रुद्र उवाच
+परमेश्वर सर्वात्मन् सर्वकारण शाश्वत । उच्चिक्रिमिषुणा सद्यः कर्तव्यं तन्निबोध मे ।।१।।
+परशिव उवाच
+उच्चिक्रिमिषोर्भस्मस्नानादिकम्
+उच्चिक्रिमिषुराश्वेव मय्यावेशितचेतनः । कर्तुं दानादिकं स्नानमाग्नेयादिकमाचरेत् ।।२।।
+धृतधौताम्बरो भूम्यामासीनश्च कुशासने । उद्धूलनं त्रिपुण्ड्राणि धृत्वा भूत्या यथोदितम् । रुद्राक्षान् बिभृयादेव शिरः कण्ठकरादिषु ।।३।।
+भस्मरुद्राक्षधारी तु यश्चापि म्रियते यदि । सोऽपि रुद्रत्वमाप्नोति किं पुनर्मानुषादयः ।।४।।
+God Rudra enquires -
+O the supreme God, the soul of the universe, the cause of all, the eternal! what is the immediate duty for the person who is ready to leave the body through the procedure of 'utkramaņa'? Kindly enlighten me (1).
+Paraśiva replies -
+If the devotee of Mine is about to expire, then he should be bathed as per the procedures of 'Agneya' etc. for the fulfilment of the alms etc. (2). He should draw the 'Tripundra' after observing the process of "Uddhulana with sacred ashes, wearing the washed clothes and sitting on the ground on the seat of Kuśā. Then he should wear Rudrākṣa on the head, neck and hands etc. as per the rules laid down (3). If any body, whatever species he might belong, expires, besmearing the sacred ashes and wearing Rudrākṣa, is sure to attain the status of Rudra, what to speak of human being (4). Knowing the symptoms of
+
+
+--- Page 71 ---
+Caryāpāda
+43
+उत्क्रान्तिमथ विज्ञाय निनित्तैराशुभाविनीम् । आत्मन्यग्नीन् समारोप्य या ते अग्नेति मन्त्रतः । भस्मादायाग्निरित्याद्यैर्विमृज्याङ्गानि संस्पृशेत् ।।५।।
+अविदितकालस्य पुत्रेण दानादिकं कर्तव्यम् अथाविदितकालः सन् समुत्क्रान्तिं लभेत चेत् । तत्पुत्र आशु कुर्वीत आत्मारोपं यथाविधि ।।६।।
+आत्मन्यारोपितस्यास्य वह्नः प्रशमनाय वै । षडध्वशुद्ध्यैः कर्तव्यो ह्मप्सु होमस्त्वनन्तरम् ।।७।।
+आत्मन्यग्नीन् समारोप्य होममप्सु विधाय च । हिरण्यं च यथाशक्ति दद्याद् गां लिङ्गमेव च ।।८।।
+अत्युत्क्रान्तौ प्रवृत्तस्य सुखोत्क्रमणसिद्धये । तुभ्यं सम्प्रददे धेनुमिमामुत्क्रान्तिसंज्ञिताम् ।।९।।
+पुनरावृत्तिरहितशिवसायुज्यसिद्धये इदं सम्प्रददे तुभ्यं शिवलिङ्गं सुपावनम् ।।१०।।
+दानसाद्गुण्यकामेनावश्यं देया सुदक्षिणा । हीनं दक्षिणया सर्वं व्यर्थं भवति शङ्कर ।।११।।
+'utkrānti', one, after installing the fire in his own soul reciting the hymn "yā te Agne"2, should besmear his body with the sacred ashes uttering the hymn "Agnih"³ etc.. (5).
+If death (samutkrānti) occurs without premonition, then his son should observe the procedures as per rule, by installing fire within himself (6). To quench the fire enkindled within self, he, after having purified the six adhvas, should perform sacrifice (yajña) in the water (7). After appeasing fire within and performing sacrifice in the water, he should donate gold, cow and Linga as per the capacity (8). At the critical time of demise (son utters) 'I donate the cow namely 'utkrānti' with the view to peaceful passing away of the soul (9). For the attainment of eternal union with Śiva (wherefrom there is no return), I offer this holy Śivalinga to you' (10). Daksiņā (last gift for the purpose
+
+
+--- Page 72 ---
+44
+Makulāgam
+लिङ्गदानमहिमा
+ब्रह्माण्डकोटिदानेन यत्फलं भवतीश्वर । तत्फलं समवाप्नोति शिवलिङ्गप्रदानतः ।।१२।।
+स्थूलदेहविलापनम्
+सर्वाङ्गलिङ्गसाहित्यं नित्यमा प्रायणादपि । भावयेदवधानेन शिवसायुज्यसिद्धये ।।१३।।
+आयुषः प्राणमित्येवं तत्त्वान्यपि च योजयेत् । यथाक्रमं कारणेषु स्थूलदेहं विलापयेत् ।।१४।।
+देहच्छिद्राणि गगने श्वसने श्वाससन्ततिम् । ऊष्माणं ज्वलने वारिण्यसृक्पूयकफादिकम् ।।१५।।
+अस्थिमांसादिकठिनभागान् भूमौ यथोदयम् । विलाप्यैवं स्थूलदेहं सूक्ष्मं चापि विलापयेत् ।। १६ ।।
+of accomplishment of the worship) must be offered for the fulfilment of the alms. O Sankar! everything becomes futile without offering 'dakşiņā (11).
+O god! the result of the offering of crores of universes is equal to the result of donating Śivalinga alone (12). Devotee should regularly and attentively conceive the existence of Lingas (Acāralinga, Gurulinga etc.) in different parts of the body till alive with the purpose of attaining the state of 'Śiva-sayujya' (enjoying the closest union with Śiva) (13). He should gradually consign the gross body to their respective causes by observing the procedure of 'Tattva-sanyojana' and reciting the hymn 'āyuşah prāņam etc. (14). The apertures of the body in space (ākāśa), the stream of inhilation and exhilation in the air (vāyu), heat of the body in the fire (agni) and the blood, pus and phlegm are to be immersed in the water (ap) (15). The hard parts viz. the bones and the muscles etc. are to be consigned to the earth. Likewise, the subtle body should also be infused after submerging the gross one (16).
+
+
+--- Page 73 ---
+Caryāpāda
+45
+सूक्ष्मदेहविलापनम्
+शूलिन् सूक्ष्मशरीरस्य विलापनमपि शृणु । करणप्रेरकत्वेन देवानां तत्र मुख्यताम् । आलोक्य तत्रेन्द्रियाणि विषयैः सह योजयेत् ।।१७।।
+वक्तव्यसहितां वाचं वह्नाविन्द्रे सशिल्पकौ । पाणी विष्णौ पदे गत्या रत्योपस्थं प्रजापतौ । पायुं विसर्गसहितं मृत्यौ शर्व विलापयेत् ।।१८।।
+दिशासु सह शद्वेन श्रोत्रं स्पर्शेः सह त्वचम् । वायौ दिनेशे रूपेण चक्षुषि प्रविलापयेत् ।।१९।।
+रसेन वरुणे जिह्वां गन्धैर्घाणं सहाश्विनोः । मन्तव्येन मनश्चन्द्रे बुद्धिं बोध्यैश्चतुर्मुखे । रुदे सहाहङ्कर्तव्यैरहङ्कारं विलापयेत् ।।२०।।
+भोक्तृत्वादिविकाराद्यैः क्षेत्रज्ञे सह योजयेत् । चित्तं चेतयितव्यैश्च गुणकार्योक्तदैवतैः । विकारवन्तं तमपि मयि ब्रह्मणि योजयेत् ।।२१।।
+O the bearer of Triden! please listen to the procedure of immersion of the subtle body. Knowing the importance of the gods of the concerned sense organs that provide inspiration to them, one should attribute the senses and their objects to the respective gods (17). O Śarva! one should consign the sense organ of mouth along with the speech to fire, hands with all skills to Indra, feet along with movement to Vişnu, sex organ along with the sexual activity to Prajāpati, and anus along with excreta to death (yama) (18); ear along with the sound to the gods and direction, skin along with touch to the air, eyes along with form to the sun (19); tongue along with the taste to Varuņa, nose along with the smell to Aśvinī Kumāras, mind along with the thinking process to moon, intellect along with the knowing process to the four faced (Brahmā) and ego along with all the ego based activities to Rudra (20). All attitudes of enjoyment and its observations are to be submitted to 'Kşetrajña'. Thus citta along with all its objects of consciousness is to
+
+
+--- Page 74 ---
+46
+Makulāgam
+क्षित्यादि भूताहङ्कारमहदव्यक्तसंज्ञिनाम् विकारहेतुभूतानां स्वस्वहेतौ लयः क्रमात् ।।२२।।
+सर्वाङ्गलिङ्गसाहित्यभावनम्
+सर्वाङ्गलिङ्गसाहित्यं नित्यमा प्रायणादपि । भावयेदवधानेन मम सायुज्यसिद्धये ।।२३।।
+सर्वेष्वङ्गेषु सर्वत्र सर्वदा सर्वतोमुखम् । लिङ्ग गुरूपदेशेन ज्ञातं यत्तत् प्रकाशते
+।।२४।।
+एकमेव परं लिङ्गमङ्गेऽस्मिन् सुप्रतिष्ठितम् । सर्वतोमुखमाभाति नामरूपक्रियात्मना
+।।२५।।
+इष्टलिङ्गं तु बाह्याङ्गे प्राणलिङ्गं तथान्तरे । भावलिङ्गं तथैवास्मिन्नात्माङ्गे सुप्रतिष्ठितम् ।।
+२६ ।।
+हृदयाङ्गे महालिङ्गं श्रोत्राङ्गे तु प्रसादकम् । त्वगङ्गे चरलिङ्गं तु दृगङ्गे शिवलिङ्गकम् ।। २७।।
+be surrendered to their respective like natured divinities, lastly evolving citta should also be united with Me as Brahmā (21). Evolutes like Earth (Prthvi), five gross elements (Mahābhūtas), Ego (Ahaṁkāras), Intellect (Mahat) and Prakrti (Avyakta) etc. should be assumed as being merged gradually in their respective causes (22).
+One should contemplate the association of the various parts of the body with Linga as long as the life (soul) remains in the body, for the attainment of My 'sāyujya' (the most intense relation) (23). Realization of the manifestation of all pervasive Linga in all parts of the body, occurs only on account of the knowledge imparted by Guru (24). The only eternal, transcendental Linga that exists in the body, is revealed in the form of name, form and action etc. (25).
+Iştalinga is established in outer, Prāņalinga in the self (26). Mahālinga is existing in the heart, Prasad linga in the ear, Caralinga in the skin and Śivalinga in the eyes (27). Thus Gurulinga resides in the.
+
+
+--- Page 75 ---
+Caryāpāda
+47
+जिह्वाङ्गे गुरुलिङ्गं तु नासिकाङ्गे तथैव च । आचारलिङ्गमश्रान्तं सुप्रतिष्ठितमेव हि ।।२८।।
+यथा ज्ञानेन्द्रियाङ्गेषु क्रमाल्लिङ्गं प्रतिष्ठितम् । तथा कर्मेन्द्रियाङ्गेषु क्रमाल्लिङ्ग प्रतिष्ठितम् ।। २९।।
+अप्रतर्म्यमनिर्देश्यं चेतनावागगोचरम् । सर्वशक्तत्यपि सर्वज्ञं सच्चिदानन्दलक्षणम् ।।३०।।
+प्रायश्चित्तसमाचरणम्
+भावयन्नेति तद्भावं भावपूतेन चेतसा । गणानुज्ञां गृहीत्वाऽतः प्रायश्चित्तं समाचरेत् ।।३१।।
+सर्वजन्मार्जितानीह पातकानि महान्त्यपि । लिङ्गजङ्गमगुर्वङ्क्षितीर्थप्राशनतस्तथा नश्यन्ति तत्क्षणादेव नात्र कार्या विचारणा ।।३२।।
+महाशैवव्रतस्थानां मद्भक्तानां विशेषतः । न निष्कृत्यन्तरं मुख्यं मत्तीथप्राशनादृते ।।३३।।
+tongue, Acāralinga is at rest in the nose (28). Existence of Linga in the motor organs should also be conceived respectively as that of sensory organs i.e. Prasādalinga in the vāk or mouth, Caralinga in the hands, Śivalinga in feet, Gurulinga in anus and Acāralinga in genital organ are to be conceived (29). Śiva is trans-rational, indeterminate, beyond the consciousness and speech, omnipotent, omniscient and of the nature of existence-consciousness and bliss (30).
+The devotee who conceives such Paralinga and attains the purity of consciousness should observe the atonement (for the sins have been committed) with the permission of gaņas (ardent devotees of Śiva) (31) The acceptance of the sacred water washing the sacred feet of Guru, Linga and Jangama immediately annihilate even the heinous sins committed in the numerous   births. There should not be any doubt in it (32). For the observer of Śaiva discipline, specially for my devotee, no atonement is superior to the acceptance of the sacred water
+
+
+--- Page 76 ---
+48
+Makulāgam
+अन्त्यकाले तु यस्याऽ ऽस्ये दीयते मत्पदोदकम । सोऽपि सद्रतिमाप्नोति यश्चाचारबहिष्कृतः । तथा मन्नामधेयानि कीर्तयेदवधानतः ।।३४।।
+शिवनामस्मरणम्
+शिव शिव शिव चेति व्याहरन् वै त्रिवारं त्यजति निजतनुं यः स्वायुषोऽन्त्यक्षणेऽस्मिन् । भवति भवभयानां छेदकः पूर्वशद्बो न भवत इतरौ तौ कल्पितात्मोपकारौ ।। ३५।।
+मरणसमये मन्त्रश्रावणम्
+ततश्च कर्णमन्त्राणि श्रावयेयुः सुतादयः । षडक्षरं दक्षकर्णे निषदश्चैव शाश्वतीः ।।३६।।
+तत उत्क्रान्तिवेलायां कर्पूरं ज्वालयेदपि । अणुः पन्थेत्यर्चिरादिगत्यर्थं मन्त्रमुच्चरन् ।।३७।।
+इति श्रीमकुटागमे चर्यापादे उच्चिक्रिमिषुकर्तव्य-विधिर्नाम द्वितीयः पटलः ॥२॥
+from my feet (33). At the time of expiry, if the sacred water of my feet is given to the person - even non-virtuous - is sure to achieve the exalted status. He also should recite my name attentively (34). The person who recites the name of 'Śiva' thrice before leaving the body, for him only the utterance of the first word annihilates the fear of the world and the rest two utterances cause the upliftment of the soul (35). Thereafter, the son of the devotee should recite the hymns to his ears. The sadakşarī and the upaniṣad, the bestower of the eternal excellence should be enchanted to the right ear (36). Then camphor should be enkindled during the time of expiry (utkrānti) reciting the hymn 'aņuh panthah's, so that the devotee may be able to achieve the elevated status like 'arci' etc. (37).
+
+
+--- Page 77 ---
+Caryāpāda
+49
+Here ends the second chapter of Caryāpāda of Makuțāgama illustrating the duties to be performed during the time of expiry (utkranti).
+***
+Notes and References
+1. See 'Astāvaraņa vijñāna' (pp. 40-57) for the 'bhasmasnana' (bath of the sacred ashes), bhasmoddhūlan (besmearing of the sacred ashes) and Tripundra (Three lines of the sacred ashes).
+2. "या ते अग्ने रुद्रिया तनूस्तया नः पाहि। या ते अग्ने दुराशया. ... तस्यास्ते स्वाहा"। (Taitt. Samhitā 1.2.11.2).
+3. "अग्निरिति भस्म । वायुरिति भस्म । जलमिति भस्म। स्थलमिति भस्म । व्योमेति भस्म ।।" (Bhasmajābālopaniṣad 1.3).
+4. "आयुषः प्राणं संतनु । प्राणादपानं संतनु" (Tatt. Samhitā 1.5.7).
+5. "ऊणुः पन्था विततः पुराणो मां स्पृष्टोऽनुवित्तोमयैव । तेन धीरा अपियन्ति ब्रह्मविदः स्वर्ग लोकमिति उर्ध्वं वियुक्ताः ।। (Brhadāraṇyak up. 4.4.8).
+***
+
+A
+
+--- Page 78 ---
+Chapter-3
+तृतीयः पटलः
+रुद्र उवाच
+विश्वातीत जगद्योने सर्वाधार परात्पर । दृष्टोत्क्रान्तिं ततः कर्जा किं कर्तव्यं वदस्व मे ।। १ ।।
+परशिव उवाच
+उत्क्रान्तासुं परीक्ष्याथ कर्ता संशुद्धचेतनः । स्नात्वा धृतत्रिपुण्ड्रश्च रुद्राक्षसमलङ्कृतः ।।२।।
+कर्माधिकारसिद्ध्यर्थं गणानुज्ञा
+कर्माधिकारसिद्ध्यर्थं कृत्वा गणनमस्कृतिम् । तदभ्यनुज्ञां गृह्णीयाद् यथाशक्तिप्रदानतः ।।३।।
+मृताहदानं तत्सर्वपर्वदानाद् विशिष्यते । तद्यथाशक्ति दातव्यं द्रविणं पितृहितैषिणा ।।४।।
+Rudradeva enquires -
+O the trans-empirical, the cause of the world, the substratum of all, the transcendental! What duty should be performed by the authorised person after understanding the time of demise (utkrānti)? Please tell Me (1).
+Paraśiva replies -
+After confirming the death, the authorised person, with pure mind, should take bath, wear Rudrākşa and draw Tripundrak (2).
+He should seek permission for the accomplishment of the last rite after bowing to the gaņas and donating as per capacity (3). The alms offered at the time of last rite is considered to be special from other religious occasions. So, one should donate as per his capacity to the wellwisher of his father (4).
+
+
+--- Page 79 ---
+Caryāpāda
+51
+दोषप्राप्तौ प्रायश्चित्तं
+ऊध्र्वोच्छिष्टादिसम्प्राप्तौ प्रायश्चित्तं समाचरेत् । प्राजापत्यप्रतिनिधिं दद्याद् द्रव्यं यथोदितम् ।।५।।
+खट्वायां मरणे प्राप्ते प्राजापत्यं समाचरेत् । गां वा हिरण्यं दद्याच्च तद्दोषविनिवृत्तये ।।६।।
+निशि कृष्णे च पक्षे च मरणे दक्षिणायने । ताः सूर्या इति वै ष‌ड्भिर्दुत्वा कुर्याच्च संस्क्रियाम् ।।७।।
+इष्टलिङ्गसंस्कारः
+लीनप्राणशरीरं तु श्रीरुद्रेणाभिषिच्य च । भस्मरुद्राक्षगन्धाद्यैरलङ्कृत्येष्टलिङ्गकम् ।।८।।
+करे निवेश्य सम्पूज्य पेटिकायां निधाय च । विमाने तद्वपुः स्थाप्य सर्वमङ्गलनिस्वनैः ।।९।।
+If there is any defilement like 'ūrdhvocchista¹, then adequate atonement is to be performed. For this purpose, items representing the 'Prājāpatya-vrata' should be offered (5). If the death occurs on the cot, Prājāpatya-vrata² is to be performed. Cow or gold should be donated to condone the above defilement (6). If the death occurs during the night, dark fortnight and also when the sun is in southern hemisphere (Daksiņāyan), last rites are to be performed with the oblation uttering the six hymns like 'tāh sūryāh' etc. (7).
+After the expiry, the rite of bathing for the deceased, should be performed enchanting the Rudrādhyāy of the scripture and worship of Iştalinga should be performed with the sacred ashes, Rudrākṣa and incenses etc. (8). Then the Istalinga should be adored putting it on the hand and then should keep It in the box (container of the Linga). The body along with the Iştalinga should be carried on the carrier (vimāna) to the place of samādhi with the auspicious sounds (9).
+
+
+--- Page 80 ---
+52
+Makulāgama
+विमानवाहकनामानि
+महोक्षो वृषभश्चैव नन्दीशो नन्दिकेश्वरः । एतैश्च नामभिर्युक्तांश्चतुरो वाहकान् वृणेत् ।।१०।।
+शिवारामं प्रति नयनम्
+शिवारामं प्रति नयेत् तैर्वृतैर्वाहकैः सुतः । अग्रे मङ्गलनिस्वानाः सम्भारास्तदनन्तरम् । पूजाद्रव्याणि संस्कर्ता विमानं बान्धवाः क्रमात् ।। १ १ ।। निवीतिनो वहेयुस्तद्विमानं वाहका अमी । निषदः प्रब्रुवाणाश्च गच्छेयुर्बान्धवा अपि ।।१२।।
+इति श्रीमकुटागमे चर्यापादे समाधिदेशप्रापणं नाम तृतीयः पटलः ॥३॥
+The bearers of the vimana are named as Mahokşa, Vrsabha, Nandiśa, and Nandikeśvara. They are appointed to carry the vimāna (10).
+The son should go to the place of samādhi with the adored carriers of the deceased. All the players of the auspicious sounds should go first, then the items meant for the rituals and worship, after that performer of the rites, lastly the 'vimāna' followed by the friends should proceed on (11). The carriers of the 'vimāna' should be 'nivīti" (they should put their sacred thread tied up with Istalinga in the neck instead of on the shoulder). All the kins should proceed on, enchanting the upaniṣad (12).
+Here ends the third chapter of the Caryāpāda of Makuțāgama describing the gradual position of the procession leading to the place of samādhi.
+Notes and References
+1. The significance of the word 'ūrdhvocchista' is not clear here. It seems that if there is any Pañcak or Tripuşkar yoga during the time of the death, then the rite for appeasing the evil effect has been advised to be performed.
+
+
+--- Page 81 ---
+Caryūpāda
+53
+2. Prājāpatya is a kind of atonement. See Manusmrti (11.211); P. V. Kane : 'Dharmaśāstra kā itihāsa (Part 3, pp. 1090-1091).
+3. "उपवीतं यज्ञसूत्रं प्रोद्धृते दक्षिणे करे। प्राचीनावीतमन्यस्मिन् निवीतं कण्ठलम्बितम् ।।" In this verse of Amarkośa (2.7.49) three positions of the sacred thread has been described. The sacred thread hanging on the right side is called as 'upavīta' (savya), on the left side 'prācīnāvīta' (apasavya) and on the neck 'nivīta'. Present verse refers to the third position.
+***
+
+
+--- Page 82 ---
+Chapter-4
+चतुर्थः पटलः
+रुद्र उवाच
+अनन्तशक्तिकलित लीलावैभवशोभित । भूनिक्षेपविधानं तदशेषं ब्रूहि मे विभो ।।१।।
+परशिव उवाच
+समाधिस्थलनिर्देशः
+शिवालयसमीपे वा शिवारामस्य वाऽन्तिके । शिवतीर्थसमीपे वा विल्वमूले नदीतटे । समाधिं कारयेत् प्राज्ञो वक्ष्ये तल्लक्षणं शृणु ।। २।।
+समाधिरचनाप्रकारः
+चतुरस्रं पञ्चपादं दीर्घ विस्तारमेव च । खातं नवपदं त्वाद्यं सोपानं चैकपादकम् । द्वितीयं द्विपदं प्रोक्तं तृतीयं त्रिपदं तथा ।।३।। वेदिका च त्रिपादेन तस्य दक्षिणतो दिशि । त्रिकोणं च प्रकर्तव्यं त्रिपादं दीर्घमायतम् ।।४।।
+Rudra enquires -
+O the effulgent immanent principle, endowed with the various manifestations of the innumerable powers! kindly explain to me the detailed procedure of 'bhūniksepa' (1).
+Paraśiva replies -
+The samādhi of a wise person is to be located either near the temple of Śiva, in the garden adjacent to it, near the pilgrimage of Śiva, beneath the bilva tree or on the bank of a river. I am describing their characteristics (2).
+The shape of samādhi should be square; length and breadth should be equal to five steps (walking steps) and depth of nine walking steps. First stair will be of one step, second of two steps and third of three steps (3). A triangular hole of the size of three walking steps
+
+
+--- Page 83 ---
+Caryāpāda
+55
+खात्वा मा वो रिषदिति गोमयेनोपलिप्य च । रङ्गवल्याप्यलङ्कृत्य गायत्र्या प्रोक्ष्य वारिणा ।।५।।
+अग्निरित्यादिना भस्मशथ्यां सम्यग् विधाय च विकीर्य पत्रपुष्पाणि चतुर्दिक्षूपरि ह्यधः ।।६।। ।
+समाधौ देहनिक्षेपः
+षडक्षराणि विन्यस्य मूलेनैवाभिमन्त्र्य च । नदत्सु तूर्यवृन्देषु पुष्पवृष्टौ चरत्यपि ।।७।।
+चित्तिः पृथिव्यग्निरिति चानुवाकान् समुच्चरन् । स्वस्तिकासनरूपेण तच्छरीरमुदङ्मुखम् । शम्भो हव्यं गृहाणेति निदधीत बिले तदा ।।८।।
+भस्मलवणमृत्तिकापूरणम्
+ऋतं तप इति पठन् भस्मना लवणेन च । मृत्तिकाभिः पूरयेताप्याकण्ठं तदनन्तरम् ।।९।।
+should be dug within and towards the south corner of the samādhi. A small dias or platform of the size of the three walking steps both in length and breadth should be made within that triangular hole (4). Then the samādhi should be anointed with the cow-dung reciting the hymn "mā vo rișat" and decorated with the 'rangavalli' (traditional artistic paintings using the ingredients like the powder of the rice and colours etc.) and sprinkle the water reciting the hymn of Gayatri (15). Flowers should be showered everywhere of the samādhi after preparing the bed of the sacred ashes as per the rule laid on enchanting the hymn 'agnih" etc. (6).
+The place should be sanctified uttering the original five syllable hymn (pañcākşara) along with the six syllable hymn. In the midst of various musical sounds of tūrya etc. and showering the flowers reciting the hymn 'cittih, prthivyagnih', the body of the deceased devotee should be placed in a sitting position of 'svastikāsan' facing towards the north and pray to God, 'O Śambhu, kindly accept it as your offering' (7-8).
+
+
+--- Page 84 ---
+56
+Makutāgama
+सर्वस्य प्रतिशिवेति मूर्धानं दिव इत्यपि । सजलं भस्म मृत्पिण्डं पितुर्मूर्धनि निक्षिपेत् । ततश्च पूरयेद् गर्त भस्मना मृत्स्नयापि च ।।१०।।
+सचैलं स्नानं केशश्मश्रुवपनं च
+वस्त्रं सन्धापयेदादौ ततः स्नानं समाचरेत् । सचेलस्तु पुनः स्नात्वा केशश्मश्रूणि वापयेत् ।। ११ ।।
+ब्राह्मणस्वर्णघातादिपापानि विविधानि च । केशानाश्रित्य तिष्ठन्ति तस्मात् केशान् वपाम्यहम् ।।१२।।
+मेरुमन्दरतुल्यानि पापानि विविधानि च । केशानाश्रित्य तिष्ठन्ति तस्मात् केशान् वपाम्यहम्। इति मन्त्रं परिपठन् केशश्मश्रूणि वापयेत् ।।१३।।
+शिखिलक्षणम्
+अग्नेरिव शिखा यस्य विद्याज्ज्ञानमयी शिखा । स शिखीत्युच्यते विद्वानितरे केशधारिणः ।।१४।।
+इति श्रीमकुटागमे चर्यापादे समाधिविधिकथनं नामं चतुर्थः पटलः ॥४॥
+The samādhi be filled upto the neck of the deceased with sacred ashes, salts and earth reciting the hymn 'rtam tapah³ (9). The sacred ashes mixed with water and earthen ball should be kept on the head of the father (by the son) reciting the hymns 'sarvasya prati Śiva' and 'mūrdhānamdivah'4; then the pit should completely be filled up with the sacred ashes and the earth (10).
+Samādhi is to be covered with the clothes and bath should be taken. Then he (son) should get his hairs, beard and mustache shaved after observing 'sacail' bath (11). The various sins like the killing of brahmin and stealing of gold etc. remain attached to the hairs. So, I am stating the procedure of 'keśavapan' (12). The heinous crimes comparing with the height of Sumeru and Mandārācal (mountains) reside making the hairs as their base. So, one should clean the hair and beard reciting the above two hymns (13).
+
+
+--- Page 85 ---
+Caryāpāda
+57
+The crest (crown of the head) of the Śaiva devotee is of the nature of knowledge, powerful as the flame of the fire. Such devotee is known as the real 'Sikhi' - the bearer of the crest. Others only bear the hairs in the form of crest (14).
+Here ends the fourth chapter of the Caryāpāda of Makuțāgama illustrating the procedure of preparing the 'Samādhi'.
+***
+Notes and References
+1. "मा वो रिषत् खनिता यस्मै चाहं खनामि वः । द्विपाच्चतुपादस्माकं सर्वमत्स्त्वनातुरम् ।।" (Mādhya. 12.95).
+2. See note no. 3 of second chapter for the full hymn.
+3. "ऋतं तपः सत्यं तपः श्रुतं तपः शान्त तपो दमस्तपः शमस्तपो दानं तपो यज्ञस्तपः।।" (Mahānārāyaņopaniṣad, 8th anuvāk).
+4. "मूर्धानं दिवसो अरतिं पृथिव्या वैश्वानरमृत आजातमग्निम् । कविं सम्राजमतिथिं जनानामासन्तां पात्रं जनयन्त देवाः ।।" (Mādhya. 7.24).
+***
+
+
+--- Page 86 ---
+Chapter-5
+पञ्चमः पटलः
+रुद्र उवाच
+अनादिनिधनानन्तकल्याणगुणवारिधे भूनिक्षेपानन्तराणि कृत्यान्यपि निबोध मे ।।१।।
+परशिव उवाच
+समाधिस्थले सवृषभलिङ्गस्थापनपूजनम्
+निर्वृत्तवपनः स्नात्वा भूतिरुद्राक्षभूषितः । गणानुज्ञां गृहीत्वाऽथ दिव्यरूपाप्तये पितुः ।।२।।
+पञ्चभिर्नवभिर्वाऽथ वृषभैरभिशोभितम् । पितृनामाङ्कितं लिङ्ग समाधौ स्थापयेत् सुतः ।।३।।
+तदा दद्याद् गवादीनि दानानि दश चादरात् । समाधिस्थापितं लिङ्गं सवृषं पूजयेदपि ।।४।।
+मृद्धघट्टनादिव्यापारजाततापोपशान्तये क्षीरेण तर्पयेदिष्टलिङ्गादीनि महेश्वर ।।५।।
+Rudra enquires -
+O Parama Śiva, the beginningless, the ocean of infinite auspicious qualities! kindly enlighten me by describing the rites to be performed after the observance of the procedure of 'bhūnikşepa' (1).
+Paraśiva replies -
+Son, with the view to achieving the divine state of his father, should fulfil the rituals of shaving, bathing, besmearing the sacred ashes, wearing the garland of Rudrākṣa and take the permission of gaņas to install the linga on the samādhi, duly scribed on it the name of the father and decorated with five or nine bulls (2-3). Then he should respectfully donate ten items, such as cow etc. and worship the linga along with the bull kept on the samādhi (4). To quench the heat produced because of putting the earth on it during the rite of samādhi, he should satiate the Iştalinga by bathing it with the milk (5). He should
+
+
+--- Page 87 ---
+Caryāpāda
+59
+पित्रे दद्यादनुदिनं त्रिसंख्यानुदकाञ्जलीन् । वासोदकादिकं नैव देयं पितृहितैषिणा ।।६।।
+नग्नप्रच्छादनाराधनम्
+प्रविश्य ज्ञातिभिः सार्धं दीपेन सहितं गृहम् । नग्नप्रच्छादनाभिख्यं कुर्यादाराधनं सुतः ।।७।।
+समाधिस्थापितलिङ्गस्य दशाहपर्यन्तं रक्षणम्
+समाधिस्थापितं लिङ्गं दशाहान्न विचालयेत् । जन्त्वादिभिर्विचलिते यथास्थानं निधाय तत् ।।८।। प्राणायामत्रयं कृत्वा तत् स्पृष्ट्वा व्याहृतीर्जपेत् । तस्मिन् स्वरूपतो नष्टे विधिवत् स्थापयेत् पुनः ।।९।।
+दिव्यदेहावाप्तिक्रमः
+प्रथमाहिककृत्येन तस्य मूर्धाऽभिजायते । नासिकाश्रवसी नेत्रे द्वितीयाहिककृत्यतः ।।१०।। ग्रीवा वक्षो भुजौ चापि तृतीयेऽह्नि भवन्त्यपि । नाभिस्थानं लिङ्गगुदे चतुर्थेऽह्नि भवन्त्यमी ।।११।।
+offer the handful of water three times for the welfare of his father and should never offer water squeezing the clothes (6).
+Son should enter the house accompanying the kins keeping the lamp with him and then perform the worship named 'Nagna-pracchādana' (7).
+The linga kept on the samādhi should not be removed for ten days. If it is per chance removed from the place by any animal etc. then after putting it on the proper place, prāṇāyām for three times and 'vyāhṛtījapa' '(aum bhūh, aum bhuvah, aum svah)' touching the linga should be observed. If the linga is destroyed, it should be installed again as per rules laid down (8-9).
+After the performance of rites on the first day, the head of the deceased person is formed. Thus nose, ears and eyes are assembled after the performance of rites of second day (10). Neck, chest and hands are
+
+
+--- Page 88 ---
+60
+Makulāgama
+ऊरू तु पञ्चमे स्यातां चर्म षष्ठे भवेदपि । सप्तमेऽह्नि सिराः सर्वा जायन्ते तद्विधानतः ।।१२।।
+अष्टमेऽह्नि च जायेरन् सर्वरोमाण्यनन्तरम् । नवमाहिककृत्येन वीर्यं तस्याभिजायते ।।१३।।
+दशमाहिककृत्येन तृप्तिस्तस्य परा भवेत् । आंराधनं ततः कार्यं दिव्यरूपवतः पितुः ।।१४।।
+एकोद्दिष्टविधानेन रुद्रत्वं तस्य जायते । तत्त्वसंयोजनवशाद् महेशत्वं पुनर्भवेत् ।।१५।।
+नवाराधनक्रमः
+प्रथमेऽह्नि तृतीयेऽह्नि पञ्चमे सप्तमे तथा । नवमैकादशाह्रोश्च नवाराधनमाचरेत् ।।१६।।
+अन्तर्दशाहे दर्शी वा संक्रान्तिर्वा भवेद्यदि । तदा समापयेदन्यः सुतस्तु न समापयेत् ।।१७।।
+shaped on the third day and on the fourth day genital organ, anus are brought about along with the navel (11). Thais are produced on the fifth and skins on the sixth day. Thus, all the nerves are fashioned on the seventh day (12). Further, on the eighth day, the hairs of the body come into being and after the ninth days' ritual, semen are produced in the body (of the deceased) (13). He (deceased) gets full satisfaction after the completion of the rituals of the tenth day. Thus, the father with divine form is to be adored after fulfilling the last rites consecutively for ten days (14). Then he (father) attains the status of Rudra after the observance of 'ekoddișta' for him and obtains the state of 'Maheśa' on the completion of the procedure of 'Tattva-sanyojana' (15).
+On the first, third, fifth, seventh, ninth and eleventh day, the son should fulfil the worship of 'navārādhana' (16). If the new moon day or the sankranti day falls within these ten days, then others may complete the rite (ārādhana) on that day, not the son (i.e. other person except son are allowed to conclude the last rites on the new moon day or the 'Sankranti' day if that falls within ten days but the son should observe rite of 'arādhana' for the full ten days) (17).
+
+
+--- Page 89 ---
+Caryāpāda
+61
+अदीक्षितपितृपुत्रयोर्दीक्षाक्रमः
+पित्रोर्मरणकाले तु दीक्षाहीनः सुतो यदि । अन्त्यक्रियाऽ स्य निर्वर्त्या पुत्रे निक्षिप्य कर्तृताम् ।।
+१८ ।।
+अदीक्षितो यदि पिता तत्तनोर्नहि संस्कृतिः । तमावाह्याथ कूर्चायां दीक्षां दत्त्वा यथोदितम् । समाधिं सुविधायाथ नित्यकर्मादिकं चरेत् ।।१९।।
+पितुः पिता तत्पिता वा दीक्षाहीनो मृतो यदि । पितुस्तदैक्यसिद्ध्यर्थं दीक्षां परोक्षमाचरेत् ।।२०।।
+स्थण्डिले कूर्चमानीय मृतमावाह्य नामतः । परोक्षदीक्षाकरणे स लिङ्गी भवति ध्रुवम् ।।२१।।
+दशमदिने वपनक्षीरतर्पणादिकम्
+ज्ञातयः सप्तमादर्वाक् कनिष्ठा दशमेऽहनि । वापयेयुश्च ते सर्वे कर्तृभिः सह सर्वदा
+।।२२।।
+स्नात्वा धृतत्रिपुण्ड्राश्च ते कुर्युः क्षीरतर्पणम् । ततः कुर्याद् यथाशक्ति दशदानानि यत्नतः ।।२३।।
+If the son is not initiated (dīkṣā) at the time of the death of his father, then he (son) should entrust the authority of the last rites to some one else (18). If the father is not initiated, then the aforesaid rites are not to be performed. In that case, a body of the Kuśā is to be made and the rite of dīkṣā should be performed. Thereafter all other rituals of samādhi and regular duties should duly be observed (19). If the father of the father (grand father) and his father (great grand father) expire without having been initiated, then the rite of indirect initiation should be performed in order to unite him with the ancestors (20). Keeping the 'kūrca' (body made of kuśā) on the alter, the deceased is to be invocated by name and thus after performing the indirect initiation, he is sure to become a 'lingi' (the bearer of linga) (21).
+Relatives, kins and the youngers (than the deceased) should get shaved before the seventh and on the tenth day respectively along with the person authorised to perform the last rite (22). The rite of 'Tarpan'
+
+
+--- Page 90 ---
+62
+Makutāgama
+सवृषभलिङ्गविसर्जनम् समाधिलिङ्गं सवृषमुद्रास्य वसने तथा । निधाय तीर्थमानीय विसृजेत् तत्र संयतः ।। २४।।
+होमपुण्याहवाचनादिकम्
+लिङ्गमुद्वास्य च स्नात्वा तिलामलकवारिभिः । गाणपत्याभिधं चैव होममानन्दसंज्ञितम् ।।२५।।
+कुर्यात् पितृगणैः साकमानन्दसमवाप्तये । पुण्याहवाचनं कृत्वा ततो गच्छेद् गृहं प्रति ।। २६ ।।
+इति श्रीमकुटागमे चर्यापादे लिङ्गस्थापनादिविधिकथनं नाम पञ्चमः पटलः ।।५।।
+with the milk should be performed after taking bath and drawing 'Tripundra'. Then ten kinds of alms should be offered properly as per one's capability (23).
+The linga installed on the samādhi is to be wrapped in a cloth along with the bull and to be taken to the pilgrimage and immersed in the water with restrained mind (24).
+After immersing the linga in the water, he should take bath with the water mixed with sesamum and Phyllanthus Emblica etc. and then perform sacrifice named Ganapatya and Ānanda etc. (25). All the aforesaid sacraments are to be fulfilled in order to get the pleasure along with the ancestors. Then he should proceed for home after reciting the auspicious words (26).
+Here ends the fifth chapter of the Caryāpāda of Makutāgama elucidating the procedures for the installation of the linga.
+Notes and References
+1. The donation of cow, land, sesamum, gold, ghee, clothes, cereals, jaggery, silver and salt is considered to be the ten-alms.
+
+
+--- Page 91 ---
+Caryāpāda
+63
+2. The rite of 'Nagna-pracchādana' should be observed after entering into the room. In this rite one full pot filled up with cereals, one pot of ghee and one pot filled up with the pieces of gold, silver and other coins as per the capability, should be donated. The pot containing the cereals is to be covered and tied up with the cloth. These two pots are to be donated to a poor brahmin belonging to a higher family heritage in the name of Vişnu. (Dharma śāstra, p. 1131)
+3. See Dharma śāstras for the verses 10-14.
+4. See the verse no. 8 for the characteristics of 'Ekoddista'.
+5. Sec 'Lingadharana Candrika' for the procedure of 'Tattva-Sanyojana' (pp. 271-277).
+6. For detailed description of the 'navārādhana' please see Dharamaśāstra pp. 1953 and 1279. It is to be noted here that the word 'arādhana' has been used in the Agama of 'Viraśaivism' signifying the last rite.
+***
+
+
+--- Page 92 ---
+Chapter-6
+षष्ठः पटलः
+रुद्र उवाच
+अप्रमेयगुणाधार चिदानन्दैकसागर एकादशेऽह्नि कर्तव्यं वदस्व करुणानिधे ।।१।।
+परशिव उवाच
+एकादशाहकृत्यानि
+एकादशेऽहनि स्नात्वा माहेशान् वै निमन्त्र्य च रुद्रहोमं विधायादौ वृषोत्सर्जनमाचरेत् ।।२।। उत्सजेद् वृषभं श्वेतं रोहितं नीलमेव वा । तृप्त्या वै नन्दिकेशस्य मम सान्निध्यलब्धये । निराभार्याश्रमयुते सिद्धे न वृषमुत्सृजेत् ।।३।।
+षोडशाराधनानि
+आद्यमासिकमुख्यानि षोडशाराधनानि च । रुद्रगणाराधनं च वृषोत्सर्गाभिधं तथा ।।४।।
+Rudra enquires -
+O Paraśiva, the substratum of indeterminate qualities, the only ocean of consciousness and bliss, the abode of compassion! Kindly enlighten me regarding the rites to be performed on the eleventh day (of the death) (1).
+Paraśiva replies
+On the eleventh day, son should take bath, invite Maheśvaras (Jangam) and fulfil the rite of 'vrşotsarga' after observing the procedure of Rudra-sacrifice (2). A bull of white, red or black colour is to be donated, so that the proximity with Me may be attained by appeasing Nandikeśa. The rite of 'vrsotsarga¹ is not to be performed for the devotee residing in the 'Nirābhārī Āśrama' (3). Sixteen kinds of worships, commencing from half monthly, are prescribed for the ancestors. Along with them, worship of Rudra and 'vrsotsarga' (offer of bull) are also included (4).
+
+
+--- Page 93 ---
+Caryāpāda
+65
+पञ्चाशद् रुक्रराधनम्
+आचारादिकष‌ड्लिङ्गस्थलषट्कसमाश्रयम् । अनुत्तरं च पञ्चाशद् रुद्राराधनमाचरेत् ।।५।।
+एकादशे भवेदाद्यमूने मास्यूनमासिकम् । त्रैपक्षिकं त्रिपक्षे स्यादूनषाण्मासिकं तथा । प्रतिमासं मृताहस्सु ऊनाब्दं चेति षोडश ।।६।।
+एकादशेऽह्नि वै कुर्यात् षोडशाराधनान्यपि । द्वादशाहे तदा कुर्यात् तत्त्वसंयोजनं सुतः ।।७।।
+एकोद्दिष्टलक्षणम्
+एकोद्दिष्टविधानेन तत्त्वसंयोगसिद्धये । क्रियते यदेकमुद्दिश्य त्वेकोद्दिष्टं प्रकीर्तितम् ।।८।।
+शैवाराधने वर्ज्यानि
+विश्वेदेवा न पूज्यन्ते नाभिश्रवणमुच्यते । प्रदक्षिणं विसर्गश्च सीमान्तगमनं नहि ।।९।।
+Along with the worship of six lingas and six sthalas, such as ācāra etc.2, prime adoration of fifty Rudras are also performed (5). First worship is performed on the eleventh day, unmāsik is to be   before the completion of one month, 'traipākşik' after three fortnight and 'unşāņmāsik' on the completion of six months, each month on the day of death and lastly on the completion of one year. Thus sixteen ritual-worships are to be performed during the whole year (6). On the eleventh day, all the sixteen rites are to be observed and on the twelfth day, the rite of 'Tattva-sanyojana' should be fulfilled by the son (7). The rite of 'Tattva-sanyojana' when accomplished for only one person, is named as 'ekoddişta' as per the rule laid down in the procedure of 'ekoddista' (8).
+The worship of Viśvadeva, in the above rite, is not performed, nor the 'abhiśravaņa" is observed. Pradaksiņā, visarga or Simāntagamana are also not   (9). On the eleventh day, eleven Māheśvaras should
+
+
+--- Page 94 ---
+66
+Makutāgama
+माहेश्वरभोजनम्
+एकादशेऽह्नि माहेशानेकादश सुभोजयेत् । यथासम्भवमेतद्धि रुद्राराधनमीरितम् ।।१०।।
+तथैव भोजयेदेकं वृषोत्सर्गफलाप्तये । वृषोत्सर्गाराधनं तु विधातव्यं मम प्रियम् ।।११।।
+रुद्राराधनक्रमः
+आचारादिकषड्लिङ्गस्थलषट्कसमाश्रयम् । खड्गेशादिकपञ्चाशद् रुद्राराधनमाचरेत् ।।१२।।
+चत्वारः षड् दश तथा रुद्रा द्वादश षोडश । द्वावित्याचारलिङ्गादिस्थलषट्‌कसमाश्रयाः ।।१३।।
+पञ्चाशद्रनामानि
+खड्गेशश्च बकेशश्च श्वेतो भृङ्गीश्वरस्तथा ।। छगलण्डद्विरण्डेशौ महाकालीश्वरोऽपि च ।।१४।।
+भुजङ्गेशपिनाकीशदारुकेशास्ततः परम् । अर्धनारीडुमाकान्त आषाडीशस्ततः स्मृतः ।।१५।।
+be invited and fed with delicious food. The rite performed as per the capability is named as 'Rudrārādhana' (10). One more Māheśvara should be fed along with them to secure the benefit of the rite of 'vrsotsarga'. One must perform this 'vrsotsarga' as it is very dear to Me (11).
+Fifty Rudras, namely Khadgeśa etc. which are related to Satlinga viz. ācāra etc. and satasthalas are worshipped (12). Fifty Rudras are related to lingas i.e. four to ācāralinga, six to gurulinga, ten to śivalinga, twelve to jangamalinga, sixteen to prāņalinga and two to Mahālinga. All are related to șațasthalas (13).
+Khadgeśa, Bakeśa, Śveta, Bhrigīśvara, Chhagalandeśa, Dvirandeśa, Mahākālīśvara, Bhujangeśa, Pinākīśa, Dārukeśa, Ardhanārīśa, Umākānta, Āsādiśa, Dandisa, Atrīsa, Mitreśa, Meşeśa,
+
+
+--- Page 95 ---
+Caryāpāda
+67
+दण्डीशात्रीशमित्रेशमेषेशा लोहितेश्वरः 1 शिखीश्वरश्च क्रोधेशश्चण्डः पञ्चान्तकेश्वरः ।।१६।।
+शिवोत्तमैकरुदेशौ कूर्मेशश्चैकनेत्रकः । चतुराननेश्वराजेशशर्वसोमेश्वरास्तथा
+।।१७।।
+लाङ्गलीशश्च संवर्तकेशः श्रीकण्ठसंज्ञकः । अनन्तेशश्च सूक्ष्मेशस्त्रिमूर्तीशस्ततः स्मृतः ।।१८।।
+अमरेशस्तथाऽर्धेशो भारभूतेश्वरस्तथा । अतिथीशश्च स्थाण्वीशो हरो झिण्टीश्वरस्तथा ।। १९ ।।
+भौतिकेशश्च सद्योजातेशश्चानुग्रहेश्वरः । अक्रूरेशो महासेनो लकुलीशः शिवेश्वरः । पञ्चाशत्संख्यका रुद्रा अमी पूज्या यथाक्रमम् ।।२०।।
+इति श्रीमकुटागमे चर्यापादे एकादशाहकर्तव्यविधि-कथनं नाम षष्ठः पटलः ।।६।।
+Lohiteśvara, Śikhīśvara, Krodheśa, Canda, Pañcāntakeśvara, Śivottama, Ekarudreśa, Kürmeśa, Ekanetra, Caturānaneśa, Ajeśa. Śarva, Someśvara, Langalīśa, Sanvartakeśa, Śrikantha, Ananteśa, Sūkṣmeśa, Trimūrtīśa, Amareśa, Argheśa, Bhārabhūteśvara, Atithīśa, Sthānvīśa, Hara, Jhiņțīśa, Bhautikeśa, Sadyojāteśa, Anugraheśvara, Akrūreśa, Mahāsena, Lakulīśa and Śiveśvara are the fifty Rudras to be worshipped respectively (14-20).
+Here ends the sixth chapter of the Caryāpāda of Makuțāgama advocating the procedures of the rituals performed during eleven days.
+Notes and References
+1. Donating the bull in the name of ancestors has got immense value. See 'Dharmśāstra kā itihāsa, Vol.3, pp. 1291-92.
+2. See the verse 12-13.
+
+
+--- Page 96 ---
+68
+Makulāgama
+3. The recitation of the vedic hymns by the brahmins at the time of taking the food on the occasion of śrāddha is named as 'Abhiśravaka'.
+4. Sec Prapañcasāra (3/39-44) for the names of the fifty Rudras starting from Śrikantha to Sanvartaka. There are similarities despite of some differences. In the contemplation of the sixfold lingas and the six sthalas in the six centres (satcakra), the Rudras are being imagined as the representative of the meditative colours.
+***
+
+
+--- Page 97 ---
+Chapter-7
+सप्तमः पटलः
+रुद्र उवाच
+सर्वशक्तिसमायुक्त सर्वैश्वर्यसमुन्नत द्वादशाहकृत्यविधिमशेषं ब्रूहि मे विभो ।।१।।
+परशिव उवाच
+द्वादशाहकृत्यानि
+चतुर्थस्य निवृत्त्यर्थं जीवभावनिवृत्तितः । तत्त्वादियोजनादूर्ध्वं चतुर्थोऽपि निवर्तते ।।२।।
+गुरुदीक्षापरिप्राप्तशिवलिङ्गाङ्गयोगतः
+द्विरेफकीटन्यायेन शिवैक्यं प्राप्तवान् द्विजः ।।३।।
+लिङ्गाङ्गसंगिनि मृते सम्प्राप्ते द्वादशेऽहनि । सापिण्ड्यं नैव कर्तव्यं प्रेतत्वाभावतस्ततः ।।४।।
+Rudra enquires -
+O the all powerful, the illustrious embodiment of all the divine qualities, the all embracing immanent! Kindly explain to me the full procedures of 'dvādaśā' rituals (the twelfth days rites) (1).
+Paraśiva replies -
+The creaturehood is eliminated along with the fourth state' by the performance of 'Tattva-sanyojana'. The rite of 'Tattva-sanyojana' is performed for the elimination of the fourth state. By the observance of the rite, the creaturehood also comes to an end along with the fourth state (meaning thereby after the performance of Tattva-sanyojana' on the twelfth day by the son, the deceased leaving his secluded fourth stage conjoins with his ancestors) (2). The devotee who remains attached with the Śiva-linga (Istalinga) obtained from Guru at the time of dīkṣā attains oneness with Śiva by the incessant contemplation as the insect is transformed into a bee (3) The rite of twelfth day is not   for the deceased who althrough bears linga on the body. The rite of 'sāpindya' is not to be   for him as he is not affected by the spirithood (the 'sāpindya' rite is performed for the elimination of
+
+
+--- Page 98 ---
+70
+Makulāgama
+दीक्षाकालपरिप्राप्तशिवैक्यं जीवभावतः । आविर्भूतं विजानन्ति मदीयागमवेदिनः ।।५।।
+सदाशिवाद्यभिन्नेभ्यः पितृभ्यस्तत्त्वसम्मिताः । कलाः संगृह्य चान्यत्र समभ्यर्च्य यथाविधि ।।६।।
+तत्त्वादियोजनक्रमः
+जीवभावनिवृत्त्यर्थं मृतलिङ्गाङ्गसङ्गिनः । वर्गत्रयैक्यसिद्ध्यर्थं तत्त्वादीन् योजयेत् सुतः ।।७।।
+द्वादशेऽहनि वै कर्ता माहेशान् सन्निमन्त्र्य च । गृहीत्वैव गणानुज्ञामेवं संकल्पमाचरेत् ।।८।।
+पितुस्तदी यपित्राद्यैर्महे शादिस्वरूपकैः । शिवसायुज्यसिद्ध्यर्थं करिष्यन् तत्त्वयोजनम् ।। ९ ।।
+नन्दिकेशमहाकालसंज्ञिनोर्विश्वदेवयोः । पितुः पितामहादीनां महेशादिस्वरूपिणाम् ।।१०।।
+spirithood, so the observance of this rite is not required for the lingi - the bearer of linga) (4). The knower of Agama is fully aware of the fact that Śivahood is manifested in place of creaturehood at the time of initiation owing to the attainment of oneness with Śiva (5). By borrowing the 'kalās, the constituents (through the rite of Tattva-sanyojana) from the fore fathers who have attained the state of non-duality with Sadāśiva etc., worship should duly be performed by imposing those 'kalās' to the deceased (6).
+The son should perform the procedure of 'Tattva-sanyojana' for the wearer of the linga for the cessation of his creaturehood and unite him with the three generations of ancestors (7). On the twelfth day, the authorised person should invite Māheśvaras and take vow after seeking permission from gaņa (ardent devotee) (8). 'I am uniting my father with his forefathers who have attained the nature of Māheśvaras, by adopting the procedure of 'Tattva-sanyojana' with the view to attaining the state of 'Śiva-sāyujya' (enjoyment of the nature of Śiva by being immersed in Śiva) (9). I shall worship with determination the thirty six
+
+
+--- Page 99 ---
+Caryāpāda
+71
+षट्त्रिंशतां च तत्त्वानां कलानामष्टत्रिंशताम् । आराधनं करिष्यामीत्येवं संकल्पपूर्वकम्
+।।११।।
+विश्वेदेवौ च पित्रादीन् तत्त्वानि च कलास्तथा । आवाह्य चाभिसम्पूज्य चिकीर्षुस्तत्त्वयोजनम् । दश दानानि वै कुर्याद् गवादीनि यथाक्रमम् ।।१२।।
+अथ कर्ता गृहीत्वा तु ताम्रपात्रं हि साक्षतम् । पितामहादिस्थानस्थमाहेशनिकटस्थितः ।।१३।। -
+पितामहादिभिः पात्रे हस्तस्पर्श हि कारयन् । पितामहादीनावाह्य पितृस्थानीयमाश्रितः ।।१४।।
+सद्योजातं प्रपद्यामीत्याद्यान् मन्त्रान् समुच्चरन् । चन्द्रशेखरमुख्यान् वै तत्त्वेशांस्तत्र योजयेत् ।।१५।।
+कलायोजनम्
+ईशानः सर्वविद्यानामित्याद्यानुच्वरन् मनून् । शशिन्यादिकलाश्चापि क्रमशस्तत्र योजयेत् ।।१६।।
+elements² of father, thirty eight kalās, the Viśvadevas namely Nandikeśa and Mahākāla etc., the grandfathers of the nature of Maheśa' (10-11). Invoking and worshipping Viśvadeva, ancestors, elements and kalās, he should perform the rite of 'Tattva-sanyojana', fulfil the procedure of ten alms and donate cow respectively (12). The performer of rite should take the seat near the place meant for father and ancestors who are of the nature of Maheśa along with the copper plate filled with rice (13). The performer of the rite should take the shelter of the place of father, invoke ancestors and assume their touch on that container (14). He should unite his father with the controller of tattvas namely Candraśekhar etc. reciting the hymn 'Sadyojātam prapadyāmi³ etc. (15).
+Kalās namely Śaśinī etc. should also be attached gradually uttering the hymn 'iśānaḥ sarvavidyānām (16).
+
+
+--- Page 100 ---
+72
+Makutāgama
+चतुर्थभावनिवृत्त्यर्थं पात्रप्रदानक्रमः का
+पितृस्थानस्थितायास्मै दत्त्वा तत्पात्रमादितः । पितरं पितामहस्य स्थाने संयोजयाम्यहम् । इति ब्रुवाणस्तत्पात्रं दद्यात् पैतामहाय वै ।।१७।।
+पितामहं महेशस्वरूपं हि प्रपितामहे । संयोजयामीति वदन् तत्पात्रं पूर्ववत् ततः । प्रपितामहपदस्थाय दद्यान्माहेश्वराय च ।।१८।।
+ततः परं सदाशिवस्वरूपं प्रपितामहम् । संयोजयाम्यहं वृद्धप्रपितामह इति ब्रुवन् । तत्तस्थानसंस्थितायास्मै दद्यात् पात्रमनन्तरम् ।।१९।।
+शिवस्वरूपमलं तं वृद्धप्रपितामहम् । अरूपे परमे शैवे तत्त्वे संयोजयाम्यहम् ।।२०।।
+इति ब्रुवाणस्तमिमं मयि लीनं विभावयेत् । एवमुक्तविधानेन चतुर्थो विनिवर्तते ।।२१।।
+इति श्रीमकुटागमे चर्यापादे द्वादशाहविधिकथनं नाम सप्तमः पटलः ।।७।।
+The copper-container should be handed over to Māheśvara seated in a place for father. Then the container should again be handed over to another Māheśvara assuming him as grandfather and uttering 'I am uniting my father with grandfather' (17). 'I am attaching the grand father who is of the nature of Māheśvara to great grand father' uttering this he should dedicate that copper container to the Māheśvara assuming him as great grandfather (18). Thereafter uttering, 'I am uniting the great grandfather who is of the nature of Sadāśiva, to great great grandfather'; he should surrender that copper container to the Māheśvara seated at that place (19). 'I am uniting the great great grand father who is as pure as Śiva to formless Paramaśiva' - uttering it he should contemplate his immersion into that formless Śiva-tattva. Thus
+
+
+--- Page 101 ---
+Caryāpāda
+73
+the fourth state of the departed soul comes to an end by the observance of the procedure of Tattva-sanyojana' (20-21).
+Here ends the seventh chapter of Caryāpāda of Makutāgama illustrating the procedure of the rite to be performed on twelfth day.
+Notes and References
+1. The rite of 'sapinda karana' is prohibited in Vīraśaivism. The procedures of Tattva-sanyojana of the Kalās of the deceased with the elements of father, grand father and great grand father have been replaced.
+2. See Lingadhāraņa Candrikā for the description of 5 Kalās and the procedures of the sanyojana of 38 Kalās, pp. 271-277; Viraśaiva dīkṣā vidhi, pp. 83-84.
+3. "सद्योजातं प्रपद्यामि सद्योजाताय वै नमो नमः। भवे भवे नाति भवे भवस्व मां भवोद्भवाय नमः ।।" (Mahānārāyanopaniṣad, Chapter 15).
+4. ईशानः सर्वविद्यानामीश्वरः सर्वभूतानाम् । ब्रह्माधिपतिर्ब्रह्मणोऽ धिपतिर्ब्रह्मा शिवो मे अस्तु सदाशिवोऽम् ।।" (Mahānārāyanopaniṣad, Chapter 19).
+***
+
+
+--- Page 102 ---
+Chapter-8
+अष्टमः पटलः
+रुद्र उवाच
+समस्तजगदाधार समस्तामरवन्दित प्रकीर्णकविधिं ब्रूहि सर्वज्ञ परमेश्वर ।।१।।
+परशिव उवाच
+सोदरेषु पितुः कर्म कुर्वत्स्वन्यः स्थलान्तरात् । दशाहमध्य आगच्छेत् कृत्वा गतदिनक्रियाम् । समाधिवर्जं मिलितः शेषं कर्म समाचरेत् ।।२।।
+तत्त्वसंयोजनाधिकारक्रमः
+कनिष्ठेनाऽथवाऽन्येन कृतेऽपि पितृकर्मणि । कुर्यादुदकदानं च तत्त्वसंयोजनं सुतः । अग्रजेन कृतं कर्म नानुजेन पृथक् कृतिः ।।३।।
+तत्त्वयोजने विशेषः
+श्राद्धकर्तुर्यदा भार्या ह्याशौचान्ते रजस्वला । श्राद्धशेषं प्रकुर्वीत विसृजेत् तत्त्वयोजनम् ।।४।।
+Rudra enquires -
+O omniscient supreme God, the substratum of the universe, adored by all divinities! Please tell me the procedure of 'Prakīrņaka' (1).
+Paraśiva replies
+If the son arrives from outside within ten days of his father's last rite being performed by his brothers¹, he should first perform all other rites except samādhi and join his brothers for the rest (2).
+Eldest son should perform the 'udakadāna' and 'Tattva-sanyojana' rites himself for his father even if already performed by his youngest or other brothers. Once fulfilled by the eldest, younger need not perform it again (3).
+If the wife of the performer is menstruated after the completion of the period of impurity (for the death) is over, she should perform the
+
+
+--- Page 103 ---
+Caryāpāda
+75
+तत्त्वसंयोजने प्राप्ते मृतपत्नी रजस्वला । तत्त्वसंयोजनं न स्यात् तत्कुर्यात् पञ्चमेऽहनि ।।५।।
+क्लीबादीनां तत्त्वसंयोजनं नास्ति
+तत्त्वसंयोजनं नैव क्लीबानां दुष्टयोषिताम् । अद्वादशवयस्कानां मृतानां ब्रह्मचारिणाम् ।।६।।
+नैष्ठिकानां यतीनां च कार्येशानबलिस्तथा । तत्त्वसंयोरहिते न प्रत्याब्दिकमिष्यते ।।७।।
+पार्वणाराधनादिकम्
+अदैवं पार्वणसमं सोदकुम्भमधर्मकम् । संकल्पविधिना कार्यमन्वहं त्वाब्दिकावधि ।।८।।
+तत्त्वसंयोजनादूर्ध्वं वत्सरं वा तदर्धकम् । नान्यत् कुर्यादष्टकायाः पार्वणाराधनं सुतः ।।९।।
+other rites except the rite of 'Tattva-sanyojana' (4). If the wife of the deceased gets menstruated during the performance of the rite of 'Tattva-sanyojana', then she should fulfil the rite of 'Tattva-sanyojana' after being pure on the fifth day (5).
+Rite of 'Tattva-sanyojana' is not performed for the eunuchs, corrupt women, boys under twelve years and celibate (6). The sacrifice named Īsāna has been prescribed for 'naistik brahmacārī' and sage (yati). If the rite of 'Tattva-sanyojana' has not been performed, then the yearly rites are also not to be observed (7).
+The whole procedure of last rite is to be fulfilled with the 'Pārvaṇaśrāddha'. The rite of 'udaka kumbh' etc. should be performed with vow within the period of one year (8). Son should not perform for the whole year or six months the rite of 'Pārvaņārādhana' except the rite of 'aştakā' provided the 'Tattva-sanyojana' is performed at the time of last rite (i.e. if 'Tattva-sanyojana' is performed during the last rite, then 'Pārvaņārādhana' need not be  , only 'astakā is enough) (9). Son should perform the rite of 'Parvaṇaśrāddha' every month and year for his father who has attained the nature of Mahesa
+
+
+--- Page 104 ---
+76
+Makulāgama
+तत्त्वसंयोजनवशान्महेशत्वयुजः पितुः । प्रत्यब्दं प्रतिमासं च कुर्यात् पार्वणवत् सुतः ।।१०।।
+पाकशेषं न यो भुञ्ज्याद् दैवे पित्र्ये च कर्मणि । सम्यगाचरितं वाऽपि तस्य तत् स्यान्निरर्थकम् ।। ११ ।।
+नक्तव्रते च नियते संकटे राहुदर्शने । रात्रावपि विधेयं स्याच्छाद्धं श्रद्धासमन्वितैः ।।१२।।
+उपरागे पैतृके च तीर्थे दर्शे च संक्रमे । पितृन् संतर्पयेद् धीमान् साक्षतैर्विमलैर्जलैः ।।१३।।
+आराधनलक्षणम्
+पित्रादयो महेशादिरूपा यत्र हि पैतृके । आराध्यन्ते तु भक्त्या तदाराधनमुदीरितम् ।।१४।।
+तत्र नन्दिमहाकालौ विश्वेदेवौ प्रकीर्तितौ । पित्रर्थं कीर्तिता एते महेशश्च सदाशिवः । शिव इति त्रयः शम्भुः संरक्षक इति स्मृतः ।।१५।।
+through the rite of Tattva-sanyojana (10). If the son does not accept the remaining portion of the food prepared during the worship of divinities and ancestors, then all the rites, even if perfomed properly, become futile (11). The last rite is allowed to be performed respectfully in the night, in the event of emergency, naktavrata and eclipse during day time (12): Wise person should satiate the ancestors by performing 'tarpan' with pure water and rice during the time of eclipse, at the pilgrims of ancestors and on the day of moonless night and on the last day of the month (13).
+On the occasion of the last rite of the ancestors who have attained the nature of Maheśa, the devotional worship of forefathers is named as 'ārādhana' (14) In this 'ārādhana' Nandi, and Mahākāla are named as Viśvadeva and father, grandfather and great grand father are respectively named as Maheśvara, Sadāśiva and Śiva. Śambhu is said to be the protector of all (15).
+
+
+--- Page 105 ---
+Caryāpāda
+77
+द्विविधं श्राद्धमङ्गानि च
+श्राद्धं तु द्विविधं प्रोक्तं पितृमल्लोकवासिनाम् । पितृणां तृप्तिजनकं पितृलोकनिवासिनाम् ।।१६।।
+श्राद्धस्याङ्गानि वक्ष्यामि शृणु रुद्र यथाक्रमम् । होमस्त्यागस्तथा पिण्डो विश्वेदेवास्तिलाः कुशाः । उद्देशः पितृदेवानामर्घ्यपात्रं च रक्षकम् ।।१७।।
+अपसव्यं च विकिरं श्राद्धाङ्गमिति कीर्तितम् । मल्लोकवासिनां पुत्र पितृणां प्रवदाम्यथ ।।१८।।
+श्राद्धकर्मणि निषिद्धम्
+होमः पिण्डस्तिला दर्भा विकिरं चार्घ्यपात्रकम् अपसव्यं तथा सप्त निषिद्धं श्राद्धकर्मणि ।।१९।।
+विश्वेदेवाः पित्रुद्देशस्त्यागः संरक्षकोऽपि च । श्राद्धाङ्गानि भवन्त्येव तस्मात् तान्युपयोजयेत् ।।२०।।
+Śrāddha (last rite) is said to be of two kinds i.e. one is for the residents of the sphere of ancestors and the second one for the indwellers of the region of Śiva. O Rudra! now I shall gradually illustrate the various procedures of the śraddha that provide pleasures to the inhabitants of the sphere of ancestors. Please listen. Oblation to fire (hom), tyāga, pinda, Viśvadeva, sesamum, kuśā, the sect of ancestors, the container for oblation (arghapātra), rakṣā sūtra (the protective thread), apasavya and vikir are known as the various accessories and ingredients of the ceremony of the last rites for the ancestors. Now I am describing the ancestors who dwell in my sphere (Śivaloka) (16-18).
+Sacrifice (hom), pinda (offering in last rite), sesamum, darbha, vikir, container for oblation (arghapatra) and apasavya, these seven iterns are prohibited for the ancestors residing in Śivaloka (19). Viśvadeva, place of ancestors, tyāga and protective thread (rakṣā sūtra), these four are the accessories and ingredients of rite for them also. So, these items should be utilised (20).
+
+
+--- Page 106 ---
+78
+Makutāgama
+शाम्भवव्रतिनां सापिण्ड्यं नास्ति
+शाम्भवव्रतिने श्राद्धं सपिण्डं विदधाति यः । कुलमासप्तमं तस्य नरके निपतेद् ध्रुवम् ।।२१।।
+त्रिविधमाराधनम्
+गृह्याद्यधिकृतं चैव निराभार्याधिकारिकम् । सांकल्पिकमिति तथा प्रोक्तमाराधनं त्रिधा ।।२२।।
+गृह्याद्यधिकृते कार्यं विश्वेदेवादिसंयुतम् । विश्वेदेवान् पित्रुद्देशं त्यागं संरक्षकं तथा । वर्जयित्वैव कर्तव्यं निराभार्याधिकारिकम् ।।२३।।
+विश्वेदेवान् रक्षकं च त्यागमावाहनादिकम् । त्यक्त्वा संकल्पमात्रेण कारुण्यानां विधीयते ।। २४।।
+आराधने माहेश्वरार्चा
+शैवशास्त्रविशेषज्ञः षट्स्थलज्ञानकोविदः । त्रिकालपूजाभिरतो लिङ्गनिष्ठापरायणः ।।२५।।
+The person who performs 'sapiņda śrāddha' for the observer of śāmbhavavrata, is sure to fall in the hell along with the seven generations of ancestors (21).
+This worship is said to be of three kinds, namely with regard to householder, nirābhārī and sankalpika (22). Viśvadeva, pitṛddeśa, tyāga and sahrakşaka are included in case of householders. For the nirābhārī, the rites of Viśvadeva, pitṛddeśa, tyāga, sanrakşaka sūtra are prohibited (23). Only conceptual worship is performed in case of 'kāruņik' and the rites of Viśvadeva, rakṣāsūtra, tyāga, and āvāhana are redundant (24).
+The worship of the person who is well-versed in the knowledge of Śaiva scriptures, adept in the wisdom of şațasthala, worships Śiva three times during the whole day, faithfully devoted to Linga and Māheśvaras; is considered to be the main worship. The person who worships only once a day is said to be of medium category (25-26). The
+
+
+--- Page 107 ---
+Caryāpāda
+79
+माहेश्वरोऽर्चनीयः स्यान्मुख्य आराधने स्मृतः । एककालार्चनासक्तो मध्यमः परिकीर्तितः ।।२६।।
+अनर्पितं च यो भुङ्क्ते नैकदा लिङ्गमर्चति । मद्भक्तानपि यो द्वेष्टि वर्जनीयः स सर्वदा ।। २७।।
+इति श्रीमकुटागमे चर्यापादे प्रकीर्णकविधिकथनं नाम अष्टमः पटलः ।।८।।
+person who accepts food without offering Me, never worships linga and jealous of my devotees, is always to be abandoned (27).
+Here ends the eighth chapter of Caryāpāda of Makutāgama narrating the procedure of Prakīrņaka.
+Notes and References
+1. See Dharamaśāstra kā itihāsa (Vol. 3, pp. 1149-1153).
+2. The śraddha performed on the day of astami of the bright fortnight of the month of Mārgaśīrṣa is known as the 'astakā'. This rite is performed for Indra, Viśvadeva, Prajāpati and ancestors with the ingredients of 'apup' and vegetables. See Dharmaśāstra kā itihāsa (Vol. 3, p. 1207).
+3. The śraddha performed in the name of father, grand father and great grand father is known as 'Pārvan'. This is the most important among all the śraddhas. See Dharmaśāstra kā itihāsa, (Vol. 3, pp. 1240-1277).
+4. In the commentary of Brahmasūtra by Bhaskar, a śaiva sect namely 'Karuņāsiddhānti' has been mentioned along with the Siddhanta śaiva, Pāśupat, Kālāmukh and Kāpālika. Here it seems that by the word 'kāruņik', the jangama of the above mentioned sect has been referred to.
+***
+
+
+--- Page 108 ---
+Chapter-9
+नवमः पटलः
+रुद्र उवाच
+स्वलीलाकल्पितानल्पजगज्जाल निराकुल । प्रत्याब्दिकविधानं मे कृत्स्नं ब्रूहि जगत्पते ।।१।।
+परशिव उवाच
+प्रत्याब्दिकाराधनविधानम्
+विधाय नित्यकर्माणि विप्रानाहूय सादरम् । दीपं प्रज्वाल्य गन्धाद्यैरलङ्कृत्य प्रणम्य च ।।२।।
+सभस्मधुण्टिकं चैव ताम्बूलं दक्षिणान्वितम् । गृहीत्वा नन्दिकेशादीन् नमस्कुर्याद् गणेश्वरान् ।। ३ ।।
+नम आव्याधिनीभ्य इत्यथ कुर्यात् प्रदक्षिणम् । त्रिसंख्यं घण्टिकानादं कारयन् स्थिरचेतसा ।।४।।
+उपस्पृश्याथ संकीर्त्य देशकालौ यथाक्रमम् । पितुरैक्यदिनाभिख्याराधनं तृप्तिसाधनम् । करिष्य इति संकल्प्य कलशं चाभिपूज्य च ।।५।।
+Rudra enquires -
+O the Lord of the universe! you remain unperturbed amidst the self created multiplicity of the universe. Please enlighten me regarding the procedure of the Pratyabdik (annual last rites) (1).
+Paraśiva replies -
+After perfoming the regular duties, one should respectfully invite and bow down to the brāhmin enkindling the lamp and decorating with the incenses etc. (2). One should approach and bow unto gaņas like Nandikeśvaras with sacred ashes, betel leaves and money as offering contained in a vessel (3). Then he should encircle the Maheśvaras with intense concentration reciting the hymn 'nama āvyādhinībhya" and ringing the bell three times (4). Now having performed 'acamana' and
+
+
+--- Page 109 ---
+Caryāpāda
+81
+इमा माहेशपूजार्थं दुरितक्षयकारकाः । इति द्रव्याणि सम्प्रोक्ष्य क्षणान् दद्याद् यथाक्रमम् ।।६।।
+सप्तद्रव्यवर्जनम्
+अपसव्यं तिलान् दर्भान् पिण्डदानाग्निकर्मणी । विकिरं चार्घ्यपात्रं च शैवे सप्त विवर्जयेत् ।।७।।
+पित्राराधनदेवताः
+पिता महेश्वरः प्रोक्तस्तत्पिता च सदाशिवः । प्रपितामहः शिवश्चैते पित्राराधनदेवताः ।।८।।
+आराधनकर्मणि वैषम्यवर्जनम्
+तपसा विद्यया वाऽच्या अर्हन्त्युत्तममासनम् । दानभोजनपूजासु न वैषम्यं शुभावहम् ।।९।।
+duly praising the space and time, vowing 'I shall fulfil the rite of 'aikyapādan' for the pleasure of my father', he should worship the pot (5). He should wash the ingredients of worship thinking that all the accessories that annihilate the sins are meant for the purpose of adoration of Māheśvaras (Jangamas) and then gradually surrender them one by one (6).
+Apasavya, sesamum, darbha, pindadāna, havana, vikir and arghapātra are the seven items of śrāddha prohibited for the saivas (who is initiated with the original hymn) (7).
+In the last rite ceremony, father is said to be Māheśvara, grandfather is of the nature of Sadāśiva and great grandfather is the embodiment of Śiva. These three are the divinities to be worshipped in the last rite ceremony (8).
+People, through the penance and wisdom attain lofty positions, but for the purpose of donation, feeding and worshipping, there should not be any discrimination (9).
+
+
+--- Page 110 ---
+82
+Makutāgama
+पुष्पाक्षतादिदानेन माहेश्वरनिमन्त्रणम्
+नन्द्यादिसंज्ञिनां विश्वेदेवानां स्थानके तथा । महेश्वरादिसंज्ञानां पितृणां स्थानकेऽपि च ।।१०।।
+संरक्षकस्य शम्भोश्च स्थाने पुष्पाक्षतान् क्षणान् । दत्त्वा ब्रूयात् प्रसादश्च भवद्भिः कार्य इत्यपि ।। ११ ।।
+निमन्त्रिता मौनयुजो मद्ध्यानासक्तचेतसः । तृप्तिमन्तश्च वर्तेरन् न चेन्निरयमाप्नुयुः ।।१२।।
+मण्डलद्वयरचनम्
+पादार्चनाय रचयेद् बाह्यमान्तरमेव वा । अरङ्गमेति मन्त्रेण मण्डलद्वितयं तथा ।।१३।।
+मध्ये तयोरन्तरेण कर्तव्यं वै षडङ्गुलम् । यथा पादोदकस्पर्शो न भवेत् पितृदेवयोः ।।१४।।
+मण्डलद्वयमारच्य पाद्यार्थं पितृदेवयोः । तत्स्थाने भस्मगन्धाद्यैरर्चयेत् सकलैरपि ।।१५।।
+By offering flower, rice and turmeric (kşaņa) to the place of Viśvadevas' viz. Nandi, Mahākāla etc. and ancestors like Maheśvaras etc. and also to the place of Sambhu - the protector, one should pray for grace (10-11). The invited Maheśvaras should observe silence with pleasant gesture contemplating on Me, lest they should fall downward (12).
+Two kinds of mandalas i.e. internal and external are to be drawn reciting the hymn 'arangam" for the purpose of worshipping the feet (13). There should be a distance equal to six fingers in between these two mandalas, so that the water used for the washing of the feet does not touch the place meant for the ancestors and divinities (14). Offerings on the feet of ancestors and divine beings are to be dedicated after drawing two mandalas and worship also is to be performed on the same place with the sacred ashes, incenses and other ingredients (15).
+
+
+--- Page 111 ---
+Caryāpāda
+83
+निमन्त्रितमाहेश्वराणां सत्कारादिकम्
+स्वागतं परिपृच्छ्यैव दत्त्वा चासनमप्यथ । शन्नो देवीरिति पठन् पादौ प्रक्षालयेदपि ।।१६।।
+पादाम्बु स्वशिरस्युक्ष्य पादावुद्वर्त्य वाससा । भस्मना साक्षतैर्गन्धैः पुष्पविल्वादिकैरपि ।।१७।।
+धूपदीपनिवेद्यैश्च मन्त्रपुष्पेण चार्चयेत् । विश्वेदेवान् पितृन् पश्चादथ संरक्षकं क्रमात् । पादौ प्रक्षाल्याचमेयुः कर्ता भोक्तार एव च ।।१८।।
+प्राणानायम्याथ कर्ता हस्तार्चापात्रगाक्षतान् । गृहीत्वा विष्टरान् दद्यात् स्वाहां स्वधां समुच्चरन् ।।१९।।
+विश्वेदेवाद्यावाहनम्
+विश्वेदेवान् पितृश्चैव नामगोत्रपुरस्परम् । आवाह्य गन्धपुष्पाद्यैः समभ्यर्च्य यथाक्रमम् । वासोभिश्च हिरण्येन यथाशक्ति सुतोषयेत् ।।२०।।
+Invited Maheśvaras should be offered respective seats with ovation and their feet should be washed reciting the hymn 'sanno devih' (16). He should sprinkle the sacred water washing their feet on his own head and clean their feet with cloth; thereafter the feet of Maheśvaras should be worshipped with sacred ashes, rice, incense, flowers and bilva etc. along with sandlewood, lamp and offerings, reciting the hymns. Then the holy feet of Śiva, the protector, should also be washed respectively along with the Viśvadevas and ancestors and both the performer and enjoyer of the last rite should accept that water (17-18). The performer of the last rite should observe prāṇāyam and dedicate the rice kept in a vessel with hands to the vistarot uttering 'svāhā' and 'svadhā' in the name of divinities and ancestors respectively (19).
+He (performer) should please the Viśvadevas and ancestors invoking them by name and lineage, adore them with incenses, flowers etc. and donate clothes and gold as per his capacity (20).
+
+
+--- Page 112 ---
+84
+Makulāgama
+विकीर्य भस्म भोज्येषु तन्महेशेति चामनन् । आराधने गयां ध्यात्वा ध्यात्वा देवं महेश्वरम् । महेशादीन् पितृन् ध्यात्वा कुर्यादाराधनं ततः ।।२१।।
+माहेश्वरेभ्यो भोजनपर्यवेषणम्
+इति मन्त्रं समुच्चार्य पाकदोषनिवृत्तये । पञ्चब्रह्माभिधैर्मन्त्रैराज्यमन्नेऽभिघारयेत् ।।२२।।
+पात्रेषु भक्ष्यभोज्यादि पर्याप्तं निक्षिपेदपि ।
+प्रसादेऽङ्गुष्ठनिवेशनम् माहेश्वरः स्वेष्टलिङ्गसमर्पणविधेरथ ।।२३।।
+कर्ता देव सवित इत्युच्चरन् परिषेचनम् । पात्रस्य कृत्वा पृथिवी ते पात्रं यच्छंयोरिति ।। २४।।
+त्र्यम्बकं च पठन्नेव माहेश्वरकरं ततः । गृहीत्वैव प्रसादे तु तदङ्गुष्ठं निवेशयन्
+।।२५।।
+स्वाहास्वधाभ्यां देवपितृतर्पणम्
+भोक्तारमन्नमात्मानं ब्रह्मेत्येव विभावयन् । भुवं गयां शूलधरं भोक्तारं भावयन्नपि ।।२६।।
+Sacred ashes should be sprinkled on the food assuming it for the Māheśvaras. Then 'ārādhana' should be performed after meditating on the pilgrimage Gayā, God Maheśvara and ancestors viz. Maheśa etc. (21).
+Reciting this hymn and for the eradication of the impurities of the food, 'abhidhānam's is to be   enchanting the five hymn namely 'Pañcabrahma" (22).
+Then enough quantity of food should be served on the vessel. Thereafter Maheśvara should offer food to the Istalinga. Worshipper should purify the vessel uttering the hymn 'deva savitah", then he should hold the thumb of Maheśvara and put it into the offering reciting the hymn 'prthvi te patram' 'yacchanyo', 'tryambakam'¹º etc. (23-25).
+Conceiving the enjoyer, self and food as the expression of Brahman, contemplating on earth, pilgrim Gaya and God Śiva - the
+
+
+--- Page 113 ---
+Caryāpāda
+85
+नाम गोत्रं च सम्बन्धमुच्चार्य च प्रसादकम् । स्वाहां स्वधां यथायोगं नमश्च न ममेति च । ब्रवन् समर्पयेद् देवपितृभ्यश्च यथाक्रमम् ।।२७।।
+पुनरावृत्तिरहितपितृतृप्तिनिरूपणम्
+गयायां श्रीरुद्रपादे क्षेत्रेषु श्रीनगादिषु । दत्तमस्त्वित्युद्गिरन् वै साक्षतं विसृजेज्जलम् ।। २८ ।।
+ततः संकल्प्य च कृतेनैक्याहाराधनेन च । पितृणामक्षया तृप्तिः पुनरावृत्तिवर्जिता ।।२९।।
+शाश्वती शिवसायुज्यसिद्धिर्भूयादिति ब्रुवन् । सर्वमेतद् यथाकालं दत्तमस्त्विति वाचयेत् ।।३०।।
+आपोशानप्रदानक्रमः
+दत्त्वा चापोशनं देवपितृभ्यश्च यथाक्रमम् । ईशानः पितृरूपेण महादेवो महेश्वरः ।।३१।।
+प्रीयतां भगवानीशः परमात्मा सदाशिवः । प्रीयतां पितृरूपीश इत्युक्त्वा जलमुत्सृजेत् ।।३२।।
+bearer of triden - (26) uttering the name, lineage and relation, the offering is to be dedicated in the name of divinity and ancestors reciting for them 'svāhā', 'svadhā' and the hymn 'namah', 'na mama' etc. The water along with the rice should be poured in, (27) praying for the results equal to the offering dedicated to the feet of Sri Rudra in Gayā and Śriśailam (28). During the fulfilment of rite of uniting the deceased with the ancestors, one should pray for their unending pleasure caused by the cessation of transmigration (29). Now the prayer should be held for the accomplishment of the eternal union with Śiva and the performer should assert thus - "whatever is required to be dedicated has duly been fulfilled' (30).
+Then water should be poured for 'ācamana' in the name of divinities and ancestors respectively. 'Let the eminent God Maheśvara, the embodiment of Īsāna who is the form of ancestors be pleased with
+
+
+--- Page 114 ---
+86
+Makutāgama
+माहेश्वरप्रार्थनम्
+श्रद्धायां प्राण इत्याद्यैर्जुहुयुः प्राण आहुतीः । आमनन् मधु वातेति मध्विति त्रिः समुच्चरन् । यथासुखं जुषध्वमित्युत्क्त्वा तैः प्रतिवाचयेत् ।। ३३ ।।
+मन्त्रमध्ये क्रियामध्ये शम्भोः स्मरणपूर्वकम् । यत्किञ्चित् क्रियते कर्म तत्कोटिगुणितं भवेत् ।। ३४।।
+अपेक्षितं याचितव्यं त्याज्यं चैवानपेक्षितम् । उपविश्य सुखेनैव भोक्तव्यं स्वस्थमानसैः ।। ३५।।
+उत्क्त्वा प्रसादभोगस्य काले तेषां निषगणान् । जाबालाद्यधिश्रवणमन्त्रान् संश्रावयेदपि ।।३६।।
+उत्तरापोशनम्
+तेषां प्रसादभोगान्ते मधु वातेति मध्विति । तृप्ताः स्थेति च तानुत्क्त्वा तृप्ताः स्म इति वाचयेत् ।। ३७ ।।
+me; let the Sadāśiva, the Lord of the lords, the supreme Self be pleased with me, let the God Isa, the form of the ancestors be pleased', uttering these words, he should pour water (31-32).
+Then the invitee Māheśvara should offer oblation to his own prāņa, reciting the hymn 'śraddhāyām prānah'll etc. Performer of the rite should recite three verses viz. 'Madhuvātā, Madhu' etc. 12 and request the Mäheśvaras to eat food at ease, without any hurry. They (Māheśvaras) also should reciprocate the same (33). If Śiva is remembered during the recitation of hymns and performance of any rite, then billion times of results is produced (34). Māheśvaras should demand for expected food of their liking and reject the undesirables. They should eat food sitting with a peaceful healthy mind (35). During the time of accepting the offerings, they should enchant the hymns of upaniṣads and the hymn of Jābālā concerning the rite of 'śraddha' (36).
+After submitting the offerings (to the Maheśvaras), the hymn 'madhuvātā, madhu' etc. should be recited. The performer of the rite should enquire regarding their satisfaction and they (Maheśvaras)
+
+
+--- Page 115 ---
+Caryāpāda
+87
+उत्तरापोशनं दत्त्वा करशुद्धेरनन्तरम् । उत्तरान् पाठयेन्मन्त्रान् श्रद्धायां प्राण आदिमान्
+।।३८।।
+अङ्गुष्ठमात्रः पुरुषो ह्यङ्गुष्ठं च समाश्रितः । ईशः सर्वस्य जगतः प्रभुः प्रीणाति विश्वभुक् ।। ३९ ।।
+भोजनानन्तरमनुष्ठानक्रमः
+इत्युक्वा तैराशिषश्चाक्षय्यमाराधनं त्विति । वाचयित्वा ऋचे त्वा पृथिवी शान्तेति चामनन् ।।४०।।
+तान् त्रिः प्रदक्षिणं कृत्वा तैः स्वाहां च स्वधामपि। वाचयित्वा ततो ब्रूयादुपचारान् यथोचितम् ।।४१।।
+अद्य मे सफलं जन्म भवत्पादाभिवन्दनात् । अद्य मे वंशजाः सर्वे याता वोऽनुग्रहाद् दिवम् ।।४२।।
+पत्रशाखादिदानेन क्लेशिता यूयमीदृशाः । तत् क्लेशजातं चित्तेषु विस्मृत्य क्षन्तुमर्हथ । इति प्रणम्य तेभ्यश्च गृहणीयादाशिषः पुनः ।।४३।।
+should be requested to express explicitly that they were satisfied (37). One should get their hands washed after feeding them (Māheśvara) and ask them to recite the hymn 'śraddhāyām prāṇah' (38).
+Human soul is of the size of thumb and is also existent on the thumb. God is the Lord of the world. Let the protector, the Lord of the world be pleased (39).
+Let the Maheśvara bless by uttering, 'this worship (of the ancestors) performed by you be the bestower of imperishable results', and recite the hymns 'rce tvā'13 'prthvi śāntā' (40). Then he (performer) should go round the Maheśvaras three times, request them to utter 'svāhā' and 'svadhā' and address them in appropriate respectful language (41). 'My life has become blessed by worshipping your lotus feet, my ancestors have attained the heaven by your grace (42). I have given trouble by offering leaves, branches etc. to a great person like
+
+
+--- Page 116 ---
+88
+Makulāgama
+माहेश्वरेभ्य आशीर्वचनग्रहणम्
+आयुः प्रजां धनं विद्यां स्वर्ग मोक्षं सुखानि च प्रयच्छन्तु तथा राज्यं प्रीत्या नृणां पितामहाः । इत्युक्त्वा गच्छतो विप्रानासीमान्तमनुव्रजेत् ।।४४।।
+महालयाराधने च तीर्थाराधनके तथा । संकल्प एव भिद्येत प्रयोगे न भिधा भवेत् ।।४५।।
+श्राद्धकर्मणि पित्राद्याराधनक्रमः
+मातृणां वा पितृणां वा वर्गः प्रत्याब्दिके भवेत् महालयाराधनादौ पित्राद्याः सर्व ईरिताः ।।४६।।
+आदौ पिता तथा माता सापत्नी जननी तथा । मातामहाः सपत्नीका आत्मपत्यस्त्वनन्तरम् ।।४७।।
+सुतभ्रातृपितृव्याश्च मातुलाश्च सभार्यकाः । दुहिता भगिनी चैकदौहित्रो भागिनेयकः ।।४८।।
+पितृष्वसा मातृष्वसा जामाता भावुकः स्नुषा । श्वशुरः स्यालकश्चैव स्वामी च गुरुरिक्थिनौ ।। ४९।।
+you. Kindly pardon me by wiping out those sufferings from your mind'. He should bow down before them and again seek their blessings by uttering these words (43).
+'Let the ancestors bestow with joy the longevity, subjects, wealth, knowledge, heaven, liberation, various worldly pleasures and kingdom'. Uttering this one should see the Maheśvaras off upto the boundary of the premises (44). The difference between the worship of last rite and the worship of pilgrims is that of aim only, not in practice (45).
+The lineage of mother and father are worshipped on the day of Mahālayā every year. This has been described in scriptures (46). Firstly father and mother are to be worshipped, then step mother, thereafter maternal grandfather with his wife, lastly one's own wives (47). Then comes the turn of the son, brother, uncle, maternal uncle, daughter, sister, son of the daughter and son of the sister are the   in order (48).
+
+
+--- Page 117 ---
+Caryāpāda
+89
+माहेश्वरालाभे विष्टरेषु सर्वं कर्तव्यम् यत्नेऽपि सर्वथाऽलाभे माहेशानां महेश्वर । विष्टुरेषु निधायैव घण्टां वा भस्मधुण्टिकाम् । पादार्चनादिकं सर्वमाराधनमथाचरेत् ।।५०।।
+भोज्यं च धेनवे दद्याद् विप्रेभ्यश्चैव दक्षिणाम् । कुर्वन्नेवं स लभत आराधनफलं महत् ।।५१।।
+पित्राराधनफलकथनम्
+विधिनाऽनेन कुरुते पित्रोराराधनं तु यः । आयुः श्रियं प्रजां लब्ध्वा शिवलोके महीयते ।। ५२ ।।
+अननुष्ठाने दोषः
+नास्तिक्यादथवाऽऽ लस्याद् यस्त्वेवं नानुतिष्ठति । काकयोनिशतं गत्वा स हि श्वा चाभिजायते ।। ५३ ।।
+इति श्रीमकुटागमे चर्यापादे प्रत्याब्दिकविधिकथनं नाम नवमः पटलः ।।९।।
+Paternal aunt, maternal aunt, son-in-law, father of the daughter-in-law, brother-in-law, brother of the wife, master, teacher and the person from whom the money is borrowed come   (49).
+O Maheśvara! despite of all efforts, if the Maheśvaras are not available, then all the rites of worship of the feet of ancestors should be accomplished on the 'Vistar' made up of kuśā and putting the bell and the ball of sacred ashes on it (50). The offering of food in the name of ancestors should be given to the cows and 'daksiņā' (offering in terms of money) to the brahmins. One can also secure the great result of worship by performing it in the above process (51).
+One who observes the worship for the parents as per the procedures laid down here, acquires a long life, wealth and all happiness of the children and achieves respect in the sphere of Śiva (52).
+One who does not perform the rites of worship of the ancestors on account of being atheist or lethargic, takes the birth of a crow for hundred times and lastly is born as a dog (53).
+
+
+--- Page 118 ---
+90
+Makutāgama
+Here ends the ninth chapter of the Caryāpāda of Makutāgama describing the procedure of the last rite to be performed yearly.
+Notes and References
+1. "नम आव्याधिनीभ्यो विविध्यन्तीभ्यश्च वो नमः" (Mādhya., 16.24).
+2. "तस्मे अरं गमात्म वो यस्य क्षयाय जिन्वथ। आपो जन्त्यथा च नः।। (Mādhya., 11.52).
+3. "शं नो देवीरमिष्ट्य आपो भवन्तु पीतये। शं योर मिस्रवन्तु नः।।" (Mādhya., 36.12).
+4. "विंशत्तन्तुकृता वेणी बहिर्षां विष्टरः स्मृतः" (Kriyāpāda 6.5). It is stated in Mrgendrāgama that the systematic combination of twenty fibres of Kuśā is known as 'Vistar'
+5. In vedic ritual, pouring of the unbroken flow of ghee from one corner to the other is called 'vyādhāraṇa'. Same rite is named here as 'abhidhāraṇa'.
+6. See the note no. 7 of the second chapter of Kriyāpāda.
+7. "देव सवितः प्रसुव यज्ञं प्रसुव यज्ञपर्ति भगाय। दिन्यो गन्धर्वः केतपूः केतं नः पुनातु वाचस्पतिवीचं नः स्वदतु स्वाहा।।" (Mādhya., 9.1).
+8. "पृथिवी ते पात्रं द्यौरपिधानं ब्रह्मणस्त्वा मुखे जुहोमि स्वाहा"।
+9. See verse 39.
+10. "त्र्यम्बकं यजामहे सुगन्धिं पुष्टिवर्धनम्। उर्वारुकमिव बन्धनान्मृत्योर्मुक्षीय माऽमृतात् ।।" (Mādhya., 3.60).
+11. "श्रद्धायां प्राणे निविश्यामृतं हुतं प्राणमन्नेनाप्यायस्व" (Mahānārāyaņopaniṣad, p. 39).
+12. "मधुवाता ऋतायते, मधुनक्तमुतोषसः, मधुमान्नो वनस्पतिः" (Mādhya., 13.pp-27-29) -these three hymns have here been referred to.
+13. "ऋचे त्वा रूचे भासे त्वा ज्योतिषे त्वा" (Mādhya., 13.39).
+***
+
+
+--- Page 119 ---
+Chapter-10
+दशमः पटल:
+रुद्र उवाच
+अशेषजगदाधार निराधार कृपानिधे । ममास्ति विशयः कश्चिदाशौचविषये विभो ।।१।।
+शाम्भवव्रतशुद्धेषु कथमाशौचसंगतिः । भवद्भावनया त्यक्तगात्रेषु व्रतसेविषु ।।२।।
+अमृतेषु कथं नु स्यात् तनोराशौचसंगमः । एनं मे संशयं छिन्धि सर्वज्ञानैकसागर ।।३।।
+परशिव उवाच
+साधु पृष्टं त्वया वत्स सद्भक्तानुजिघृक्षुणा । तद् गोप्यमपि वक्ष्यामि सावधानमनाः शृणु ।।४।।
+शाम्भवव्रतनिष्ठानामप्याशौचावाप्तिः
+शाम्भवव्रतशुद्धानां मत्सेवाभिरतात्मनाम् । मुक्तिभाजां तनुत्यागहेतुकाशौचसंगमः । यद्यप्यसम्भाव्य एव प्राणिदोषाप्रकाशनात् ।।५।।
+Rudra enquires -
+O Parama Śiva, the boundless basis of the universe and at the same time baseless ocean of mercy, the all pervasive! I have got some doubts regarding the eradication of the state of impurity (1). How the persons who are purified with the practice of Sambhavavrata are touched with impurity, as they leave their bodies observing the Sambhavavrata and in constant meditation? (2). They attain immortality. How the impurities be associated with the bodies of such persons? O the ocean of all wisdom! Kindly remove my doubts (3).
+Paraśiva replies -
+O son! you have asked an appropriate question for showering mercy on the honest devotees, though the answer of this question is quite secret, but I shall explain it to you. Please listen to it carefully (4).
+
+
+--- Page 120 ---
+92
+Makulāgama
+तथापि तेषां संसारसम्बद्धतनुयोगिनाम् । देहोत्पत्तिविनाशोत्थमाशौचमिह विद्यते । यतीनां तद्धि संसारयोगाभावान्न युज्यते ।।६।।
+तस्मात् संसारसम्पर्को हेतुराशौचसंगतेः । तद्योगादस्ति व्रतिनामाशौचमिति निश्चिनु ।।७।।
+आशौचे विद्यमानेऽपि नान्तरायोऽर्चने
+आशौचे विद्यमानेऽपि नान्तरायोऽर्चनस्य तु । मदर्चा विघ्नविच्छेत्री दीक्षासामर्थ्ययोगतः ।।८।।
+नैमित्तिकानां नित्यानामन्येषां कर्मणां पुनः । आशौचमूलसंकोचस्तुल्य एव ह्यदीक्षितैः ।।९।।
+आत्मन्यारोपिता येन ह्यग्नयः सोमपीथिना । उत्क्रान्तेरेव तस्य स्यादाशौचं ज्ञातिषु ध्रुवम् ।।१०।।
+The person who always remains pure by observing Śāmbhavavrata and keeps himself engrossed in my service, is capable of attaining liberation because such person is free from the possibility of contacting the impurity after death because he is not affected by the impurities like other beings (5). Still for such yogī who is associated with the world, impurities on account of birth and death is sure to occur. The sage who is unassociated with the world, remains unaffected with this impurity (6). Attachment with the world is the main cause for the contact of the impurity. If the performer of Śāmbhavavrata remains attached with the worldly affairs, then know it for certain that he will be affected by the impurities caused by the birth and death (7).
+Despite the state of impurity, worshipping Me is not supposed to be obstructed, because the dīkṣā (initiation) bestowed by guru is capable of removing all impediments (i.e. nothing can create any obstruction in worshipping Śivalinga i.e. Istalinga) (8). But as for the 'nitya' and 'naimittika' and other karmas (regular actions and rites on special occasion), the initiated has to observe the same rules and regulations concerning the state of impurity as the non-initiated person (9). One who has infused fire in himself by performing the sacrifice of
+
+
+--- Page 121 ---
+Caryāpāda
+93
+आशौचद्वैविध्यं चातुर्विध्यं च
+जातकं मृतकं चेति ह्याशौचं द्विविधं स्मृतम् । तच्चतुर्धाऽल्पमधिकमपूर्ण पूर्णमित्यपि
+।।११।।
+अल्पकालिकमल्पं स्यादधिकं कालतोऽधिकम् । अपूर्ण स्यात् त्रिरात्रादि दशाहादि तु पूर्णकम् ।। १२ ।।
+ज्ञातीनां दम्पत्योः सोदराणां वर्णानां चाशौचकालः
+स्त्रावे मातुस्त्रिरात्रं स्याज्ज्ञातीनां तन्न विद्यते । पाते मातुर्माससंख्यं पित्रादीनां दिनत्रयम् ।।१३।।
+दशाहमुक्तं विप्रस्य द्वादशाहं नृपस्य तु । विशः पञ्चदशाहं तु मासः शूद्रस्य सम्मतम् ।।१४।।
+दशाहे समतिक्रान्ते जाताशौचं न विद्यते । पुत्रस्य जन्म श्रुत्वा तु जलमाप्लुत्य शुद्ध्यति ।।१५।।
+'som', even the demise (utkrānti) of such person is sure to cause the state of impurity to the relations and friends (10).
+Impurity is said to be of two kinds i.e. of birth and death which is again divided into four, such as short, long, complete and incomplete (11). The impurity that endures for short period is called 'short' and that prolongs for a longer period is named as 'long'. Impurity for three nights is called 'incomplete' and the impurity that lasts for ten days is called 'complete' (12).
+In case of abortion¹, mother is affected for three days' impurity, but the other relations are not supposed to be affected by the impurity. In case of abortion, the duration of impurity for the mother depends on the duration of the pregnancy, where as for father, it is only for three days (13). The duration of impurity is ten days for the brahmin, twelve days for the kṣatriya, fifteen days for the vaiśyas and one month for the Śudras (14). If one is informed about the birth after ten days, then he is not affected by any impurity, but in case of receipt of information of the birth of his own son, (even after ten days) he should bathe in water in order to attain immediate purification (15). If the child expires just
+
+
+--- Page 122 ---
+94
+Makulāgama
+जाते मृते तु ज्ञातीनां सद्यः शुद्धिर्विधीयते । दशाहेनैव दम्पत्योः सोदराणां तथैव च ।।१६।।
+अजातदन्तादिषु मृतेष्वाशौचकालः
+शिशावजातदन्ते तु सद्यः शौचं विधीयते । बाले त्वकृतचौले तु स्यादहोरात्रमात्रकम् ।।१७।।
+बालस्योपनयात् पूर्वं मातापित्रोस्त्रिरात्रकम् । मरणे तूपनीतानामाशौचं पूर्णमीरितम् ।।१८।।
+ज्ञातीनां स्याद्दशाहं तु सोदकानां त्रिरात्रकम् । सगोत्राणां स्नानमात्रं तदन्येषां न विद्यते ।।१९।।
+मातुलादिषु मृतेष्वाशौचविधिः
+मृतौ तु मातुलादीनां त्रिरात्रमिति चोदितम् । मरणे बान्धवानां तु पक्षिण्याशौचमीरितम् ।। २० ।।
+आ त्रिमासात् त्रिरात्रं स्यादा षण्मासात्तु पक्षिणी आ वत्सरादहोरात्रं ततः स्नानेन शुद्ध्यति ।।२१।।
+after the birth, then relatives get purified at once, but the parents and brothers attain purification after ten days (16).
+If the child expires before teething, then also the relatives are purified at once. If the child expires before the ritual of hair-cut, then the impure state should be observed for only day and night (17). If the son expires before having the sacred thread ceremony, then the parents should observe impurity for three nights and if he dies after having the sacred thread ceremony, then full time impurity of ten days should be observed (18). Regarding the above, kins should observe the state of impurity for full ten days, near relatives three nights², the person of the same lineage should only take bath for purification; for later generation and for others no purification is required (19).
+On the expiry of maternal uncle etc. three nights' impurity and on the death of kins and friends two days' impurity should be observed (20). If the news of expiry is received after three months, then three
+
+
+--- Page 123 ---
+Caryāpāda
+95
+बहूनामाशौचानां तन्त्रेण शुद्धिः
+बहूनामपि सम्प्राप्तौ तन्त्रेणैव हि शुद्ध्यति । समानमल्पकं वाऽपि प्रथमेन समापयेत् ।।२२।।
+मरणाशौचस्य प्राधान्यम्
+जातके मृतकं वाऽपि मृतके वाऽपि जातकम्। यदि स्यान्मृतकस्यैव प्राधान्यं परिकीर्तितम् । पित्रोस्तु मरणाशौचमन्याशौचस्य बाधकम् ।।२३।।
+पितुर्दशाहमध्ये तु माता यदि मृता भवेत् । पितुः पूर्ण तु निर्वर्त्य मातुर्गुहणीत पक्षिणीम् ।। २४।।
+शवानुगमे शुद्धिविधिः
+अनुगम्य शवं विप्रो ज्ञातेरन्यस्य वा पुनः । स्नात्वा च भस्मनोद्धूल्य मां दृष्ट्वैव विशुद्ध्यति ।। २५ ।।
+nights' impurity is to be observed, two days' impurity on the information after six months and one day and night's impurity is to be observed if the information is received after one year. After that, purification is attained on bathing only (21).
+If one is affected with various impurities (due to demise of many persons), then purification is attained at a time. The impurities of the same days or less days come to an end with the first impurity (22).
+If the impurity caused by the birth and death coincides, then the impurity caused by the death is to be considered important. Thus the expiry of parents should be considered as the obstructive to the other impurities (23). If the death of mother occurs within ten days of the expiry of father, then after observing the full impurity and last rites for father, impurity for mother for two days more should be observed (24).
+If one accompanies the funeral procession of any brahmin, relatives or friend, then he achieves purification after taking bath, besmearing the sacred ashes and having my 'darśana' (25).
+
+
+--- Page 124 ---
+96
+Makulāgama
+नैष्ठिकादीनामाशौचं नास्ति
+नैष्ठिकानां वनस्थानां यतीनां ब्रह्मचारिणाम् । न जन्ममरणोद्भूतमाशौचमिह विद्यते ।।२६।।
+सद्यः शौचविधानम्
+दाने विवाहे यज्ञे च संग्रामे देशविप्लवे । आपद्यपि च कष्टायां सद्यः शौचं विधीयते ।। २७।।
+सन्ध्या पूजा च कदापि न त्याज्या
+सूतके मृतके चैव सन्ध्यां पूजां न सन्त्यजेत् । उपांशुसन्ध्यां पूजां तु कुर्यात् त्रिकरणैरपि ।।२८।।
+ग्रन्थोपसंहारः
+शाम्भवव्रतिनां धर्माः संक्षेपेण मयेरिताः । श्रद्धावन्तो विमुच्यन्ते क्लिश्नन्त्यन्ये विमोहिताः ।। २९ ।।
+Naistik (one who performs prescribed rituals regularly), one who has retired from active life, ascetic and brahmacāri (avowed celibate) are not affected by the impurities caused by births and deaths (26).
+In case of alms giving, marriage, sacrifice, war, revolution in the country, emergency and immense suffering, immediate purification is prescribed (27).
+'Sandhyā' (regular adoration) and the worship of Istalinga should never be abandoned even on the occurance of impurity caused by birth and death. During such time regular worship and the worship of Iştalinga should be performed by 'trikarana', the process of upānsu (with mind, speech and body i.e. during the impurity worships should be performed in such a way that the recitation of the hymn should not be within the hearing of the other people) (28).
+Thus, I have narrated, in brief, the rites to be performed by the observers of the Sambhavavrata. One who keeps faith in it, attains freedom, where as non-believers suffer on account of attachment (29).
+
+
+--- Page 125 ---
+Caryāpāda
+97
+मकुटं धर्मशास्त्रं तु मदीयं मकुटायितम् । पठनीयं प्रयत्नेन मत्प्रसादाभिकाङ्क्षिणा ।।३०।।
+इति श्रीमकुटागमे उत्तरभागे चर्यापादे आशौचविधिकथनं नाम दशमः पटलः ।।१०।।
+।। समाप्तश्चायं मकुटागमः ।।
+This religious scripture namely 'Makuta' is the gem of the crown of all the scriptures advocated by Me. One who seeks my grace, should study it carefully (30).
+Here ends the tenth chapter of the Caryāpāda of the later portion of Makuțāgama narrating the procedures for the purification of the impurity.
+End of Makuțāgama.
+Notes and References
+1. Abortion upto four months is called 'srāva'; on fifth and sixth months is called 'pāta' and on the seventh months and onwards is named as 'prasūti' (Dhrama., p. 1161).
+2. In Dharamaśāstra, the last rites (śrāddha) performed for the ancestors are named as 'sapinda', 'sodaka' and 'sagotra'. Śrāddha performed for the seven generations upward is called 'sapinda', upto fourteen generations upward from seventh is called 'sodaka' and upto twentyone generations is named as 'sagotra' (Dharmaśāstra, pp. 1161-1162).
+3. The defilement that occurs owing to the birth and death of the kins, is considered to be empirical. Strict celibate, person retired from the active family life and sages are exempted i.e. remain untouched with the defilement.
+***
+
+
