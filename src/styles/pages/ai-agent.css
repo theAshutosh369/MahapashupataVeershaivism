@@ -404,6 +404,60 @@
     font-size: var(--font-sm);
 }
 
+/* Inline conversation search */
+.chat-in-conv-search {
+    margin: 12px auto 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 720px;
+    padding: 8px 12px;
+    border-radius: 12px;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+}
+
+.chat-in-conv-search-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 14px;
+    color: var(--color-text);
+}
+
+.chat-in-conv-prev,
+.chat-in-conv-next,
+.chat-in-conv-clear {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 6px 8px;
+    border-radius: 8px;
+}
+
+.chat-in-conv-prev:hover,
+.chat-in-conv-next:hover,
+.chat-in-conv-clear:hover {
+    background: var(--color-white);
+}
+
+/* Highlighting */
+.chat-highlight {
+    background: #fff0b3;
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
+.chat-match-snippet {
+    font-size: 13px;
+    color: #374151;
+    background: rgba(122, 31, 31, 0.03);
+    padding: 8px 10px;
+    border-radius: 8px;
+}
+
 .ai-message {
     padding: 12px 0;
     border-radius: 16px;
