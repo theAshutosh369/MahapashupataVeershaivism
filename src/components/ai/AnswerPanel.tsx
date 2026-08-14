@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+import type { Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import type { RAGSource } from '../../types/rag';
 import '../../styles/components/answerPanel.css';
-import { isDocumentSource, formatCitationSummary } from './formatCitation';
+import { isDocumentSource, formatCitationSummary, linkifyCitations } from './formatCitation';
+import CitationPanel from './CitationPanel';
 
 // ─── Inline SVG Icons ──────────────────────────────────────────────────────
 
@@ -39,6 +41,7 @@ type AnswerPanelProps = {
 export default function AnswerPanel({ answer, sources, loading, onCopyAnswer }: AnswerPanelProps) {
     const [showSources, setShowSources] = useState(false);
     const [copied, setCopied] = useState(false);
+    const [activeCitation, setActiveCitation] = useState<number | null>(null);
     const sourceCount = sources.length;
 
     function handleCopy() {
@@ -47,13 +50,40 @@ export default function AnswerPanel({ answer, sources, loading, onCopyAnswer }: 
         setTimeout(() => setCopied(false), 2000);
     }
 
+    const markdownComponents: Components = {
+        a: ({ href, children }) => {
+            if (href && href.startsWith('#cite-')) {
+                const n = Number(href.slice('#cite-'.length));
+                return (
+                    <button
+                        type="button"
+                        className="citation-link"
+                        onClick={() => setActiveCitation(n)}
+                        aria-label={`View source ${n}`}
+                    >
+                        {children}
+                    </button>
+                );
+            }
+            return (
+                <a href={href} target="_blank" rel="noopener noreferrer">
+                    {children}
+                </a>
+            );
+        }
+    };
+
+    const processedAnswer = linkifyCitations(answer, sourceCount);
+
     return (
         <div className="assistant-bubble">
             {/* Answer text */}
             <div className="markdown-content" style={{ color: '#1f2937', fontSize: 'var(--font-body)' }}>
                 {answer ? (
                     <>
-                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{answer}</ReactMarkdown>
+                        <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
+                            {processedAnswer}
+                        </ReactMarkdown>
                         {loading && (
                             <span aria-hidden="true" style={{ display: 'inline-block', marginLeft: 2, verticalAlign: 'baseline' }}>
                                 <span style={{ display: 'inline-block', width: 2, height: '1.05em', background: '#7A1F1F', borderRadius: 1, transform: 'translateY(3px)', animation: 'bb_cursor_blink 1s steps(2, end) infinite' }} />
@@ -70,16 +100,10 @@ export default function AnswerPanel({ answer, sources, loading, onCopyAnswer }: 
                 )}
             </div>
 
-
             {/* Action buttons below answer */}
             {!loading && answer && (
                 <div className="assistant-actions">
-                    <button
-                        type="button"
-                        className="assistant-action-btn"
-                        onClick={handleCopy}
-                        title="Copy answer"
-                    >
+                    <button type="button" className="assistant-action-btn" onClick={handleCopy} title="Copy answer">
                         {copied ? <CheckIcon /> : <CopyIcon />}
                         <span>{copied ? 'Copied' : 'Copy'}</span>
                     </button>
@@ -95,7 +119,6 @@ export default function AnswerPanel({ answer, sources, loading, onCopyAnswer }: 
                         </button>
                     )}
                 </div>
-
             )}
 
             {/* Sources panel (inline, collapsible) */}
@@ -124,6 +147,15 @@ export default function AnswerPanel({ answer, sources, loading, onCopyAnswer }: 
                         ))}
                     </div>
                 </div>
+            )}
+
+            {/* Citation click-through panel */}
+            {activeCitation !== null && (
+                <CitationPanel
+                    source={sources[activeCitation - 1] ?? null}
+                    index={activeCitation}
+                    onClose={() => setActiveCitation(null)}
+                />
             )}
         </div>
     );

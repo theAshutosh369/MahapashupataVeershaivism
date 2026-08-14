@@ -35,3 +35,92 @@
 .assistant-action-btn svg {
     stroke: #374151;
 }
+
+
+.citation-link {
+    display: inline;
+    color: #7A1F1F;
+    background: rgba(122, 31, 31, 0.08);
+    border: none;
+    border-radius: 4px;
+    padding: 0 3px;
+    font-size: 0.85em;
+    font-weight: 600;
+    cursor: pointer;
+    vertical-align: super;
+    line-height: 1;
+}
+
+.citation-link:hover {
+    background: rgba(122, 31, 31, 0.18);
+    text-decoration: underline;
+}
+
+.citation-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 16px;
+}
+
+.citation-modal {
+    width: min(520px, 100%);
+    max-height: 80vh;
+    overflow-y: auto;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.citation-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+    color: #7A1F1F;
+    margin-bottom: 8px;
+}
+
+.citation-modal-header button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 16px;
+    color: #6b7280;
+}
+
+.citation-modal-title {
+    font-weight: 600;
+    font-size: 16px;
+    color: #1f2937;
+    margin-bottom: 4px;
+}
+
+.citation-modal-meta {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 10px;
+}
+
+.citation-modal-label {
+    font-weight: 600;
+    font-size: 13px;
+    color: #374151;
+    margin: 10px 0 6px;
+}
+
+.citation-modal-excerpt {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #1f2937;
+    white-space: pre-wrap;
+    font-family: "Noto Sans Kannada", sans-serif;
+}
