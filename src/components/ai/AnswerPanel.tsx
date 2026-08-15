@@ -51,6 +51,18 @@ export default function AnswerPanel({ answer, sources, loading, onCopyAnswer }: 
     }
 
     const markdownComponents: Components = {
+        h1: ({ children }) => <h1 className="answer-heading answer-heading-1">{children}</h1>,
+        h2: ({ children }) => <h2 className="answer-heading answer-heading-2">{children}</h2>,
+        h3: ({ children }) => <h3 className="answer-heading answer-heading-3">{children}</h3>,
+        h4: ({ children }) => <h4 className="answer-heading answer-heading-4">{children}</h4>,
+        p: ({ children }) => <p className="answer-paragraph">{children}</p>,
+        strong: ({ children }) => <strong className="answer-strong">{children}</strong>,
+        em: ({ children }) => <em className="answer-em">{children}</em>,
+        ul: ({ children }) => <ul className="answer-list answer-list-unordered">{children}</ul>,
+        ol: ({ children }) => <ol className="answer-list answer-list-ordered">{children}</ol>,
+        li: ({ children }) => <li className="answer-list-item">{children}</li>,
+        blockquote: ({ children }) => <blockquote className="answer-blockquote">{children}</blockquote>,
+        hr: () => <hr className="answer-divider" />,
         a: ({ href, children }) => {
             if (href && href.startsWith('#cite-')) {
                 const n = Number(href.slice('#cite-'.length));
@@ -78,7 +90,7 @@ export default function AnswerPanel({ answer, sources, loading, onCopyAnswer }: 
     return (
         <div className="assistant-bubble">
             {/* Answer text */}
-            <div className="markdown-content" style={{ color: '#1f2937', fontSize: 'var(--font-body)' }}>
+            <div className="markdown-content answer-markdown-shell">
                 {answer ? (
                     <>
                         <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>

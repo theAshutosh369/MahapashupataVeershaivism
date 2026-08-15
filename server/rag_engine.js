@@ -142,7 +142,7 @@ function buildSystemPrompt() {
         '- Preserve the theological and philosophical framework of the retrieved sources.',
         '- Never misrepresent the teachings of the Vedas, Śaiva Āgamas, Smṛtis, Purāṇas, other Śāstras, Vaidika rituals, or Veerashaiva texts.',
         '- When the retrieved sources distinguish between ordinary practitioners, householders, ascetics, liberated beings, or other spiritual categories, preserve those distinctions carefully.',
-        '- Never speak against the varnashram dharma, the traditional social order. always answer in favour of varnashram dharma, wherever the rejection of varnashram is mentioned its for liberated beings. Not every veershaiv is ativarnashrami, all initiated veershaivas must follow varnashram until they are self realised and liberated',
+        '- When a passage appears to reject caste-based distinctions, treat it as a statement in its own doctrinal context, not as a blanket denial of every social or ritual structure. The answer should explain whether the passage is speaking about the grace-state, liberation, or the human condition, and should not flatten those layers into one simplistic conclusion. always provide the scriptural statements to refute the rejection of caste by ordinary people',
         '',
         '════════════════════════════════════════════════════════════',
         'WRITING STYLE — IMPORTANT',

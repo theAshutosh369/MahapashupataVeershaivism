@@ -47,6 +47,14 @@ function AiAgent() {
     const inputRef = useRef<HTMLTextAreaElement>(null);
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
+    // Auto-resize textarea as user types
+    function autoResizeTextarea() {
+        const textarea = inputRef.current;
+        if (!textarea) return;
+        textarea.style.height = 'auto';
+        textarea.style.height = Math.min(textarea.scrollHeight, 360) + 'px';
+    }
+
     // Conversation search state
     const [conversationSearch, setConversationSearch] = useState('');
     const [activeMatchIndex, setActiveMatchIndex] = useState(0);
@@ -129,7 +137,11 @@ function AiAgent() {
 
     function handleAsk() {
         ask();
-        // Focus remains on input for follow-ups.
+        // Reset textarea to compact state after sending
+        if (inputRef.current) {
+            inputRef.current.style.height = 'auto';
+            inputRef.current.style.height = '1.5rem';
+        }
     }
 
     return (
@@ -231,9 +243,11 @@ function AiAgent() {
                                             }}
                                         >
                                             {turn.role === 'user' ? (
-                                                <div className="message-bubble">
+                                                <div className="message-bubble user-message-bubble">
                                                     <div className="message-bubble-label">You</div>
-                                                    <div>{typeof turn.content === 'string' ? renderHighlighted(turn.content, conversationSearch) : turn.content}</div>
+                                                    <div className="message-bubble-text">
+                                                        {typeof turn.content === 'string' ? renderHighlighted(turn.content, conversationSearch) : turn.content}
+                                                    </div>
                                                 </div>
                                             ) : (
                                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8, maxWidth: '100%' }}>
@@ -310,7 +324,10 @@ function AiAgent() {
                                     <textarea
                                         ref={inputRef}
                                         value={prompt}
-                                        onChange={(e) => setPrompt(e.target.value)}
+                                        onChange={(e) => {
+                                            setPrompt(e.target.value);
+                                            autoResizeTextarea();
+                                        }}
                                         onKeyDown={(e) => {
                                             if (e.key === 'Enter' && !e.shiftKey) {
                                                 e.preventDefault();
@@ -319,7 +336,6 @@ function AiAgent() {
                                         }}
                                         placeholder="Ask a question..."
                                         className="ai-chat-textarea"
-                                        rows={1}
                                         disabled={loading}
                                     />
                                     {loading ? (
