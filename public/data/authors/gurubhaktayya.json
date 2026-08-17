@@ -1,0 +1,28 @@
+{
+  "id" : 226,
+  "kannadaName" : "ಗುರುಭಕ್ತಯ್ಯ",
+  "englishName" : "gurubhaktayya",
+  "vachanaCount" : 0,
+  "vachanas" : [ {
+    "authorId" : 226,
+    "number" : 1,
+    "akshara" : "a",
+    "kannada" : "ಅಂಗದ ಹೊಲಬನರಿದಲ್ಲದೆ\nಲಿಂಗದ ನೆಲೆಯನರಿಯಬಾರದು.\nಲಿಂಗದ ನೆಲೆಯನರಿದಲ್ಲದೆ\nನಿಜನಿರ್ಣಯವ ತಿಳಿಯಬಾರದು.\nನಿಜನಿರ್ಣಯವ ತಿಳಿದಲ್ಲದೆ ತನ್ನ ತಾನರಿಯಬಾರದು.\nಗುರುಕರುಣದಿಂದ ತನ್ನ ತಾನರಿದ ಶರಣಂಗೆ\nಅಂಗಕ್ಕೆ ಆಚಾರವಿಲ್ಲ, ಲಿಂಗಕ್ಕೆ ಕುರುಹಿಲ್ಲ.\nಗುರುಬಸವೇಶನೆಂಬುದಕ್ಕೆ ಕುರುಹು ಮುನ್ನಿಲ್ಲ.",
+    "transliteration" : "aṅgada holabanaridallade\nliṅgada neleyanariyabāradu.\nliṅgada neleyanaridallade\nnijanirṇayava tiḷiyabāradu.\nnijanirṇayava tiḷidallade tanna tānariyabāradu.\ngurukaruṇadinda tanna tānarida śaraṇaṅge\naṅgakke ācāravilla, liṅgakke kuruhilla.\ngurubasavēśanembudakke kuruhu munnilla.",
+    "translation" : ""
+  }, {
+    "authorId" : 226,
+    "number" : 2,
+    "akshara" : "ga",
+    "kannada" : "ಗುರು ಪರಬ್ರಹ್ಮಮಗಣಿತಮಗೋಚರಂ.\nಗುರು ಪರಂ ಜ್ಞಾನಮಾನಂದರೂಪಂ.\nಗುರು ಪರಮತೇಜ ಬೀಜಾದಿ ಪಂಚಾಕ್ಷರಂ.\nಗುರು ಪಾದಕೋಟ್ಯಷ್ಟ ತೀರ್ಥಂಗಳಂ.\nಗುರು ವಚನರಚನ ಉಪದೇಶ ಮಂತ್ರಂ.\nಗುರು ಭಕ್ತಿ ಮುಕ್ತಿ ಮೋಕ್ಷ ಕಾರಣ ಇಹಪರಂ.\nಗುರು ಘನತರದ ಮಹಿಮೆಯನು ಗುರುಬಸವನೆ ಬಲ್ಲ",
+    "transliteration" : "guru parabrahmamagaṇitamagōcaraṁ.\nguru paraṁ jñānamānandarūpaṁ.\nguru paramatēja bījādi pan̄cākṣaraṁ.\nguru pādakōṭyaṣṭa tīrthaṅgaḷaṁ.\nguru vacanaracana upadēśa mantraṁ.\nguru bhakti mukti mōkṣa kāraṇa ihaparaṁ.\nguru ghanatarada mahimeyanu gurubasavane balla",
+    "translation" : ""
+  }, {
+    "authorId" : 226,
+    "number" : 3,
+    "akshara" : "ma",
+    "kannada" : "ಮೋನವೇನೊ ಮೂಲಮಂತ್ರ ಮುಖದಲ್ಲಿರಲು?\nಆಹ್ವಾನವೇನೂ ನಿಜ ಪರಿಪೂರ್ಣ ತನ್ನೊಳಗಿರಲು\nಧ್ಯಾನವೇನೊ ಸಹಜಧ್ಯಾನದ ಬೆಳಗೊಳಗೊಂಡವಂಗೆ?\nಜಪವೆಂದೇನೊ ತಾನು ತಾನಾದವಂಗೆ\nಬಯಲನರಸುವ ಮರುಳರಂತೆ ಗುರುಬಸವ.",
+    "transliteration" : "mōnavēno mūlamantra mukhadalliralu?\nāhvānavēnū nija paripūrṇa tannoḷagiralu\ndhyānavēno sahajadhyānada beḷagoḷagoṇḍavaṅge?\njapavendēno tānu tānādavaṅge\nbayalanarasuva maruḷarante gurubasava.",
+    "translation" : ""
+  } ]
+}

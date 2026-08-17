@@ -1,0 +1,13 @@
+{
+    "name": "vachana-sanchaya-server",
+    "private": true,
+    "type": "module",
+    "version": "0.0.0",
+    "main": "server.js",
+    "scripts": {
+        "dev": "node server.js"
+    },
+    "dependencies": {
+        "express": "^4.19.2"
+    }
+}

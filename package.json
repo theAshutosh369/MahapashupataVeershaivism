@@ -1,0 +1,44 @@
+{
+  "name": "vachana-sanchaya",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "server-main": "node server/server.js",
+    "server-dataset": "node server/dataset_server.js",
+    "server-list": "node server/datasets_list_server.js",
+    "frontend": "vite",
+    "start": "npm-run-all --parallel server-main server-dataset server-list frontend"
+  },
+  "dependencies": {
+    "@google/genai": "^0.6.1",
+    "@xenova/transformers": "^2.0.3",
+    "cors": "^2.8.6",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-markdown": "^9.0.0",
+    "react-router-dom": "^7.18.0",
+    "react-window": "^2.2.7",
+    "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^24.13.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@types/react-window": "^1.8.8",
+    "@vitejs/plugin-react": "^6.0.2",
+    "eslint": "^10.5.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.3",
+    "globals": "^17.6.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.9.4",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.61.0",
+    "vite": "^8.1.0"
+  }
+}

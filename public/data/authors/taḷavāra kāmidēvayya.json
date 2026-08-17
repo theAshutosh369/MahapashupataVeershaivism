@@ -1,0 +1,77 @@
+{
+  "id" : 100,
+  "kannadaName" : "ತಳವಾರ ಕಾಮಿದೇವಯ್ಯ",
+  "englishName" : "taḷavāra kāmidēvayya",
+  "vachanaCount" : 0,
+  "vachanas" : [ {
+    "authorId" : 100,
+    "number" : 1,
+    "akshara" : "e",
+    "kannada" : "ಎತ್ತಾಗಿದ್ದು ಹೆಗಲ ಕೊಡೆನೆಂದಡೆ ನಿಶ್ಚಯವೆ?\nತೊತ್ತಾಗಿದ್ದು ಹೇಳಿದುದ ಕೇಳೆನೆಂದಡೆ ಮೆಚ್ಚುವರೆ?\nಭಕ್ತನಾಗಿದ್ದು ಭಾರಣೆಯನಾದರಿಸದಿದ್ದಡೆ ಅದು ಅಚ್ಚಿಗವೆಂದೆ,\nಕಾಮಹರಪ್ರಿಯ ರಾಮನಾಥ.",
+    "transliteration" : "ettāgiddu hegala koḍenendaḍe niścayave?\ntottāgiddu hēḷiduda kēḷenendaḍe meccuvare?\nbhaktanāgiddu bhāraṇeyanādarisadiddaḍe adu accigavende,\nkāmaharapriya rāmanātha.",
+    "translation" : ""
+  }, {
+    "authorId" : 100,
+    "number" : 2,
+    "akshara" : "ka",
+    "kannada" : "ಕಾಲವಂಚಕನಾಗಿ ಜಂಗಮಕಿಕ್ಕಿದಡೆ ಕರ್ಮವೆ ತಿಂಬುದು.\nಉಪಚರಿಸಿಕೊಂಬವನಾಗಿ ತ್ರಿಸಂಧಿಯಲ್ಲಿ ಲಿಂಗಪೂಜೆಯ ಮಾಡಿದಡೆ\nಅದು ಹಸಿವಿಲ್ಲದ ಗ್ರಾಸ, ಅಸಮಾಕ್ಷನ ಮುಟ್ಟದು.\nಇವು ಹುಸಿಯಲ್ಲವೆಂದೆ,\nಕಾಮಹರಪ್ರಿಯ ರಾಮನಾಥಾ.",
+    "transliteration" : "kālavan̄cakanāgi jaṅgamakikkidaḍe karmave timbudu.\nupacarisikombavanāgi trisandhiyalli liṅgapūjeya māḍidaḍe\nadu hasivillada grāsa, asamākṣana muṭṭadu.\nivu husiyallavende,\nkāmaharapriya rāmanāthā.",
+    "translation" : ""
+  }, {
+    "authorId" : 100,
+    "number" : 3,
+    "akshara" : "ma",
+    "kannada" : "ಮನೆಯನೊಪ್ಪಿಸಿ ಕೊಟ್ಟುವಂಗೆ ಹಿಂದೆಸೆಯ ಹಂಗೇಕೆ?\nಮಾಡಿಹೆನೆಂಬ ಮಾಟವುಳ್ಳವಂಗೆ ಅವರಿವರಾಡಿಹರೆಂಬ ಸಂದೇಹವೇಕೆ?\nಗುಡಿಯ ಕಟ್ಟಿದ ಮತ್ತೆ ಹಡಹಲ್ಲದೆ ಅವರಡಿಯನರಸಲೇಕೆ?\nಕಾಮಹರಪ್ರಿಯ ರಾಮನಾಥಾ.",
+    "transliteration" : "maneyanoppisi koṭṭuvaṅge hindeseya haṅgēke?\nmāḍ'̔ihenemba māṭavuḷḷavaṅge avarivarāḍ'̔iharemba sandēhavēke?\nguḍiya kaṭṭida matte haḍahallade avaraḍiyanarasalēke?\nkāmaharapriya rāmanāthā.",
+    "translation" : ""
+  }, {
+    "authorId" : 100,
+    "number" : 4,
+    "akshara" : "ma",
+    "kannada" : "ಮೂರ ಮುದುಡಿಸಿ ಆರನಡಗಿಸಿ\nಎಂಟ ಗಂಟಿಕ್ಕಿ ನಾಲ್ಕು ಸೆರಗ ಹಾಸಿ\nಎರಡರಲ್ಲಿ ಬಂಧಿಸಿ ಒಂದುಗೂಡಿ\nಮಂಡೆಯ ಮೇಲೆತ್ತಿದವಂಗೆ ಮತ್ತೆ ಅವು ಹಿಂಗುವ ಠಾವಿಲ್ಲ,\nಕಾಮಹರಪ್ರಿಯ ರಾಮನಾಥಾ.",
+    "transliteration" : "mūra muduḍisi āranaḍagisi\neṇṭa gaṇṭikki nālku seraga hāsi\neraḍaralli bandhisi ondugūḍi\nmaṇḍeya mēlettidavaṅge matte avu hiṅguva ṭhāvilla,\nkāmaharapriya rāmanāthā.",
+    "translation" : ""
+  }, {
+    "authorId" : 100,
+    "number" : 5,
+    "akshara" : "ma",
+    "kannada" : "ಮನವನೊಪ್ಪಿಸುವ ಠಾವಿನಲ್ಲಿ ಹೆಣ್ಣ ಬೇಡಿದಡೆ ನೋಯಲೇಕೆ?\nಧನವನೊಪ್ಪಿಸುವ ಠಾವಿನಲ್ಲಿ ನಿಷು*ರ ಬಂದಡೆ ತಾಳಬೇಕು.\nತನುವನೊಪ್ಪಿಸುವ ಠಾವಿನಲ್ಲಿ ಅಸಿಯಲ್ಲಿ ಕುಸಿಕಿರಿದಡೆ\nಹುಸಿಯೆನ್ನದಿರ್ದಡೆ ಇವೆಲ್ಲವೂ ಕಸರಜದ ಗುಣ,\nಭಕ್ತಿಯ ಸತ್ವದ ನಿತ್ಯತ್ವವಿಲ್ಲೆಂದೆ,\nಕಾಮಹರಪ್ರಿಯ ರಾಮನಾಥಾ.",
+    "transliteration" : "manavanoppisuva ṭhāvinalli heṇṇa bēḍidaḍe nōyalēke?\ndhanavanoppisuva ṭhāvinalli niṣu*ra bandaḍe tāḷabēku.\ntanuvanoppisuva ṭhāvinalli asiyalli kusikiridaḍe\nhusiyennadirdaḍe ivellavū kasarajada guṇa,\nbhaktiya satvada nityatvavillende,\nkāmaharapriya rāmanāthā.",
+    "translation" : ""
+  }, {
+    "authorId" : 100,
+    "number" : 6,
+    "akshara" : "va",
+    "kannada" : "ವ್ಯವಹಾರವ ಮಾಡಿದಲ್ಲಿ ಲಾಭವ ಕಾಣದಿರ್ದಡೆ\nಆ ವ್ಯವಹಾರವೇತಕ್ಕೆ?\nಗುರುಲಿಂಗ ಜಂಗಮಕ್ಕೆ ಖ್ಯಾತಿಗೆ ಮಾಡಿದಡೆ\nಮೊದಲು ತಪ್ಪಿ ಲಾಭವನರಸುವಂತೆ,\nಕಾಮಹರಪ್ರಿಯ ರಾಮನಾಥಾ.",
+    "transliteration" : "vyavahārava māḍidalli lābhava kāṇadirdaḍe\nā vyavahāravētakke?\nguruliṅga jaṅgamakke khyātige māḍidaḍe\nmodalu tappi lābhavanarasuvante,\nkāmaharapriya rāmanāthā.",
+    "translation" : ""
+  }, {
+    "authorId" : 100,
+    "number" : 7,
+    "akshara" : "ha",
+    "kannada" : "ಹುಟ್ಟುವ ಜೀವಿಗಳೆಲ್ಲರೂ ಹಲವು ತೆರದ ಘಟದಲ್ಲಿ ಬಂದು\nತಮ್ಮ ಕ್ಷುತ್ತುವ ಕೊಂಬಂತೆ\nಮತ್ರ್ಯದಲ್ಲಿ ಬಂದವರೆಲ್ಲರೂ ನಿಶ್ಚಯರಪ್ಪರೆ?\nಬಚ್ಚತ ಹರಿಯಜ ರುದ್ರರು ಮೊದಲಾದವರೆಲ್ಲರೂ\nಸಿಕ್ಕಿದರೇಕೆ ಮಾಯೆಗೆ?\nಇದರಚ್ಚಿಗವ ಕಂಡು ನಾನು ಭಕ್ತನೆಂದಡೆ ತಪ್ಪ ಸಾಧಿಸುವ\nಕಾಮಹರಪ್ರಿಯ ರಾಮನಾಥಾ.",
+    "transliteration" : "huṭṭuva jīvigaḷellarū halavu terada ghaṭadalli bandu\ntam'ma kṣuttuva kombante\nmatryadalli bandavarellarū niścayarappare?\nbaccata hariyaja rudraru modalādavarellarū\nsikkidarēke māyege?\nidaraccigava kaṇḍu nānu bhaktanendaḍe tappa sādhisuva\nkāmaharapriya rāmanāthā.",
+    "translation" : ""
+  }, {
+    "authorId" : 100,
+    "number" : 8,
+    "akshara" : "ha",
+    "kannada" : "ಹಸಿವು ಮುಂತಾಗಿ ಬಹಾತನ ಮನೆಯೊದವ ಬಲ್ಲನೆ?\nವಿಷಯವಾವರಿಸಿದಾತ ಸ್ತುತಿ ನಿಂದ್ಯಾದಿಗಳ ಬಲ್ಲನೆ?\nಖ್ಯಾತಿಯ ಲಾಭಕ್ಕೆ ಮಾಡುವಾತ ಭ್ರಾಂತಳಿದಿರಬಲ್ಲನೆ?\nಇಂತಿವನರಿದು ಮಾಡುವ ಭಕ್ತರು\nಆಪ್ಯಾಯನಕ್ಕೆ ಅನ್ನ ಅಶಕಂಗೆ ಹೊನ್ನು ವಿಷಯಾದಿಗೆ ಹೆಣ್ಣು\nಇಚ್ಛೆಯನರಿದು ಒದಗಿದಲ್ಲಿ ಕೊಟ್ಟು\nಈ ತ್ರಿವಧಕುಚಿತವೆಂದವರನರಿಯಬೇಕು.\nಕಾಮಹರಪ್ರಿಯ ರಾಮನಾಥಾ.",
+    "transliteration" : "hasivu muntāgi bahātana maneyodava ballane?\nviṣayavāvarisidāta stuti nindyādigaḷa ballane?\nkhyātiya lābhakke māḍuvāta bhrāntaḷidiraballane?\nintivanaridu māḍuva bhaktaru\nāpyāyanakke anna aśakaṅge honnu viṣayādige heṇṇu\niccheyanaridu odagidalli koṭṭu\nī trivadhakucitavendavaranariyabēku.\nkāmaharapriya rāmanāthā.",
+    "translation" : ""
+  }, {
+    "authorId" : 100,
+    "number" : 9,
+    "akshara" : "ha",
+    "kannada" : "ಹಾದರವನಾಡುವನೆ ಸದ್ಭಕ್ತ?\nಹಾದಿಯ ಕಟ್ಟುವನೆ ನಿಜಶರಣ?\nಹಸುಗೊಲೆಯ  ಕೊಲುವನೆ ಅಸುವಿನ ಕಲೆಯ ಬಲ್ಲವ?\nಇಂತಿವರ ನೀ ಬಲ್ಲೆ, ನಾನರಿಯೆ\nಕಾಮದಹನಪ್ರಿಯ ರಾಮನಾಥಾ.",
+    "transliteration" : "hādaravanāḍuvane sadbhakta?\nhādiya kaṭṭuvane nijaśaraṇa?\nhasugoleya  koluvane asuvina kaleya ballava?\nintivara nī balle, nānariye\nkāmadahanapriya rāmanāthā.",
+    "translation" : ""
+  }, {
+    "authorId" : 100,
+    "number" : 10,
+    "akshara" : "ha",
+    "kannada" : "ಹಾದರ ಹಸುಗೊಲೆ ವಿಷಯಂಗಳಲ್ಲಿ ಆದರಿಸಬೇಕು.\nಬಲ್ಲವರಲ್ಲಿದ್ದು ಸಾಧನೆಯಾಯಿತ್ತು.\nಎಲ್ಲರೂ ಕಲಿತ ಕಲಿಕೆಯಲ್ಲಿ ಇದನು ಭೇದಿಸಲರಿಯೆ\nಕಾಮಹರಪ್ರಿಯ ರಾಮನಾಥಾ.",
+    "transliteration" : "hādara hasugole viṣayaṅgaḷalli ādarisabēku.\nballavaralliddu sādhaneyāyittu.\nellarū kalita kalikeyalli idanu bhēdisalariye\nkāmaharapriya rāmanāthā.",
+    "translation" : ""
+  } ]
+}
