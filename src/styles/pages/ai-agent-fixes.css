@@ -42,85 +42,154 @@
     cursor: not-allowed;
 }
 
-/* Exactly one sidebar reopen control. It sits in the chat layout's top band,
-   immediately below the site navbar. */
+/* Keep exactly one reopen control and place it in the chat area below the navbar. */
 .chat-sidebar-reopen-btn {
-    position: fixed;
-    top: 10px;
-    left: 14px;
-    z-index: 1002;
     box-sizing: border-box;
-    width: 42px;
-    height: 42px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid rgba(122, 31, 31, 0.15);
-    border-radius: 10px;
-    background: #fff;
-    color: #7A1F1F;
-    cursor: pointer;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
-}
-
-.chat-sidebar-reopen-btn:hover {
-    background: #fbf1ed;
-    border-color: rgba(122, 31, 31, 0.28);
-}
-
-.chat-sidebar-reopen-btn:focus-visible {
-    outline: 2px solid rgba(122, 31, 31, 0.25);
-    outline-offset: 2px;
-}
-
-/* Keep conversation search in the same top band as the sidebar control. */
-.chat-search-floating {
-    top: 10px !important;
-    right: 16px !important;
 }
 
 .ai-chat-sidebar-toggle {
     display: none !important;
 }
 
+.ai-chat-main {
+    position: relative;
+}
+
+.ai-chat-layout {
+    position: relative;
+}
+
+.chat-sidebar-reopen-btn {
+    position: absolute !important;
+    top: 10px !important;
+    left: 12px !important;
+    z-index: 1003 !important;
+    width: 42px !important;
+    height: 42px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: 1px solid rgba(122, 31, 31, 0.15) !important;
+    border-radius: 10px !important;
+    background: #fff !important;
+    color: #7A1F1F !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12) !important;
+}
+
+.chat-sidebar-reopen-btn:hover {
+    background: #fbf1ed !important;
+    border-color: rgba(122, 31, 31, 0.28) !important;
+}
+
+.chat-sidebar-reopen-btn:focus-visible {
+    outline: 2px solid rgba(122, 31, 31, 0.25) !important;
+    outline-offset: 2px !important;
+}
+
+.chat-search-floating {
+    position: absolute !important;
+    top: 10px !important;
+    right: 16px !important;
+    z-index: 1003 !important;
+}
+
 @media (max-width: 900px) {
-    /* The sidebar is below the navbar, so the close button is never covered by it. */
+    /* Mobile sidebar is a solid drawer inside the chat area, which starts below Navbar. */
     .chat-sidebar {
-        top: 65px;
-        bottom: 0;
-        height: calc(100dvh - 65px);
-        max-height: calc(100dvh - 65px);
-        padding-top: 0;
-        z-index: 1001;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        bottom: 0 !important;
+        width: min(320px, calc(100vw - 24px)) !important;
+        height: auto !important;
+        max-height: none !important;
+        min-height: 0 !important;
+        z-index: 1002 !important;
+        background: #fff !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: translateX(-105%) !important;
+        pointer-events: none !important;
+        box-shadow: 10px 0 30px rgba(0, 0, 0, .12) !important;
     }
 
-    .chat-sidebar-header {
-        flex-shrink: 0;
+    .chat-sidebar.chat-sidebar-open {
+        transform: translateX(0) !important;
+        pointer-events: auto !important;
     }
 
     .chat-sidebar-backdrop {
-        top: 65px;
-        bottom: 0;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        z-index: 1001 !important;
+        background: rgba(17, 24, 39, .22) !important;
     }
 
+    .chat-sidebar-header,
+    .chat-sidebar-scroll,
+    .chat-sidebar-footer {
+        background: #fff !important;
+    }
+
+    .chat-sidebar-header {
+        flex-shrink: 0 !important;
+    }
+
+    /* Controls sit immediately below the Navbar: hamburger on the left, search on the right. */
     .chat-sidebar-reopen-btn {
-        top: 10px;
-        left: 12px;
-        width: 40px;
-        height: 40px;
+        position: absolute !important;
+        top: 10px !important;
+        left: 12px !important;
+        width: 42px !important;
+        height: 42px !important;
     }
 
     .chat-search-floating {
+        position: absolute !important;
         top: 10px !important;
         right: 12px !important;
     }
 
     .chat-search-floating-btn {
-        width: 40px;
-        height: 40px;
+        width: 42px !important;
+        height: 42px !important;
     }
 
-    .chat-sidebar-footer {
-        padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    /* Expanded conversation search stays in the main/right control column. */
+    .chat-in-conv-search-wrap {
+        position: absolute !important;
+        top: 0 !important;
+        left: 56px !important;
+        right: 8px !important;
+        z-index: 1004 !important;
+        padding: 8px 0 !important;
+        margin: 0 !important;
+        background: transparent !important;
+    }
+
+    .chat-in-conv-search {
+        position: relative !important;
+        top: auto !important;
+        margin: 0 !important;
+        max-width: none !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        padding: 8px 10px !important;
+        border-radius: 14px !important;
+        background: rgba(255, 255, 255, .98) !important;
+    }
+
+    .ai-chat-messages {
+        padding-top: 58px !important;
+    }
+
+    .chat-sidebar-close-btn {
+        position: relative !important;
+        z-index: 1005 !important;
+        touch-action: manipulation !important;
     }
 }
