@@ -42,8 +42,8 @@
     cursor: not-allowed;
 }
 
-/* There is exactly one sidebar reopen control. It lives in the chat layout,
-   immediately below the site navbar rather than deep inside the page. */
+/* Exactly one sidebar reopen control. It sits in the chat layout's top band,
+   immediately below the site navbar. */
 .chat-sidebar-reopen-btn {
     position: fixed;
     top: 10px;
@@ -79,36 +79,28 @@
     right: 16px !important;
 }
 
-/* No secondary AI Agent/header toggle should appear inside the chat content. */
 .ai-chat-sidebar-toggle {
     display: none !important;
 }
 
 @media (max-width: 900px) {
+    /* The sidebar is below the navbar, so the close button is never covered by it. */
     .chat-sidebar {
-        top: 0;
+        top: 65px;
         bottom: 0;
-        height: 100dvh;
-        max-height: 100dvh;
+        height: calc(100dvh - 65px);
+        max-height: calc(100dvh - 65px);
+        padding-top: 0;
         z-index: 1001;
-    }
-
-    /* The site navbar is above the mobile sidebar. Keep the sidebar content
-       below it so the close button is always reachable and not covered. */
-    .chat-sidebar {
-        padding-top: 65px;
     }
 
     .chat-sidebar-header {
         flex-shrink: 0;
     }
 
-    .chat-sidebar-footer {
-        padding-bottom: calc(12px + env(safe-area-inset-bottom));
-    }
-
     .chat-sidebar-backdrop {
         top: 65px;
+        bottom: 0;
     }
 
     .chat-sidebar-reopen-btn {
@@ -126,5 +118,9 @@
     .chat-search-floating-btn {
         width: 40px;
         height: 40px;
+    }
+
+    .chat-sidebar-footer {
+        padding-bottom: calc(12px + env(safe-area-inset-bottom));
     }
 }
