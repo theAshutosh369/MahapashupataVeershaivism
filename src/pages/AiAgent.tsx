@@ -121,6 +121,7 @@ function AiAgent() {
                         activeConversationId={activeConversationId}
                         mobileOpen={sidebarOpen}
                         onCloseMobile={() => setSidebarOpen(false)}
+                        onOpenMobile={() => setSidebarOpen(true)}
                         onNewChat={handleNewChat}
                         onSelect={selectConversation}
                         onRename={renameConversation}
