@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Navbar from '../components/Navbar';
 import '../styles/pages/ai-agent.css';
+import '../styles/pages/ai-agent-fixes.css';
 import useRagAssistant from '../hooks/useRagAssistant';
 import QueryControls from '../components/ai/QueryControls';
 import AnswerPanel from '../components/ai/AnswerPanel';
