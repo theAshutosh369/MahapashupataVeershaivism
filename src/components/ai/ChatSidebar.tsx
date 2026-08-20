@@ -84,18 +84,18 @@ export default function ChatSidebar({ conversations, activeConversationId, mobil
     const pinned = filtered.filter((c) => c.pinned);
     const recentsSorted = [...filtered.filter((c) => !c.pinned)].sort((a, b) => b.updatedAt - a.updatedAt);
 
+    function isDesktopViewport() {
+        return typeof window !== 'undefined' && window.matchMedia('(min-width: 901px)').matches;
+    }
+
     function handleSelect(id: string) { onSelect(id); onCloseMobile(); }
     function handleCloseSidebar() {
-        // Explicitly clear both local and parent visibility states. This makes the
-        // close action deterministic on mobile browsers and after viewport changes.
         setDesktopOpen(false);
         onCloseMobile();
     }
     function handleOpenSidebar() {
-        // Keep desktop/mobile ownership separate: the parent controls mobileOpen,
-        // while this component controls the desktop collapsed state.
-        setDesktopOpen(true);
-        onOpenMobile();
+        if (isDesktopViewport()) setDesktopOpen(true);
+        else onOpenMobile();
     }
     function handleNewChatClick() { onNewChat(); handleCloseSidebar(); }
     function requestDelete(conv: Conversation) { setPendingDelete(conv); }
