@@ -7,6 +7,7 @@ type ChatSidebarProps = {
     activeConversationId: string | null;
     mobileOpen: boolean;
     onCloseMobile: () => void;
+    onOpenMobile: () => void;
     onNewChat: () => void;
     onSelect: (id: string) => void;
     onRename: (id: string, title: string) => void;
@@ -69,7 +70,7 @@ function ChatRow({ conversation, active, onClick, onRename, onTogglePin, onToggl
     );
 }
 
-export default function ChatSidebar({ conversations, activeConversationId, mobileOpen, onCloseMobile, onNewChat, onSelect, onRename, onTogglePin, onDelete, onClearAll }: ChatSidebarProps) {
+export default function ChatSidebar({ conversations, activeConversationId, mobileOpen, onCloseMobile, onOpenMobile, onNewChat, onSelect, onRename, onTogglePin, onDelete, onClearAll }: ChatSidebarProps) {
     const [search, setSearch] = useState('');
     const [confirmClear, setConfirmClear] = useState(false);
     const [pendingDelete, setPendingDelete] = useState<Conversation | null>(null);
@@ -88,7 +89,10 @@ export default function ChatSidebar({ conversations, activeConversationId, mobil
         if (typeof window !== 'undefined' && window.matchMedia('(min-width: 901px)').matches) setDesktopOpen(false);
         onCloseMobile();
     }
-    function handleOpenSidebar() { setDesktopOpen(true); }
+    function handleOpenSidebar() {
+        if (typeof window !== 'undefined' && window.matchMedia('(min-width: 901px)').matches) setDesktopOpen(true);
+        else onOpenMobile();
+    }
     function handleNewChatClick() { onNewChat(); handleCloseSidebar(); }
     function requestDelete(conv: Conversation) { setPendingDelete(conv); }
     function confirmDelete() { if (pendingDelete) { onDelete(pendingDelete.id); setPendingDelete(null); } }
