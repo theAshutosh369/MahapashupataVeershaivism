@@ -56,11 +56,19 @@ function AiAgent() {
     }
 
     // Conversation search state
+    const [conversationSearchOpen, setConversationSearchOpen] = useState(false);
     const [conversationSearch, setConversationSearch] = useState('');
     const [activeMatchIndex, setActiveMatchIndex] = useState(0);
     const messageRefs = useRef<Array<HTMLDivElement | null>>([]);
 
     const wasNearBottomRef = useRef(true);
+
+    type ConversationMatch = {
+        turnIndex: number;
+        start: number;
+        end: number;
+        matchedText: string;
+    };
 
     function copyText(text: string) {
         if (!text) return;
@@ -76,33 +84,100 @@ function AiAgent() {
         return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
 
-    // Render text with <mark> around matches (case-insensitive)
-    function renderHighlighted(text: string, query: string) {
+    const conversationMatches = chatHistory.flatMap((turn, turnIndex) => {
+        const content = typeof turn.content === 'string' ? turn.content : String(turn.content ?? '');
+        const query = conversationSearch.trim();
+        if (!query) return [] as ConversationMatch[];
+        const pattern = new RegExp(escapeRegExp(query), 'gi');
+        const matches: ConversationMatch[] = [];
+        for (const match of content.matchAll(pattern)) {
+            const start = match.index ?? 0;
+            matches.push({
+                turnIndex,
+                start,
+                end: start + match[0].length,
+                matchedText: match[0],
+            });
+        }
+        return matches;
+    });
+
+    function renderHighlighted(
+        text: string,
+        query: string,
+        activeRange?: { start: number; end: number }
+    ) {
         if (!query) return text;
         try {
-            const re = new RegExp(`(${escapeRegExp(query)})`, 'ig');
-            const parts = text.split(re);
-            return parts.map((part, i) => (re.test(part) ? <mark key={i} className="chat-highlight">{part}</mark> : part));
+            const regex = new RegExp(`(${escapeRegExp(query)})`, 'gi');
+            const segments: Array<string | React.ReactNode> = [];
+            let lastIndex = 0;
+            let matchCounter = 0;
+
+            for (const match of text.matchAll(regex)) {
+                const start = match.index ?? 0;
+                const end = start + match[0].length;
+
+                if (start > lastIndex) {
+                    segments.push(text.slice(lastIndex, start));
+                }
+
+                const isActive = !!activeRange && start === activeRange.start && end === activeRange.end;
+                segments.push(
+                    <mark
+                        key={`${start}-${end}-${matchCounter}`}
+                        className={isActive ? 'chat-highlight chat-highlight-active' : 'chat-highlight'}
+                    >
+                        {match[0]}
+                    </mark>
+                );
+
+                lastIndex = end;
+                matchCounter += 1;
+            }
+
+            if (lastIndex < text.length) {
+                segments.push(text.slice(lastIndex));
+            }
+
+            return segments.length ? segments : text;
         } catch (e) {
-            console.log("exception in renderHighlighted", e);
+            console.log('exception in renderHighlighted', e);
             return text;
         }
     }
 
-    // Get a short snippet (around 120 chars) with the match centered when possible
-    function getSnippet(text: string, query: string, radius = 60) {
+    function getSnippet(text: string, query: string, radius = 60, start = -1, end = -1) {
         if (!query) return '';
-        const lower = text.toLowerCase();
-        const q = query.toLowerCase();
-        const idx = lower.indexOf(q);
-        if (idx === -1) return '';
-        const start = Math.max(0, idx - radius);
-        const end = Math.min(text.length, idx + q.length + radius);
-        let snippet = text.slice(start, end).trim();
-        if (start > 0) snippet = '…' + snippet;
-        if (end < text.length) snippet = snippet + '…';
+        const pattern = new RegExp(escapeRegExp(query), 'i');
+        const match = pattern.exec(text);
+        if (!match) return '';
+        const hitStart = start >= 0 ? start : match.index;
+        const hitEnd = end >= 0 ? end : hitStart + match[0].length;
+        const snippetStart = Math.max(0, hitStart - radius);
+        const snippetEnd = Math.min(text.length, hitEnd + radius);
+        let snippet = text.slice(snippetStart, snippetEnd).trim();
+        if (snippetStart > 0) snippet = '…' + snippet;
+        if (snippetEnd < text.length) snippet = snippet + '…';
         return snippet;
     }
+
+    function jumpToMatch(index: number) {
+        if (!conversationMatches.length) return;
+        const boundedIndex = (index + conversationMatches.length) % conversationMatches.length;
+        setActiveMatchIndex(boundedIndex);
+        const targetMatch = conversationMatches[boundedIndex];
+        const targetMessage = messageRefs.current[targetMatch.turnIndex];
+        if (targetMessage) {
+            targetMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
+
+    // useEffect(() => {
+    //     if (activeMatchIndex >= conversationMatches.length) {
+    //         setActiveMatchIndex(0);
+    //     }
+    // }, [conversationMatches.length, activeMatchIndex]);
 
 
     // Auto-scroll to the newest message when a new message arrives or during streaming.
@@ -181,6 +256,37 @@ function AiAgent() {
                             <h1 className="ai-chat-mobile-title">AI Agent</h1>
                         </div>
 
+                        {conversationSearchOpen && (
+                            <div className="chat-in-conv-search-wrap">
+                                 <div className="chat-in-conv-search">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                                <circle cx="11" cy="11" r="8" />
+                                                <path d="m21 21-4.3-4.3" />
+                                            </svg>
+                                            <input
+                                                type="text"
+                                                placeholder="Search phrase in conversations..."
+                                                className="chat-in-conv-search-input"
+                                                value={conversationSearch}
+                                                onChange={(e) => {
+                                                    setConversationSearch(e.target.value);
+                                                    setActiveMatchIndex(0);
+                                                }}
+                                            />
+                                            {conversationSearch && (
+                                                <>
+                                                    <span className="chat-match-count">
+                                                        {conversationMatches.length > 0 ? `${activeMatchIndex + 1}/${conversationMatches.length}` : '0/0'}
+                                                    </span>
+                                                    <button type="button" className="chat-in-conv-prev" onClick={() => jumpToMatch(activeMatchIndex - 1)} aria-label="Previous occurrence">◀</button>
+                                                    <button type="button" className="chat-in-conv-next" onClick={() => jumpToMatch(activeMatchIndex + 1)} aria-label="Next occurrence">▶</button>
+                                                    <button type="button" className="chat-in-conv-clear" onClick={() => { setConversationSearch(''); setActiveMatchIndex(0); }} aria-label="Clear search">✕</button>
+                                                </>
+                                            )}
+                                        </div>
+                            </div>
+                        )}
+
                         {/* Scrollable messages area */}
                         <div className="ai-chat-messages" ref={messagesContainerRef} onScroll={handleScroll}>
                             <div className="ai-chat-messages-inner">
@@ -189,49 +295,40 @@ function AiAgent() {
                                     <p className="ai-chat-subheading">
                                         A scholarly research assistant grounded in the Mahapashupata Veershaivam corpus.
                                     </p>
-                                    {/* Conversation search */}
-                                    <div className="chat-in-conv-search">
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                </div>
+
+                                {/* Floating search toggle button at top-right */}
+                                <div className={`chat-search-floating ${conversationSearchOpen ? 'chat-search-floating--open' : ''}`}>
+                                    <button
+                                        type="button"
+                                        className="chat-search-floating-btn"
+                                        onClick={() => {
+                                            const nextState = !conversationSearchOpen;
+                                            setConversationSearchOpen(nextState);
+                                            if (!nextState) {
+                                                setConversationSearch('');
+                                                setActiveMatchIndex(0);
+                                            }
+                                        }}
+                                        aria-label="Search in conversations"
+                                        aria-pressed={conversationSearchOpen}
+                                        title="Search in conversations"
+                                    >
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                                             <circle cx="11" cy="11" r="8" />
                                             <path d="m21 21-4.3-4.3" />
                                         </svg>
-                                        <input
-                                            type="text"
-                                            placeholder="Search in conversation..."
-                                            className="chat-in-conv-search-input"
-                                            value={conversationSearch}
-                                            onChange={(e) => {
-                                                setConversationSearch(e.target.value);
-                                                setActiveMatchIndex(0);
-                                            }}
-                                        />
-                                        {conversationSearch && (
-                                            <>
-                                                <button type="button" className="chat-in-conv-prev" onClick={() => {
-                                                    const matches = chatHistory.flatMap((t, idx) => t.content.toLowerCase().includes(conversationSearch.toLowerCase()) ? [idx] : []);
-                                                    if (matches.length === 0) return;
-                                                    const next = (activeMatchIndex - 1 + matches.length) % matches.length;
-                                                    setActiveMatchIndex(next);
-                                                    const targetIdx = matches[next];
-                                                    messageRefs.current[targetIdx]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                                }} aria-label="Previous match">◀</button>
-                                                <button type="button" className="chat-in-conv-next" onClick={() => {
-                                                    const matches = chatHistory.flatMap((t, idx) => t.content.toLowerCase().includes(conversationSearch.toLowerCase()) ? [idx] : []);
-                                                    if (matches.length === 0) return;
-                                                    const next = (activeMatchIndex + 1) % matches.length;
-                                                    setActiveMatchIndex(next);
-                                                    const targetIdx = matches[next];
-                                                    messageRefs.current[targetIdx]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                                }} aria-label="Next match">▶</button>
-                                                <button type="button" className="chat-in-conv-clear" onClick={() => { setConversationSearch(''); setActiveMatchIndex(0); }} aria-label="Clear search">✕</button>
-                                            </>
-                                        )}
-                                    </div>
+                                    </button>
                                 </div>
 
                                 {chatHistory.map((turn, i) => {
                                     const query = conversationSearch.trim();
-                                    const isMatch = query && turn.content.toLowerCase().includes(query.toLowerCase());
+                                    const turnMatches = conversationMatches.filter((match) => match.turnIndex === i);
+                                    const activeTurnMatch = turnMatches.find((match) => {
+                                        const activeMatch = conversationMatches[activeMatchIndex];
+                                        return activeMatch && activeMatch.turnIndex === i && activeMatch.start === match.start && activeMatch.end === match.end;
+                                    });
+                                    const isMatch = Boolean(query && turnMatches.length > 0);
                                     return (
                                         <div
                                             key={i}
@@ -246,7 +343,7 @@ function AiAgent() {
                                                 <div className="message-bubble user-message-bubble">
                                                     <div className="message-bubble-label">You</div>
                                                     <div className="message-bubble-text">
-                                                        {typeof turn.content === 'string' ? renderHighlighted(turn.content, conversationSearch) : turn.content}
+                                                        {typeof turn.content === 'string' ? renderHighlighted(turn.content, conversationSearch, activeTurnMatch ? { start: activeTurnMatch.start, end: activeTurnMatch.end } : undefined) : turn.content}
                                                     </div>
                                                 </div>
                                             ) : (
@@ -260,7 +357,13 @@ function AiAgent() {
                                                         onCopyReferences={() => copyText(formatCitationLines(turn.sources || []))}
                                                     />
                                                     {isMatch && (
-                                                        <div className="chat-match-snippet">{renderHighlighted(getSnippet(turn.content, conversationSearch) || turn.content, conversationSearch)}</div>
+                                                        <div className="chat-match-snippet">
+                                                            {renderHighlighted(
+                                                                getSnippet(turn.content, conversationSearch, 70, activeTurnMatch?.start ?? -1, activeTurnMatch?.end ?? -1) || turn.content,
+                                                                conversationSearch,
+                                                                activeTurnMatch ? { start: activeTurnMatch.start, end: activeTurnMatch.end } : undefined
+                                                            )}
+                                                        </div>
                                                     )}
                                                 </div>
                                             )}
