@@ -42,9 +42,41 @@
     cursor: not-allowed;
 }
 
-/* The desktop reopen control is the only sidebar hamburger. */
+/* There is exactly one sidebar reopen control. It lives in the chat layout,
+   immediately below the site navbar rather than deep inside the page. */
 .chat-sidebar-reopen-btn {
+    position: fixed;
+    top: 10px;
+    left: 14px;
+    z-index: 1002;
     box-sizing: border-box;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(122, 31, 31, 0.15);
+    border-radius: 10px;
+    background: #fff;
+    color: #7A1F1F;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+.chat-sidebar-reopen-btn:hover {
+    background: #fbf1ed;
+    border-color: rgba(122, 31, 31, 0.28);
+}
+
+.chat-sidebar-reopen-btn:focus-visible {
+    outline: 2px solid rgba(122, 31, 31, 0.25);
+    outline-offset: 2px;
+}
+
+/* Keep conversation search in the same top band as the sidebar control. */
+.chat-search-floating {
+    top: 10px !important;
+    right: 16px !important;
 }
 
 /* No secondary AI Agent/header toggle should appear inside the chat content. */
@@ -53,7 +85,46 @@
 }
 
 @media (max-width: 900px) {
+    .chat-sidebar {
+        top: 0;
+        bottom: 0;
+        height: 100dvh;
+        max-height: 100dvh;
+        z-index: 1001;
+    }
+
+    /* The site navbar is above the mobile sidebar. Keep the sidebar content
+       below it so the close button is always reachable and not covered. */
+    .chat-sidebar {
+        padding-top: 65px;
+    }
+
+    .chat-sidebar-header {
+        flex-shrink: 0;
+    }
+
     .chat-sidebar-footer {
         padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    }
+
+    .chat-sidebar-backdrop {
+        top: 65px;
+    }
+
+    .chat-sidebar-reopen-btn {
+        top: 10px;
+        left: 12px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .chat-search-floating {
+        top: 10px !important;
+        right: 12px !important;
+    }
+
+    .chat-search-floating-btn {
+        width: 40px;
+        height: 40px;
     }
 }
