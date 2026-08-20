@@ -128,12 +128,19 @@ function AiAgent() {
                         onClearAll={clearConversations}
                     />
                     <div className="ai-chat-content">
-                        <div className="ai-chat-mobile-bar">
-                            <button type="button" className="ai-chat-hamburger" onClick={() => setSidebarOpen(true)} aria-label="Open chat history" aria-expanded={sidebarOpen}>
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 12h18"/><path d="M3 6h18"/><path d="M3 18h18"/></svg>
+                        {!sidebarOpen && (
+                            <button
+                                type="button"
+                                className="ai-chat-sidebar-toggle"
+                                onClick={() => setSidebarOpen(true)}
+                                aria-label="Open chat history"
+                                title="Open chat history"
+                            >
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                    <path d="M3 12h18"/><path d="M3 6h18"/><path d="M3 18h18"/>
+                                </svg>
                             </button>
-                            <h1 className="ai-chat-mobile-title">AI Agent</h1>
-                        </div>
+                        )}
                         {conversationSearchOpen && (
                             <div className="chat-in-conv-search-wrap"><div className="chat-in-conv-search">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
