@@ -73,12 +73,7 @@ function ChatRow({
                     }}
                 />
             ) : (
-                <button
-                    type="button"
-                    className="chat-row-main"
-                    onClick={onClick}
-                    title={conversation.title}
-                >
+                <button type="button" className="chat-row-main" onClick={onClick} title={conversation.title}>
                     <span className="chat-row-title">{conversation.title}</span>
                     <span className="chat-row-time">{formatRelativeTime(conversation.updatedAt)}</span>
                 </button>
@@ -151,7 +146,9 @@ export default function ChatSidebar({
     }
 
     function handleCloseSidebar() {
-        setDesktopOpen(false);
+        if (window.matchMedia('(min-width: 901px)').matches) {
+            setDesktopOpen(false);
+        }
         onCloseMobile();
     }
 
@@ -180,7 +177,7 @@ export default function ChatSidebar({
             {mobileOpen && <div className="chat-sidebar-backdrop" onClick={onCloseMobile} aria-hidden="true" />}
 
             <aside
-                className={`chat-sidebar ${mobileOpen ? 'chat-sidebar-open' : ''} ${desktopOpen ? 'chat-sidebar-desktop-open' : ''}`}
+                className={`chat-sidebar ${desktopOpen || mobileOpen ? 'chat-sidebar-open' : ''}`}
                 aria-label="Chat history"
             >
                 <div className="chat-sidebar-header">
@@ -212,18 +209,8 @@ export default function ChatSidebar({
                         <circle cx="11" cy="11" r="8" />
                         <path d="m21 21-4.3-4.3" />
                     </svg>
-                    <input
-                        type="text"
-                        className="chat-sidebar-search-input"
-                        placeholder="Search chats..."
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                    />
-                    {search && (
-                        <button type="button" className="chat-sidebar-search-clear" onClick={() => setSearch('')} aria-label="Clear search">
-                            ✕
-                        </button>
-                    )}
+                    <input type="text" className="chat-sidebar-search-input" placeholder="Search chats..." value={search} onChange={(e) => setSearch(e.target.value)} />
+                    {search && <button type="button" className="chat-sidebar-search-clear" onClick={() => setSearch('')} aria-label="Clear search">✕</button>}
                 </div>
 
                 <div className="chat-sidebar-scroll">
@@ -235,7 +222,6 @@ export default function ChatSidebar({
                             ))}
                         </div>
                     )}
-
                     <div className="chat-section">
                         {pinned.length > 0 && <div className="chat-section-title">Recents</div>}
                         {recentsSorted.length === 0 && pinned.length === 0 && conversations.length > 0 && <div className="chat-empty">No chats match your search.</div>}
@@ -265,6 +251,23 @@ export default function ChatSidebar({
                     onClick={handleOpenSidebar}
                     aria-label="Open chat sidebar"
                     title="Open chat sidebar"
+                    style={{
+                        position: 'fixed',
+                        top: 84,
+                        left: 14,
+                        zIndex: 1002,
+                        width: 42,
+                        height: 42,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        border: '1px solid rgba(122, 31, 31, 0.15)',
+                        borderRadius: 10,
+                        background: '#ffffff',
+                        color: '#7A1F1F',
+                        cursor: 'pointer',
+                        boxShadow: '0 4px 14px rgba(0, 0, 0, 0.12)'
+                    }}
                 >
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                         <path d="M3 12h18" />
@@ -294,17 +297,7 @@ export default function ChatSidebar({
                         <p>This will permanently delete all saved conversations. This action cannot be undone.</p>
                         <div className="chat-confirm-actions">
                             <button type="button" className="chat-confirm-cancel" onClick={() => setConfirmClear(false)}>Cancel</button>
-                            <button
-                                type="button"
-                                className="chat-confirm-danger"
-                                onClick={() => {
-                                    onClearAll();
-                                    setConfirmClear(false);
-                                    handleCloseSidebar();
-                                }}
-                            >
-                                Clear
-                            </button>
+                            <button type="button" className="chat-confirm-danger" onClick={() => { onClearAll(); setConfirmClear(false); handleCloseSidebar(); }}>Clear</button>
                         </div>
                     </div>
                 </div>
