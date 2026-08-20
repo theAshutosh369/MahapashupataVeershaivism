@@ -1,0 +1,59 @@
+/* Targeted AI Agent fixes. Keep this file separate so existing page styling is preserved. */
+
+.chat-sidebar-footer {
+    flex-shrink: 0;
+    padding: 10px 12px 12px;
+    border-top: 1px solid rgba(122, 31, 31, 0.08);
+    background: rgba(249, 245, 242, 0.92);
+}
+
+.chat-clear-btn {
+    width: 100%;
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 1px solid rgba(122, 31, 31, 0.14);
+    border-radius: 9px;
+    background: #fff;
+    color: #6b7280;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background .18s ease, border-color .18s ease, color .18s ease;
+}
+
+.chat-clear-btn:hover:not(:disabled) {
+    background: #fbf1ed;
+    border-color: rgba(122, 31, 31, 0.28);
+    color: #7A1F1F;
+}
+
+.chat-clear-btn:focus-visible {
+    outline: 2px solid rgba(122, 31, 31, 0.25);
+    outline-offset: 2px;
+}
+
+.chat-clear-btn:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+/* The desktop reopen control is the only sidebar hamburger. */
+.chat-sidebar-reopen-btn {
+    box-sizing: border-box;
+}
+
+/* No secondary AI Agent/header toggle should appear inside the chat content. */
+.ai-chat-sidebar-toggle {
+    display: none !important;
+}
+
+@media (max-width: 900px) {
+    .chat-sidebar-footer {
+        padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    }
+}
