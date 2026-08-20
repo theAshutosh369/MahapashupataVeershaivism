@@ -129,6 +129,7 @@ export default function ChatSidebar({
     const [search, setSearch] = useState('');
     const [confirmClear, setConfirmClear] = useState(false);
     const [pendingDelete, setPendingDelete] = useState<Conversation | null>(null);
+    const [desktopOpen, setDesktopOpen] = useState(true);
 
     const trimmed = search.trim().toLowerCase();
 
@@ -142,13 +143,25 @@ export default function ChatSidebar({
 
     const pinned = filtered.filter((c) => c.pinned);
     const recents = filtered.filter((c) => !c.pinned);
-
-    // Sort recents by most recently updated.
     const recentsSorted = [...recents].sort((a, b) => b.updatedAt - a.updatedAt);
 
     function handleSelect(id: string) {
         onSelect(id);
         onCloseMobile();
+    }
+
+    function handleCloseSidebar() {
+        setDesktopOpen(false);
+        onCloseMobile();
+    }
+
+    function handleOpenSidebar() {
+        setDesktopOpen(true);
+    }
+
+    function handleNewChatClick() {
+        onNewChat();
+        handleCloseSidebar();
     }
 
     function requestDelete(conv: Conversation) {
@@ -164,13 +177,15 @@ export default function ChatSidebar({
 
     return (
         <>
-            {/* Mobile overlay backdrop */}
             {mobileOpen && <div className="chat-sidebar-backdrop" onClick={onCloseMobile} aria-hidden="true" />}
 
-            <aside className={`chat-sidebar ${mobileOpen ? 'chat-sidebar-open' : ''}`} aria-label="Chat history">
+            <aside
+                className={`chat-sidebar ${mobileOpen ? 'chat-sidebar-open' : ''} ${desktopOpen ? 'chat-sidebar-desktop-open' : ''}`}
+                aria-label="Chat history"
+            >
                 <div className="chat-sidebar-header">
                     <div className="chat-sidebar-header-actions">
-                        <button type="button" className="chat-new-btn" onClick={() => { onNewChat(); onCloseMobile(); }}>
+                        <button type="button" className="chat-new-btn" onClick={handleNewChatClick}>
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                                 <path d="M12 5v14" />
                                 <path d="M5 12h14" />
@@ -180,7 +195,7 @@ export default function ChatSidebar({
                         <button
                             type="button"
                             className="chat-sidebar-close-btn"
-                            onClick={onCloseMobile}
+                            onClick={handleCloseSidebar}
                             aria-label="Close chat sidebar"
                             title="Close chat sidebar"
                         >
@@ -216,50 +231,23 @@ export default function ChatSidebar({
                         <div className="chat-section">
                             <div className="chat-section-title">Pinned</div>
                             {pinned.map((c) => (
-                                <ChatRow
-                                    key={c.id}
-                                    conversation={c}
-                                    active={activeConversationId === c.id}
-                                    onClick={() => handleSelect(c.id)}
-                                    onRename={(title) => onRename(c.id, title)}
-                                    onTogglePin={() => onTogglePin(c.id)}
-                                    onTogglePinHover={() => onTogglePin(c.id)}
-                                    onDeleteRequest={() => requestDelete(c)}
-                                />
+                                <ChatRow key={c.id} conversation={c} active={activeConversationId === c.id} onClick={() => handleSelect(c.id)} onRename={(title) => onRename(c.id, title)} onTogglePin={() => onTogglePin(c.id)} onTogglePinHover={() => onTogglePin(c.id)} onDeleteRequest={() => requestDelete(c)} />
                             ))}
                         </div>
                     )}
 
                     <div className="chat-section">
                         {pinned.length > 0 && <div className="chat-section-title">Recents</div>}
-                        {recentsSorted.length === 0 && pinned.length === 0 && conversations.length > 0 && (
-                            <div className="chat-empty">No chats match your search.</div>
-                        )}
-                        {conversations.length === 0 && (
-                            <div className="chat-empty">No conversations yet. Start a new chat.</div>
-                        )}
+                        {recentsSorted.length === 0 && pinned.length === 0 && conversations.length > 0 && <div className="chat-empty">No chats match your search.</div>}
+                        {conversations.length === 0 && <div className="chat-empty">No conversations yet. Start a new chat.</div>}
                         {recentsSorted.map((c) => (
-                            <ChatRow
-                                key={c.id}
-                                conversation={c}
-                                active={activeConversationId === c.id}
-                                onClick={() => handleSelect(c.id)}
-                                onRename={(title) => onRename(c.id, title)}
-                                onTogglePin={() => onTogglePin(c.id)}
-                                onTogglePinHover={() => onTogglePin(c.id)}
-                                onDeleteRequest={() => requestDelete(c)}
-                            />
+                            <ChatRow key={c.id} conversation={c} active={activeConversationId === c.id} onClick={() => handleSelect(c.id)} onRename={(title) => onRename(c.id, title)} onTogglePin={() => onTogglePin(c.id)} onTogglePinHover={() => onTogglePin(c.id)} onDeleteRequest={() => requestDelete(c)} />
                         ))}
                     </div>
                 </div>
 
                 <div className="chat-sidebar-footer">
-                    <button
-                        type="button"
-                        className="chat-clear-btn"
-                        onClick={() => setConfirmClear(true)}
-                        disabled={conversations.length === 0}
-                    >
+                    <button type="button" className="chat-clear-btn" onClick={() => setConfirmClear(true)} disabled={conversations.length === 0}>
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                             <path d="M3 6h18" />
                             <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
@@ -270,41 +258,49 @@ export default function ChatSidebar({
                 </div>
             </aside>
 
-            {/* Delete conversation confirmation */}
+            {!desktopOpen && (
+                <button
+                    type="button"
+                    className="chat-sidebar-reopen-btn"
+                    onClick={handleOpenSidebar}
+                    aria-label="Open chat sidebar"
+                    title="Open chat sidebar"
+                >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M3 12h18" />
+                        <path d="M3 6h18" />
+                        <path d="M3 18h18" />
+                    </svg>
+                </button>
+            )}
+
             {pendingDelete && (
                 <div className="chat-confirm-overlay" onClick={() => setPendingDelete(null)}>
                     <div className="chat-confirm-dialog" onClick={(e) => e.stopPropagation()}>
                         <h3>Delete conversation?</h3>
                         <p>"{pendingDelete.title}" will be permanently deleted. This action cannot be undone.</p>
                         <div className="chat-confirm-actions">
-                            <button type="button" className="chat-confirm-cancel" onClick={() => setPendingDelete(null)}>
-                                Cancel
-                            </button>
-                            <button type="button" className="chat-confirm-danger" onClick={confirmDelete}>
-                                Delete
-                            </button>
+                            <button type="button" className="chat-confirm-cancel" onClick={() => setPendingDelete(null)}>Cancel</button>
+                            <button type="button" className="chat-confirm-danger" onClick={confirmDelete}>Delete</button>
                         </div>
                     </div>
                 </div>
             )}
 
-            {/* Clear conversations confirmation */}
             {confirmClear && (
                 <div className="chat-confirm-overlay" onClick={() => setConfirmClear(false)}>
                     <div className="chat-confirm-dialog" onClick={(e) => e.stopPropagation()}>
                         <h3>Clear all conversations?</h3>
                         <p>This will permanently delete all saved conversations. This action cannot be undone.</p>
                         <div className="chat-confirm-actions">
-                            <button type="button" className="chat-confirm-cancel" onClick={() => setConfirmClear(false)}>
-                                Cancel
-                            </button>
+                            <button type="button" className="chat-confirm-cancel" onClick={() => setConfirmClear(false)}>Cancel</button>
                             <button
                                 type="button"
                                 className="chat-confirm-danger"
                                 onClick={() => {
                                     onClearAll();
                                     setConfirmClear(false);
-                                    onCloseMobile();
+                                    handleCloseSidebar();
                                 }}
                             >
                                 Clear
