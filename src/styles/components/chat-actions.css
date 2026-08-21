@@ -3,7 +3,16 @@
     flex-direction: column;
     align-items: flex-end;
     gap: 6px;
+    width: fit-content;
     max-width: min(760px, 88%);
+    min-width: 0;
+}
+
+.chat-user-message-wrap .user-message-bubble {
+    width: fit-content;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 .chat-user-message-actions,
@@ -158,7 +167,12 @@
 
 @media (max-width: 768px) {
     .chat-user-message-wrap {
+        width: fit-content;
         max-width: 94%;
+    }
+
+    .chat-user-message-wrap .user-message-bubble {
+        max-width: 100%;
     }
 
     .chat-user-message-actions {
