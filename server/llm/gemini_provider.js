@@ -1,18 +1,17 @@
 /**
  * GeminiProvider — Google Gemini LLM provider.
- *
- * Extracted from the original rag_engine.js answer-generation logic. All
- * Gemini-specific behavior remains here (model chain, retry/backoff, streaming
- * via @google/genai, error classification). The RAG engine calls this through
- * the normalized LLMProvider interface.
+ * Keeps Gemini-specific configuration, retry/backoff and streaming isolated
+ * behind the normalized LLMProvider interface.
  */
 
 import { LLMProvider, ProvCode } from './base.js';
 
-const GEMINI_DEFAULT_MODEL = 'models/gemini-flash-latest';
+// Use a stable model instead of the mutable gemini-flash-latest alias.
+// This avoids the alias moving underneath the application and changing API behavior.
+const GEMINI_DEFAULT_MODEL = 'gemini-2.5-flash';
 
 function sleep(ms) {
-    return new Promise(function (res) { setTimeout(res, ms); });
+    return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 export class GeminiProvider extends LLMProvider {
@@ -32,247 +31,185 @@ export class GeminiProvider extends LLMProvider {
 
     isConfigured() {
         const key = this.getApiKey();
-        return Boolean(key && typeof key === 'string' && key.trim().length > 0);
+        return Boolean(key && typeof key === 'string' && key.trim());
     }
 
     getModel() {
         const configured = process.env.GEMINI_MODEL;
-        if (configured && typeof configured === 'string' && configured.trim().length > 0) {
-            return configured.trim();
-        }
-        return this.opts.model || GEMINI_DEFAULT_MODEL;
+        return configured && typeof configured === 'string' && configured.trim()
+            ? configured.trim()
+            : (this.opts.model || GEMINI_DEFAULT_MODEL);
     }
 
     getModelInfo() {
         return { provider: 'gemini', model: this.getModel() };
     }
 
-    /** Ordered list of models to try (configured primary + configured fallbacks). */
     getModelChain() {
-        const chain = [];
-        const primary = this.getModel();
-        chain.push(primary);
-
+        const chain = [this.getModel()];
         const configuredFallbacks = process.env.GEMINI_FALLBACK_MODELS;
-        if (configuredFallbacks && typeof configuredFallbacks === 'string') {
-            const parts = configuredFallbacks.split(',').map((s) => s.trim()).filter(Boolean);
-            for (const p of parts) {
-                if (chain.indexOf(p) === -1) chain.push(p);
+        if (configuredFallbacks) {
+            for (const model of configuredFallbacks.split(',').map((s) => s.trim()).filter(Boolean)) {
+                if (!chain.includes(model)) chain.push(model);
             }
         }
-
         return chain;
     }
 
     async _getClient() {
         if (!this._clientPromise) {
             const { GoogleGenAI } = await import('@google/genai');
-            this._clientPromise = new GoogleGenAI({ apiKey: this.getApiKey() });
+            this._clientPromise = Promise.resolve(new GoogleGenAI({ apiKey: this.getApiKey() }));
         }
         return this._clientPromise;
     }
 
-    /**
-     * Non-streaming generation. Returns the full answer string, or null if the
-     * provider could not produce an answer (recoverable) — the caller decides
-     * whether to fall back to another provider.
-     */
-    async generate({ prompt, signal, attempt }) {
-        if (!this.isConfigured()) {
-            console.log('[GeminiProvider] No GEMINI_API_KEY for answer generation');
-            return null;
-        }
-
-        const client = await this._getClient();
-        const modelChain = this.getModelChain();
-        const MAX_GEN_ATTEMPTS = Number(process.env.GEMINI_MAX_ATTEMPTS || 3);
-        const BACKOFF_BASE_MS = Number(process.env.GEMINI_BACKOFF_BASE_MS || 1000);
-
-        let result = null;
-        let lastError = null;
-        let lastProvCode = null;
-
-        for (let mi = 0; mi < modelChain.length; mi++) {
-            const model = modelChain[mi];
-            let ok = false;
-
-            for (let attemptIdx = 0; attemptIdx < MAX_GEN_ATTEMPTS; attemptIdx++) {
-                console.log('[GeminiProvider] Generating answer with ' + model +
-                    ' (model ' + (mi + 1) + '/' + modelChain.length +
-                    ', attempt ' + (attemptIdx + 1) + '/' + MAX_GEN_ATTEMPTS + ')...');
-                try {
-                    result = await client.models.generateContent({
-                        model: model,
-                        contents: [{ role: 'user', parts: [{ text: prompt }] }],
-                        generationConfig: {
-                            temperature: Number(process.env.GEMINI_TEMPERATURE || 0.2),
-                            topP: 0.95,
-                            maxOutputTokens: Number(process.env.GEMINI_MAX_OUTPUT_TOKENS || 2048)
-                        },
-                        signal: signal
-                    });
-                    ok = true;
-                    break;
-                } catch (e) {
-                    const norm = this.normalizeError(e);
-                    lastError = norm.message;
-                    lastProvCode = norm.provCode;
-                    const genMsg = this.extractErrorText(e);
-                    console.warn('[GeminiProvider] Generation failed with ' + model +
-                        ' [' + norm.provCode + ']: ' + genMsg.trim());
-
-                    if (norm.provCode === ProvCode.RATE_LIMITED || norm.provCode === ProvCode.TIMEOUT ||
-                        norm.provCode === ProvCode.NETWORK_ERROR || norm.provCode === ProvCode.UNKNOWN) {
-                        // Transient — back off and retry the same model.
-                        if (attemptIdx < MAX_GEN_ATTEMPTS - 1) {
-                            const backoffMs = Math.min(BACKOFF_BASE_MS * Math.pow(2, attemptIdx), 15000);
-                            const jitter = Math.floor(Math.random() * 500);
-                            console.log('[GeminiProvider] Transient error. Retrying in ' + (backoffMs + jitter) + 'ms...');
-                            await sleep(backoffMs + jitter);
-                            continue;
-                        }
-                        break;
-                    }
-
-                    if (norm.provCode === ProvCode.QUOTA_EXHAUSTED || norm.provCode === ProvCode.MODEL_NOT_FOUND) {
-                        // Not recoverable by waiting — switch to next fallback model.
-                        console.log('[GeminiProvider] ' +
-                            (norm.provCode === ProvCode.QUOTA_EXHAUSTED ? 'Daily quota exhausted' : 'Model unavailable') +
-                            ' on ' + model + '. Trying next model...');
-                        break;
-                    }
-
-                    if (norm.provCode === ProvCode.AUTHENTICATION_ERROR) {
-                        console.warn('[GeminiProvider] Authentication error (invalid key). Not retrying.');
-                        return null;
-                    }
-
-                    // invalid_request — unrecoverable; abort.
-                    return null;
-                }
-            }
-
-            if (ok && result) break;
-        }
-
-        if (!result) {
-            console.warn('[GeminiProvider] All ' + modelChain.length + ' model(s) failed. Last error [' + lastProvCode + ']: ' + lastError);
-            return null;
-        }
-
-        const text = result && result.response ? result.response.text() : (result ? result.text : '');
-        return String(text || '').trim();
+    _config() {
+        return {
+            temperature: Number(process.env.GEMINI_TEMPERATURE || 0.2),
+            topP: 0.95,
+            maxOutputTokens: Number(process.env.GEMINI_MAX_OUTPUT_TOKENS || 2048)
+        };
     }
 
-    /**
-     * Streaming generation. Invokes onToken for each cleaned chunk and returns
-     * the full assembled text. Returns null for a recoverable failure so the
-     * caller can switch providers.
-     */
-    async generateStream({ prompt, signal, attempt, onToken }) {
+    async generate({ prompt, signal }) {
         if (!this.isConfigured()) {
-            console.log('[GeminiProvider] No GEMINI_API_KEY for streaming');
+            console.warn('[GeminiProvider] GEMINI_API_KEY is not configured');
             return null;
         }
 
         const client = await this._getClient();
-        const model = this.getModel();
-        const timeoutMs = Number(process.env.GEMINI_TIMEOUT_MS || 30000);
-        const MAX_STREAM_ATTEMPTS = Number(process.env.GEMINI_STREAM_MAX_ATTEMPTS || 3);
-        const BASE_BACKOFF_MS = Number(process.env.GEMINI_BACKOFF_BASE_MS || 1000);
+        const models = this.getModelChain();
+        const maxAttempts = Math.max(1, Number(process.env.GEMINI_MAX_ATTEMPTS || 3));
+        const backoffBase = Math.max(100, Number(process.env.GEMINI_BACKOFF_BASE_MS || 1000));
+        let lastError = null;
+        let lastCode = null;
 
-        for (let sAttempt = 0; sAttempt < MAX_STREAM_ATTEMPTS; sAttempt++) {
-            const controller = new AbortController();
-            if (signal) {
-                if (signal.aborted) controller.abort();
-                else signal.addEventListener('abort', function () { controller.abort(); }, { once: true });
-            }
+        for (const model of models) {
+            for (let attempt = 0; attempt < maxAttempts; attempt++) {
+                try {
+                    console.log(`[GeminiProvider] Generating with ${model} (attempt ${attempt + 1}/${maxAttempts})`);
+                    const result = await client.models.generateContent({
+                        model,
+                        contents: prompt,
+                        config: this._config(),
+                        abortSignal: signal
+                    });
+                    const text = String(result?.text || result?.response?.text?.() || '').trim();
+                    if (text) return text;
+                    throw new Error('Gemini returned an empty response');
+                } catch (error) {
+                    const norm = this.normalizeError(error);
+                    lastError = norm.message;
+                    lastCode = norm.provCode;
+                    console.warn(`[GeminiProvider] Generation failed with ${model} [${norm.provCode}]: ${this.extractErrorText(error).trim()}`);
 
-            const timeout = setTimeout(function () { controller.abort(); }, timeoutMs);
+                    if (norm.provCode === ProvCode.AUTHENTICATION_ERROR) return null;
+                    if (norm.provCode === ProvCode.MODEL_NOT_FOUND || norm.provCode === ProvCode.QUOTA_EXHAUSTED) break;
 
-            console.log('[GeminiProvider] Streaming answer with ' + model +
-                ' (attempt ' + (sAttempt + 1) + '/' + MAX_STREAM_ATTEMPTS + ')...');
-            const startTime = Date.now();
-
-            try {
-                const stream = await client.models.generateContentStream({
-                    model: model,
-                    contents: [{ role: 'user', parts: [{ text: prompt }] }],
-                    generationConfig: {
-                        temperature: Number(process.env.GEMINI_TEMPERATURE || 0.2),
-                        topP: 0.95,
-                        maxOutputTokens: Number(process.env.GEMINI_MAX_OUTPUT_TOKENS || 2048)
-                    },
-                    signal: controller.signal
-                });
-
-                const asyncIterable = stream && stream.stream ? stream.stream : stream;
-                if (!asyncIterable || typeof asyncIterable[Symbol.asyncIterator] !== 'function') {
-                    throw new Error('Gemini streaming response has no async iterable');
-                }
-
-                let fullText = '';
-                for await (const chunk of asyncIterable) {
-                    let text = '';
-                    if (chunk) {
-                        text = chunk.text || '';
-                        if (!text && chunk.candidates && chunk.candidates[0] && chunk.candidates[0].content && chunk.candidates[0].content.parts) {
-                            for (const part of chunk.candidates[0].content.parts) {
-                                text += part.text || '';
-                            }
-                        }
-                    }
-                    if (!text) continue;
-                    const cleaned = String(text).replace(/<think[\s\S]*?<\/think>/gi, '').trim();
-                    if (cleaned) {
-                        fullText += cleaned;
-                        if (onToken) onToken(cleaned);
-                    }
-                }
-
-                const elapsed = Date.now() - startTime;
-                console.log('[GeminiProvider] Streaming completed in ' + elapsed + 'ms (' + fullText.length + ' chars)');
-                clearTimeout(timeout);
-                return fullText;
-            } catch (error) {
-                clearTimeout(timeout);
-                if (controller.signal.aborted) {
-                    throw this.normalizeError(new Error('Gemini streaming timed out after ' + timeoutMs + 'ms'));
-                }
-
-                const norm = this.normalizeError(error);
-                const sRaw = this.extractErrorText(error);
-                console.warn('[GeminiProvider] Stream failed with ' + model + ' [' + norm.provCode + ']: ' + sRaw.trim());
-
-                if (norm.provCode === ProvCode.QUOTA_EXHAUSTED || norm.provCode === ProvCode.MODEL_NOT_FOUND) {
-                    console.log('[GeminiProvider] ' +
-                        (norm.provCode === ProvCode.QUOTA_EXHAUSTED ? 'Daily quota exhausted' : 'Model unavailable') +
-                        ' on ' + model + '. Stopping streaming to try a fallback provider.');
-                    return null;
-                }
-
-                if (norm.provCode === ProvCode.AUTHENTICATION_ERROR) {
-                    return null;
-                }
-
-                if (norm.provCode === ProvCode.RATE_LIMITED || norm.provCode === ProvCode.TIMEOUT ||
-                    norm.provCode === ProvCode.NETWORK_ERROR || norm.provCode === ProvCode.UNKNOWN) {
-                    if (sAttempt < MAX_STREAM_ATTEMPTS - 1) {
-                        const backoffMs = Math.min(BASE_BACKOFF_MS * Math.pow(2, sAttempt), 15000);
-                        const jitter = Math.floor(Math.random() * 500);
-                        console.log('[GeminiProvider] Transient stream error. Retrying in ' + (backoffMs + jitter) + 'ms...');
-                        await new Promise(function (res) { setTimeout(res, backoffMs + jitter); });
+                    if (attempt < maxAttempts - 1 &&
+                        (norm.provCode === ProvCode.RATE_LIMITED || norm.provCode === ProvCode.TIMEOUT ||
+                         norm.provCode === ProvCode.NETWORK_ERROR || norm.provCode === ProvCode.UNKNOWN)) {
+                        const delay = Math.min(backoffBase * 2 ** attempt, 15000) + Math.floor(Math.random() * 500);
+                        await sleep(delay);
                         continue;
                     }
-                    console.warn('[GeminiProvider] Transient stream error after ' + MAX_STREAM_ATTEMPTS + ' attempts. Giving up streaming.');
-                    return null;
+                    if (norm.provCode !== ProvCode.RATE_LIMITED && norm.provCode !== ProvCode.TIMEOUT &&
+                        norm.provCode !== ProvCode.NETWORK_ERROR && norm.provCode !== ProvCode.UNKNOWN) {
+                        break;
+                    }
                 }
-
-                // invalid_request — unrecoverable; propagate.
-                throw error;
             }
         }
-        const err = new Error('Gemini streaming failed');
+
+        console.warn(`[GeminiProvider] All models failed. Last error [${lastCode}]: ${lastError}`);
+        return null;
+    }
+
+    async generateStream({ prompt, signal, onToken }) {
+        if (!this.isConfigured()) {
+            console.warn('[GeminiProvider] GEMINI_API_KEY is not configured for streaming');
+            return null;
+        }
+
+        const client = await this._getClient();
+        const models = this.getModelChain();
+        const timeoutMs = Math.max(1000, Number(process.env.GEMINI_TIMEOUT_MS || 90000));
+        const maxAttempts = Math.max(1, Number(process.env.GEMINI_STREAM_MAX_ATTEMPTS || 2));
+        const backoffBase = Math.max(100, Number(process.env.GEMINI_BACKOFF_BASE_MS || 1000));
+
+        for (const model of models) {
+            for (let attempt = 0; attempt < maxAttempts; attempt++) {
+                const controller = new AbortController();
+                let timedOut = false;
+                const forwardAbort = () => controller.abort();
+                if (signal) {
+                    if (signal.aborted) controller.abort();
+                    else signal.addEventListener('abort', forwardAbort, { once: true });
+                }
+                const timeout = setTimeout(() => {
+                    timedOut = true;
+                    controller.abort();
+                }, timeoutMs);
+
+                try {
+                    console.log(`[GeminiProvider] Streaming with ${model} (attempt ${attempt + 1}/${maxAttempts})`);
+                    const stream = await client.models.generateContentStream({
+                        model,
+                        contents: prompt,
+                        config: this._config(),
+                        abortSignal: controller.signal
+                    });
+
+                    const iterable = stream?.stream || stream;
+                    if (!iterable || typeof iterable[Symbol.asyncIterator] !== 'function') {
+                        throw new Error('Gemini streaming response has no async iterable');
+                    }
+
+                    let fullText = '';
+                    for await (const chunk of iterable) {
+                        let text = String(chunk?.text || '');
+                        if (!text && chunk?.candidates?.[0]?.content?.parts) {
+                            text = chunk.candidates[0].content.parts.map((p) => p?.text || '').join('');
+                        }
+                        text = text.replace(/<think>[\s\S]*?<\/think>/gi, '');
+                        if (!text) continue;
+                        fullText += text;
+                        onToken?.(text);
+                    }
+
+                    clearTimeout(timeout);
+                    if (signal) signal.removeEventListener('abort', forwardAbort);
+                    console.log(`[GeminiProvider] Streaming completed (${fullText.length} chars)`);
+                    return fullText.trim();
+                } catch (error) {
+                    clearTimeout(timeout);
+                    if (signal) signal.removeEventListener('abort', forwardAbort);
+
+                    if (signal?.aborted) throw error;
+                    const normalized = this.normalizeError(
+                        timedOut ? new Error(`Gemini streaming timed out after ${timeoutMs}ms`) : error
+                    );
+                    console.warn(`[GeminiProvider] Stream failed with ${model} [${normalized.provCode}]: ${this.extractErrorText(error).trim()}`);
+
+                    if (normalized.provCode === ProvCode.AUTHENTICATION_ERROR ||
+                        normalized.provCode === ProvCode.MODEL_NOT_FOUND ||
+                        normalized.provCode === ProvCode.QUOTA_EXHAUSTED) {
+                        break;
+                    }
+
+                    if (attempt < maxAttempts - 1 &&
+                        (normalized.provCode === ProvCode.RATE_LIMITED || normalized.provCode === ProvCode.TIMEOUT ||
+                         normalized.provCode === ProvCode.NETWORK_ERROR || normalized.provCode === ProvCode.UNKNOWN)) {
+                        const delay = Math.min(backoffBase * 2 ** attempt, 15000) + Math.floor(Math.random() * 500);
+                        await sleep(delay);
+                        continue;
+                    }
+                    break;
+                }
+            }
+        }
+
         return null;
     }
 }
