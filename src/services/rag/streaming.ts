@@ -1,5 +1,4 @@
 export function parseSseDataLines(line: string): string | null {
-    // Expect lines in form: data: <json>
     const trimmed = String(line ?? '').trim();
     if (!trimmed.startsWith('data:')) return null;
     return trimmed.slice('data:'.length).trim();
@@ -18,15 +17,11 @@ export async function consumeSseStream({
 
     const reader = response.body.getReader();
     const decoder = new TextDecoder('utf-8');
-
     let buffer = '';
+
     while (true) {
         if (signal.aborted) {
-            try {
-                reader.cancel();
-            } catch {
-                // ignore
-            }
+            try { await reader.cancel(); } catch { /* ignore */ }
             return;
         }
 
@@ -34,22 +29,17 @@ export async function consumeSseStream({
         if (done) return;
 
         buffer += decoder.decode(value, { stream: true });
-
-        // SSE uses double newline to separate events.
-        // We'll process line-by-line for simplicity.
         const parts = buffer.split(/\n\n/);
         buffer = parts.pop() ?? '';
 
         for (const part of parts) {
             const lines = part.split(/\r?\n/);
-
             let eventType: 'token' | 'done' | 'error' | null = null;
             let dataJson: string | null = null;
 
             for (const line of lines) {
                 const trimmed = String(line ?? '').trim();
                 if (!trimmed) continue;
-
                 if (trimmed.startsWith('event:')) {
                     const raw = trimmed.slice('event:'.length).trim();
                     if (raw === 'token' || raw === 'done' || raw === 'error') eventType = raw;
@@ -58,8 +48,6 @@ export async function consumeSseStream({
                 }
             }
 
-            // Some SSE implementations may send only `data:` without an explicit `event:`.
-            // In that case, default to `token` so streaming UI still works.
             if (!eventType) {
                 if (dataJson === null) continue;
                 eventType = 'token';
@@ -67,17 +55,23 @@ export async function consumeSseStream({
 
             let parsed: unknown = undefined;
             if (dataJson !== null) {
-                try {
-                    parsed = JSON.parse(dataJson);
-                } catch {
-                    // token events might send a raw string as JSON string or plain string.
-                    // Try to salvage: if it's quoted JSON, JSON.parse would succeed; otherwise ignore.
-                    parsed = dataJson;
-                }
+                try { parsed = JSON.parse(dataJson); }
+                catch { parsed = dataJson; }
             }
 
             onEvent({ type: eventType, data: parsed });
+
+            // `done` and `error` are terminal SSE events. Do not keep waiting for
+            // the server to close the connection and do not abort the fetch from
+            // inside the event callback.
+            if (eventType === 'done' || eventType === 'error') {
+                try { await reader.cancel(); } catch { /* ignore */ }
+                if (eventType === 'error') {
+                    const message = typeof parsed === 'string' ? parsed : 'Stream error';
+                    throw new Error(message);
+                }
+                return;
+            }
         }
     }
 }
-
