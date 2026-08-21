@@ -7,6 +7,7 @@ type ChatSidebarProps = {
     activeConversationId: string | null;
     mobileOpen: boolean;
     onCloseMobile: () => void;
+    onOpenMobile: () => void;
     onNewChat: () => void;
     onSelect: (id: string) => void;
     onRename: (id: string, title: string) => void;
@@ -69,7 +70,7 @@ function ChatRow({ conversation, active, onClick, onRename, onTogglePin, onToggl
     );
 }
 
-export default function ChatSidebar({ conversations, activeConversationId, mobileOpen, onCloseMobile, onNewChat, onSelect, onRename, onTogglePin, onDelete, onClearAll }: ChatSidebarProps) {
+export default function ChatSidebar({ conversations, activeConversationId, mobileOpen, onCloseMobile, onOpenMobile, onNewChat, onSelect, onRename, onTogglePin, onDelete, onClearAll }: ChatSidebarProps) {
     const [search, setSearch] = useState('');
     const [confirmClear, setConfirmClear] = useState(false);
     const [pendingDelete, setPendingDelete] = useState<Conversation | null>(null);
@@ -83,12 +84,19 @@ export default function ChatSidebar({ conversations, activeConversationId, mobil
     const pinned = filtered.filter((c) => c.pinned);
     const recentsSorted = [...filtered.filter((c) => !c.pinned)].sort((a, b) => b.updatedAt - a.updatedAt);
 
+    function isDesktopViewport() {
+        return typeof window !== 'undefined' && window.matchMedia('(min-width: 901px)').matches;
+    }
+
     function handleSelect(id: string) { onSelect(id); onCloseMobile(); }
     function handleCloseSidebar() {
-        if (window.matchMedia('(min-width: 901px)').matches) setDesktopOpen(false);
+        setDesktopOpen(false);
         onCloseMobile();
     }
-    function handleOpenSidebar() { setDesktopOpen(true); }
+    function handleOpenSidebar() {
+        if (isDesktopViewport()) setDesktopOpen(true);
+        else onOpenMobile();
+    }
     function handleNewChatClick() { onNewChat(); handleCloseSidebar(); }
     function requestDelete(conv: Conversation) { setPendingDelete(conv); }
     function confirmDelete() { if (pendingDelete) { onDelete(pendingDelete.id); setPendingDelete(null); } }
@@ -130,8 +138,8 @@ export default function ChatSidebar({ conversations, activeConversationId, mobil
                 </div>
             </aside>
 
-            {!desktopOpen && typeof window !== 'undefined' && window.matchMedia('(min-width: 901px)').matches && (
-                <button type="button" className="chat-sidebar-reopen-btn" onClick={handleOpenSidebar} aria-label="Open chat sidebar" title="Open chat sidebar" style={{ position: 'fixed', top: 84, left: 14, zIndex: 1002, width: 42, height: 42, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(122, 31, 31, 0.15)', borderRadius: 10, background: '#ffffff', color: '#7A1F1F', cursor: 'pointer', boxShadow: '0 4px 14px rgba(0, 0, 0, 0.12)' }}>
+            {!desktopOpen && !mobileOpen && (
+                <button type="button" className="chat-sidebar-reopen-btn" onClick={handleOpenSidebar} aria-label="Open chat sidebar" title="Open chat sidebar">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 12h18" /><path d="M3 6h18" /><path d="M3 18h18" /></svg>
                 </button>
             )}

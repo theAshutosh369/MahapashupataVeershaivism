@@ -44,7 +44,6 @@ export default function ChatContextMenu({ pinned, onRename, onTogglePin, onDelet
     const [open, setOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
-    // Close on outside click / Escape.
     useEffect(() => {
         if (!open) return;
         function onPointerDown(e: PointerEvent) {
@@ -68,8 +67,39 @@ export default function ChatContextMenu({ pinned, onRename, onTogglePin, onDelet
         action();
     }
 
+    const triggerStyle: React.CSSProperties = {
+        width: 30,
+        height: 30,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        border: '1px solid #d1d5db',
+        borderRadius: 6,
+        background: '#fff',
+        color: '#4b5563',
+        cursor: 'pointer',
+        padding: 0
+    };
+
+    const itemStyle: React.CSSProperties = {
+        width: '100%',
+        minHeight: 38,
+        display: 'flex',
+        alignItems: 'center',
+        gap: 9,
+        padding: '8px 11px',
+        border: 0,
+        borderRadius: 7,
+        background: 'transparent',
+        color: '#374151',
+        fontSize: 13,
+        fontFamily: 'inherit',
+        textAlign: 'left',
+        cursor: 'pointer'
+    };
+
     return (
-        <div className="chat-ctx" ref={menuRef}>
+        <div className="chat-ctx" ref={menuRef} style={{ position: 'relative', flexShrink: 0 }}>
             <button
                 type="button"
                 className="chat-ctx-trigger"
@@ -80,15 +110,35 @@ export default function ChatContextMenu({ pinned, onRename, onTogglePin, onDelet
                     e.stopPropagation();
                     setOpen((v) => !v);
                 }}
+                style={triggerStyle}
+                title="Conversation options"
             >
                 <DotsIcon />
             </button>
             {open && (
-                <div className="chat-ctx-menu" role="menu">
+                <div
+                    className="chat-ctx-menu"
+                    role="menu"
+                    style={{
+                        position: 'absolute',
+                        top: 'calc(100% + 6px)',
+                        right: 0,
+                        zIndex: 10050,
+                        width: 150,
+                        padding: 5,
+                        border: '1px solid #e5e7eb',
+                        borderRadius: 10,
+                        background: '#fff',
+                        boxShadow: '0 10px 28px rgba(0,0,0,.16)'
+                    }}
+                >
                     <button
                         type="button"
                         role="menuitem"
                         className="chat-ctx-item"
+                        style={itemStyle}
+                        onMouseEnter={(e) => { e.currentTarget.style.background = '#f7f1ed'; }}
+                        onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
                         onClick={(e) => {
                             e.stopPropagation();
                             run(onRename);
@@ -101,6 +151,9 @@ export default function ChatContextMenu({ pinned, onRename, onTogglePin, onDelet
                         type="button"
                         role="menuitem"
                         className="chat-ctx-item"
+                        style={itemStyle}
+                        onMouseEnter={(e) => { e.currentTarget.style.background = '#f7f1ed'; }}
+                        onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
                         onClick={(e) => {
                             e.stopPropagation();
                             run(onTogglePin);
@@ -113,6 +166,9 @@ export default function ChatContextMenu({ pinned, onRename, onTogglePin, onDelet
                         type="button"
                         role="menuitem"
                         className="chat-ctx-item chat-ctx-item-danger"
+                        style={{ ...itemStyle, color: '#b91c1c' }}
+                        onMouseEnter={(e) => { e.currentTarget.style.background = '#fef2f2'; }}
+                        onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
                         onClick={(e) => {
                             e.stopPropagation();
                             run(onDelete);
