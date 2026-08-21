@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import Navbar from '../components/Navbar';
 import '../styles/pages/ai-agent.css';
 import '../styles/pages/ai-agent-fixes.css';
+import '../styles/components/chat-actions.css';
 import useRagAssistant from '../hooks/useRagAssistant';
 import QueryControls from '../components/ai/QueryControls';
 import AnswerPanel from '../components/ai/AnswerPanel';
@@ -13,8 +14,8 @@ function AiAgent() {
         datasetPathList, selectedPaths, allSelected, handleDatasetChange, selectedDataset,
         prompt, setPrompt, answer, sources, confidence, topK, setTopK, answerMode, setAnswerMode,
         includeConversationMemory, setIncludeConversationMemory, chatHistory, loading, status, error,
-        ask, stop, regenerate, conversations, activeConversationId, newChat, selectConversation,
-        deleteConversation, renameConversation, togglePin, clearConversations
+        ask, stop, regenerate, editUserMessage, setAnswerVariant, conversations, activeConversationId,
+        newChat, selectConversation, deleteConversation, renameConversation, togglePin, clearConversations
     } = useRagAssistant();
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -24,6 +25,9 @@ function AiAgent() {
     const [conversationSearchOpen, setConversationSearchOpen] = useState(false);
     const [conversationSearch, setConversationSearch] = useState('');
     const [activeMatchIndex, setActiveMatchIndex] = useState(0);
+    const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
+    const [editingPrompt, setEditingPrompt] = useState('');
+    const [editingBusy, setEditingBusy] = useState(false);
     const messageRefs = useRef<Array<HTMLDivElement | null>>([]);
     const wasNearBottomRef = useRef(true);
 
@@ -36,7 +40,10 @@ function AiAgent() {
 
     type ConversationMatch = { turnIndex: number; start: number; end: number; matchedText: string };
 
-    function copyText(text: string) { if (text) navigator.clipboard.writeText(text).catch(() => {}); }
+    function copyText(text: string) {
+        if (text) navigator.clipboard.writeText(text).catch(() => {});
+    }
+
     function copySources() { copyText(formatCitationLines(sources)); }
     function escapeRegExp(s: string) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 
@@ -58,17 +65,26 @@ function AiAgent() {
         try {
             const regex = new RegExp(`(${escapeRegExp(query)})`, 'gi');
             const segments: Array<string | React.ReactNode> = [];
-            let lastIndex = 0; let matchCounter = 0;
+            let lastIndex = 0;
+            let matchCounter = 0;
             for (const match of text.matchAll(regex)) {
-                const start = match.index ?? 0; const end = start + match[0].length;
+                const start = match.index ?? 0;
+                const end = start + match[0].length;
                 if (start > lastIndex) segments.push(text.slice(lastIndex, start));
                 const isActive = !!activeRange && start === activeRange.start && end === activeRange.end;
-                segments.push(<mark key={`${start}-${end}-${matchCounter}`} className={isActive ? 'chat-highlight chat-highlight-active' : 'chat-highlight'}>{match[0]}</mark>);
-                lastIndex = end; matchCounter++;
+                segments.push(
+                    <mark key={`${start}-${end}-${matchCounter}`} className={isActive ? 'chat-highlight chat-highlight-active' : 'chat-highlight'}>
+                        {match[0]}
+                    </mark>
+                );
+                lastIndex = end;
+                matchCounter++;
             }
             if (lastIndex < text.length) segments.push(text.slice(lastIndex));
             return segments.length ? segments : text;
-        } catch { return text; }
+        } catch {
+            return text;
+        }
     }
 
     function getSnippet(text: string, query: string, radius = 60, start = -1, end = -1) {
@@ -77,7 +93,8 @@ function AiAgent() {
         if (!match) return '';
         const hitStart = start >= 0 ? start : match.index;
         const hitEnd = end >= 0 ? end : hitStart + match[0].length;
-        const snippetStart = Math.max(0, hitStart - radius); const snippetEnd = Math.min(text.length, hitEnd + radius);
+        const snippetStart = Math.max(0, hitStart - radius);
+        const snippetEnd = Math.min(text.length, hitEnd + radius);
         let snippet = text.slice(snippetStart, snippetEnd).trim();
         if (snippetStart > 0) snippet = '…' + snippet;
         if (snippetEnd < text.length) snippet += '…';
@@ -105,10 +122,18 @@ function AiAgent() {
         wasNearBottomRef.current = container.scrollHeight - container.scrollTop - container.clientHeight < 160;
     }
 
-    function handleNewChat() { newChat(); setSidebarOpen(false); inputRef.current?.focus(); }
+    function handleNewChat() {
+        newChat();
+        setSidebarOpen(false);
+        inputRef.current?.focus();
+    }
+
     function handleAsk() {
         ask();
-        if (inputRef.current) { inputRef.current.style.height = 'auto'; inputRef.current.style.height = '1.5rem'; }
+        if (inputRef.current) {
+            inputRef.current.style.height = 'auto';
+            inputRef.current.style.height = '1.5rem';
+        }
     }
 
     function beginEdit(turnId: string, content: string) {
@@ -120,14 +145,19 @@ function AiAgent() {
     function cancelEdit() {
         setEditingMessageId(null);
         setEditingPrompt('');
+        setEditingBusy(false);
     }
 
     async function submitEdit(turnId: string) {
-        if (!editingPrompt.trim() || loading) return;
-        const nextPrompt = editingPrompt;
-        setEditingMessageId(null);
-        setEditingPrompt('');
-        await editUserMessage(turnId, nextPrompt);
+        const nextPrompt = editingPrompt.trim();
+        if (!nextPrompt || loading || editingBusy) return;
+        setEditingBusy(true);
+        try {
+            await editUserMessage(turnId, nextPrompt);
+            cancelEdit();
+        } finally {
+            setEditingBusy(false);
+        }
     }
 
     return (
@@ -150,32 +180,171 @@ function AiAgent() {
                     />
                     <div className="ai-chat-content">
                         {conversationSearchOpen && (
-                            <div className="chat-in-conv-search-wrap"><div className="chat-in-conv-search">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                                <input type="text" placeholder="Search phrase in conversations..." className="chat-in-conv-search-input" value={conversationSearch} onChange={(e) => { setConversationSearch(e.target.value); setActiveMatchIndex(0); }}/>
-                                {conversationSearch && <><span className="chat-match-count">{conversationMatches.length ? `${activeMatchIndex + 1}/${conversationMatches.length}` : '0/0'}</span><button type="button" className="chat-in-conv-prev" onClick={() => jumpToMatch(activeMatchIndex - 1)}>◀</button><button type="button" className="chat-in-conv-next" onClick={() => jumpToMatch(activeMatchIndex + 1)}>▶</button><button type="button" className="chat-in-conv-clear" onClick={() => { setConversationSearch(''); setActiveMatchIndex(0); }}>✕</button></>}
-                            </div></div>
+                            <div className="chat-in-conv-search-wrap">
+                                <div className="chat-in-conv-search">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                                    <input
+                                        type="text"
+                                        placeholder="Search phrase in conversations..."
+                                        className="chat-in-conv-search-input"
+                                        value={conversationSearch}
+                                        onChange={(e) => { setConversationSearch(e.target.value); setActiveMatchIndex(0); }}
+                                    />
+                                    {conversationSearch && <>
+                                        <span className="chat-match-count">{conversationMatches.length ? `${activeMatchIndex + 1}/${conversationMatches.length}` : '0/0'}</span>
+                                        <button type="button" className="chat-in-conv-prev" onClick={() => jumpToMatch(activeMatchIndex - 1)}>◀</button>
+                                        <button type="button" className="chat-in-conv-next" onClick={() => jumpToMatch(activeMatchIndex + 1)}>▶</button>
+                                        <button type="button" className="chat-in-conv-clear" onClick={() => { setConversationSearch(''); setActiveMatchIndex(0); }}>✕</button>
+                                    </>}
+                                </div>
+                            </div>
                         )}
                         <div className="ai-chat-messages" ref={messagesContainerRef} onScroll={handleScroll}>
                             <div className="ai-chat-messages-inner">
-                                <div className="ai-chat-heading"><h1>AI Agent</h1><p className="ai-chat-subheading">A scholarly research assistant grounded in the Mahapashupata Veershaivam corpus.</p></div>
-                                <div className={`chat-search-floating ${conversationSearchOpen ? 'chat-search-floating--open' : ''}`}><button type="button" className="chat-search-floating-btn" onClick={() => { const nextState=!conversationSearchOpen; setConversationSearchOpen(nextState); if(!nextState){setConversationSearch('');setActiveMatchIndex(0);} }} aria-label="Search in conversations" title="Search in conversations"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button></div>
+                                <div className="ai-chat-heading">
+                                    <h1>AI Agent</h1>
+                                    <p className="ai-chat-subheading">A scholarly research assistant grounded in the Mahapashupata Veershaivam corpus.</p>
+                                </div>
+                                <div className={`chat-search-floating ${conversationSearchOpen ? 'chat-search-floating--open' : ''}`}>
+                                    <button type="button" className="chat-search-floating-btn" onClick={() => {
+                                        const nextState = !conversationSearchOpen;
+                                        setConversationSearchOpen(nextState);
+                                        if (!nextState) { setConversationSearch(''); setActiveMatchIndex(0); }
+                                    }} aria-label="Search in conversations" title="Search in conversations">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                                    </button>
+                                </div>
+
                                 {chatHistory.map((turn, i) => {
-                                    const query=conversationSearch.trim(); const turnMatches=conversationMatches.filter((m)=>m.turnIndex===i); const activeMatch=conversationMatches[activeMatchIndex]; const activeTurnMatch=turnMatches.find((m)=>activeMatch&&activeMatch.turnIndex===i&&activeMatch.start===m.start&&activeMatch.end===m.end); const isMatch=Boolean(query&&turnMatches.length);
-                                    return <div key={i} ref={(el)=>{if(el) messageRefs.current[i]=el;}} className={`ai-message ${turn.role}`} style={{display:'flex',justifyContent:turn.role==='user'?'flex-end':'flex-start'}}>
-                                        {turn.role==='user' ? <div className="message-bubble user-message-bubble"><div className="message-bubble-label">You</div><div className="message-bubble-text">{typeof turn.content==='string'?renderHighlighted(turn.content,conversationSearch,activeTurnMatch?{start:activeTurnMatch.start,end:activeTurnMatch.end}:undefined):turn.content}</div></div> : <div style={{display:'flex',flexDirection:'column',gap:8,maxWidth:'100%'}}><AnswerPanel answer={turn.content} sources={turn.sources||[]} confidence={turn.confidence||0} loading={false} onCopyAnswer={()=>copyText(turn.content)} onCopyReferences={()=>copyText(formatCitationLines(turn.sources||[]))}/>{isMatch&&<div className="chat-match-snippet">{renderHighlighted(getSnippet(turn.content,conversationSearch,70,activeTurnMatch?.start??-1,activeTurnMatch?.end??-1)||turn.content,conversationSearch,activeTurnMatch?{start:activeTurnMatch.start,end:activeTurnMatch.end}:undefined)}</div>}</div>}
-                                    </div>;
+                                    const query = conversationSearch.trim();
+                                    const turnMatches = conversationMatches.filter((m) => m.turnIndex === i);
+                                    const activeMatch = conversationMatches[activeMatchIndex];
+                                    const activeTurnMatch = turnMatches.find((m) => activeMatch && activeMatch.turnIndex === i && activeMatch.start === m.start && activeMatch.end === m.end);
+                                    const isMatch = Boolean(query && turnMatches.length);
+                                    const isEditing = turn.role === 'user' && editingMessageId === turn.id;
+
+                                    return (
+                                        <div key={turn.id || i} ref={(el) => { if (el) messageRefs.current[i] = el; }} className={`ai-message ${turn.role}`} style={{ display: 'flex', justifyContent: turn.role === 'user' ? 'flex-end' : 'flex-start' }}>
+                                            {turn.role === 'user' ? (
+                                                <div className="chat-user-message-wrap">
+                                                    {isEditing ? (
+                                                        <div className="chat-edit-message-box">
+                                                            <textarea
+                                                                className="chat-edit-message-textarea"
+                                                                value={editingPrompt}
+                                                                autoFocus
+                                                                onChange={(e) => setEditingPrompt(e.target.value)}
+                                                                onKeyDown={(e) => {
+                                                                    if (e.key === 'Escape') { e.preventDefault(); cancelEdit(); }
+                                                                    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); void submitEdit(turn.id); }
+                                                                }}
+                                                            />
+                                                            <div className="chat-edit-message-actions">
+                                                                <button type="button" className="chat-edit-cancel-btn" onClick={cancelEdit} disabled={editingBusy}>Cancel</button>
+                                                                <button type="button" className="chat-edit-send-btn" onClick={() => void submitEdit(turn.id)} disabled={!editingPrompt.trim() || editingBusy}>
+                                                                    {editingBusy ? 'Saving…' : 'Save & regenerate'}
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    ) : (
+                                                        <>
+                                                            <div className="message-bubble user-message-bubble">
+                                                                <div className="message-bubble-label">You</div>
+                                                                <div className="message-bubble-text">{typeof turn.content === 'string' ? renderHighlighted(turn.content, conversationSearch, activeTurnMatch ? { start: activeTurnMatch.start, end: activeTurnMatch.end } : undefined) : turn.content}</div>
+                                                            </div>
+                                                            {!loading && (
+                                                                <div className="chat-user-message-actions">
+                                                                    <button type="button" className="chat-message-action-btn" onClick={() => beginEdit(turn.id, turn.content)} title="Edit prompt">✎ Edit</button>
+                                                                </div>
+                                                            )}
+                                                        </>
+                                                    )}
+                                                </div>
+                                            ) : (
+                                                <div className="chat-assistant-message-wrap">
+                                                    <AnswerPanel answer={turn.content} sources={turn.sources || []} confidence={turn.confidence || 0} loading={false} onCopyAnswer={() => copyText(turn.content)} onCopyReferences={() => copyText(formatCitationLines(turn.sources || []))}/>
+                                                    <div className="chat-assistant-message-actions">
+                                                        {turn.variantCount > 1 && (
+                                                            <div className="chat-answer-variants" aria-label="Answer versions">
+                                                                <button type="button" className="chat-answer-variant-btn" onClick={() => setAnswerVariant(turn.id, turn.variantIndex - 1)} disabled={turn.variantIndex <= 0} aria-label="Previous answer">‹</button>
+                                                                <span className="chat-answer-variant-count">{turn.variantIndex + 1} / {turn.variantCount}</span>
+                                                                <button type="button" className="chat-answer-variant-btn" onClick={() => setAnswerVariant(turn.id, turn.variantIndex + 1)} disabled={turn.variantIndex >= turn.variantCount - 1} aria-label="Next answer">›</button>
+                                                            </div>
+                                                        )}
+                                                        {!loading && (
+                                                            <button type="button" className="chat-message-action-btn" onClick={() => void regenerate(turn.id)} title="Regenerate answer">↻ Regenerate</button>
+                                                        )}
+                                                    </div>
+                                                    {isMatch && <div className="chat-match-snippet">{renderHighlighted(getSnippet(turn.content, conversationSearch, 70, activeTurnMatch?.start ?? -1, activeTurnMatch?.end ?? -1) || turn.content, conversationSearch, activeTurnMatch ? { start: activeTurnMatch.start, end: activeTurnMatch.end } : undefined)}</div>}
+                                                </div>
+                                            )}
+                                        </div>
+                                    );
                                 })}
-                                {(answer||loading)&&<div className="ai-message assistant"><AnswerPanel answer={answer} sources={sources} confidence={confidence} loading={loading} onCopyAnswer={()=>copyText(answer)} onCopyReferences={copySources}/></div>}
-                                {error&&<div style={{color:'#b91c1c',padding:12,fontSize:'var(--font-body)'}}>{error}</div>}
+
+                                {(answer || loading) && (
+                                    <div className="ai-message assistant">
+                                        <AnswerPanel answer={answer} sources={sources} confidence={confidence} loading={loading} onCopyAnswer={() => copyText(answer)} onCopyReferences={copySources}/>
+                                    </div>
+                                )}
+                                {error && <div style={{ color: '#b91c1c', padding: 12, fontSize: 'var(--font-body)' }}>{error}</div>}
                                 <div ref={messagesEndRef}/>
                             </div>
                         </div>
-                        <div className="ai-chat-composer"><div className="ai-chat-composer-inner">
-                            <details className="ai-chat-advanced"><summary>Advanced settings</summary><div className="ai-chat-advanced-body"><QueryControls paths={datasetPathList} selected={selectedPaths} allSelected={allSelected} onDatasetChange={handleDatasetChange} topK={topK} onTopKChange={setTopK} answerMode={answerMode} onAnswerModeChange={setAnswerMode} includeConversationMemory={includeConversationMemory} onIncludeConversationMemoryChange={setIncludeConversationMemory} onAsk={ask} onStop={stop} onRegenerate={regenerate} hasGeneration={Boolean(answer&&answer.trim())||sources.length>0} loading={loading} status={status} error={error}/></div></details>
-                            <div className="ai-chat-input-wrap"><textarea ref={inputRef} value={prompt} onChange={(e)=>{setPrompt(e.target.value);autoResizeTextarea();}} onKeyDown={(e)=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();if(prompt.trim()&&selectedDataset&&!loading)handleAsk();}}} placeholder="Ask a question..." className="ai-chat-textarea" disabled={loading}/>{loading?<button onClick={stop} className="ai-chat-send-btn ai-chat-stop-btn" aria-label="Stop generating">■</button>:<button onClick={handleAsk} disabled={!selectedDataset||!prompt.trim()||loading} className="ai-chat-send-btn" aria-label="Send question"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></button>}</div>
-                            {status&&<div className="ai-chat-status">{status}</div>}<div className="ai-chat-disclaimer">AI can make mistakes. Verify important information against the source texts.</div>
-                        </div></div>
+
+                        <div className="ai-chat-composer">
+                            <div className="ai-chat-composer-inner">
+                                <details className="ai-chat-advanced">
+                                    <summary>Advanced settings</summary>
+                                    <div className="ai-chat-advanced-body">
+                                        <QueryControls
+                                            paths={datasetPathList}
+                                            selected={selectedPaths}
+                                            allSelected={allSelected}
+                                            onDatasetChange={handleDatasetChange}
+                                            topK={topK}
+                                            onTopKChange={setTopK}
+                                            answerMode={answerMode}
+                                            onAnswerModeChange={setAnswerMode}
+                                            includeConversationMemory={includeConversationMemory}
+                                            onIncludeConversationMemoryChange={setIncludeConversationMemory}
+                                            onAsk={ask}
+                                            onStop={stop}
+                                            onRegenerate={() => void regenerate()}
+                                            hasGeneration={Boolean(answer && answer.trim()) || sources.length > 0}
+                                            loading={loading}
+                                            status={status}
+                                            error={error}
+                                        />
+                                    </div>
+                                </details>
+                                <div className="ai-chat-input-wrap">
+                                    <textarea
+                                        ref={inputRef}
+                                        value={prompt}
+                                        onChange={(e) => { setPrompt(e.target.value); autoResizeTextarea(); }}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter' && !e.shiftKey) {
+                                                e.preventDefault();
+                                                if (prompt.trim() && selectedDataset && !loading) handleAsk();
+                                            }
+                                        }}
+                                        placeholder="Ask a question..."
+                                        className="ai-chat-textarea"
+                                        disabled={loading}
+                                    />
+                                    {loading ? (
+                                        <button onClick={stop} className="ai-chat-send-btn ai-chat-stop-btn" aria-label="Stop generating">■</button>
+                                    ) : (
+                                        <button onClick={handleAsk} disabled={!selectedDataset || !prompt.trim() || loading} className="ai-chat-send-btn" aria-label="Send question">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+                                        </button>
+                                    )}
+                                </div>
+                                {status && <div className="ai-chat-status">{status}</div>}
+                                <div className="ai-chat-disclaimer">AI can make mistakes. Verify important information against the source texts.</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </main>
