@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 import type { AnswerMode, RAGDataset, RAGSource } from '../types/rag';
 import type { RAGQueryRequest } from '../types/rag';
-import type { Conversation, DatasetSelection } from '../types/conversation';
+import type { Conversation, ConversationMessage, DatasetSelection } from '../types/conversation';
 import { listRagDatasets, queryRagAssistantStream } from '../services/rag/retriever';
 import {
     subscribe,
@@ -20,36 +20,72 @@ import {
     deriveTitle
 } from '../services/conversationStore';
 
-export type ChatTurn = { role: 'user' | 'assistant'; content: string; sources?: RAGSource[]; confidence?: number };
+export type ChatTurn = {
+    id: string;
+    role: 'user' | 'assistant';
+    content: string;
+    sources?: RAGSource[];
+    confidence?: number;
+    variantIndex: number;
+    variantCount: number;
+};
 
-function toTurn(m: { role: 'user' | 'assistant'; content: string; sources?: RAGSource[]; confidence?: number }): ChatTurn {
-    return { role: m.role, content: m.content, sources: m.sources, confidence: m.confidence };
+type AnswerVariant = {
+    content: string;
+    sources?: RAGSource[];
+    confidence?: number;
+};
+
+function getAssistantVariants(message: ConversationMessage): AnswerVariant[] {
+    if (message.variants?.length) return message.variants;
+    return [{ content: message.content, sources: message.sources, confidence: message.confidence }];
+}
+
+function toTurn(m: ConversationMessage): ChatTurn {
+    if (m.role === 'assistant') {
+        const variants = getAssistantVariants(m);
+        const rawIndex = typeof m.activeVariant === 'number' ? m.activeVariant : 0;
+        const index = Math.min(Math.max(rawIndex, 0), variants.length - 1);
+        const variant = variants[index];
+        return {
+            id: m.id,
+            role: m.role,
+            content: variant.content,
+            sources: variant.sources,
+            confidence: variant.confidence,
+            variantIndex: index,
+            variantCount: variants.length,
+        };
+    }
+    return {
+        id: m.id,
+        role: m.role,
+        content: m.content,
+        sources: m.sources,
+        confidence: m.confidence,
+        variantIndex: 0,
+        variantCount: 1,
+    };
 }
 
 export default function useRagAssistant() {
     const [datasets, setDatasets] = useState<RAGDataset[]>([]);
-
-    // ── Source of truth: the module-level store (survives unmount/remount + refresh) ──
     const { conversations, activeConversationId } = useSyncExternalStore(subscribe, getSnapshot);
     const activeConversation = useMemo<Conversation | null>(
         () => conversations.find((c) => c.id === activeConversationId) ?? null,
         [conversations, activeConversationId]
     );
 
-    // Derive the visible chat history from the active conversation's messages.
     const chatHistory = useMemo<ChatTurn[]>(
         () => (activeConversation?.messages ?? []).map(toTurn),
         [activeConversation]
     );
 
-    // Live ref mirroring the active conversation's messages, used inside async
-    // streaming callbacks to avoid stale closures.
     const messagesRef = useRef<Conversation['messages']>(activeConversation?.messages ?? []);
     useEffect(() => {
         messagesRef.current = activeConversation?.messages ?? [];
     }, [activeConversation]);
 
-    // ── Dataset selection state (conversation-scoped) ──────────────────────
     const [selectedPaths, setSelectedPaths] = useState<ReadonlySet<string>>(() => {
         const sel = activeConversation?.datasetSelection;
         if (sel?.selectionType === 'folders') return new Set(sel.folders);
@@ -69,15 +105,14 @@ export default function useRagAssistant() {
     const [answerMode, setAnswerMode] = useState<AnswerMode>('detailed');
     const [includeConversationMemory, setIncludeConversationMemory] = useState(true);
     const [loading, setLoading] = useState(false);
-
     const [status, setStatus] = useState('');
     const [error, setError] = useState('');
 
     const abortControllerRef = useRef<AbortController | null>(null);
     const lastRequestRef = useRef<RAGQueryRequest | null>(null);
     const streamIdRef = useRef(0);
+    const pendingVariantRef = useRef<{ assistantId: string } | null>(null);
 
-    // ── Mount: just load datasets. Conversation restoration is handled by the store. ──
     useEffect(() => {
         async function loadDatasets() {
             setStatus('Loading datasets...');
@@ -90,12 +125,10 @@ export default function useRagAssistant() {
                 setStatus('Unable to load datasets.');
             }
         }
-
         void loadDatasets();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // The flat list of dataset value paths (excluding the virtual "__ALL__" entry).
     const datasetPathList = useMemo(
         () => datasets.filter((dataset) => dataset.value !== '__ALL__').map((dataset) => dataset.value),
         [datasets]
@@ -139,6 +172,18 @@ export default function useRagAssistant() {
         }
     }
 
+    function buildRequest(query: string): RAGQueryRequest {
+        return {
+            query,
+            selectedDataset,
+            selectedDatasets: allSelected ? undefined : Array.from(effectiveSelected),
+            topK,
+            answerMode,
+            includeConversationMemory,
+            conversationHistory: []
+        };
+    }
+
     async function startStream(request: RAGQueryRequest) {
         setLoading(true);
         setError('');
@@ -164,12 +209,10 @@ export default function useRagAssistant() {
         };
 
         lastRequestRef.current = fullRequest;
-
         setStatus('Streaming response...');
 
         const controller = new AbortController();
         abortControllerRef.current = controller;
-
         const myStreamId = ++streamIdRef.current;
 
         const rawTimeoutMs = Number(import.meta.env.VITE_RAG_STREAM_TIMEOUT_MS ?? 30000);
@@ -181,11 +224,7 @@ export default function useRagAssistant() {
         let timeout: number | undefined;
         if (timeoutMs > 0) {
             timeout = window.setTimeout(() => {
-                try {
-                    controller.abort();
-                } catch {
-                    // ignore
-                }
+                try { controller.abort(); } catch { /* ignore */ }
             }, timeoutMs);
         }
 
@@ -193,25 +232,55 @@ export default function useRagAssistant() {
             await queryRagAssistantStream(fullRequest, {
                 signal: controller.signal,
                 onToken: (t) => {
-                    if (streamIdRef.current !== myStreamId) return;
-                    if (!t) return;
+                    if (streamIdRef.current !== myStreamId || !t) return;
                     setAnswer((prev) => prev + t);
                 },
                 onDone: (d) => {
                     if (streamIdRef.current !== myStreamId) return;
+
                     setSources(d.sources);
                     setConfidence(d.confidence);
+                    const pendingVariant = pendingVariantRef.current;
+                    let nextMessages: ConversationMessage[];
 
-                    // Append the assistant message to the active conversation and persist.
-                    const assistantMsg = makeMessage({
-                        role: 'assistant',
-                        content: d.answer,
-                        sources: d.sources,
-                        confidence: d.confidence
-                    });
-                    const nextMessages = [...messagesRef.current, assistantMsg];
+                    if (pendingVariant) {
+                        const target = messagesRef.current.find((m) => m.id === pendingVariant.assistantId && m.role === 'assistant');
+                        if (!target) {
+                            pendingVariantRef.current = null;
+                            return;
+                        }
+                        const existingVariants = getAssistantVariants(target);
+                        const newVariant: AnswerVariant = {
+                            content: d.answer,
+                            sources: d.sources,
+                            confidence: d.confidence,
+                        };
+                        const variants = [...existingVariants, newVariant];
+                        const activeVariant = variants.length - 1;
+                        nextMessages = messagesRef.current.map((m) =>
+                            m.id === target.id
+                                ? {
+                                    ...m,
+                                    content: newVariant.content,
+                                    sources: newVariant.sources,
+                                    confidence: newVariant.confidence,
+                                    variants,
+                                    activeVariant,
+                                }
+                                : m
+                        );
+                        pendingVariantRef.current = null;
+                    } else {
+                        const assistantMsg = makeMessage({
+                            role: 'assistant',
+                            content: d.answer,
+                            sources: d.sources,
+                            confidence: d.confidence
+                        });
+                        nextMessages = [...messagesRef.current, assistantMsg];
+                    }
+
                     messagesRef.current = nextMessages;
-
                     const conv = getActiveConversation();
                     if (conv) {
                         storeUpdateConversation(conv.id, (c) => ({
@@ -221,28 +290,22 @@ export default function useRagAssistant() {
                         }));
                     }
 
-                    // Clear live answer state so only chatHistory renders it.
                     setAnswer('');
                     setStatus('');
                 }
             });
 
-            if (streamIdRef.current === myStreamId) {
-                setLoading(false);
-            }
+            if (streamIdRef.current === myStreamId) setLoading(false);
         } catch (err) {
             if (streamIdRef.current !== myStreamId) return;
-
+            pendingVariantRef.current = null;
             const msg = err instanceof Error ? err.message : String(err);
-
             if (controller.signal.aborted || msg.toLowerCase().includes('abort')) {
-                console.info('[RAG client] stream aborted:', msg);
                 setError('');
                 setStatus('Stopped.');
                 setLoading(false);
                 return;
             }
-
             console.error('[RAG client] stream error:', msg, 'aborted:', controller.signal.aborted);
             setError(msg);
             setStatus('');
@@ -253,38 +316,86 @@ export default function useRagAssistant() {
     }
 
     function stop() {
-        try {
-            abortControllerRef.current?.abort();
-        } catch {
-            // ignore
-        }
+        try { abortControllerRef.current?.abort(); } catch { /* ignore */ }
         setLoading(false);
         setStatus('Stopped.');
     }
 
-    async function regenerate() {
-        const req = lastRequestRef.current;
-        if (!req || loading) return;
-        // Remove the last assistant entry together with its preceding user message
-        // so the regenerated response replaces it cleanly.
-        let nextMessages = [...messagesRef.current];
-        const last = nextMessages[nextMessages.length - 1];
-        if (last && last.role === 'assistant') {
-            nextMessages = nextMessages.slice(0, -2);
+    async function regenerate(messageId?: string) {
+        if (loading) return;
+
+        const messages = messagesRef.current;
+        let assistantIndex = messageId
+            ? messages.findIndex((m) => m.id === messageId && m.role === 'assistant')
+            : -1;
+        if (assistantIndex < 0) {
+            for (let i = messages.length - 1; i >= 0; i -= 1) {
+                if (messages[i].role === 'assistant') {
+                    assistantIndex = i;
+                    break;
+                }
+            }
         }
+        if (assistantIndex < 1) return;
+
+        const userMessage = messages[assistantIndex - 1];
+        const assistantMessage = messages[assistantIndex];
+        if (userMessage.role !== 'user' || assistantMessage.role !== 'assistant') return;
+
+        pendingVariantRef.current = { assistantId: assistantMessage.id };
+        await startStream(buildRequest(userMessage.content));
+    }
+
+    async function editUserMessage(messageId: string, newContent: string) {
+        if (loading || !newContent.trim()) return;
+        const index = messagesRef.current.findIndex((m) => m.id === messageId && m.role === 'user');
+        if (index < 0) return;
+
+        const editedUser = { ...messagesRef.current[index], content: newContent };
+        const nextMessages = [...messagesRef.current.slice(0, index), editedUser];
         messagesRef.current = nextMessages;
 
         const conv = getActiveConversation();
         if (conv) {
-            storeUpdateConversation(conv.id, (c) => ({ ...c, messages: nextMessages, updatedAt: Date.now() }));
+            storeUpdateConversation(conv.id, (c) => ({
+                ...c,
+                title: index === 0 ? deriveTitle(newContent.trim()) : c.title,
+                messages: nextMessages,
+                updatedAt: Date.now()
+            }));
         }
 
-        await startStream(req);
+        setPrompt('');
+        await startStream(buildRequest(newContent));
+    }
+
+    function setAnswerVariant(messageId: string, variantIndex: number) {
+        const target = messagesRef.current.find((m) => m.id === messageId && m.role === 'assistant');
+        if (!target) return;
+        const variants = getAssistantVariants(target);
+        if (variantIndex < 0 || variantIndex >= variants.length) return;
+        const variant = variants[variantIndex];
+        const nextMessages = messagesRef.current.map((m) =>
+            m.id === messageId
+                ? {
+                    ...m,
+                    content: variant.content,
+                    sources: variant.sources,
+                    confidence: variant.confidence,
+                    variants,
+                    activeVariant: variantIndex,
+                }
+                : m
+        );
+        messagesRef.current = nextMessages;
+        const conv = getActiveConversation();
+        if (conv) {
+            storeUpdateConversation(conv.id, (c) => ({ ...c, messages: nextMessages, updatedAt: Date.now() }));
+        }
     }
 
     async function ask() {
         const rawPrompt = prompt;
-
         if (!rawPrompt.trim()) {
             setError('Please enter a prompt.');
             return;
@@ -294,22 +405,10 @@ export default function useRagAssistant() {
             return;
         }
 
-        const request: RAGQueryRequest = {
-            query: rawPrompt,
-            selectedDataset,
-            selectedDatasets: allSelected ? undefined : Array.from(effectiveSelected),
-            topK,
-            answerMode,
-            includeConversationMemory,
-            conversationHistory: []
-        };
-
+        const request = buildRequest(rawPrompt);
         const userMsg = makeMessage({ role: 'user', content: rawPrompt });
-
-        // Create or update the active conversation. The user message is added
-        // and persisted BEFORE the backend request starts — it never depends on
-        // the streaming response.
         let conv = getActiveConversation();
+
         if (!conv) {
             const datasetSelection = buildDatasetSelection({ allSelected, selectedPaths: effectiveSelected });
             conv = makeConversation({ title: deriveTitle(prompt.trim()), datasetSelection });
@@ -326,12 +425,8 @@ export default function useRagAssistant() {
         await startStream(request);
     }
 
-    // ── Conversation management API (all backed by the persistent store) ────
     function newChat() {
         if (loading) return;
-        // Start a fresh chat: clear the active conversation without persisting
-        // an empty placeholder. The conversation is created (and persisted) only
-        // when the first message is actually submitted.
         storeSetActiveConversationId(null);
         messagesRef.current = [];
         resetLiveState();
@@ -342,15 +437,11 @@ export default function useRagAssistant() {
         if (loading) return;
         const conv = conversations.find((c) => c.id === id);
         if (!conv) return;
-        setActiveConversationIdLocal(id);
+        storeSetActiveConversationId(id);
         messagesRef.current = conv.messages;
         restoreDatasetSelection(conv.datasetSelection);
         resetLiveState();
         setPrompt('');
-    }
-
-    function setActiveConversationIdLocal(id: string) {
-        storeSetActiveConversationId(id);
     }
 
     function deleteConversation(id: string) {
@@ -361,13 +452,8 @@ export default function useRagAssistant() {
         }
     }
 
-    function renameConversation(id: string, title: string) {
-        storeRenameConversation(id, title);
-    }
-
-    function togglePin(id: string) {
-        storeTogglePin(id);
-    }
+    function renameConversation(id: string, title: string) { storeRenameConversation(id, title); }
+    function togglePin(id: string) { storeTogglePin(id); }
 
     function clearConversations() {
         storeClearAll();
@@ -382,6 +468,7 @@ export default function useRagAssistant() {
         setConfidence(0);
         setError('');
         setStatus('');
+        pendingVariantRef.current = null;
     }
 
     return {
@@ -412,7 +499,8 @@ export default function useRagAssistant() {
         ask,
         stop,
         regenerate,
-        // Conversation management
+        editUserMessage,
+        setAnswerVariant,
         conversations,
         activeConversationId,
         activeConversation,

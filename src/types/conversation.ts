@@ -11,12 +11,22 @@ export type DatasetSelection =
 
 export type ConversationMessageRole = 'user' | 'assistant';
 
+export type AnswerVariant = {
+    content: string;
+    sources?: RAGSource[];
+    confidence?: number;
+};
+
 export type ConversationMessage = {
     id: string;
     role: ConversationMessageRole;
     content: string;
     sources?: RAGSource[];
     confidence?: number;
+    /** Multiple generated answers for the same assistant turn. */
+    variants?: AnswerVariant[];
+    /** Zero-based active variant index. Legacy messages omit this field. */
+    activeVariant?: number;
 };
 
 export type Conversation = {

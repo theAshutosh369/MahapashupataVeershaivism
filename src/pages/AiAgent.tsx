@@ -111,6 +111,25 @@ function AiAgent() {
         if (inputRef.current) { inputRef.current.style.height = 'auto'; inputRef.current.style.height = '1.5rem'; }
     }
 
+    function beginEdit(turnId: string, content: string) {
+        if (loading) return;
+        setEditingMessageId(turnId);
+        setEditingPrompt(content);
+    }
+
+    function cancelEdit() {
+        setEditingMessageId(null);
+        setEditingPrompt('');
+    }
+
+    async function submitEdit(turnId: string) {
+        if (!editingPrompt.trim() || loading) return;
+        const nextPrompt = editingPrompt;
+        setEditingMessageId(null);
+        setEditingPrompt('');
+        await editUserMessage(turnId, nextPrompt);
+    }
+
     return (
         <div className="ai-chat-page">
             <Navbar />
