@@ -3,14 +3,10 @@ import type { Conversation, ConversationMessage, DatasetSelection } from '../typ
 const STORAGE_KEY = 'mahapashupata_ai_conversations';
 const ACTIVE_KEY = 'mahapashupata_ai_active_chat';
 
-// ── Types ─────────────────────────────────────────────────────────────────
-
 type StoreState = {
     conversations: Conversation[];
     activeConversationId: string | null;
 };
-
-// ── Pure helpers (id / title / message factory) ──────────────────────────
 
 export function createConversationId(): string {
     if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
@@ -26,17 +22,13 @@ export function createMessageId(): string {
     return `msg-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
 }
 
-/**
- * Generate a short, human-friendly chat title from the first user question.
- * Kept client-side — no LLM call is made for titles. Truncated to ~8 words.
- */
+/** Generate a short, human-friendly chat title from the first user question. */
 export function deriveTitle(question: string): string {
     const cleaned = question
         .replace(/\s+/g, ' ')
         .replace(/^(who|what|when|where|why|how|which|explain|explain about|tell me about|tell me|describe|what is|what are|who is|who was|what was|what are|who is an|what are the)\s+/i, '')
         .replace(/^[\s:;,.!?\-–—]+/, '')
         .trim();
-
     const words = cleaned.split(' ').filter(Boolean);
     const short = words.slice(0, 8).join(' ');
     const title = short.charAt(0).toUpperCase() + short.slice(1);
@@ -67,13 +59,18 @@ export function makeMessage(msg: {
     sources?: ConversationMessage['sources'];
     confidence?: number;
 }): ConversationMessage {
-    return {
+    const base: ConversationMessage = {
         id: createMessageId(),
         role: msg.role,
         content: msg.content,
         sources: msg.sources,
         confidence: msg.confidence,
     };
+    if (msg.role === 'assistant') {
+        base.variants = [{ content: msg.content, sources: msg.sources, confidence: msg.confidence }];
+        base.activeVariant = 0;
+    }
+    return base;
 }
 
 export function buildDatasetSelection(opts: {
@@ -89,8 +86,6 @@ export function buildDatasetSelection(opts: {
         : { selectionType: 'folders', folders: paths };
 }
 
-// ── Storage read/write (migrates any legacy format) ──────────────────────
-
 function loadConversationsFromStorage(): Conversation[] {
     try {
         const raw = window.localStorage.getItem(STORAGE_KEY);
@@ -99,11 +94,7 @@ function loadConversationsFromStorage(): Conversation[] {
         if (!Array.isArray(parsed)) return [];
         return parsed;
     } catch {
-        try {
-            window.localStorage.removeItem(STORAGE_KEY);
-        } catch {
-            // ignore
-        }
+        try { window.localStorage.removeItem(STORAGE_KEY); } catch { /* ignore */ }
         return [];
     }
 }
@@ -112,16 +103,11 @@ function loadActiveIdFromStorage(conversations: Conversation[]): string | null {
     try {
         const raw = window.localStorage.getItem(ACTIVE_KEY);
         if (!raw || !raw.trim()) return null;
-        // Only trust the stored id if it still exists in the conversation list.
         return conversations.some((c) => c.id === raw) ? raw : null;
     } catch {
         return null;
     }
 }
-
-// ── Module-level singleton store ──────────────────────────────────────────
-// This lives outside React so it survives component unmount/remount (route
-// navigation) while localStorage makes it survive a full browser refresh.
 
 let state: StoreState = (() => {
     const conversations = loadConversationsFromStorage();
@@ -133,79 +119,41 @@ const listeners = new Set<() => void>();
 
 function commit(next: StoreState) {
     state = next;
+    try { window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next.conversations)); } catch { /* ignore */ }
     try {
-        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next.conversations));
-    } catch {
-        // storage full/unavailable — ignore
-    }
-    try {
-        if (next.activeConversationId) {
-            window.localStorage.setItem(ACTIVE_KEY, next.activeConversationId);
-        } else {
-            window.localStorage.removeItem(ACTIVE_KEY);
-        }
-    } catch {
-        // ignore
-    }
+        if (next.activeConversationId) window.localStorage.setItem(ACTIVE_KEY, next.activeConversationId);
+        else window.localStorage.removeItem(ACTIVE_KEY);
+    } catch { /* ignore */ }
     listeners.forEach((l) => l());
 }
 
-// ── Subscription API (for useSyncExternalStore) ──────────────────────────
-
 export function subscribe(listener: () => void): () => void {
     listeners.add(listener);
-    return () => {
-        listeners.delete(listener);
-    };
+    return () => listeners.delete(listener);
 }
 
-export function getSnapshot(): StoreState {
-    return state;
-}
-
-// ── Read helpers ──────────────────────────────────────────────────────────
-
-export function getConversations(): Conversation[] {
-    return state.conversations;
-}
-
-export function getActiveConversationId(): string | null {
-    return state.activeConversationId;
-}
-
+export function getSnapshot(): StoreState { return state; }
+export function getConversations(): Conversation[] { return state.conversations; }
+export function getActiveConversationId(): string | null { return state.activeConversationId; }
 export function getActiveConversation(): Conversation | null {
-    return (
-        state.conversations.find((c) => c.id === state.activeConversationId) ??
-        null
-    );
+    return state.conversations.find((c) => c.id === state.activeConversationId) ?? null;
 }
-
 export function getConversationById(id: string): Conversation | null {
     return state.conversations.find((c) => c.id === id) ?? null;
 }
-
-// ── Mutations (each writes to localStorage and notifies subscribers) ──────
 
 export function setActiveConversationId(id: string | null): void {
     commit({ ...state, activeConversationId: id });
 }
 
 export function createConversation(conversation: Conversation): void {
-    commit({
-        conversations: [conversation, ...state.conversations],
-        activeConversationId: conversation.id,
-    });
+    commit({ conversations: [conversation, ...state.conversations], activeConversationId: conversation.id });
 }
 
-export function updateConversation(
-    id: string,
-    updater: (conversation: Conversation) => Conversation
-): void {
+export function updateConversation(id: string, updater: (conversation: Conversation) => Conversation): void {
     commit({
         ...state,
-        conversations: state.conversations.map((c) =>
-            c.id === id ? updater(c) : c
-        ),
+        conversations: state.conversations.map((c) => c.id === id ? updater(c) : c),
     });
 }
 
@@ -214,8 +162,7 @@ export function deleteConversation(id: string): void {
     let activeConversationId = state.activeConversationId;
     if (activeConversationId === id) {
         const mostRecent = conversations.reduce<Conversation | null>(
-            (best, c) => (!best || c.updatedAt > best.updatedAt ? c : best),
-            null
+            (best, c) => (!best || c.updatedAt > best.updatedAt ? c : best), null
         );
         activeConversationId = mostRecent ? mostRecent.id : null;
     }
@@ -236,27 +183,15 @@ export function clearAllConversations(): void {
     commit({ conversations: [], activeConversationId: null });
 }
 
-// Backward-compatible named helpers that operate on the store.
-export function loadConversations(): Conversation[] {
-    return state.conversations;
-}
+export function loadConversations(): Conversation[] { return state.conversations; }
+export function saveConversations(conversations: Conversation[]): void { commit({ ...state, conversations }); }
 
-export function saveConversations(conversations: Conversation[]): void {
-    commit({ ...state, conversations });
-}
-
-export function findConversation(
-    conversations: Conversation[],
-    id: string | null
-): Conversation | null {
+export function findConversation(conversations: Conversation[], id: string | null): Conversation | null {
     if (!id) return null;
     return conversations.find((c) => c.id === id) ?? null;
 }
 
-export function upsertConversation(
-    conversations: Conversation[],
-    conversation: Conversation
-): Conversation[] {
+export function upsertConversation(conversations: Conversation[], conversation: Conversation): Conversation[] {
     const idx = conversations.findIndex((c) => c.id === conversation.id);
     if (idx === -1) return [conversation, ...conversations];
     const next = [...conversations];
@@ -264,9 +199,6 @@ export function upsertConversation(
     return next;
 }
 
-export function deleteConversationById(
-    conversations: Conversation[],
-    id: string
-): Conversation[] {
+export function deleteConversationById(conversations: Conversation[], id: string): Conversation[] {
     return conversations.filter((c) => c.id !== id);
 }
