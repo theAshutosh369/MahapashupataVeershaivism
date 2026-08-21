@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Navbar from '../components/Navbar';
 import '../styles/pages/ai-agent.css';
+import '../styles/components/chat-actions.css';
 import useRagAssistant from '../hooks/useRagAssistant';
 import QueryControls from '../components/ai/QueryControls';
 import AnswerPanel from '../components/ai/AnswerPanel';
@@ -32,6 +33,8 @@ function AiAgent() {
         ask,
         stop,
         regenerate,
+        editUserMessage,
+        setAnswerVariant,
         conversations,
         activeConversationId,
         newChat,
@@ -46,8 +49,9 @@ function AiAgent() {
     const messagesContainerRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLTextAreaElement>(null);
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
+    const [editingPrompt, setEditingPrompt] = useState('');
 
-    // Auto-resize textarea as user types
     function autoResizeTextarea() {
         const textarea = inputRef.current;
         if (!textarea) return;
@@ -55,12 +59,10 @@ function AiAgent() {
         textarea.style.height = Math.min(textarea.scrollHeight, 360) + 'px';
     }
 
-    // Conversation search state
     const [conversationSearchOpen, setConversationSearchOpen] = useState(false);
     const [conversationSearch, setConversationSearch] = useState('');
     const [activeMatchIndex, setActiveMatchIndex] = useState(0);
     const messageRefs = useRef<Array<HTMLDivElement | null>>([]);
-
     const wasNearBottomRef = useRef(true);
 
     type ConversationMatch = {
@@ -79,7 +81,6 @@ function AiAgent() {
         copyText(formatCitationLines(sources));
     }
 
-    // Escape regex special characters for safe searching
     function escapeRegExp(s: string) {
         return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
@@ -92,54 +93,32 @@ function AiAgent() {
         const matches: ConversationMatch[] = [];
         for (const match of content.matchAll(pattern)) {
             const start = match.index ?? 0;
-            matches.push({
-                turnIndex,
-                start,
-                end: start + match[0].length,
-                matchedText: match[0],
-            });
+            matches.push({ turnIndex, start, end: start + match[0].length, matchedText: match[0] });
         }
         return matches;
     });
 
-    function renderHighlighted(
-        text: string,
-        query: string,
-        activeRange?: { start: number; end: number }
-    ) {
+    function renderHighlighted(text: string, query: string, activeRange?: { start: number; end: number }) {
         if (!query) return text;
         try {
             const regex = new RegExp(`(${escapeRegExp(query)})`, 'gi');
-            const segments: Array<string | React.ReactNode> = [];
+            const segments: Array<string | JSX.Element> = [];
             let lastIndex = 0;
             let matchCounter = 0;
-
             for (const match of text.matchAll(regex)) {
                 const start = match.index ?? 0;
                 const end = start + match[0].length;
-
-                if (start > lastIndex) {
-                    segments.push(text.slice(lastIndex, start));
-                }
-
+                if (start > lastIndex) segments.push(text.slice(lastIndex, start));
                 const isActive = !!activeRange && start === activeRange.start && end === activeRange.end;
                 segments.push(
-                    <mark
-                        key={`${start}-${end}-${matchCounter}`}
-                        className={isActive ? 'chat-highlight chat-highlight-active' : 'chat-highlight'}
-                    >
+                    <mark key={`${start}-${end}-${matchCounter}`} className={isActive ? 'chat-highlight chat-highlight-active' : 'chat-highlight'}>
                         {match[0]}
                     </mark>
                 );
-
                 lastIndex = end;
                 matchCounter += 1;
             }
-
-            if (lastIndex < text.length) {
-                segments.push(text.slice(lastIndex));
-            }
-
+            if (lastIndex < text.length) segments.push(text.slice(lastIndex));
             return segments.length ? segments : text;
         } catch (e) {
             console.log('exception in renderHighlighted', e);
@@ -167,56 +146,57 @@ function AiAgent() {
         const boundedIndex = (index + conversationMatches.length) % conversationMatches.length;
         setActiveMatchIndex(boundedIndex);
         const targetMatch = conversationMatches[boundedIndex];
-        const targetMessage = messageRefs.current[targetMatch.turnIndex];
-        if (targetMessage) {
-            targetMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+        messageRefs.current[targetMatch.turnIndex]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
-    // useEffect(() => {
-    //     if (activeMatchIndex >= conversationMatches.length) {
-    //         setActiveMatchIndex(0);
-    //     }
-    // }, [conversationMatches.length, activeMatchIndex]);
-
-
-    // Auto-scroll to the newest message when a new message arrives or during streaming.
     useEffect(() => {
         const container = messagesContainerRef.current;
         if (!container) return;
-        // Only scroll if the user is near the bottom (or there is little content).
-        const distanceFromBottom =
-            container.scrollHeight - container.scrollTop - container.clientHeight;
-        if (distanceFromBottom < 160) {
-            wasNearBottomRef.current = true;
-        }
-        if (wasNearBottomRef.current) {
-            messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-        }
+        const distanceFromBottom = container.scrollHeight - container.scrollTop - container.clientHeight;
+        if (distanceFromBottom < 160) wasNearBottomRef.current = true;
+        if (wasNearBottomRef.current) messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [chatHistory, answer]);
 
-    // Never force-scroll while the user scrolls upward.
     function handleScroll() {
         const container = messagesContainerRef.current;
         if (!container) return;
-        const distanceFromBottom =
-            container.scrollHeight - container.scrollTop - container.clientHeight;
+        const distanceFromBottom = container.scrollHeight - container.scrollTop - container.clientHeight;
         wasNearBottomRef.current = distanceFromBottom < 160;
     }
 
     function handleNewChat() {
         newChat();
         setSidebarOpen(false);
+        setEditingMessageId(null);
+        setEditingPrompt('');
         inputRef.current?.focus();
     }
 
     function handleAsk() {
         ask();
-        // Reset textarea to compact state after sending
         if (inputRef.current) {
             inputRef.current.style.height = 'auto';
             inputRef.current.style.height = '1.5rem';
         }
+    }
+
+    function beginEdit(turnId: string, content: string) {
+        if (loading) return;
+        setEditingMessageId(turnId);
+        setEditingPrompt(content);
+    }
+
+    function cancelEdit() {
+        setEditingMessageId(null);
+        setEditingPrompt('');
+    }
+
+    async function submitEdit(turnId: string) {
+        if (!editingPrompt.trim() || loading) return;
+        const nextPrompt = editingPrompt;
+        setEditingMessageId(null);
+        setEditingPrompt('');
+        await editUserMessage(turnId, nextPrompt);
     }
 
     return (
@@ -238,7 +218,6 @@ function AiAgent() {
                     />
 
                     <div className="ai-chat-content">
-                        {/* Mobile header with hamburger */}
                         <div className="ai-chat-mobile-bar">
                             <button
                                 type="button"
@@ -248,9 +227,7 @@ function AiAgent() {
                                 aria-expanded={sidebarOpen}
                             >
                                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                                    <path d="M3 12h18" />
-                                    <path d="M3 6h18" />
-                                    <path d="M3 18h18" />
+                                    <path d="M3 12h18" /><path d="M3 6h18" /><path d="M3 18h18" />
                                 </svg>
                             </button>
                             <h1 className="ai-chat-mobile-title">AI Agent</h1>
@@ -258,46 +235,36 @@ function AiAgent() {
 
                         {conversationSearchOpen && (
                             <div className="chat-in-conv-search-wrap">
-                                 <div className="chat-in-conv-search">
-                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                                                <circle cx="11" cy="11" r="8" />
-                                                <path d="m21 21-4.3-4.3" />
-                                            </svg>
-                                            <input
-                                                type="text"
-                                                placeholder="Search phrase in conversations..."
-                                                className="chat-in-conv-search-input"
-                                                value={conversationSearch}
-                                                onChange={(e) => {
-                                                    setConversationSearch(e.target.value);
-                                                    setActiveMatchIndex(0);
-                                                }}
-                                            />
-                                            {conversationSearch && (
-                                                <>
-                                                    <span className="chat-match-count">
-                                                        {conversationMatches.length > 0 ? `${activeMatchIndex + 1}/${conversationMatches.length}` : '0/0'}
-                                                    </span>
-                                                    <button type="button" className="chat-in-conv-prev" onClick={() => jumpToMatch(activeMatchIndex - 1)} aria-label="Previous occurrence">◀</button>
-                                                    <button type="button" className="chat-in-conv-next" onClick={() => jumpToMatch(activeMatchIndex + 1)} aria-label="Next occurrence">▶</button>
-                                                    <button type="button" className="chat-in-conv-clear" onClick={() => { setConversationSearch(''); setActiveMatchIndex(0); }} aria-label="Clear search">✕</button>
-                                                </>
-                                            )}
-                                        </div>
+                                <div className="chat-in-conv-search">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                        <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
+                                    </svg>
+                                    <input
+                                        type="text"
+                                        placeholder="Search phrase in conversations..."
+                                        className="chat-in-conv-search-input"
+                                        value={conversationSearch}
+                                        onChange={(e) => { setConversationSearch(e.target.value); setActiveMatchIndex(0); }}
+                                    />
+                                    {conversationSearch && (
+                                        <>
+                                            <span className="chat-match-count">{conversationMatches.length > 0 ? `${activeMatchIndex + 1}/${conversationMatches.length}` : '0/0'}</span>
+                                            <button type="button" className="chat-in-conv-prev" onClick={() => jumpToMatch(activeMatchIndex - 1)} aria-label="Previous occurrence">◀</button>
+                                            <button type="button" className="chat-in-conv-next" onClick={() => jumpToMatch(activeMatchIndex + 1)} aria-label="Next occurrence">▶</button>
+                                            <button type="button" className="chat-in-conv-clear" onClick={() => { setConversationSearch(''); setActiveMatchIndex(0); }} aria-label="Clear search">✕</button>
+                                        </>
+                                    )}
+                                </div>
                             </div>
                         )}
 
-                        {/* Scrollable messages area */}
                         <div className="ai-chat-messages" ref={messagesContainerRef} onScroll={handleScroll}>
                             <div className="ai-chat-messages-inner">
                                 <div className="ai-chat-heading">
                                     <h1>AI Agent</h1>
-                                    <p className="ai-chat-subheading">
-                                        A scholarly research assistant grounded in the Mahapashupata Veershaivam corpus.
-                                    </p>
+                                    <p className="ai-chat-subheading">A scholarly research assistant grounded in the Mahapashupata Veershaivam corpus.</p>
                                 </div>
 
-                                {/* Floating search toggle button at top-right */}
                                 <div className={`chat-search-floating ${conversationSearchOpen ? 'chat-search-floating--open' : ''}`}>
                                     <button
                                         type="button"
@@ -305,18 +272,14 @@ function AiAgent() {
                                         onClick={() => {
                                             const nextState = !conversationSearchOpen;
                                             setConversationSearchOpen(nextState);
-                                            if (!nextState) {
-                                                setConversationSearch('');
-                                                setActiveMatchIndex(0);
-                                            }
+                                            if (!nextState) { setConversationSearch(''); setActiveMatchIndex(0); }
                                         }}
                                         aria-label="Search in conversations"
                                         aria-pressed={conversationSearchOpen}
                                         title="Search in conversations"
                                     >
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                                            <circle cx="11" cy="11" r="8" />
-                                            <path d="m21 21-4.3-4.3" />
+                                            <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
                                         </svg>
                                     </button>
                                 </div>
@@ -329,25 +292,52 @@ function AiAgent() {
                                         return activeMatch && activeMatch.turnIndex === i && activeMatch.start === match.start && activeMatch.end === match.end;
                                     });
                                     const isMatch = Boolean(query && turnMatches.length > 0);
+
                                     return (
                                         <div
-                                            key={i}
+                                            key={turn.id}
                                             ref={(el) => { if (el) messageRefs.current[i] = el; }}
                                             className={`ai-message ${turn.role}`}
-                                            style={{
-                                                display: 'flex',
-                                                justifyContent: turn.role === 'user' ? 'flex-end' : 'flex-start',
-                                            }}
+                                            style={{ display: 'flex', justifyContent: turn.role === 'user' ? 'flex-end' : 'flex-start' }}
                                         >
                                             {turn.role === 'user' ? (
-                                                <div className="message-bubble user-message-bubble">
-                                                    <div className="message-bubble-label">You</div>
-                                                    <div className="message-bubble-text">
-                                                        {typeof turn.content === 'string' ? renderHighlighted(turn.content, conversationSearch, activeTurnMatch ? { start: activeTurnMatch.start, end: activeTurnMatch.end } : undefined) : turn.content}
-                                                    </div>
+                                                <div className="chat-user-message-wrap">
+                                                    {editingMessageId === turn.id ? (
+                                                        <div className="chat-edit-message-box">
+                                                            <textarea
+                                                                className="chat-edit-message-textarea"
+                                                                value={editingPrompt}
+                                                                onChange={(e) => setEditingPrompt(e.target.value)}
+                                                                onKeyDown={(e) => {
+                                                                    if (e.key === 'Enter' && !e.shiftKey) {
+                                                                        e.preventDefault();
+                                                                        void submitEdit(turn.id);
+                                                                    }
+                                                                    if (e.key === 'Escape') cancelEdit();
+                                                                }}
+                                                                autoFocus
+                                                            />
+                                                            <div className="chat-edit-message-actions">
+                                                                <button type="button" className="chat-edit-cancel-btn" onClick={cancelEdit}>Cancel</button>
+                                                                <button type="button" className="chat-edit-send-btn" onClick={() => void submitEdit(turn.id)} disabled={!editingPrompt.trim() || loading}>Send</button>
+                                                            </div>
+                                                        </div>
+                                                    ) : (
+                                                        <>
+                                                            <div className="message-bubble user-message-bubble">
+                                                                <div className="message-bubble-label">You</div>
+                                                                <div className="message-bubble-text">
+                                                                    {renderHighlighted(turn.content, conversationSearch, activeTurnMatch ? { start: activeTurnMatch.start, end: activeTurnMatch.end } : undefined)}
+                                                                </div>
+                                                            </div>
+                                                            <div className="chat-user-message-actions">
+                                                                <button type="button" className="chat-message-action-btn" onClick={() => beginEdit(turn.id, turn.content)} disabled={loading} title="Edit prompt" aria-label="Edit prompt">✎ Edit</button>
+                                                            </div>
+                                                        </>
+                                                    )}
                                                 </div>
                                             ) : (
-                                                <div style={{ display: 'flex', flexDirection: 'column', gap: 8, maxWidth: '100%' }}>
+                                                <div className="chat-assistant-message-wrap">
                                                     <AnswerPanel
                                                         answer={turn.content}
                                                         sources={turn.sources || []}
@@ -356,6 +346,40 @@ function AiAgent() {
                                                         onCopyAnswer={() => copyText(turn.content)}
                                                         onCopyReferences={() => copyText(formatCitationLines(turn.sources || []))}
                                                     />
+                                                    <div className="chat-assistant-message-actions">
+                                                        {turn.variantCount > 1 && (
+                                                            <div className="chat-answer-variants" aria-label="Answer versions">
+                                                                <button
+                                                                    type="button"
+                                                                    className="chat-answer-variant-btn"
+                                                                    onClick={() => setAnswerVariant(turn.id, turn.variantIndex - 1)}
+                                                                    disabled={turn.variantIndex <= 0 || loading}
+                                                                    aria-label="Previous answer"
+                                                                >
+                                                                    ‹
+                                                                </button>
+                                                                <span className="chat-answer-variant-count">{turn.variantIndex + 1} / {turn.variantCount}</span>
+                                                                <button
+                                                                    type="button"
+                                                                    className="chat-answer-variant-btn"
+                                                                    onClick={() => setAnswerVariant(turn.id, turn.variantIndex + 1)}
+                                                                    disabled={turn.variantIndex >= turn.variantCount - 1 || loading}
+                                                                    aria-label="Next answer"
+                                                                >
+                                                                    ›
+                                                                </button>
+                                                            </div>
+                                                        )}
+                                                        <button
+                                                            type="button"
+                                                            className="chat-message-action-btn"
+                                                            onClick={() => void regenerate(turn.id)}
+                                                            disabled={loading}
+                                                            title="Regenerate answer"
+                                                        >
+                                                            ↻ Regenerate
+                                                        </button>
+                                                    </div>
                                                     {isMatch && (
                                                         <div className="chat-match-snippet">
                                                             {renderHighlighted(
@@ -371,7 +395,6 @@ function AiAgent() {
                                     );
                                 })}
 
-                                {/* Current answer (live streaming — not yet in chatHistory) */}
                                 {(answer || loading) && (
                                     <div className="ai-message assistant">
                                         <AnswerPanel
@@ -385,17 +408,11 @@ function AiAgent() {
                                     </div>
                                 )}
 
-                                {error && (
-                                    <div style={{ color: '#b91c1c', padding: 12, fontSize: 'var(--font-body)' }}>
-                                        {error}
-                                    </div>
-                                )}
-
+                                {error && <div style={{ color: '#b91c1c', padding: 12, fontSize: 'var(--font-body)' }}>{error}</div>}
                                 <div ref={messagesEndRef} />
                             </div>
                         </div>
 
-                        {/* Fixed bottom composer */}
                         <div className="ai-chat-composer">
                             <div className="ai-chat-composer-inner">
                                 <details className="ai-chat-advanced">
@@ -427,10 +444,7 @@ function AiAgent() {
                                     <textarea
                                         ref={inputRef}
                                         value={prompt}
-                                        onChange={(e) => {
-                                            setPrompt(e.target.value);
-                                            autoResizeTextarea();
-                                        }}
+                                        onChange={(e) => { setPrompt(e.target.value); autoResizeTextarea(); }}
                                         onKeyDown={(e) => {
                                             if (e.key === 'Enter' && !e.shiftKey) {
                                                 e.preventDefault();
@@ -442,35 +456,18 @@ function AiAgent() {
                                         disabled={loading}
                                     />
                                     {loading ? (
-                                        <button
-                                            onClick={stop}
-                                            className="ai-chat-send-btn ai-chat-stop-btn"
-                                            aria-label="Stop generating"
-                                        >
-                                            ■
-                                        </button>
+                                        <button onClick={stop} className="ai-chat-send-btn ai-chat-stop-btn" aria-label="Stop generating">■</button>
                                     ) : (
-                                        <button
-                                            onClick={handleAsk}
-                                            disabled={!selectedDataset || !prompt.trim() || loading}
-                                            className="ai-chat-send-btn"
-                                            aria-label="Send question"
-                                        >
+                                        <button onClick={handleAsk} disabled={!selectedDataset || !prompt.trim() || loading} className="ai-chat-send-btn" aria-label="Send question">
                                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                                                <path d="M12 19V5" />
-                                                <path d="m5 12 7-7 7 7" />
+                                                <path d="M12 19V5" /><path d="m5 12 7-7 7 7" />
                                             </svg>
                                         </button>
                                     )}
                                 </div>
 
-                                {status && (
-                                    <div className="ai-chat-status">{status}</div>
-                                )}
-
-                                <div className="ai-chat-disclaimer">
-                                    AI can make mistakes. Verify important information against the source texts.
-                                </div>
+                                {status && <div className="ai-chat-status">{status}</div>}
+                                <div className="ai-chat-disclaimer">AI can make mistakes. Verify important information against the source texts.</div>
                             </div>
                         </div>
                     </div>
