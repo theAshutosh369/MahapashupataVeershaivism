@@ -1,0 +1,36 @@
+/* Shiva artwork background for the AI Agent page. Keep the chat UI readable with a soft translucent veil. */
+.ai-chat-page {
+    position: relative;
+    isolation: isolate;
+    background:
+        linear-gradient(rgba(248, 245, 238, 0.58), rgba(244, 242, 238, 0.72)),
+        url('../../assets/shiva-ai-background.svg') center center / cover no-repeat fixed;
+}
+
+.ai-chat-page::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(circle at 58% 42%, rgba(255,255,255,0.12), transparent 42%);
+}
+
+.ai-chat-layout {
+    background: rgba(255, 255, 255, 0.20);
+}
+
+.ai-chat-content {
+    background: rgba(250, 248, 244, 0.14);
+}
+
+.ai-chat-messages-inner {
+    position: relative;
+}
+
+@media (max-width: 700px) {
+    .ai-chat-page {
+        background-position: center center;
+        background-attachment: scroll;
+    }
+}
