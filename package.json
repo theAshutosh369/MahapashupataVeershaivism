@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "@google/genai": "^0.6.1",
+    "@supabase/ssr": "^0.12.4",
+    "@supabase/supabase-js": "^2.112.3",
     "@xenova/transformers": "^2.0.3",
     "cors": "^2.8.6",
     "express": "^5.1.0",
