@@ -1,74 +1,39 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 function Navbar() {
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    function closeMenu() {
+        setMenuOpen(false);
+    }
 
     return (
+        <header className="navbar">
+            <div className="container navbar-inner">
+                <h2 className="navbar-brand">Vachana Sanchaya</h2>
 
-        <header
-            style={{
-                background: "#7A1F1F",
-                color: "white",
-                padding: "18px 0"
-            }}
-        >
-
-            <div
-                className="container"
-                style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center"
-                }}
-            >
-
-                <h2>
-
-                    Vachana Sanchaya
-
-                </h2>
-
-                <nav
-                    style={{
-                        display: "flex",
-                        gap: 22,
-                        alignItems: "center"
-                    }}
+                <button
+                    className="navbar-toggle"
+                    onClick={() => setMenuOpen((prev) => !prev)}
+                    aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+                    aria-expanded={menuOpen}
                 >
+                    {menuOpen ? "✕" : "☰"}
+                </button>
 
-                    <Link to="/">
-                        Home
-                    </Link>
-
-                    <Link to="/global-search">
-                        Global Search
-                    </Link>
-
-                    <Link to="/about">
-                        About
-                    </Link>
-
-                    <Link to="/settings">
-                        Settings
-                    </Link>
-
-                    <Link to="/dataset">
-                        Dataset Builder
-                    </Link>
-
-                    <Link to="/agent">
-                        AI Agent
-                    </Link>
-
-
-
+                <nav className={`navbar-links${menuOpen ? " open" : ""}`}>
+                    <Link to="/" onClick={closeMenu}>Home</Link>
+                    <Link to="/global-search" onClick={closeMenu}>Global Search</Link>
+                    <Link to="/about" onClick={closeMenu}>About</Link>
+                    <Link to="/settings" onClick={closeMenu}>Settings</Link>
+                    <Link to="/dataset" onClick={closeMenu}>Dataset Builder</Link>
+                    <Link to="/agent" onClick={closeMenu}>AI Agent</Link>
                 </nav>
-
             </div>
-
         </header>
-
     );
-
 }
 
 export default Navbar;
+

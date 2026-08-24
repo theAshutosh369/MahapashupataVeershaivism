@@ -1,7 +1,3 @@
-
-
-
-
 import type { AnswerMode, RAGDataset } from '../../types/rag';
 
 type QueryControlsProps = {
@@ -17,103 +13,48 @@ type QueryControlsProps = {
     prompt: string;
     onPromptChange: (value: string) => void;
     onAsk: () => void;
-
     onStop: () => void;
     onRegenerate: () => void;
     hasGeneration: boolean;
-
     loading: boolean;
     status: string;
     error: string;
 };
 
-
 export default function QueryControls({
-    datasets,
-    selectedDataset,
-    onDatasetChange,
-    topK,
-    onTopKChange,
-    answerMode,
-    onAnswerModeChange,
-    includeConversationMemory,
-    onIncludeConversationMemoryChange,
-    prompt,
-    onPromptChange,
-    onAsk,
-    onStop,
-    onRegenerate,
-    hasGeneration,
-    loading,
-    status,
-    error
+    datasets, selectedDataset, onDatasetChange, topK, onTopKChange,
+    answerMode, onAnswerModeChange, includeConversationMemory,
+    onIncludeConversationMemoryChange, prompt, onPromptChange,
+    onAsk, onStop, onRegenerate, hasGeneration, loading, status, error
 }: QueryControlsProps) {
     return (
-        <div className="ai-agent-controls" style={{ display: 'grid', gap: 16 }}>
+        <div className="form-grid" style={{ gap: 14 }}>
             <div>
-                <label htmlFor="dataset-select" style={{ display: 'block', marginBottom: 8, fontWeight: 600 }}>
-                    Select Dataset
-                </label>
-                <select
-                    id="dataset-select"
-                    value={selectedDataset}
+                <label htmlFor="dataset-select" className="form-label">Select Dataset</label>
+                <select id="dataset-select" value={selectedDataset}
                     onChange={(event) => onDatasetChange(event.target.value)}
                     disabled={datasets.length === 0 || loading}
-                    style={{
-                        padding: '10px 12px',
-                        fontSize: 14,
-                        width: '100%',
-                        maxWidth: 520,
-                        borderRadius: 12,
-                        border: '1px solid #e5e7eb',
-                        background: 'white'
-                    }}
-                >
+                    className="form-input" style={{ maxWidth: 520 }}>
                     <option value="">-- Choose a dataset --</option>
                     {datasets.map((dataset) => (
-                        <option key={dataset.value} value={dataset.value}>
-                            {dataset.name}
-                        </option>
+                        <option key={dataset.value} value={dataset.value}>{dataset.name}</option>
                     ))}
                 </select>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+            <div className="form-grid form-grid-2" style={{ gridTemplateColumns: "1fr 1fr" }}>
                 <div>
-                    <label htmlFor="top-k" style={{ display: 'block', marginBottom: 8, fontWeight: 600 }}>
-                        Retrieval size
-                    </label>
-                    <input
-                        id="top-k"
-                        type="range"
-                        min={3}
-                        max={20}
-                        value={topK}
+                    <label htmlFor="top-k" className="form-label">Retrieval size</label>
+                    <input id="top-k" type="range" min={3} max={20} value={topK}
                         onChange={(event) => onTopKChange(Number(event.target.value))}
-                        disabled={loading}
-                        style={{ width: '100%' }}
-                    />
+                        disabled={loading} style={{ width: '100%' }} />
                     <div style={{ marginTop: 6, fontSize: 13, color: '#6b7280' }}>{topK}</div>
                 </div>
-
                 <div>
-                    <label htmlFor="answer-mode" style={{ display: 'block', marginBottom: 8, fontWeight: 600 }}>
-                        Answer mode
-                    </label>
-                    <select
-                        id="answer-mode"
-                        value={answerMode}
+                    <label htmlFor="answer-mode" className="form-label">Answer mode</label>
+                    <select id="answer-mode" value={answerMode}
                         onChange={(event) => onAnswerModeChange(event.target.value as AnswerMode)}
-                        disabled={loading}
-                        style={{
-                            padding: '10px 12px',
-                            fontSize: 14,
-                            width: '100%',
-                            borderRadius: 12,
-                            border: '1px solid #e5e7eb',
-                            background: 'white'
-                        }}
-                    >
+                        disabled={loading} className="form-input">
                         <option value="concise">Concise</option>
                         <option value="detailed">Detailed</option>
                     </select>
@@ -121,110 +62,37 @@ export default function QueryControls({
             </div>
 
             <div>
-                <label style={{ display: 'flex', alignItems: 'center', gap: 10, fontWeight: 600 }}>
-                    <input
-                        type="checkbox"
-                        checked={includeConversationMemory}
+                <label style={{ display: 'flex', alignItems: 'center', gap: 10, fontWeight: 600, cursor: 'pointer' }}>
+                    <input type="checkbox" checked={includeConversationMemory}
                         onChange={(event) => onIncludeConversationMemoryChange(event.target.checked)}
-                        disabled={loading}
-                    />
+                        disabled={loading} />
                     Use conversation memory
                 </label>
                 <div style={{ marginTop: 6, fontSize: 13, color: '#6b7280' }}>
-                    Uses recent queries to improve relevance while staying grounded in your local dataset.
+                    Uses recent queries to improve relevance.
                 </div>
             </div>
 
             <div>
-                <label htmlFor="prompt-input" style={{ display: 'block', marginBottom: 8, fontWeight: 600 }}>
-                    Your Question
-                </label>
-                <textarea
-                    id="prompt-input"
-                    value={prompt}
+                <label htmlFor="prompt-input" className="form-label">Your Question</label>
+                <textarea id="prompt-input" value={prompt}
                     onChange={(event) => onPromptChange(event.target.value)}
-                    disabled={loading}
-                    placeholder="Enter your question here..."
-                    style={{
-                        padding: '12px 12px',
-                        fontSize: 14,
-                        width: '100%',
-                        minHeight: 140,
-                        fontFamily: 'monospace',
-                        borderRadius: 12,
-                        border: '1px solid #e5e7eb',
-                        background: 'white'
-                    }}
-                />
+                    disabled={loading} placeholder="Enter your question here..."
+                    className="form-input" style={{ minHeight: 100, resize: 'vertical' }} />
             </div>
 
-            <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
-                <button
-                    onClick={onAsk}
-                    disabled={!selectedDataset || !prompt.trim() || loading}
-                    style={{
-                        padding: '12px 20px',
-                        fontSize: 16,
-                        backgroundColor: '#7A1F1F',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: 12,
-                        cursor: loading ? 'not-allowed' : 'pointer',
-                        opacity: loading || !selectedDataset || !prompt.trim() ? 0.6 : 1
-                    }}
-                >
+            <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
+                <button onClick={onAsk} disabled={!selectedDataset || !prompt.trim() || loading}
+                    className="btn btn-primary" style={{ minWidth: 80 }}>
                     {loading ? 'Thinking…' : 'Ask'}
                 </button>
-
-                <button
-                    onClick={onStop}
-                    disabled={!loading}
-                    style={{
-                        padding: '12px 16px',
-                        fontSize: 14,
-                        backgroundColor: '#ffffff',
-                        color: '#111827',
-                        border: '1px solid #e5e7eb',
-                        borderRadius: 12,
-                        cursor: loading ? 'pointer' : 'not-allowed',
-                        opacity: loading ? 1 : 0.6
-                    }}
-                >
-                    Stop generating
-                </button>
-
-                <button
-                    onClick={onRegenerate}
-                    disabled={loading || !hasGeneration}
-                    style={{
-                        padding: '12px 16px',
-                        fontSize: 14,
-                        backgroundColor: '#ffffff',
-                        color: '#111827',
-                        border: '1px solid #e5e7eb',
-                        borderRadius: 12,
-                        cursor: !loading && hasGeneration ? 'pointer' : 'not-allowed',
-                        opacity: !loading && hasGeneration ? 1 : 0.6
-                    }}
-                >
-                    Regenerate
-                </button>
-
-                {status && (
-                    <div style={{ color: '#6b7280', fontSize: 14, fontWeight: 500 }}>
-                        {status}
-                    </div>
-                )}
-                {!status && loading && (
-                    <div style={{ color: '#6b7280', fontSize: 14, fontWeight: 500 }}>
-                        Working<span style={{ display: 'inline-block', width: 6 }} />…
-                    </div>
-                )}
+                <button onClick={onStop} disabled={!loading} className="btn">Stop generating</button>
+                <button onClick={onRegenerate} disabled={loading || !hasGeneration} className="btn">Regenerate</button>
+                {status && <div style={{ color: '#6b7280', fontSize: 14, fontWeight: 500 }}>{status}</div>}
             </div>
 
-            {error && (
-                <div style={{ color: '#b91c1c', fontSize: 14, fontWeight: 500, marginTop: 10 }}>{error}</div>
-            )}
+            {error && <div style={{ color: '#b91c1c', fontSize: 14, fontWeight: 500 }}>{error}</div>}
         </div>
     );
 }
+

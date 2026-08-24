@@ -1,23 +1,133 @@
+/* =============================================
+   Vachana Sanchaya - Global Styles
+   ============================================= */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
+:root {
+    /* Colors */
+    --color-primary: #7A1F1F;
+    --color-primary-light: rgba(122, 31, 31, 0.06);
+    --color-bg: #FDFBF7;
+    --color-white: #ffffff;
+    --color-text: #222;
+    --color-text-light: #555;
+    --color-text-muted: #666;
+    --color-border: #ccc;
+    --color-border-light: #eee;
 
-    font-family: "Noto Sans Kannada", sans-serif;
+    /* Typography - Base sizes */
+    --font-body: 16px;
+    --font-sm: 13px;
+    --font-xs: 12px;
+    --font-h1: 48px;
+    --font-h2: 38px;
+    --font-h3: 20px;
+    --font-table: 15px;
+    --font-card: 22px;
 
-    background: #FDFBF7;
+    /* Spacing */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 45px;
 
-    color: #222;
-
-    line-height: 1.6;
+    /* Layout */
+    --container-max: 1200px;
+    --container-wide: 1800px;
+    --border-radius: 8px;
 }
 
+/* =============================================
+   Responsive Typography
+   ============================================= */
 
+@media (max-width: 1440px) {
+    :root {
+        --font-body: 16px;
+        --font-h1: 44px;
+        --font-h2: 34px;
+    }
+}
 
+@media (max-width: 1024px) {
+    :root {
+        --font-body: 15.5px;
+        --font-h1: 38px;
+        --font-h2: 30px;
+        --font-h3: 18px;
+        --font-card: 20px;
+        --font-table: 14.5px;
+    }
+}
 
+@media (max-width: 768px) {
+    :root {
+        --font-body: 15px;
+        --font-h1: 32px;
+        --font-h2: 26px;
+        --font-h3: 17px;
+        --font-card: 18px;
+        --font-table: 14px;
+        --space-2xl: 30px;
+    }
+}
+
+@media (max-width: 425px) {
+    :root {
+        --font-body: 14.5px;
+        --font-h1: 26px;
+        --font-h2: 22px;
+        --font-h3: 16px;
+        --font-card: 16px;
+        --font-table: 13.5px;
+        --space-2xl: 24px;
+    }
+}
+
+@media (max-width: 375px) {
+    :root {
+        --font-body: 14px;
+        --font-h1: 24px;
+        --font-h2: 20px;
+        --font-h3: 15px;
+        --font-table: 13px;
+    }
+}
+
+@media (max-width: 320px) {
+    :root {
+        --font-body: 13.5px;
+        --font-h1: 22px;
+        --font-h2: 18px;
+        --font-h3: 14px;
+        --font-table: 12.5px;
+    }
+}
+
+/* =============================================
+   Base Styles
+   ============================================= */
+
+html {
+    overflow-x: hidden;
+}
+
+body {
+    font-family: "Noto Sans Kannada", sans-serif;
+    background: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+    font-size: var(--font-body);
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+}
 
 a {
     text-decoration: none;
@@ -26,10 +136,731 @@ a {
 
 button {
     cursor: pointer;
+    font-family: inherit;
 }
 
-.container {
+input,
+textarea,
+select {
+    font-family: inherit;
+    font-size: 16px;
+    /* Prevent iOS zoom on focus */
+}
 
-    width: min(1200px, 95%);
+/* =============================================
+   Container
+   ============================================= */
+
+.container {
+    width: min(var(--container-max), 95%);
     margin: auto;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.container-wide {
+    width: min(var(--container-wide), calc(100% - 24px));
+    margin: auto;
+}
+
+@media (max-width: 425px) {
+    .container-wide {
+        width: calc(100% - 16px);
+    }
+}
+
+/* =============================================
+   Responsive Table Utilities
+   ============================================= */
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: var(--border-radius);
+}
+
+.table-responsive table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.table-responsive table thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.table-responsive table th {
+    padding: 12px;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    white-space: normal;
+}
+
+.table-responsive table td {
+    padding: 10px;
+    border-right: 1px solid var(--color-border-light);
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    vertical-align: top;
+}
+
+/* Stack tables as cards on very small screens */
+@media (max-width: 600px) {
+
+    .table-responsive table,
+    .table-responsive thead,
+    .table-responsive tbody,
+    .table-responsive tr,
+    .table-responsive th,
+    .table-responsive td {
+        display: block;
+    }
+
+    .table-responsive thead {
+        position: static;
+    }
+
+    .table-responsive table thead tr {
+        position: sticky;
+        top: 0;
+        z-index: 3;
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    .table-responsive table tbody tr {
+        display: block;
+        padding: 12px;
+        margin-bottom: 12px;
+        background: var(--color-white);
+        border-radius: var(--border-radius);
+        border: 1px solid var(--color-border-light);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    }
+
+    .table-responsive table tbody td {
+        display: flex;
+        padding: 8px 0;
+        border-right: none;
+        border-bottom: 1px solid var(--color-border-light);
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .table-responsive table tbody td:last-child {
+        border-bottom: none;
+    }
+
+    .table-responsive table tbody td::before {
+        content: attr(data-label);
+        font-weight: 700;
+        color: var(--color-primary);
+        min-width: 90px;
+        flex-shrink: 0;
+        font-size: var(--font-xs);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .table-responsive table tbody td:empty {
+        display: none;
+    }
+}
+
+/* For tables that should keep horizontal scroll on mobile instead of cards */
+.table-scroll-x {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table-scroll-x table {
+    min-width: 700px;
+}
+
+.table-scroll-x thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+/* =============================================
+   Responsive Navbar (Hamburger Menu)
+   ============================================= */
+
+.navbar {
+    background: var(--color-primary);
+    color: white;
+    padding: 14px 0;
+    position: relative;
+    z-index: 1000;
+}
+
+.navbar-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand {
+    font-size: clamp(16px, 4vw, 24px);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 22px;
+    align-items: center;
+}
+
+.navbar-links a {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: var(--font-body);
+    transition: color 0.2s;
+    white-space: nowrap;
+}
+
+.navbar-links a:hover {
+    color: #fff;
+}
+
+/* Hamburger */
+.navbar-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 4px;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    touch-action: manipulation;
+}
+
+.navbar-toggle:active {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 900px) {
+    .navbar-toggle {
+        display: flex;
+    }
+
+    .navbar-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--color-primary);
+        flex-direction: column;
+        padding: 16px 24px;
+        gap: 8px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        z-index: 999;
+    }
+
+    .navbar-links.open {
+        display: flex;
+    }
+
+    .navbar-links a {
+        display: block;
+        padding: 12px 0;
+        font-size: 16px;
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar-links a:last-child {
+        border-bottom: none;
+    }
+}
+
+/* =============================================
+   AI Chat - Mobile Styles
+   ============================================= */
+
+.ai-chat-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.ai-chat-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0;
+}
+
+.ai-chat-container {
+    max-width: 980px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.ai-chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 0;
+    -webkit-overflow-scrolling: touch;
+}
+
+.ai-chat-input-area {
+    position: sticky;
+    bottom: 0;
+    background: linear-gradient(180deg, transparent, var(--color-bg) 30%);
+    padding: 16px 0;
+    z-index: 10;
+}
+
+.ai-chat-input-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 16px;
+}
+
+.ai-chat-input-wrap {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 8px 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.ai-chat-textarea {
+    flex: 1;
+    border: none;
+    outline: none;
+    resize: none;
+    padding: 8px 0;
+    font-size: 16px;
+    line-height: 1.5;
+    max-height: 150px;
+    background: transparent;
+    font-family: inherit;
+}
+
+.ai-chat-send-btn {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: var(--color-primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    touch-action: manipulation;
+}
+
+.ai-chat-send-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* AI message bubbles */
+.ai-message {
+    padding: 16px;
+    border-radius: 16px;
+    margin-bottom: 12px;
+    max-width: 100%;
+}
+
+.ai-message.user {
+    background: var(--color-primary-light);
+    border: 1px solid rgba(122, 31, 31, 0.12);
+}
+
+.ai-message.assistant {
+    background: var(--color-white);
+    border: 1px solid var(--color-border-light);
+}
+
+/* =============================================
+   Responsive Cards
+   ============================================= */
+
+.card-stack {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+@media (max-width: 425px) {
+    .card-stack {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =============================================
+   Responsive Images
+   ============================================= */
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* =============================================
+   Buttons - Touch-friendly
+   ============================================= */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 10px 16px;
+    border-radius: var(--border-radius);
+    font-size: var(--font-body);
+    font-weight: 500;
+    border: 1px solid var(--color-border);
+    background: var(--color-white);
+    color: var(--color-text);
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: opacity 0.2s, background 0.2s;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+}
+
+.btn-primary:not(:disabled):hover {
+    opacity: 0.9;
+}
+
+.btn-outline {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: var(--color-white);
+}
+
+/* =============================================
+   Forms
+   ============================================= */
+
+.form-input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--color-border);
+    background: var(--color-white);
+    font-size: 16px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-input:focus {
+    border-color: var(--color-primary);
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+.form-grid {
+    display: grid;
+    gap: 14px;
+}
+
+@media (max-width: 600px) {
+    .form-grid-2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =============================================
+   Markdown Responsive
+   ============================================= */
+
+.markdown-content {
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.markdown-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: var(--font-table);
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.markdown-content th,
+.markdown-content td {
+    padding: 8px 12px;
+    border: 1px solid var(--color-border-light);
+    text-align: left;
+}
+
+.markdown-content th {
+    background: var(--color-primary);
+    color: white;
+}
+
+.markdown-content pre {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    background: #f4f4f5;
+    padding: 16px;
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    max-width: 100%;
+}
+
+.markdown-content code {
+    font-size: 14px;
+    word-break: break-word;
+}
+
+/* =============================================
+   Responsive utility classes
+   ============================================= */
+
+.hide-mobile {
+    display: block;
+}
+
+.show-mobile {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .hide-mobile {
+        display: none;
+    }
+
+    .show-mobile {
+        display: block;
+    }
+}
+
+/* Flex responsive helpers */
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 768px) {
+    .flex-row-mobile-col {
+        flex-direction: column;
+    }
+}
+
+/* Gap helpers */
+.gap-sm {
+    gap: 8px;
+}
+
+.gap-md {
+    gap: 16px;
+}
+
+.gap-lg {
+    gap: 24px;
+}
+
+/* Text helpers */
+.text-center {
+    text-align: center;
+}
+
+.text-primary {
+    color: var(--color-primary);
+}
+
+/* =============================================
+   Scrollbar styling (optional, for Webkit)
+   ============================================= */
+
+.table-responsive::-webkit-scrollbar,
+.table-scroll-x::-webkit-scrollbar,
+.ai-chat-messages::-webkit-scrollbar {
+    height: 6px;
+    width: 6px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb,
+.table-scroll-x::-webkit-scrollbar-thumb,
+.ai-chat-messages::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 3px;
+}
+
+/* =============================================
+   Responsive Hero Section
+   ============================================= */
+
+.hero-section {
+    background: var(--color-white);
+    border-radius: 22px;
+    padding: var(--space-2xl) clamp(20px, 5vw, 50px);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, .08);
+    margin-bottom: var(--space-2xl);
+    margin-top: 20px;
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: clamp(16px, 3vw, 40px);
+    align-items: start;
+}
+
+@media (max-width: 1024px) {
+    .hero-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+/* =============================================
+   Details/Summary popups responsive
+   ============================================= */
+
+.details-popup {
+    position: relative;
+}
+
+.details-popup>div {
+    position: absolute;
+    z-index: 50;
+    width: max-content;
+    max-width: min(100vw, 520px);
+    min-width: 200px;
+}
+
+@media (max-width: 600px) {
+    .details-popup>div {
+        position: static;
+        width: 100%;
+        max-width: 100%;
+        box-shadow: none;
+        border: 1px solid var(--color-border-light);
+    }
+}
+
+/* =============================================
+   Modal / Dialog Responsive
+   ============================================= */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 90px;
+    z-index: 9999;
+}
+
+@media (max-width: 600px) {
+    .modal-overlay {
+        padding-top: 0;
+        align-items: flex-end;
+    }
+}
+
+.modal-content {
+    width: min(900px, calc(100% - 24px));
+    max-height: calc(100vh - 40px);
+    background: var(--color-white);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+    border: 1px solid var(--color-border-light);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 600px) {
+    .modal-content {
+        width: 100%;
+        max-height: 85vh;
+        border-radius: 16px 16px 0 0;
+    }
+}
+
+/* =============================================
+   Details/Summary for filter controls
+   ============================================= */
+
+.filter-summary {
+    display: inline-flex;
+    padding: 10px 14px;
+    border: 1px solid var(--color-primary);
+    border-radius: var(--border-radius);
+    color: var(--color-primary);
+    background: var(--color-white);
+    cursor: pointer;
+    font-size: var(--font-body);
+    min-height: 44px;
+    align-items: center;
+}
+
+.filter-dropdown {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 12px;
+    padding: 14px;
+    background: var(--color-white);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .08);
+}
+
+@media (max-width: 600px) {
+    .filter-dropdown {
+        flex-direction: column;
+    }
 }

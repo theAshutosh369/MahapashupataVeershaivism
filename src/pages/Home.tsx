@@ -29,15 +29,15 @@ function StatCard({ title, value }: { title: string; value: string }) {
     <div
       style={{
         background: "#fff",
-        padding: 25,
+        padding: "clamp(16px, 3vw, 25px)",
         borderRadius: 10,
-        minWidth: 180,
+        minWidth: 140,
         textAlign: "center",
         boxShadow: "0 2px 10px rgba(0,0,0,.08)",
       }}
     >
-      <h2>{value}</h2>
-      <p>{title}</p>
+      <h2 style={{ fontSize: "clamp(20px, 4vw, 32px)" }}>{value}</h2>
+      <p style={{ fontSize: "var(--font-body)", color: "#555" }}>{title}</p>
     </div>
   );
 }
@@ -52,33 +52,9 @@ function ColumnOptions({
   const columns = Object.keys(columnLabels) as ColumnKey[];
 
   return (
-    <details>
-      <summary
-        style={{
-          display: "inline-flex",
-          padding: "10px 14px",
-          border: "1px solid #7A1F1F",
-          borderRadius: 8,
-          color: "#7A1F1F",
-          background: "#fff",
-          cursor: "pointer",
-        }}
-      >
-        Show / hide columns
-      </summary>
-
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: 12,
-          marginTop: 12,
-          padding: 14,
-          background: "#fff",
-          borderRadius: 8,
-          boxShadow: "0 2px 10px rgba(0,0,0,.08)",
-        }}
-      >
+    <details style={{ position: "relative" }}>
+      <summary className="filter-summary">Show / hide columns</summary>
+      <div className="filter-dropdown">
         {columns.map((column) => (
           <label
             key={column}
@@ -87,6 +63,7 @@ function ColumnOptions({
               alignItems: "center",
               gap: 8,
               padding: "6px 8px",
+              cursor: "pointer",
             }}
           >
             <input
@@ -110,33 +87,9 @@ function PageSizeOptions({
   onChange: (value: PageSize) => void;
 }) {
   return (
-    <details>
-      <summary
-        style={{
-          display: "inline-flex",
-          padding: "10px 14px",
-          border: "1px solid #7A1F1F",
-          borderRadius: 8,
-          color: "#7A1F1F",
-          background: "#fff",
-          cursor: "pointer",
-        }}
-      >
-        Results per page
-      </summary>
-
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: 12,
-          marginTop: 12,
-          padding: 14,
-          background: "#fff",
-          borderRadius: 8,
-          boxShadow: "0 2px 10px rgba(0,0,0,.08)",
-        }}
-      >
+    <details style={{ position: "relative" }}>
+      <summary className="filter-summary">Results per page</summary>
+      <div className="filter-dropdown">
         {PAGE_SIZE_OPTIONS.map((option) => (
           <label
             key={option}
@@ -145,6 +98,7 @@ function PageSizeOptions({
               alignItems: "center",
               gap: 8,
               padding: "6px 8px",
+              cursor: "pointer",
             }}
           >
             <input
@@ -189,6 +143,7 @@ function Th({
         wordBreak: "break-word",
         userSelect: "none",
         cursor: onSort ? "pointer" : undefined,
+        fontSize: "var(--font-table)",
       }}
       onClick={onSort ? () => onSort(column) : undefined}
       aria-sort={
@@ -208,14 +163,16 @@ function Th({
   );
 }
 
-function Td({ children }: { children: React.ReactNode }) {
+function Td({ children, label }: { children: React.ReactNode; label?: string }) {
   return (
     <td
+      data-label={label ?? ""}
       style={{
         padding: 10,
         borderRight: "1px solid #eee",
         overflowWrap: "anywhere",
         wordBreak: "break-word",
+        fontSize: "var(--font-table)",
       }}
     >
       {children}
@@ -271,81 +228,24 @@ function AuthorsTable({
   }
 
   return (
-    <div
-      style={{
-        background: "#fff",
-        borderRadius: 8,
-        boxShadow: "0 2px 10px rgba(0,0,0,.08)",
-        overflow: "visible",
-      }}
-    >
-      <table
-        style={{
-          width: "100%",
-          borderCollapse: "collapse",
-          tableLayout: "fixed",
-          background: "#fff7f7",
-        }}
-      >
+    <div className="table-responsive" style={{ background: "#fff", borderRadius: 8, boxShadow: "0 2px 10px rgba(0,0,0,.08)" }}>
+      <table style={{ minWidth: 600, borderCollapse: "collapse", background: "#fff7f7" }}>
         <thead>
           <tr style={{ background: "#7A1F1F", color: "#fff", textAlign: "left" }}>
             {visibleColumns.sr ? (
-              <Th
-                column="sr"
-                width="6%"
-                active={sortKey === "sr"}
-                sortDir={sortDir}
-                onSort={onSort}
-                getSortIndicator={getSortIndicator}
-              >
-                Sr. No.
-              </Th>
+              <Th column="sr" width="6%" active={sortKey === "sr"} sortDir={sortDir} onSort={onSort} getSortIndicator={getSortIndicator}>Sr. No.</Th>
             ) : null}
             {visibleColumns.id ? (
-              <Th
-                column="id"
-                width="10%"
-                active={sortKey === "id"}
-                sortDir={sortDir}
-                onSort={onSort}
-                getSortIndicator={getSortIndicator}
-              >
-                Id no.
-              </Th>
+              <Th column="id" width="10%" active={sortKey === "id"} sortDir={sortDir} onSort={onSort} getSortIndicator={getSortIndicator}>Id no.</Th>
             ) : null}
             {visibleColumns.kannada ? (
-              <Th
-                column="kannada"
-                active={sortKey === "kannada"}
-                sortDir={sortDir}
-                onSort={onSort}
-                getSortIndicator={getSortIndicator}
-              >
-                kannadaName
-              </Th>
+              <Th column="kannada" active={sortKey === "kannada"} sortDir={sortDir} onSort={onSort} getSortIndicator={getSortIndicator}>kannadaName</Th>
             ) : null}
             {visibleColumns.english ? (
-              <Th
-                column="english"
-                active={sortKey === "english"}
-                sortDir={sortDir}
-                onSort={onSort}
-                getSortIndicator={getSortIndicator}
-              >
-                EnglishName
-              </Th>
+              <Th column="english" active={sortKey === "english"} sortDir={sortDir} onSort={onSort} getSortIndicator={getSortIndicator}>EnglishName</Th>
             ) : null}
             {visibleColumns.count ? (
-              <Th
-                column="count"
-                width="18%"
-                active={sortKey === "count"}
-                sortDir={sortDir}
-                onSort={onSort}
-                getSortIndicator={getSortIndicator}
-              >
-                count of vachanas
-              </Th>
+              <Th column="count" width="18%" active={sortKey === "count"} sortDir={sortDir} onSort={onSort} getSortIndicator={getSortIndicator}>count of vachanas</Th>
             ) : null}
           </tr>
         </thead>
@@ -361,11 +261,11 @@ function AuthorsTable({
                   background: pink ? "#d7f639ff" : undefined,
                 }}
               >
-                {visibleColumns.sr ? <Td>{(pageStart + index + 1).toLocaleString()}</Td> : null}
-                {visibleColumns.id ? <Td>{author.id.toLocaleString()}</Td> : null}
-                {visibleColumns.kannada ? <Td>{author.kannadaName}</Td> : null}
+                {visibleColumns.sr ? <Td label="Sr. No.">{(pageStart + index + 1).toLocaleString()}</Td> : null}
+                {visibleColumns.id ? <Td label="Id no.">{author.id.toLocaleString()}</Td> : null}
+                {visibleColumns.kannada ? <Td label="Kannada Name">{author.kannadaName}</Td> : null}
                 {visibleColumns.english ? (
-                  <Td>
+                  <Td label="English Name">
                     <Link
                       to={`/author/${author.id}`}
                       onClick={() => {
@@ -404,7 +304,7 @@ function AuthorsTable({
                     </Link>
                   </Td>
                 ) : null}
-                {visibleColumns.count ? <Td>{author.count.toLocaleString()}</Td> : null}
+                {visibleColumns.count ? <Td label="Count">{author.count.toLocaleString()}</Td> : null}
               </tr>
             );
           })}
@@ -449,10 +349,7 @@ export default function Home() {
     }
   );
 
-  // Row pink rule: author is pink if *all* vachanas' translation are non-empty.
-  // We compute it by fetching each author's JSON under /data/authors/.
   const [rowPinkByAuthor, setRowPinkByAuthor] = useState<Record<number, boolean>>({});
-
 
   useEffect(() => {
     let isMounted = true;
@@ -479,7 +376,6 @@ export default function Home() {
       isMounted = false;
     };
   }, []);
-
 
   const normalizedSearch = search.trim().toLowerCase();
 
@@ -516,25 +412,21 @@ export default function Home() {
     return list;
   }, [filteredAuthors, sortKey, sortDir]);
 
-
   const totalPages = Math.max(1, Math.ceil(sortedAuthors.length / pageSize));
   const currentPage = Math.max(1, Math.min(page, totalPages));
   const pageStart = (currentPage - 1) * pageSize;
   const pageEnd = pageStart + pageSize;
   const pageAuthors = sortedAuthors.slice(pageStart, pageEnd);
 
-  // Restore scroll / clear flags when returning from /author (Back button).
   useEffect(() => {
     const state = (window.history.state ?? {}) as unknown as {
       __vachana_preserve_home?: { scrollY?: number } | null;
       __vachana_preserve_page?: boolean;
     };
 
-    // If a full preserved home state exists, restore scroll position.
     const preservedState = state.__vachana_preserve_home;
 
     if (preservedState && typeof preservedState.scrollY === "number") {
-      // Defer scrolling until after paint
       requestAnimationFrame(() => {
         try {
           window.scrollTo(0, preservedState.scrollY || 0);
@@ -544,7 +436,6 @@ export default function Home() {
       });
     }
 
-    // Clear flags so later interactions reset normally.
     try {
       window.history.replaceState({ ...(window.history.state ?? {}), __vachana_preserve_page: false, __vachana_preserve_home: null }, "");
     } catch (e) {
@@ -552,9 +443,7 @@ export default function Home() {
     }
   }, []);
 
-  // Row pink rule: an author row is pink if *all* of its vachanas have a non-empty translation.
   useEffect(() => {
-
     let cancelled = false;
 
     async function computePinkRows() {
@@ -591,8 +480,6 @@ export default function Home() {
     };
   }, [authors]);
 
-
-
   function toggleColumn(column: ColumnKey) {
     setVisibleColumns((current) => ({ ...current, [column]: !current[column] }));
   }
@@ -615,45 +502,29 @@ export default function Home() {
     <>
       <Navbar />
 
-      <main className="container" style={{ width: "min(1800px, calc(100% - 24px))" }}>
-        <section
-          style={{
-            background: "#fff",
-            borderRadius: 22,
-            padding: "45px 50px",
-            boxShadow: "0 10px 28px rgba(0,0,0,.08)",
-            marginBottom: 45,
-            marginTop: 20,
-          }}
-        >
-          <div style={{ textAlign: "center", marginBottom: 40 }}>
-            <h1 style={{ fontSize: 48, color: "#7A1F1F", marginBottom: 10 }}>Vachana Sanchaya</h1>
-            <p style={{ fontSize: 18, color: "#666" }}>A Digital Library of Kannada Vachanas</p>
+      <main className="container-wide" style={{ margin: "0 auto" }}>
+        <section className="hero-section">
+          <div style={{ textAlign: "center", marginBottom: "clamp(20px, 4vw, 40px)" }}>
+            <h1 style={{ fontSize: "var(--font-h1)", color: "#7A1F1F", marginBottom: 10 }}>Vachana Sanchaya</h1>
+            <p style={{ fontSize: "clamp(14px, 2vw, 18px)", color: "#666" }}>A Digital Library of Kannada Vachanas</p>
           </div>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "2fr 1fr 1fr",
-              gap: 40,
-              alignItems: "start",
-            }}
-          >
+          <div className="hero-grid">
             <div>
-              <h3 style={{ color: "#7A1F1F", marginBottom: 18 }}>Search</h3>
+              <h3 style={{ color: "#7A1F1F", marginBottom: 18, fontSize: "var(--font-h3)" }}>Search</h3>
               <SearchBar value={search} onChange={setSearch} />
-              <p style={{ marginTop: 15, color: "#777" }}>
+              <p style={{ marginTop: 15, color: "#777", fontSize: "var(--font-body)" }}>
                 {loading ? "Loading..." : `${filteredAuthors.length} author(s) found`}
               </p>
               <div style={{ marginTop: 28 }}>
-                <label style={{ display: "block", marginBottom: 10, fontWeight: 600, color: "#555" }}>
+                <label style={{ display: "block", marginBottom: 10, fontWeight: 600, color: "#555", fontSize: "var(--font-body)" }}>
                   Filter by Vachanakara
                 </label>
               </div>
             </div>
 
             <div>
-              <h3 style={{ color: "#7A1F1F", marginBottom: 18 }}>Statistics</h3>
+              <h3 style={{ color: "#7A1F1F", marginBottom: 18, fontSize: "var(--font-h3)" }}>Statistics</h3>
               <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
                 <StatCard title="Authors" value={authors.length.toString()} />
                 <StatCard
@@ -664,7 +535,7 @@ export default function Home() {
             </div>
 
             <div>
-              <h3 style={{ color: "#7A1F1F", marginBottom: 18 }}>Display Options</h3>
+              <h3 style={{ color: "#7A1F1F", marginBottom: 18, fontSize: "var(--font-h3)" }}>Display Options</h3>
               <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
                 <PageSizeOptions pageSize={pageSize} onChange={(value) => setPageSize(value)} />
                 <ColumnOptions visibleColumns={visibleColumns} onToggleColumn={toggleColumn} />
@@ -689,21 +560,13 @@ export default function Home() {
               >
                 COLLECTION
               </span>
-              <h2
-                style={{
-                  margin: 0,
-                  fontSize: 38,
-                  fontWeight: 700,
-                  color: "#222",
-                  lineHeight: 1.2,
-                }}
-              >
+              <h2 style={{ margin: 0, fontSize: "var(--font-h2)", fontWeight: 700, color: "#222", lineHeight: 1.2 }}>
                 Vachanakaras
               </h2>
             </div>
 
             {sortedAuthors.length ? (
-              <p style={{ color: "#666" }}>
+              <p style={{ color: "#666", fontSize: "var(--font-body)" }}>
                 Showing {Math.min(sortedAuthors.length, pageStart + 1).toLocaleString()}-
                 {Math.min(sortedAuthors.length, pageEnd).toLocaleString()} of {sortedAuthors.length.toLocaleString()} result(s). Page{" "}
                 {currentPage.toLocaleString()} of {totalPages.toLocaleString()}.
@@ -716,30 +579,20 @@ export default function Home() {
                   type="button"
                   onClick={() => setPage((p) => Math.max(1, p - 1))}
                   disabled={currentPage === 1}
-                  style={{
-                    border: "1px solid #7A1F1F",
-                    borderRadius: 8,
-                    padding: "10px 14px",
-                    background: currentPage === 1 ? "#eee" : "#fff",
-                    color: currentPage === 1 ? "#777" : "#7A1F1F",
-                  }}
+                  className="btn btn-outline"
+                  style={{ opacity: currentPage === 1 ? 0.6 : 1 }}
                 >
                   Previous page
                 </button>
-                <span style={{ color: "#555" }}>
+                <span style={{ color: "#555", fontSize: "var(--font-body)" }}>
                   Page {currentPage.toLocaleString()} / {totalPages.toLocaleString()}
                 </span>
                 <button
                   type="button"
                   onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                   disabled={currentPage === totalPages}
-                  style={{
-                    border: "1px solid #7A1F1F",
-                    borderRadius: 8,
-                    padding: "10px 14px",
-                    background: currentPage === totalPages ? "#eee" : "#7A1F1F",
-                    color: currentPage === totalPages ? "#777" : "#fff",
-                  }}
+                  className="btn btn-primary"
+                  style={{ opacity: currentPage === totalPages ? 0.6 : 1 }}
                 >
                   Next page
                 </button>
@@ -766,30 +619,20 @@ export default function Home() {
                   type="button"
                   onClick={() => setPage((p) => Math.max(1, p - 1))}
                   disabled={currentPage === 1}
-                  style={{
-                    border: "1px solid #7A1F1F",
-                    borderRadius: 8,
-                    padding: "10px 14px",
-                    background: currentPage === 1 ? "#eee" : "#fff",
-                    color: currentPage === 1 ? "#777" : "#7A1F1F",
-                  }}
+                  className="btn btn-outline"
+                  style={{ opacity: currentPage === 1 ? 0.6 : 1 }}
                 >
                   Previous page
                 </button>
-                <span style={{ color: "#555" }}>
+                <span style={{ color: "#555", fontSize: "var(--font-body)" }}>
                   Page {currentPage.toLocaleString()} / {totalPages.toLocaleString()}
                 </span>
                 <button
                   type="button"
                   onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                   disabled={currentPage === totalPages}
-                  style={{
-                    border: "1px solid #7A1F1F",
-                    borderRadius: 8,
-                    padding: "10px 14px",
-                    background: currentPage === totalPages ? "#eee" : "#7A1F1F",
-                    color: currentPage === totalPages ? "#777" : "#fff",
-                  }}
+                  className="btn btn-primary"
+                  style={{ opacity: currentPage === totalPages ? 0.6 : 1 }}
                 >
                   Next page
                 </button>
