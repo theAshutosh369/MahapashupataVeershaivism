@@ -1,0 +1,13 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+.env
+.env.example
+README.md
+TODO.md
+*.md
+dist
+dist-ssr
+server/rag_index.json
+

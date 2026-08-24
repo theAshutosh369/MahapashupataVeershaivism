@@ -26,15 +26,20 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Install only production dependencies for server
-COPY server/package.json server/package-lock.json* ./server/
-RUN cd server && npm install --production
-
-# Copy server code and built frontend
+# Copy server source code first (so it's available)
 COPY server/ ./server/
+
+# Copy frontend build and shared assets from builder
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/public ./public
+
+# Copy root package.json (for workspace context if needed)
 COPY --from=builder /app/package.json ./
+
+# Install production dependencies for the server
+# IMPORTANT: must run AFTER copying server/ code,
+# so that previously installed node_modules is not overwritten
+RUN cd server && npm install --production
 
 # Environment variables (override as needed)
 ENV PORT=3001
