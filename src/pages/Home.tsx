@@ -180,6 +180,175 @@ function Td({ children, label }: { children: React.ReactNode; label?: string }) 
   );
 }
 
+function MobileAuthorCards({
+  authors,
+  pageStart,
+  visibleColumns,
+  rowPinkByAuthor,
+  search,
+  page,
+  pageSize,
+  sortKey,
+  sortDir,
+  onSort,
+}: {
+  authors: AuthorSummary[];
+  pageStart: number;
+  visibleColumns: Record<ColumnKey, boolean>;
+  rowPinkByAuthor: Record<number, boolean>;
+  search: string;
+  page: number;
+  pageSize: PageSize;
+  sortKey: SortKey;
+  sortDir: SortDir;
+  onSort: (column: ColumnKey) => void;
+}) {
+  const sortOptions: { key: ColumnKey; label: string }[] = [
+    { key: "sr", label: "Sr. No." },
+    { key: "id", label: "Id" },
+    { key: "kannada", label: "Kannada" },
+    { key: "english", label: "English" },
+    { key: "count", label: "Count" },
+  ];
+
+  return (
+    <div className="mobile-only">
+      {/* Mobile sort controls */}
+      <div style={{
+        display: "flex",
+        flexWrap: "wrap",
+        gap: 6,
+        marginBottom: 14,
+        padding: "8px 4px",
+      }}>
+        <span style={{ fontSize: 12, color: "#999", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.5px", alignSelf: "center" }}>
+          Sort by:
+        </span>
+        {sortOptions.map(opt => {
+          const isActive = sortKey === opt.key;
+          return (
+            <button
+              key={opt.key}
+              type="button"
+              onClick={() => onSort(opt.key)}
+              style={{
+                padding: "4px 10px",
+                borderRadius: 16,
+                border: `1.5px solid ${isActive ? "#7A1F1F" : "#ddd"}`,
+                background: isActive ? "#7A1F1F" : "#fff",
+                color: isActive ? "#fff" : "#666",
+                fontSize: 12,
+                fontWeight: isActive ? 700 : 500,
+                cursor: "pointer",
+                touchAction: "manipulation",
+                transition: "all 0.15s",
+              }}
+            >
+              {opt.label} {isActive ? (sortDir === "asc" ? " ▲" : " ▼") : ""}
+            </button>
+          );
+        })}
+      </div>
+
+      {authors.map((author, index) => {
+        const pink = Boolean(rowPinkByAuthor[author.id]);
+        const showSr = visibleColumns.sr;
+        const showId = visibleColumns.id;
+        const showKannada = visibleColumns.kannada;
+        const showEnglish = visibleColumns.english;
+        const showCount = visibleColumns.count;
+        const hasAnyVisible = showSr || showId || showKannada || showEnglish || showCount;
+
+        if (!hasAnyVisible) return null;
+
+        return (
+          <div
+            key={author.id}
+            className="mobile-vachana-card mobile-author-card-compact"
+            style={{
+              background: pink ? "#f0fdd8" : "#fff",
+              borderColor: pink ? "#b3d94c" : "rgba(122, 31, 31, 0.08)",
+            }}
+          >
+            {(showSr || showCount) && (
+              <div className="mobile-vachana-card-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                {showSr ? <span>#{pageStart + index + 1}</span> : <span />}
+                {showCount ? (
+                  <span style={{ fontSize: 13, fontWeight: 600, color: "#7A1F1F", background: "rgba(122,31,31,0.08)", padding: "2px 10px", borderRadius: 20 }}>
+                    {author.count.toLocaleString()} vachanas
+                  </span>
+                ) : null}
+              </div>
+            )}
+
+            {showKannada && (
+              <div className="mobile-vachana-section">
+                <span className="mobile-vachana-label">Kannada Name</span>
+                <div className="mobile-vachana-kannada-text" style={{ fontSize: 15 }}>
+                  {author.kannadaName}
+                </div>
+              </div>
+            )}
+
+            {showEnglish && (
+              <div className="mobile-vachana-section">
+                <span className="mobile-vachana-label">English Name</span>
+                <div className="mobile-vachana-english-text">
+                  <Link
+                    to={`/author/${author.id}`}
+                    onClick={() => {
+                      try {
+                        window.history.replaceState(
+                          {
+                            ...(window.history.state ?? {}),
+                            __vachana_preserve_home: {
+                              search,
+                              page,
+                              pageSize,
+                              sortKey,
+                              sortDir,
+                              visibleColumns,
+                              scrollY: window.scrollY,
+                            },
+                          },
+                          ""
+                        );
+                      } catch (e) {
+                        console.debug(e);
+                      }
+                    }}
+                    state={{
+                      __vachana_back_from: window.location.pathname,
+                      __vachana_preserve_page: true,
+                      __vachana_preserve_page_number: Math.floor(pageStart / 10) + 1,
+                    }}
+                    style={{
+                      color: "#7A1F1F",
+                      fontWeight: 700,
+                      textDecoration: "none",
+                    }}
+                  >
+                    {author.englishName}
+                  </Link>
+                </div>
+              </div>
+            )}
+
+            {showId && author.id ? (
+              <div className="mobile-vachana-section" style={{ marginBottom: 0 }}>
+                <span className="mobile-vachana-label">ID</span>
+                <div className="mobile-vachana-english-text" style={{ fontSize: 13, color: "#666" }}>
+                  {author.id.toLocaleString()}
+                </div>
+              </div>
+            ) : null}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 function AuthorsTable({
   authors,
   pageStart,
@@ -599,18 +768,32 @@ export default function Home() {
               </div>
             ) : null}
 
-            <AuthorsTable
+            <div className="desktop-only">
+              <AuthorsTable
+                authors={pageAuthors}
+                pageStart={pageStart}
+                visibleColumns={visibleColumns}
+                sortKey={sortKey}
+                sortDir={sortDir}
+                onSort={toggleSort}
+                getSortIndicator={getSortIndicator}
+                rowPinkByAuthor={rowPinkByAuthor}
+                search={search}
+                page={currentPage}
+                pageSize={pageSize}
+              />
+            </div>
+            <MobileAuthorCards
               authors={pageAuthors}
               pageStart={pageStart}
               visibleColumns={visibleColumns}
-              sortKey={sortKey}
-              sortDir={sortDir}
-              onSort={toggleSort}
-              getSortIndicator={getSortIndicator}
               rowPinkByAuthor={rowPinkByAuthor}
               search={search}
               page={currentPage}
               pageSize={pageSize}
+              sortKey={sortKey}
+              sortDir={sortDir}
+              onSort={toggleSort}
             />
 
             {totalPages > 1 ? (
