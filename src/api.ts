@@ -18,7 +18,9 @@ export async function getAuthors(): Promise<AuthorSummary[]> {
 
 export async function getAuthor(file: string): Promise<Author> {
 
-    const response = await fetch("/data/authors/" + file);
+    // Use the API endpoint so both reads and writes go through the same server
+    // This ensures saved edits persist even in production.
+    const response = await fetch(`${API_BASE}/api/authors/${encodeURIComponent(file)}`);
 
     if (!response.ok)
         throw new Error("Unable to load author.");

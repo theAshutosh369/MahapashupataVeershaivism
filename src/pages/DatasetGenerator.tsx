@@ -102,6 +102,7 @@ function DatasetGenerator() {
     useEffect(() => {
         if (mode === "new") {
             const keys = fieldKeysForCreate(newLanguage);
+            // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/set-state-in-effect
             setFieldKeys(keys);
             setShowField({
                 page: keys.includes("page"), kannada: keys.includes("kannada"), hindi: keys.includes("hindi"),
@@ -212,6 +213,7 @@ function DatasetGenerator() {
                 item[lang] = (drafts as Record<string, string>)[lang] === "" ? null : (drafts as Record<string, string>)[lang];
                 languagesToSend.push(lang);
             }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             await upsertDatasetItem(effectiveName, languagesToSend, item as any);
             setBottomMessage("Dataset saved.");
             const next = page + 1;
@@ -230,6 +232,7 @@ function DatasetGenerator() {
                 item[k] = (drafts as Record<string, string>)[k] === "" ? null : (drafts as Record<string, string>)[k];
             }
         }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         await upsertDatasetItem(existingDatasetName, languagesToSend, item as any);
         setBottomMessage("Dataset Updated.");
         const next = page + 1;
