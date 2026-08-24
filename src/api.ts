@@ -1,6 +1,10 @@
 import type { Author } from "./types";
 import type { AuthorSummary } from "./types";
 
+// Allow configuring the backend API URL via environment variable
+// In development, defaults to localhost:3001
+// In production (when served from same origin), use empty string (relative URL)
+const API_BASE = import.meta.env.VITE_API_URL ?? '';
 
 export async function getAuthors(): Promise<AuthorSummary[]> {
 
@@ -30,7 +34,7 @@ export async function updateVachanaField(
 ): Promise<{ ok: boolean } & Record<string, string | null>> {
 
     const response = await fetch(
-        `http://localhost:3001/api/authors/${encodeURIComponent(authorFile)}/vachanas/${encodeURIComponent(
+        `${API_BASE}/api/authors/${encodeURIComponent(authorFile)}/vachanas/${encodeURIComponent(
             String(vachanaNumber)
         )}/${encodeURIComponent(field)}`,
         {

@@ -572,10 +572,23 @@ async function ensureIndex(dataRoot) {
     if (indexBuildPromise) return indexBuildPromise;
     indexBuildPromise = (async () => {
         console.log('Ensuring RAG index for dataRoot:', dataRoot);
+
+        // Dev safety: optionally skip embedding computation and only load cached index.
+        // Helps avoid Node heap OOM on large corpora.
+        if (process.env.RAG_SKIP_EMBEDDING === '1') {
+            const existing = await loadSavedIndex();
+            if (!existing) {
+                throw new Error(`RAG_SKIP_EMBEDDING=1 but missing cached index file: ${INDEX_FILE}`);
+            }
+            currentIndex = existing;
+            return currentIndex;
+        }
+
         let existing = await loadSavedIndex();
         const sourceFiles = [];
         const datasetRoot = path.join(dataRoot, 'datasets');
         const authorRoot = path.join(dataRoot, 'authors');
+
 
         console.log('Scanning directories for JSON files...');
         const datasetFiles = await scanJsonFiles(datasetRoot).catch(() => []);
@@ -1080,7 +1093,13 @@ export function attachRagRoutes(app, { publicRoot }) {
         }
     });
 
-    ensureIndex(dataRoot).catch((error) => {
-        console.warn('RAG index could not be loaded at startup.', error?.message ?? error);
-    });
+    const shouldWarmIndex = process.env.RAG_WARM_INDEX === '1' || process.env.RAG_SKIP_EMBEDDING === '0';
+
+    if (shouldWarmIndex) {
+        ensureIndex(dataRoot).catch((error) => {
+            console.warn('RAG index could not be loaded at startup.', error?.message ?? error);
+        });
+    } else {
+        console.log('[RAG] Startup index warmup skipped (set RAG_WARM_INDEX=1 to enable).');
+    }
 }

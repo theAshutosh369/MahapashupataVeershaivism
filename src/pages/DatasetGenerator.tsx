@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
-import { listDatasets, upsertDatasetItem } from "../api_datasets";
+import { getDataset, listDatasets, upsertDatasetItem } from "../api_datasets";
 
 
 type DatasetLanguage =
@@ -181,11 +181,9 @@ function DatasetGenerator() {
 
         (async () => {
             try {
-                const resp = await fetch(
-                    `http://localhost:3002/api/datasets/${encodeURIComponent(existingDatasetName)}`
-                );
-                const json = await resp.json();
-                if (!Array.isArray(json?.data) || json.data.length === 0) {
+                const dataset = await getDataset(existingDatasetName);
+                const data = dataset?.data ?? [];
+                if (data.length === 0) {
                     if (!cancelled) {
                         setExistingData(null);
                         setFieldKeys(["page", "english"]);
@@ -194,7 +192,7 @@ function DatasetGenerator() {
                     return;
                 }
 
-                const first = json.data[0] as DatasetRow;
+                const first = data[0] as DatasetRow;
                 const keysFromRow = Object.keys(first).filter(k => k !== "page");
 
                 const sanitizedKeys: DatasetFieldKey[] = [
@@ -258,11 +256,8 @@ function DatasetGenerator() {
 
         (async () => {
             try {
-                const resp = await fetch(
-                    `http://localhost:3002/api/datasets/${encodeURIComponent(existingDatasetName)}`
-                );
-                const json = await resp.json();
-                const rows: DatasetRow[] = Array.isArray(json?.data) ? json.data : [];
+                const dataset = await getDataset(existingDatasetName);
+                const rows: DatasetRow[] = dataset?.data ?? [];
                 const found = rows.find(r => Number(r?.page) === Number(page)) ?? null;
                 if (cancelled) return;
                 setExistingData(found);

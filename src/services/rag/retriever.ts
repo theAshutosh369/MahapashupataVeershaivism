@@ -1,6 +1,9 @@
 import type { RAGDataset, RAGQueryRequest, RAGQueryResponse } from '../../types/rag';
 
-const API_BASE = import.meta.env.VITE_RAG_API_URL ?? 'http://localhost:3001';
+// In development, Vite dev server (port 5173) proxies /api/ requests to the backend.
+// In production, Express serves both the React build and /api/ from the same origin.
+// Set VITE_RAG_API_URL only when the backend is on a different origin.
+const API_BASE = import.meta.env.VITE_RAG_API_URL ?? '';
 
 export async function listRagDatasets(): Promise<RAGDataset[]> {
     console.log('Fetching RAG datasets from:', `${API_BASE}/api/rag/datasets`);

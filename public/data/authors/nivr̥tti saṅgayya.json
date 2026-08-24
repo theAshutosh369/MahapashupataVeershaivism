@@ -1,28 +1,32 @@
 {
-  "id" : 203,
-  "kannadaName" : "ನಿವೃತ್ತಿ ಸಂಗಯ್ಯ",
-  "englishName" : "nivr̥tti saṅgayya",
-  "vachanaCount" : 0,
-  "vachanas" : [ {
-    "authorId" : 203,
-    "number" : 1,
-    "akshara" : "pa",
-    "kannada" : "ಪರಧನ ಪರಾನ್ನ ಪರಸ್ತ್ರೀಯರಾಸೆ ಬಿಡದು, ಶರಣನೆಂತೆಂಬೆ ಮರುಳೆ?\n''ಜಿಹ್ವೆದಗ್ಧ ಪರಾನ್ನಂಚ ಹಸ್ತದಗ್ಧ ಪ್ರತಿಗ್ರಹಂ\nಚಕ್ಷುದಗ್ಧ ಪರಸ್ತ್ರೀನಾಂ ತಸ್ಯ ಜನ್ಮ ನಿರರ್ಥಕಂ'\nಎಂದು ಶ್ರುತಿ ಸಾರಲು ಮತಿಗೆಡುವನಕಟಾ,\nನಿವೃತ್ತಿ ಸಂಗಯ್ಯನೆಂತೊಲಿವನವ್ವಾ! || 1 ||",
-    "transliteration" : "paradhana parānna parastrīyarāse biḍadu, śaraṇanentembe maruḷe?\n''jihvedagdha parānnan̄ca hastadagdha pratigrahaṁ\ncakṣudagdha parastrīnāṁ tasya janma nirarthakaṁ'\nendu śruti sāralu matigeḍuvanakaṭā,\nnivr̥tti saṅgayyanentolivanavvā! || 1 ||",
-    "translation" : ""
-  }, {
-    "authorId" : 203,
-    "number" : 2,
-    "akshara" : "ba",
-    "kannada" : "ಬ್ರಾಹ್ಮಣ ಶಿವಭಕ್ತನಾದ ಬಳಿಕ ಬ್ರಾಹ್ಮಣರ ಬೆರಸಲಾಗದು.\nಕ್ಷತ್ರಿಯ ಶಿವಭಕ್ತನಾದ ಬಳಿಕ ಕ್ಷತ್ರಿಯರ ಬೆರಸಲಾಗದು.\nವೈಶ್ಯ ಶಿವಭಕ್ತನಾದ ಬಳಿಕ ವೈಶ್ಯರ ಬೆರಸಲಾಗದು.\nಶೂದ್ರ ಶಿವಭಕ್ತನಾದ ಬಳಿಕ ಶೂದ್ರರ ಬೆರಸಲಾಗದು.\nಇವರ ಜೀವದತೀತರ ಜಾತಿಯ ಉದ್ಭವಮಂ\nಇವದಿರ ಕಾಯಕ ಕುಲದರುಶನ ಪಕ್ಷ\nಸಪ್ತಧಾತು ಸರಿಯೆಂದೆಂಬರೆ\n''ಕೃತಂ ಜೀವಂ ಕೃತಂ ಫಲಂ'\nಅಗ್ರಜ ಮೊದಲು ಅಂತ್ಯಜ ಕಡೆ\n''ಬ್ರಾಹ್ಮಣ ಕ್ಷತ್ರಿಯ ವೈಶ್ಯ\nಶೂದ್ರೋವಾ ಗುರುಹಸ್ತಯೋ||\nಪ್ರತಿ ಭೂಜನ ಕರ್ತವ್ಯಂ\nಕರ್ತವ್ಯಂ ಪುನರ್ವತಾಯೋ'\nನಿವೃತ್ತಿ ಸಂಗಯ್ಯದೇವ ಬಲ್ಲ.\nಜಾತಿ ವಿಚಾರದ ಭೇದವ ಬಿಟ್ಟರೆ ಬಿಡುವುದು\nಬಿಡದಿರ್ದಡೆ ತಮ್ಮ ಮುನ್ನಿನಂತಿಹುದು.\n|| 2 ||",
-    "transliteration" : "brāhmaṇa śivabhaktanāda baḷika brāhmaṇara berasalāgadu.\nkṣatriya śivabhaktanāda baḷika kṣatriyara berasalāgadu.\nvaiśya śivabhaktanāda baḷika vaiśyara berasalāgadu.\nśūdra śivabhaktanāda baḷika śūdrara berasalāgadu.\nivara jīvadatītara jātiya udbhavamaṁ\nivadira kāyaka kuladaruśana pakṣa\nsaptadhātu sariyendembare\n''kr̥taṁ jīvaṁ kr̥taṁ phalaṁ'\nagraja modalu antyaja kaḍe\n''brāhmaṇa kṣatriya vaiśya\nśūdrōvā guruhastayō||\nprati bhūjana kartavyaṁ\nkartavyaṁ punarvatāyō'\nnivr̥tti saṅgayyadēva balla.\njāti vicārada bhēdava biṭṭare biḍuvudu\nbiḍadirdaḍe tam'ma munninantihudu.\n|| 2 ||",
-    "translation" : ""
-  }, {
-    "authorId" : 203,
-    "number" : 3,
-    "akshara" : "sa",
-    "kannada" : "ಸಚರಾಚರವೆಲ್ಲಕ್ಕೆ ಆಸೆಯೆ ಪ್ರಾಣ.\nಸಚರಾಚರದ ಚತುರಾಸಿ ಬಲದೂಳಗೆ\nಆಸೆಯಿಲ್ಲದೆ ಚರಿಸುವ ಲಿಂಗಾಂಗಿಯ ತೋರಾ.\n''ಆಸೆಯಾ ಬದ್ಧತೇ ಲೋಕೇ\nಕರ್ಮಣಾ ಬಹು ಬಂತಯಾ\nಆಯು ಕ್ಷೀಣನ ಜಾನಾತಿ\nಮೇಣುಸೂತ್ರ ವಿಧೀಯತೇ\nಎಂದುದಾಗಿ, ಆಸೆಯನೆ ಧಿಕ್ಕರಿಸಿ\nನಿರಾಸೆಯಲಿ ನಡೆವವರ ಸರಿಯೆಂಬೆ ಕಾಣಾ,\nನಿವೃತ್ತಿ ಸಂಗಯ್ಯ. || 3 ||",
-    "transliteration" : "sacarācaravellakke āseye prāṇa.\nsacarācarada caturāsi baladūḷage\nāseyillade carisuva liṅgāṅgiya tōrā.\n''āseyā bad'dhatē lōkē\nkarmaṇā bahu bantayā\nāyu kṣīṇana jānāti\nmēṇusūtra vidhīyatē\nendudāgi, āseyane dhikkarisi\nnirāseyali naḍevavara sariyembe kāṇā,\nnivr̥tti saṅgayya. || 3 ||",
-    "translation" : ""
-  } ]
+  "id": 203,
+  "kannadaName": "ನಿವೃತ್ತಿ ಸಂಗಯ್ಯ",
+  "englishName": "nivr̥tti saṅgayya",
+  "vachanaCount": 0,
+  "vachanas": [
+    {
+      "authorId": 203,
+      "number": 1,
+      "akshara": "pa",
+      "kannada": "ಪರಧನ ಪರಾನ್ನ ಪರಸ್ತ್ರೀಯರಾಸೆ ಬಿಡದು, ಶರಣನೆಂತೆಂಬೆ ಮರುಳೆ?\n''ಜಿಹ್ವೆದಗ್ಧ ಪರಾನ್ನಂಚ ಹಸ್ತದಗ್ಧ ಪ್ರತಿಗ್ರಹಂ\nಚಕ್ಷುದಗ್ಧ ಪರಸ್ತ್ರೀನಾಂ ತಸ್ಯ ಜನ್ಮ ನಿರರ್ಥಕಂ'\nಎಂದು ಶ್ರುತಿ ಸಾರಲು ಮತಿಗೆಡುವನಕಟಾ,\nನಿವೃತ್ತಿ ಸಂಗಯ್ಯನೆಂತೊಲಿವನವ್ವಾ! || 1 ||",
+      "transliteration": "paradhana parānna parastrīyarāse biḍadu, śaraṇanentembe maruḷe?\n''jihvedagdha parānnan̄ca hastadagdha pratigrahaṁ\ncakṣudagdha parastrīnāṁ tasya janma nirarthakaṁ'\nendu śruti sāralu matigeḍuvanakaṭā,\nnivr̥tti saṅgayyanentolivanavvā! || 1 ||",
+      "translation": "Can one who has not given up craving for another's wealth, another's food, and another's wife,\nBe called a Śaraṇa? O deluded one!\n\"'The tongue is defiled by another's food,\nThe hand is defiled by accepting improper gifts,\nThe eyes are defiled by another's wife;\nSuch a person's birth is in vain.'\"\nSo declares the essence of the Śruti. Yet alas, one loses all discernment.\nO Nivṛtti Saṅgayya, who can truly understand this? || 1 ||"
+    },
+    {
+      "authorId": 203,
+      "number": 2,
+      "akshara": "ba",
+      "kannada": "ಬ್ರಾಹ್ಮಣ ಶಿವಭಕ್ತನಾದ ಬಳಿಕ ಬ್ರಾಹ್ಮಣರ ಬೆರಸಲಾಗದು.\nಕ್ಷತ್ರಿಯ ಶಿವಭಕ್ತನಾದ ಬಳಿಕ ಕ್ಷತ್ರಿಯರ ಬೆರಸಲಾಗದು.\nವೈಶ್ಯ ಶಿವಭಕ್ತನಾದ ಬಳಿಕ ವೈಶ್ಯರ ಬೆರಸಲಾಗದು.\nಶೂದ್ರ ಶಿವಭಕ್ತನಾದ ಬಳಿಕ ಶೂದ್ರರ ಬೆರಸಲಾಗದು.\nಇವರ ಜೀವದತೀತರ ಜಾತಿಯ ಉದ್ಭವಮಂ\nಇವದಿರ ಕಾಯಕ ಕುಲದರುಶನ ಪಕ್ಷ\nಸಪ್ತಧಾತು ಸರಿಯೆಂದೆಂಬರೆ\n''ಕೃತಂ ಜೀವಂ ಕೃತಂ ಫಲಂ'\nಅಗ್ರಜ ಮೊದಲು ಅಂತ್ಯಜ ಕಡೆ\n''ಬ್ರಾಹ್ಮಣ ಕ್ಷತ್ರಿಯ ವೈಶ್ಯ\nಶೂದ್ರೋವಾ ಗುರುಹಸ್ತಯೋ||\nಪ್ರತಿ ಭೂಜನ ಕರ್ತವ್ಯಂ\nಕರ್ತವ್ಯಂ ಪುನರ್ವತಾಯೋ'\nನಿವೃತ್ತಿ ಸಂಗಯ್ಯದೇವ ಬಲ್ಲ.\nಜಾತಿ ವಿಚಾರದ ಭೇದವ ಬಿಟ್ಟರೆ ಬಿಡುವುದು\nಬಿಡದಿರ್ದಡೆ ತಮ್ಮ ಮುನ್ನಿನಂತಿಹುದು.\n|| 2 ||",
+      "transliteration": "brāhmaṇa śivabhaktanāda baḷika brāhmaṇara berasalāgadu.\nkṣatriya śivabhaktanāda baḷika kṣatriyara berasalāgadu.\nvaiśya śivabhaktanāda baḷika vaiśyara berasalāgadu.\nśūdra śivabhaktanāda baḷika śūdrara berasalāgadu.\nivara jīvadatītara jātiya udbhavamaṁ\nivadira kāyaka kuladaruśana pakṣa\nsaptadhātu sariyendembare\n''kr̥taṁ jīvaṁ kr̥taṁ phalaṁ'\nagraja modalu antyaja kaḍe\n''brāhmaṇa kṣatriya vaiśya\nśūdrōvā guruhastayō||\nprati bhūjana kartavyaṁ\nkartavyaṁ punarvatāyō'\nnivr̥tti saṅgayyadēva balla.\njāti vicārada bhēdava biṭṭare biḍuvudu\nbiḍadirdaḍe tam'ma munninantihudu.\n|| 2 ||",
+      "translation": "Once a Brāhmaṇa becomes a devotee of Śiva, he no longer belongs among the Brāhmaṇas.\nOnce a Kṣatriya becomes a devotee of Śiva, he no longer belongs among the Kṣatriyas.\nOnce a Vaiśya becomes a devotee of Śiva, he no longer belongs among the Vaiśyas.\nOnce a Śūdra becomes a devotee of Śiva, he no longer belongs among the Śūdras.\nTheir origin is beyond the distinctions of birth.\nIf one judges them merely by body, occupation, or lineage,\nSaying that the seven bodily constituents are the true measure, then—\n\"'The life is fulfilled; the fruit is fulfilled.'\"\nFrom the highest-born to the lowest-born,\n\"'Whether Brāhmaṇa, Kṣatriya, Vaiśya,\nOr Śūdra—if one has received the Guru's hand,\nIt is the duty of all\nTo honour such a one again and again.'\"\nNivṛtti Saṅgayyadēva alone knows this.\nOnly by abandoning distinctions based on caste does one become free;\nIf one does not abandon them, one remains as before.\n|| 2 ||"
+    },
+    {
+      "authorId": 203,
+      "number": 3,
+      "akshara": "sa",
+      "kannada": "ಸಚರಾಚರವೆಲ್ಲಕ್ಕೆ ಆಸೆಯೆ ಪ್ರಾಣ.\nಸಚರಾಚರದ ಚತುರಾಸಿ ಬಲದೂಳಗೆ\nಆಸೆಯಿಲ್ಲದೆ ಚರಿಸುವ ಲಿಂಗಾಂಗಿಯ ತೋರಾ.\n''ಆಸೆಯಾ ಬದ್ಧತೇ ಲೋಕೇ\nಕರ್ಮಣಾ ಬಹು ಬಂತಯಾ\nಆಯು ಕ್ಷೀಣನ ಜಾನಾತಿ\nಮೇಣುಸೂತ್ರ ವಿಧೀಯತೇ\nಎಂದುದಾಗಿ, ಆಸೆಯನೆ ಧಿಕ್ಕರಿಸಿ\nನಿರಾಸೆಯಲಿ ನಡೆವವರ ಸರಿಯೆಂಬೆ ಕಾಣಾ,\nನಿವೃತ್ತಿ ಸಂಗಯ್ಯ. || 3 ||",
+      "transliteration": "sacarācaravellakke āseye prāṇa.\nsacarācarada caturāsi baladūḷage\nāseyillade carisuva liṅgāṅgiya tōrā.\n''āseyā bad'dhatē lōkē\nkarmaṇā bahu bantayā\nāyu kṣīṇana jānāti\nmēṇusūtra vidhīyatē\nendudāgi, āseyane dhikkarisi\nnirāseyali naḍevavara sariyembe kāṇā,\nnivr̥tti saṅgayya. || 3 ||",
+      "translation": "For all that moves and all that is still, desire is life itself.\nAmong the eighty-four lakh forms of life, moving and unmoving,\nShow me the Liṅgāṅgi who moves without desire.\n\"'Desire binds the world;\nThrough karma arise countless bonds.\nWhen the span of life is exhausted,\nOne is drawn along like a thread through a needle.'\"\nTherefore, condemning desire itself,\nI declare those who walk in desirelessness to be the true ones,\nO Nivṛtti Saṅgayya. || 3 ||"
+    }
+  ]
 }

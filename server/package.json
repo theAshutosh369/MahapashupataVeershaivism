@@ -5,7 +5,8 @@
     "version": "0.0.0",
     "main": "server.js",
     "scripts": {
-        "dev": "node server.js"
+        "dev": "node server.js",
+        "start": "node --max-old-space-size=4096 server.js"
     },
     "dependencies": {
         "express": "^4.19.2"

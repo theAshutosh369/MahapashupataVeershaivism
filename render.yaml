@@ -1,0 +1,27 @@
+# Render.com deployment configuration
+# https://render.com/docs/deploy-node-express-app
+
+services:
+  - type: web
+    name: vachana-sanchaya
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run prod
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: PORT
+        value: 10000
+      - key: RAG_WARM_INDEX
+        value: 0
+      - key: EMBEDDING_MODE
+        value: local
+      - key: GEMINI_API_KEY
+        sync: false # You need to set this manually in Render dashboard
+      - key: GEMINI_MODEL
+        value: models/gemini-flash-latest
+    healthCheckPath: /api/rag/status
+    autoDeploy: false
+

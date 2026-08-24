@@ -18,11 +18,15 @@ export type DatasetFile = {
     data?: DatasetItem[];
 };
 
+// Allow configuring the backend API URL via environment variable
+// In development, defaults to empty string (same origin, or use VITE_API_URL)
+// All dataset endpoints are now served from the same unified backend
+const API_BASE = import.meta.env.VITE_API_URL ?? '';
 
 export async function listDatasets(): Promise<string[]> {
     // Scan server-side for json files under public/data/**
     // and return their basenames (e.g. "custom.json").
-    const response = await fetch(`http://localhost:3003/api/datasets/list`, {
+    const response = await fetch(`${API_BASE}/api/datasets/list`, {
         method: "GET"
     });
 
@@ -47,7 +51,7 @@ export async function listDatasets(): Promise<string[]> {
 
 export async function getDataset(datasetName: string): Promise<DatasetFile | null> {
     const response = await fetch(
-        `http://localhost:3002/api/datasets/${encodeURIComponent(datasetName)}`,
+        `${API_BASE}/api/datasets/${encodeURIComponent(datasetName)}`,
         { method: 'GET' }
     );
 
@@ -62,7 +66,7 @@ export async function upsertDatasetItem(
 ): Promise<{ ok: boolean }> {
 
     const response = await fetch(
-        `http://localhost:3002/api/datasets/${encodeURIComponent(datasetName)}/items`,
+        `${API_BASE}/api/datasets/${encodeURIComponent(datasetName)}/items`,
         {
             method: "POST",
             headers: {
