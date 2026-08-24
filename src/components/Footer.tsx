@@ -23,7 +23,7 @@ function Footer() {
                         color: "#fff",
                         marginBottom: 10,
                     }}>
-                        Vachana Sanchaya
+                        Mahapashupata Veershaivam
                     </h3>
                     <p style={{ fontSize: "14px", lineHeight: 1.6, color: "rgba(255,255,255,0.7)" }}>
                         A Digital Library of Kannada Vachanas — preserving and sharing the spiritual poetry of the Sharanas.

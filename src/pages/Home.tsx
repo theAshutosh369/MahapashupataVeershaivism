@@ -674,7 +674,7 @@ export default function Home() {
       <main className="container-wide" style={{ margin: "0 auto" }}>
         <section className="hero-section">
           <div style={{ textAlign: "center", marginBottom: "clamp(20px, 4vw, 40px)" }}>
-            <h1 style={{ fontSize: "var(--font-h1)", color: "#7A1F1F", marginBottom: 10 }}>Vachana Sanchaya</h1>
+            <h1 style={{ fontSize: "var(--font-h1)", color: "#7A1F1F", marginBottom: 10 }}>Mahapashupata Veershaivam</h1>
             <p style={{ fontSize: "clamp(14px, 2vw, 18px)", color: "#666" }}>A Digital Library of Kannada Vachanas</p>
           </div>
 

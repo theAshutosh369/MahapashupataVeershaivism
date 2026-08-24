@@ -11,7 +11,7 @@ function Navbar() {
     return (
         <header className="navbar">
             <div className="container navbar-inner">
-                <h2 className="navbar-brand">Vachana Sanchaya</h2>
+                <h2 className="navbar-brand">Mahapashupata Veershaivam</h2>
 
                 <button
                     className="navbar-toggle"
