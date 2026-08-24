@@ -19,9 +19,14 @@ services:
       - key: EMBEDDING_MODE
         value: local
       - key: GEMINI_API_KEY
-        sync: false # You need to set this manually in Render dashboard
+        sync: false
       - key: GEMINI_MODEL
         value: models/gemini-flash-latest
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: GITHUB_REPO
+        value: theAshutosh369/MahapashupataVeershaivism
+      - key: GITHUB_BRANCH
+        value: main
     healthCheckPath: /api/rag/status
     autoDeploy: false
-
