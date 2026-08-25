@@ -1,0 +1,96 @@
+/* =============================================
+   Navbar Component Styles
+   ============================================= */
+
+.navbar {
+    background: var(--color-primary);
+    color: white;
+    padding: 14px 0;
+    position: relative;
+    z-index: 1000;
+}
+
+.navbar-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand {
+    font-size: clamp(16px, 4vw, 24px);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 22px;
+    align-items: center;
+}
+
+.navbar-links a {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: var(--font-body);
+    transition: color 0.2s;
+    white-space: nowrap;
+}
+
+.navbar-links a:hover {
+    color: #fff;
+}
+
+.navbar-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 4px;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    touch-action: manipulation;
+}
+
+.navbar-toggle:active {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 900px) {
+    .navbar-toggle {
+        display: flex;
+    }
+
+    .navbar-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--color-primary);
+        flex-direction: column;
+        padding: 16px 24px;
+        gap: 8px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        z-index: 999;
+    }
+
+    .navbar-links.open {
+        display: flex;
+    }
+
+    .navbar-links a {
+        display: block;
+        padding: 12px 0;
+        font-size: 16px;
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar-links a:last-child {
+        border-bottom: none;
+    }
+}

@@ -1,0 +1,32 @@
+/* =============================================
+   Home Page Styles
+   ============================================= */
+
+.hero-section {
+    background: var(--color-white);
+    border-radius: 22px;
+    padding: var(--space-2xl) clamp(20px, 5vw, 50px);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, .08);
+    margin-bottom: var(--space-2xl);
+    margin-top: 20px;
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: clamp(16px, 3vw, 40px);
+    align-items: start;
+}
+
+@media (max-width: 1024px) {
+    .hero-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}

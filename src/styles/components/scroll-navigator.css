@@ -1,0 +1,94 @@
+/* =============================================
+   Floating Scroll Navigator Component Styles
+   ============================================= */
+
+.scroll-navigator {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 10001;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.scroll-navigator--visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.scroll-navigator--hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.scroll-navigator__btn {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: none;
+    background: var(--color-primary);
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    touch-action: manipulation;
+    box-shadow: 0 3px 10px rgba(122, 31, 31, 0.3);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+    font-size: 20px;
+    line-height: 1;
+    padding: 0;
+}
+
+.scroll-navigator__btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 18px rgba(122, 31, 31, 0.4);
+}
+
+.scroll-navigator__btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 6px rgba(122, 31, 31, 0.25);
+}
+
+.scroll-navigator__btn:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+}
+
+@media (max-width: 768px) {
+    .scroll-navigator {
+        bottom: 16px;
+        right: 16px;
+        gap: 6px;
+    }
+
+    .scroll-navigator__btn {
+        width: 22px;
+        height: 22px;
+    }
+
+    .scroll-navigator__btn svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+/* Ensure no overlap with chat input on AI Agent page */
+.ai-chat-page .scroll-navigator {
+    bottom: 100px;
+}
+
+@media (max-width: 768px) {
+    .ai-chat-page .scroll-navigator {
+        bottom: 80px;
+    }
+}

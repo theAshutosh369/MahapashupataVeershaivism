@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
+import "../styles/components/navbar.css";
+
 function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
 
@@ -36,4 +38,3 @@ function Navbar() {
 }
 
 export default Navbar;
-

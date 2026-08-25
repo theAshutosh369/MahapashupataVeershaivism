@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import { getAuthor, getAuthors } from "../api";
 import Footer from "../components/Footer";
+import "../styles/pages/global-search.css";
 import HighlightText from "../components/HighlightText";
 import Navbar from "../components/Navbar";
 
