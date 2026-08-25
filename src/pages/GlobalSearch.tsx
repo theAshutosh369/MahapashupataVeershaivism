@@ -89,7 +89,8 @@ function GlobalSearch() {
         transliteration: true,
         translation: true
     });
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [_isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
     useEffect(() => {
         const mq = window.matchMedia("(max-width: 767px)");

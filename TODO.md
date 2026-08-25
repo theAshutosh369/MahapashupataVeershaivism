@@ -1,27 +1,16 @@
-# GlobalSearch Mobile Layout Implementation - COMPLETED ✅
+# Floating Page Navigation — Implementation Todo
 
-## Fixes Applied
+## Files to Create
+- [x] `src/components/ScrollNavigator.tsx` — Reusable scroll navigation component
 
-### ❌ Issue 1: Per Vachanakar Count Table horizontal scroll + alignment
-- Removed `overflow-x: auto` from `.author-counts-scroll`
-- Removed `min-width: 350px` constraint
-- Added `text-align: left` to all cells and headers
-- Added `vertical-align: middle` for proper alignment
-- Added `word-break: break-word` for long names to wrap properly
-- Reduced font sizes on mobile: 13px (<768px), 12px (<375px)
-- Reduced padding on mobile: 8px 10px (<768px), 6px 8px (<375px)
+## Files to Modify
+- [x] `src/styles/global.css` — Add scroll navigator styles
+- [x] `src/App.tsx` — Mount ScrollNavigator in BrowserRouter
 
-### ❌ Issue 2: Buttons too large, text overflowing
-- Default size: `min-height: 34px`, `padding: 5px 12px`, `font-size: 12px`
-- Added `white-space: nowrap`, `overflow: hidden`, `text-overflow: ellipsis` to prevent text overflow
-- <425px: `min-height: 30px`, `padding: 4px 10px`, `font-size: 11px`
-- <375px: `min-height: 28px`, `padding: 3px 8px`, `font-size: 10.5px`
-
-### ❌ Issue 3: Font sizes too large for mobile
-- Card Kannada: 17px (desktop), 16px (<425px), 15px (<375px)
-- Card English: 15px (desktop), 14px (<425px), 13px (<375px)
-- Card Transliteration: 15px (desktop), 14px (<425px), 13px (<375px)
-- Card labels: 12px (desktop), 11px (<425px), 10px (<375px)
-
-### Build: ✅ PASSED (zero errors)
+## Verification
+- [x] Test on desktop (all pages)
+- [x] Test on 320px, 375px, 390px, 768px, 1024px viewports
+- [x] Confirm smooth scrolling
+- [x] Confirm no overlap with footer/chat/modals
+- [x] Confirm correct button visibility at different scroll positions
 

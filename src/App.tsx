@@ -7,6 +7,7 @@ import GlobalSearch from "./pages/GlobalSearch";
 import Settings from "./pages/Settings";
 import DatasetGenerator from "./pages/DatasetGenerator";
 import AiAgent from "./pages/AiAgent";
+import ScrollNavigator from "./components/ScrollNavigator";
 
 
 
@@ -15,6 +16,8 @@ function App() {
     return (
 
         <BrowserRouter>
+
+            <ScrollNavigator />
 
             <Routes>
 
