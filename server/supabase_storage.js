@@ -12,6 +12,8 @@ import fs from 'node:fs/promises';
 import { createWriteStream, existsSync } from 'node:fs';
 import { pipeline } from 'node:stream/promises';
 import { Readable } from 'node:stream';
+import { request as httpRequest } from 'node:http';
+import { request as httpsRequest } from 'node:https';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -30,6 +32,9 @@ const INDEX_BLOB_NAME = 'rag_index.json';
 const EMBEDDINGS_BLOB_NAME = 'rag_embeddings.bin';
 const RESUMABLE_CHUNK_SIZE = 6 * 1024 * 1024;
 const RESUMABLE_THRESHOLD = 6 * 1024 * 1024;
+const UPLOAD_TIMEOUT_MS = 90_000;
+const MAX_UPLOAD_RETRIES = 3;
+const PROGRESS_WRITE_SIZE = 256 * 1024;
 
 function getConfig() {
     const url = (process.env.SUPABASE_URL || '').trim().replace(/\/+$/, '');
@@ -110,6 +115,103 @@ function printUploadProgress(blobName, uploaded, total, startedAt, forceNewLine 
     process.stdout.write('\r' + line + (forceNewLine ? '\n' : ''));
 }
 
+function withTimeoutSignal(timeoutMs) {
+    return AbortSignal.timeout(timeoutMs);
+}
+
+/**
+ * Send a TUS PATCH using Node's HTTP client rather than fetch().
+ *
+ * fetch() accepts the complete Buffer as the request body, so the progress
+ * display cannot observe bytes leaving the process until the PATCH completes.
+ * Writing smaller pieces through the Node request stream lets us update the
+ * progress bar while the chunk is actually being transmitted.
+ */
+function sendResumablePatch(uploadUrl, chunk, offset, onProgress) {
+    return new Promise((resolve, reject) => {
+        const parsed = new URL(uploadUrl);
+        const requestFn = parsed.protocol === 'https:' ? httpsRequest : httpRequest;
+        const request = requestFn(parsed, {
+            method: 'PATCH',
+            headers: {
+                ...authHeaders(),
+                'Tus-Resumable': '1.0.0',
+                'Upload-Offset': String(offset),
+                'Content-Type': 'application/offset+octet-stream',
+                'Content-Length': String(chunk.length)
+            }
+        }, (response) => {
+            const body = [];
+            response.on('data', (part) => body.push(part));
+            response.on('end', () => {
+                resolve({
+                    status: response.statusCode || 0,
+                    headers: response.headers,
+                    text: Buffer.concat(body).toString('utf8')
+                });
+            });
+        });
+
+        let timedOut = false;
+        const timeout = setTimeout(() => {
+            timedOut = true;
+            request.destroy(new Error(`Upload timed out after ${UPLOAD_TIMEOUT_MS / 1000}s`));
+        }, UPLOAD_TIMEOUT_MS);
+
+        request.on('error', (error) => {
+            clearTimeout(timeout);
+            if (timedOut) {
+                reject(new Error(`Upload timed out after ${UPLOAD_TIMEOUT_MS / 1000}s`));
+            } else {
+                reject(error);
+            }
+        });
+
+        request.on('close', () => clearTimeout(timeout));
+
+        let written = 0;
+        const writeNext = () => {
+            if (written >= chunk.length) {
+                request.end();
+                return;
+            }
+
+            const end = Math.min(written + PROGRESS_WRITE_SIZE, chunk.length);
+            const piece = chunk.subarray(written, end);
+            written = end;
+
+            const canContinue = request.write(piece, () => {
+                onProgress(written);
+                if (written < chunk.length) writeNext();
+                else request.end();
+            });
+
+            if (!canContinue) {
+                request.once('drain', () => {
+                    if (written < chunk.length) writeNext();
+                    else request.end();
+                });
+            }
+        };
+
+        writeNext();
+    });
+}
+
+async function getResumableOffset(uploadUrl) {
+    const response = await fetch(uploadUrl, {
+        method: 'HEAD',
+        headers: { ...authHeaders(), 'Tus-Resumable': '1.0.0' },
+        signal: withTimeoutSignal(UPLOAD_TIMEOUT_MS)
+    });
+    const serverOffset = Number(response.headers.get('upload-offset'));
+    return {
+        ok: response.ok,
+        offset: Number.isFinite(serverOffset) ? serverOffset : null,
+        status: response.status
+    };
+}
+
 // ─── Upload ────────────────────────────────────────────────────────────────
 
 export async function uploadFile(localPath, blobName) {
@@ -131,7 +233,8 @@ export async function uploadFile(localPath, blobName) {
             'Content-Type': blobName.endsWith('.json') ? 'application/json' : 'application/octet-stream',
             'x-upsert': 'true'
         },
-        body: buffer
+        body: buffer,
+        signal: withTimeoutSignal(UPLOAD_TIMEOUT_MS)
     });
 
     if (!response.ok) {
@@ -146,18 +249,29 @@ async function uploadFileResumable(localPath, blobName, fileSize) {
     const endpoint = resumableUploadEndpoint();
 
     console.log(`[SupabaseStorage] Starting resumable upload: ${blobName} (${formatBytes(fileSize)})`);
-    console.log(`[SupabaseStorage] Chunk size: ${formatBytes(RESUMABLE_CHUNK_SIZE)} | This may take a while depending on upload speed.`);
+    console.log(`[SupabaseStorage] Chunk size: ${formatBytes(RESUMABLE_CHUNK_SIZE)} | Timeout: ${UPLOAD_TIMEOUT_MS / 1000}s | Retries: ${MAX_UPLOAD_RETRIES}`);
 
-    const createResponse = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-            ...authHeaders(),
-            'Tus-Resumable': '1.0.0',
-            'Upload-Length': String(fileSize),
-            'Upload-Metadata': resumableMetadata(blobName),
-            'x-upsert': 'true'
-        }
-    });
+    let createResponse;
+    try {
+        createResponse = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+                ...authHeaders(),
+                'Tus-Resumable': '1.0.0',
+                'Upload-Length': String(fileSize),
+                'Upload-Metadata': resumableMetadata(blobName),
+                'x-upsert': 'true'
+            },
+            signal: withTimeoutSignal(UPLOAD_TIMEOUT_MS)
+        });
+    } catch (error) {
+        return {
+            ok: false,
+            status: 504,
+            error: error?.message || String(error),
+            method: 'resumable'
+        };
+    }
 
     if (!createResponse.ok) {
         const text = await createResponse.text().catch(() => '');
@@ -177,6 +291,7 @@ async function uploadFileResumable(localPath, blobName, fileSize) {
 
     try {
         while (offset < fileSize) {
+            const chunkStartOffset = offset;
             const chunkLength = Math.min(RESUMABLE_CHUNK_SIZE, fileSize - offset);
             const chunk = Buffer.allocUnsafe(chunkLength);
             const { bytesRead } = await file.read(chunk, 0, chunkLength, offset);
@@ -188,22 +303,23 @@ async function uploadFileResumable(localPath, blobName, fileSize) {
             let uploaded = false;
             let lastError = '';
 
-            for (let attempt = 1; attempt <= 3 && !uploaded; attempt += 1) {
+            for (let attempt = 1; attempt <= MAX_UPLOAD_RETRIES && !uploaded; attempt += 1) {
                 try {
-                    const patchResponse = await fetch(uploadUrl, {
-                        method: 'PATCH',
-                        headers: {
-                            ...authHeaders(),
-                            'Tus-Resumable': '1.0.0',
-                            'Upload-Offset': String(offset),
-                            'Content-Type': 'application/offset+octet-stream',
-                            'Content-Length': String(chunkLength)
-                        },
-                        body: chunk
-                    });
+                    if (attempt > 1) {
+                        console.log(`[SupabaseStorage] Retrying chunk at ${formatBytes(chunkStartOffset)} (attempt ${attempt}/${MAX_UPLOAD_RETRIES})...`);
+                    }
 
-                    if (patchResponse.ok) {
-                        const returnedOffset = Number(patchResponse.headers.get('upload-offset'));
+                    const patchResponse = await sendResumablePatch(
+                        uploadUrl,
+                        chunk,
+                        offset,
+                        (writtenInChunk) => {
+                            printUploadProgress(blobName, chunkStartOffset + writtenInChunk, fileSize, startedAt);
+                        }
+                    );
+
+                    if (patchResponse.status >= 200 && patchResponse.status < 300) {
+                        const returnedOffset = Number(patchResponse.headers['upload-offset']);
                         if (Number.isFinite(returnedOffset) && returnedOffset >= offset + chunkLength) {
                             offset = returnedOffset;
                         } else {
@@ -214,32 +330,64 @@ async function uploadFileResumable(localPath, blobName, fileSize) {
                         continue;
                     }
 
-                    lastError = (await patchResponse.text().catch(() => '')).slice(0, 500);
+                    lastError = patchResponse.text || `HTTP ${patchResponse.status}`;
 
-                    const headResponse = await fetch(uploadUrl, {
-                        method: 'HEAD',
-                        headers: { ...authHeaders(), 'Tus-Resumable': '1.0.0' }
-                    });
-                    const serverOffset = Number(headResponse.headers.get('upload-offset'));
-                    if (headResponse.ok && Number.isFinite(serverOffset) && serverOffset >= offset) {
-                        offset = serverOffset;
-                        uploaded = true;
-                        printUploadProgress(blobName, offset, fileSize, startedAt);
-                        continue;
+                    // A transient failure may have been accepted by Supabase
+                    // before the connection failed. Ask the server where it is
+                    // and continue from there instead of blindly duplicating bytes.
+                    try {
+                        const head = await getResumableOffset(uploadUrl);
+                        if (head.ok && head.offset !== null && head.offset >= offset) {
+                            if (head.offset >= chunkStartOffset + chunkLength) {
+                                offset = head.offset;
+                                uploaded = true;
+                                printUploadProgress(blobName, offset, fileSize, startedAt);
+                                continue;
+                            }
+                            if (head.offset > offset) {
+                                offset = head.offset;
+                                const remaining = chunk.subarray(head.offset - chunkStartOffset);
+                                const retryResponse = await sendResumablePatch(
+                                    uploadUrl,
+                                    remaining,
+                                    offset,
+                                    (writtenInRemaining) => {
+                                        printUploadProgress(blobName, offset + writtenInRemaining, fileSize, startedAt);
+                                    }
+                                );
+                                if (retryResponse.status >= 200 && retryResponse.status < 300) {
+                                    const retryOffset = Number(retryResponse.headers['upload-offset']);
+                                    offset = Number.isFinite(retryOffset) ? retryOffset : chunkStartOffset + chunkLength;
+                                    uploaded = true;
+                                    printUploadProgress(blobName, offset, fileSize, startedAt);
+                                    continue;
+                                }
+                                lastError = retryResponse.text || `HTTP ${retryResponse.status}`;
+                            }
+                        }
+                    } catch (headError) {
+                        lastError += `; offset check failed: ${headError?.message || String(headError)}`;
                     }
                 } catch (error) {
                     lastError = error?.message || String(error);
                 }
 
-                if (!uploaded && attempt < 3) {
-                    process.stdout.write(`\n[SupabaseStorage] Chunk retry ${attempt + 1}/3...\n`);
-                    await new Promise((resolve) => setTimeout(resolve, attempt * 1500));
+                if (!uploaded && attempt < MAX_UPLOAD_RETRIES) {
+                    console.log(`[SupabaseStorage] Chunk attempt ${attempt}/${MAX_UPLOAD_RETRIES} failed: ${lastError || 'unknown error'}`);
+                    const delayMs = attempt * 1500;
+                    console.log(`[SupabaseStorage] Waiting ${delayMs / 1000}s before retry...`);
+                    await new Promise((resolve) => setTimeout(resolve, delayMs));
                 }
             }
 
             if (!uploaded) {
                 process.stdout.write('\n');
-                return { ok: false, status: 502, error: lastError || 'Chunk upload failed after 3 attempts', method: 'resumable' };
+                return {
+                    ok: false,
+                    status: 502,
+                    error: lastError || `Chunk upload failed after ${MAX_UPLOAD_RETRIES} attempts`,
+                    method: 'resumable'
+                };
             }
         }
     } finally {
