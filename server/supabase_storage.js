@@ -34,11 +34,7 @@ const MAX_DOWNLOAD_RETRIES = 3;
 function getConfig() {
     const indexId = (process.env.GOOGLE_DRIVE_INDEX_ID || DEFAULT_INDEX_FILE_ID).trim();
     const embeddingsId = (process.env.GOOGLE_DRIVE_EMBEDDINGS_ID || DEFAULT_EMBEDDINGS_FILE_ID).trim();
-    return {
-        enabled: Boolean(indexId && embeddingsId),
-        indexId,
-        embeddingsId
-    };
+    return { enabled: Boolean(indexId && embeddingsId), indexId, embeddingsId };
 }
 
 function formatBytes(bytes) {
@@ -107,8 +103,12 @@ async function fetchWithTimeout(url, options = {}) {
 }
 
 /**
- * Resolve Google's large-file confirmation page when Drive requires one.
- * The returned URL/cookie pair can then be reused for the range requests.
+ * Resolve Google's download URL for one specific byte range.
+ *
+ * Google Drive's generated download URL is not guaranteed to remain usable
+ * for every later Range request. In particular, reusing it can produce HTTP
+ * 416 after the first successful range. Resolve a fresh URL for each range so
+ * every request carries the exact range we need.
  */
 async function resolveDownloadUrl(fileId, start, end) {
     const baseUrl = `https://drive.usercontent.google.com/download?id=${encodeURIComponent(fileId)}&export=download`;
@@ -153,11 +153,7 @@ async function resolveDownloadUrl(fileId, start, end) {
 function parseContentRange(value) {
     const match = /^bytes\s+(\d+)-(\d+)\/(\d+)$/i.exec(value || '');
     if (!match) return null;
-    return {
-        start: Number(match[1]),
-        end: Number(match[2]),
-        total: Number(match[3])
-    };
+    return { start: Number(match[1]), end: Number(match[2]), total: Number(match[3]) };
 }
 
 async function downloadGoogleDriveFile(fileId, localPath, displayName) {
@@ -165,8 +161,6 @@ async function downloadGoogleDriveFile(fileId, localPath, displayName) {
     const startedAt = Date.now();
     let totalSize = 0;
     let downloaded = 0;
-    let downloadUrl = null;
-    let cookie = '';
 
     console.log(`[GoogleDrive] Starting download: ${displayName}`);
     console.log(`[GoogleDrive] Chunk size: ${formatBytes(DOWNLOAD_CHUNK_SIZE)} | Timeout: ${DOWNLOAD_TIMEOUT_MS / 1000}s | Retries: ${MAX_DOWNLOAD_RETRIES}`);
@@ -175,7 +169,6 @@ async function downloadGoogleDriveFile(fileId, localPath, displayName) {
 
     try {
         let position = 0;
-        let firstRequest = true;
 
         while (true) {
             const rangeEnd = position + DOWNLOAD_CHUNK_SIZE - 1;
@@ -188,21 +181,11 @@ async function downloadGoogleDriveFile(fileId, localPath, displayName) {
                         console.log(`[GoogleDrive] Retrying ${displayName} at ${formatBytes(position)} (attempt ${attempt}/${MAX_DOWNLOAD_RETRIES})...`);
                     }
 
-                    let response;
-                    if (firstRequest || !downloadUrl) {
-                        const resolved = await resolveDownloadUrl(fileId, position, rangeEnd);
-                        response = resolved.response;
-                        downloadUrl = resolved.url;
-                        cookie = resolved.cookie || cookie;
-                        firstRequest = false;
-                    } else {
-                        response = await fetchWithTimeout(downloadUrl, {
-                            headers: {
-                                Range: `bytes=${position}-${rangeEnd}`,
-                                ...(cookie ? { Cookie: cookie } : {})
-                            }
-                        });
-                    }
+                    // Always resolve a fresh Google Drive URL for the current
+                    // range. This avoids the HTTP 416 seen when a previously
+                    // resolved download URL is reused for the next range.
+                    const resolved = await resolveDownloadUrl(fileId, position, rangeEnd);
+                    const response = resolved.response;
 
                     if (!response.ok && response.status !== 206) {
                         const text = await response.text().catch(() => '');
@@ -236,7 +219,6 @@ async function downloadGoogleDriveFile(fileId, localPath, displayName) {
                     if (totalSize > 0 && position >= totalSize) {
                         completed = true;
                     } else if (data.length < DOWNLOAD_CHUNK_SIZE && response.status !== 206) {
-                        // A non-range response shorter than the requested chunk is complete.
                         completed = true;
                     }
                 } catch (error) {
@@ -276,7 +258,7 @@ export async function uploadFile(localPath, blobName) {
     return {
         ok: false,
         reason: 'google_drive_read_only',
-        error: 'The Google Drive integration is download-only. Upload the RAG files to the configured Google Drive folder manually.'
+        error: 'The Google Drive integration is download-only. Upload the RAG files to the configured Google Drive manually.'
     };
 }
 
@@ -332,13 +314,7 @@ export async function downloadIndexFiles() {
         }
     }
 
-    return {
-        ok: failures.length === 0,
-        enabled: true,
-        downloaded,
-        skipped,
-        failures
-    };
+    return { ok: failures.length === 0, enabled: true, downloaded, skipped, failures };
 }
 
 export async function objectExists(blobName) {
