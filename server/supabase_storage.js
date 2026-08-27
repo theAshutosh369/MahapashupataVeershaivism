@@ -8,6 +8,7 @@
 
 import fs from 'node:fs/promises';
 import { createWriteStream, existsSync } from 'node:fs';
+import { Readable, Transform } from 'node:stream';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { pipeline } from 'node:stream/promises';
@@ -161,21 +162,26 @@ async function downloadGoogleDriveFile(fileId, localPath, displayName) {
             let lastPrinted = 0;
             const output = createWriteStream(tempPath, { flags: 'w' });
 
-            const progressStream = new TransformStream({
-                transform(chunk, controller) {
-                    downloaded += chunk.byteLength;
+            // Node's pipeline expects Node streams. fetch() returns a Web ReadableStream,
+            // so convert it explicitly before piping it into the filesystem stream.
+            // Using a Node Transform also lets us report progress without introducing
+            // Web WritableStream/Node WritableStream incompatibilities.
+            const progressStream = new Transform({
+                transform(chunk, encoding, callback) {
+                    downloaded += chunk.length;
                     const now = Date.now();
                     if (downloaded - lastPrinted >= 256 * 1024 || (total > 0 && downloaded >= total)) {
                         lastPrinted = downloaded;
                         printProgress(displayName, downloaded, total, startedAt);
                     }
-                    controller.enqueue(chunk);
+                    callback(null, chunk);
                 }
             });
 
             try {
-                await pipeline(response.body, progressStream.writable, output);
+                await pipeline(Readable.fromWeb(response.body), progressStream, output);
             } finally {
+                progressStream.destroy();
                 output.destroy();
             }
 
