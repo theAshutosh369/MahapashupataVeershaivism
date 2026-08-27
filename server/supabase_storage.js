@@ -3,27 +3,6 @@
  * so a production server can download a pre-built index instead of rebuilding it
  * from scratch (which takes minutes and consumes Gemini quota).
  *
- * ── WORKFLOW ────────────────────────────────────────────────────────────────
- *
- *   Local development:
- *     Edit datasets → build index once → upload index files to Supabase Storage
- *
- *   Production:
- *     Server starts → checks local files → exists? load immediately
- *     → else download from Supabase → load
- *
- *   Only when you intentionally update datasets:
- *     Update datasets → run incrementalUpdate() → upload new index files
- *
- * ── CONFIGURATION (env vars) ────────────────────────────────────────────────
- *   SUPABASE_URL            e.g. https://<project-ref>.supabase.co
- *   SUPABASE_SERVICE_KEY    Service/secret key — keep secret
- *   SUPABASE_STORAGE_BUCKET e.g. "rag-index" (default)
- *   SUPABASE_INDEX_PREFIX   optional folder prefix inside the bucket (default "")
- *
- * This module is OPTIONAL. If the env vars are not set, every public function
- * returns a disabled result and the existing local-file behaviour is preserved.
- *
  * Large uploads use Supabase Storage's TUS resumable-upload endpoint with
  * 6 MiB chunks. This avoids the 413 Payload Too Large error from standard
  * object uploads and keeps the local RAG files as single objects.
@@ -36,8 +15,6 @@ import { Readable } from 'node:stream';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-// Node 20+ can load .env without an additional dependency. The call is guarded
-// so importing this module remains safe in environments where it is unavailable.
 try {
     process.loadEnvFile?.();
 } catch {
@@ -45,8 +22,6 @@ try {
 }
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-// ─── Config ────────────────────────────────────────────────────────────────
 
 const INDEX_FILE = path.resolve(__dirname, 'rag_index.json');
 const EMBEDDINGS_FILE = path.resolve(__dirname, 'rag_embeddings.bin');
@@ -61,13 +36,7 @@ function getConfig() {
     const key = (process.env.SUPABASE_SERVICE_KEY || '').trim();
     const bucket = (process.env.SUPABASE_STORAGE_BUCKET || 'rag-index').trim().replace(/^\/+|\/+$/g, '');
     const prefix = (process.env.SUPABASE_INDEX_PREFIX || '').trim().replace(/^\/+|\/+$/g, '');
-    return {
-        enabled: !!(url && key),
-        url,
-        key,
-        bucket,
-        prefix
-    };
+    return { enabled: !!(url && key), url, key, bucket, prefix };
 }
 
 function objectPath(name) {
@@ -90,10 +59,7 @@ function resumableUploadEndpoint() {
 
 function authHeaders() {
     const cfg = getConfig();
-    return {
-        Authorization: 'Bearer ' + cfg.key,
-        apikey: cfg.key
-    };
+    return { Authorization: 'Bearer ' + cfg.key, apikey: cfg.key };
 }
 
 function encodeMetadataValue(value) {
@@ -110,21 +76,46 @@ function resumableMetadata(blobName) {
     ].join(',');
 }
 
+function formatBytes(bytes) {
+    if (bytes < 1024) return `${bytes} B`;
+    const units = ['KB', 'MB', 'GB', 'TB'];
+    let value = bytes;
+    let unit = -1;
+    while (value >= 1024 && unit < units.length - 1) {
+        value /= 1024;
+        unit += 1;
+    }
+    return `${value.toFixed(value >= 100 ? 0 : value >= 10 ? 1 : 2)} ${units[unit]}`;
+}
+
+function formatDuration(seconds) {
+    if (!Number.isFinite(seconds) || seconds < 0) return '--:--';
+    const total = Math.ceil(seconds);
+    const hours = Math.floor(total / 3600);
+    const minutes = Math.floor((total % 3600) / 60);
+    const secs = total % 60;
+    if (hours > 0) return `${hours}h ${String(minutes).padStart(2, '0')}m`;
+    return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+}
+
+function printUploadProgress(blobName, uploaded, total, startedAt, forceNewLine = false) {
+    const percent = total > 0 ? Math.min(100, (uploaded / total) * 100) : 0;
+    const elapsedSeconds = Math.max(0.001, (Date.now() - startedAt) / 1000);
+    const speed = uploaded / elapsedSeconds;
+    const remainingSeconds = speed > 0 ? Math.max(0, (total - uploaded) / speed) : Infinity;
+    const width = 28;
+    const filled = Math.round((percent / 100) * width);
+    const bar = '█'.repeat(filled) + '░'.repeat(width - filled);
+    const line = `[SupabaseStorage] Uploading ${blobName} [${bar}] ${percent.toFixed(1)}% | ${formatBytes(uploaded)} / ${formatBytes(total)} | ${formatBytes(speed)}/s | ETA ${formatDuration(remainingSeconds)}`;
+    process.stdout.write('\r' + line + (forceNewLine ? '\n' : ''));
+}
+
 // ─── Upload ────────────────────────────────────────────────────────────────
 
-/**
- * Upload a local file to Supabase Storage.
- * Files up to 6 MiB use the normal object upload. Larger files use the
- * Supabase TUS resumable endpoint with exactly 6 MiB chunks.
- */
 export async function uploadFile(localPath, blobName) {
     const cfg = getConfig();
-    if (!cfg.enabled) {
-        return { ok: false, reason: 'supabase_disabled' };
-    }
-    if (!existsSync(localPath)) {
-        return { ok: false, reason: 'file_not_found', path: localPath };
-    }
+    if (!cfg.enabled) return { ok: false, reason: 'supabase_disabled' };
+    if (!existsSync(localPath)) return { ok: false, reason: 'file_not_found', path: localPath };
 
     const stat = await fs.stat(localPath);
     if (stat.size > RESUMABLE_THRESHOLD) {
@@ -133,7 +124,6 @@ export async function uploadFile(localPath, blobName) {
 
     const buffer = await fs.readFile(localPath);
     const url = storageApiBase() + '/' + encodeURIComponent(objectPath(blobName));
-
     const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -152,13 +142,11 @@ export async function uploadFile(localPath, blobName) {
     return { ok: true, blob: blobName, size: stat.size, method: 'standard' };
 }
 
-/**
- * Upload a large file using Supabase Storage's TUS resumable-upload protocol.
- * The file remains a single object in Storage; it is only transferred in
- * 6 MiB chunks to avoid the standard-upload payload-size limit.
- */
 async function uploadFileResumable(localPath, blobName, fileSize) {
     const endpoint = resumableUploadEndpoint();
+
+    console.log(`[SupabaseStorage] Starting resumable upload: ${blobName} (${formatBytes(fileSize)})`);
+    console.log(`[SupabaseStorage] Chunk size: ${formatBytes(RESUMABLE_CHUNK_SIZE)} | This may take a while depending on upload speed.`);
 
     const createResponse = await fetch(endpoint, {
         method: 'POST',
@@ -184,6 +172,8 @@ async function uploadFileResumable(localPath, blobName, fileSize) {
     const uploadUrl = new URL(locationHeader, endpoint).toString();
     const file = await fs.open(localPath, 'r');
     let offset = 0;
+    const startedAt = Date.now();
+    printUploadProgress(blobName, 0, fileSize, startedAt);
 
     try {
         while (offset < fileSize) {
@@ -191,6 +181,7 @@ async function uploadFileResumable(localPath, blobName, fileSize) {
             const chunk = Buffer.allocUnsafe(chunkLength);
             const { bytesRead } = await file.read(chunk, 0, chunkLength, offset);
             if (bytesRead !== chunkLength) {
+                process.stdout.write('\n');
                 return { ok: false, status: 500, error: `Unexpected end of file at ${offset}B`, method: 'resumable' };
             }
 
@@ -219,26 +210,21 @@ async function uploadFileResumable(localPath, blobName, fileSize) {
                             offset += chunkLength;
                         }
                         uploaded = true;
-                        const percent = ((offset / fileSize) * 100).toFixed(1);
-                        console.log(`[SupabaseStorage] Uploading ${blobName}: ${percent}% (${offset}/${fileSize}B)`);
+                        printUploadProgress(blobName, offset, fileSize, startedAt);
                         continue;
                     }
 
                     lastError = (await patchResponse.text().catch(() => '')).slice(0, 500);
 
-                    // If a response was lost after the server accepted the chunk,
-                    // ask TUS for the authoritative offset before retrying.
                     const headResponse = await fetch(uploadUrl, {
                         method: 'HEAD',
-                        headers: {
-                            ...authHeaders(),
-                            'Tus-Resumable': '1.0.0'
-                        }
+                        headers: { ...authHeaders(), 'Tus-Resumable': '1.0.0' }
                     });
                     const serverOffset = Number(headResponse.headers.get('upload-offset'));
                     if (headResponse.ok && Number.isFinite(serverOffset) && serverOffset >= offset) {
                         offset = serverOffset;
                         uploaded = true;
+                        printUploadProgress(blobName, offset, fileSize, startedAt);
                         continue;
                     }
                 } catch (error) {
@@ -246,11 +232,13 @@ async function uploadFileResumable(localPath, blobName, fileSize) {
                 }
 
                 if (!uploaded && attempt < 3) {
+                    process.stdout.write(`\n[SupabaseStorage] Chunk retry ${attempt + 1}/3...\n`);
                     await new Promise((resolve) => setTimeout(resolve, attempt * 1500));
                 }
             }
 
             if (!uploaded) {
+                process.stdout.write('\n');
                 return { ok: false, status: 502, error: lastError || 'Chunk upload failed after 3 attempts', method: 'resumable' };
             }
         }
@@ -258,12 +246,13 @@ async function uploadFileResumable(localPath, blobName, fileSize) {
         await file.close();
     }
 
+    const elapsedSeconds = (Date.now() - startedAt) / 1000;
+    printUploadProgress(blobName, fileSize, fileSize, startedAt, true);
+    console.log(`[SupabaseStorage] Upload complete: ${blobName} in ${formatDuration(elapsedSeconds)}.`);
+
     return { ok: true, blob: blobName, size: fileSize, method: 'resumable' };
 }
 
-/**
- * Upload both index files (rag_index.json + rag_embeddings.bin) to Supabase.
- */
 export async function uploadIndexFiles() {
     const cfg = getConfig();
     if (!cfg.enabled) {
@@ -290,46 +279,25 @@ export async function uploadIndexFiles() {
 
 // ─── Download ──────────────────────────────────────────────────────────────
 
-/**
- * Download a single object from Supabase Storage to a local file.
- * Streams the response to disk so a large embeddings file does not need to
- * be held entirely in memory.
- */
 export async function downloadFile(blobName, localPath) {
     const cfg = getConfig();
-    if (!cfg.enabled) {
-        return { ok: false, reason: 'supabase_disabled' };
-    }
+    if (!cfg.enabled) return { ok: false, reason: 'supabase_disabled' };
 
     const url = storageApiBase() + '/' + encodeURIComponent(objectPath(blobName));
-    const response = await fetch(url, {
-        method: 'GET',
-        headers: authHeaders()
-    });
+    const response = await fetch(url, { method: 'GET', headers: authHeaders() });
 
     if (!response.ok) {
         const text = await response.text().catch(() => '');
         return { ok: false, status: response.status, error: text.slice(0, 200) };
     }
 
-    if (!response.body) {
-        return { ok: false, status: 500, error: 'Supabase returned an empty response body' };
-    }
+    if (!response.body) return { ok: false, status: 500, error: 'Supabase returned an empty response body' };
 
-    await pipeline(
-        Readable.fromWeb(response.body),
-        createWriteStream(localPath)
-    );
-
+    await pipeline(Readable.fromWeb(response.body), createWriteStream(localPath));
     const size = (await fs.stat(localPath)).size;
     return { ok: true, blob: blobName, size };
 }
 
-/**
- * Download both index files from Supabase Storage to the local server dir.
- * Only downloads files that are NOT already present locally.
- * Returns { downloaded: [...], skipped: [...], ok, enabled }.
- */
 export async function downloadIndexFiles() {
     const cfg = getConfig();
     if (!cfg.enabled) {
@@ -360,11 +328,6 @@ export async function downloadIndexFiles() {
     return { ok: true, enabled: true, downloaded, skipped };
 }
 
-// ─── Discovery / listing (optional helpers) ────────────────────────────────
-
-/**
- * Check whether a storage object exists.
- */
 export async function objectExists(blobName) {
     const cfg = getConfig();
     if (!cfg.enabled) return false;
@@ -373,13 +336,6 @@ export async function objectExists(blobName) {
     return response.ok;
 }
 
-// ─── CLI entry (upload after a local rebuild) ──────────────────────────────
-
-/**
- * Run as a standalone script:
- *   node server/supabase_storage.js --upload
- *   node server/supabase_storage.js --download
- */
 const isDirectRun = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 if (isDirectRun) {
     const flag = process.argv[2];
