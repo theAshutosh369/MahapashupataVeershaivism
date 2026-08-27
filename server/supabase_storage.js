@@ -1,43 +1,18 @@
 /**
- * Supabase Storage — Persist RAG index files (rag_index.json + rag_embeddings.bin)
- * so a production server can download a pre-built index instead of rebuilding it
- * from scratch (which takes minutes and consumes Gemini quota).
+ * Google Drive storage for the pre-built RAG index.
  *
- * ── WORKFLOW ────────────────────────────────────────────────────────────────
- *
- *   Local development:
- *     Edit datasets → build index once → upload index files to Supabase Storage
- *
- *   Production:
- *     Server starts → checks local files → exists? load immediately
- *     → else download from Supabase → load
- *
- *   Only when you intentionally update datasets:
- *     Update datasets → run incrementalUpdate() → upload new index files
- *
- * ── CONFIGURATION (env vars) ────────────────────────────────────────────────
- *   SUPABASE_URL            e.g. https://<project-ref>.supabase.co
- *   SUPABASE_SERVICE_KEY    Service/secret key — keep secret
- *   SUPABASE_STORAGE_BUCKET e.g. "rag-index" (default)
- *   SUPABASE_INDEX_PREFIX   optional folder prefix inside the bucket (default "")
- *
- * This module is OPTIONAL. If the env vars are not set, every public function
- * returns a disabled result and the existing local-file behaviour is preserved.
- *
- * Large uploads use Supabase Storage's TUS resumable-upload endpoint with
- * 6 MiB chunks. This avoids the 413 Payload Too Large error from standard
- * object uploads and keeps the local RAG files as single objects.
+ * The index files are kept outside GitHub and downloaded from public Google
+ * Drive links when the server needs them. Downloads are streamed directly to
+ * disk so large files do not need to be held entirely in memory.
  */
 
 import fs from 'node:fs/promises';
 import { createWriteStream, existsSync } from 'node:fs';
-import { pipeline } from 'node:stream/promises';
-import { Readable } from 'node:stream';
+import { Readable, Transform } from 'node:stream';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { pipeline } from 'node:stream/promises';
 
-// Node 20+ can load .env without an additional dependency. The call is guarded
-// so importing this module remains safe in environments where it is unavailable.
 try {
     process.loadEnvFile?.();
 } catch {
@@ -45,362 +20,267 @@ try {
 }
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-// ─── Config ────────────────────────────────────────────────────────────────
-
 const INDEX_FILE = path.resolve(__dirname, 'rag_index.json');
 const EMBEDDINGS_FILE = path.resolve(__dirname, 'rag_embeddings.bin');
 
-const INDEX_BLOB_NAME = 'rag_index.json';
-const EMBEDDINGS_BLOB_NAME = 'rag_embeddings.bin';
-const RESUMABLE_CHUNK_SIZE = 6 * 1024 * 1024;
-const RESUMABLE_THRESHOLD = 6 * 1024 * 1024;
+const DEFAULT_INDEX_FILE_ID = '128Hv5D93LMrWSjomQCsQAJrhGyWE7PV3';
+const DEFAULT_EMBEDDINGS_FILE_ID = '106hbwJ8a3f5hnOo_yuTEbP0X5SjaMVFV';
+
+const DOWNLOAD_TIMEOUT_MS = 90_000;
+const MAX_DOWNLOAD_RETRIES = 3;
 
 function getConfig() {
-    const url = (process.env.SUPABASE_URL || '').trim().replace(/\/+$/, '');
-    const key = (process.env.SUPABASE_SERVICE_KEY || '').trim();
-    const bucket = (process.env.SUPABASE_STORAGE_BUCKET || 'rag-index').trim().replace(/^\/+|\/+$/g, '');
-    const prefix = (process.env.SUPABASE_INDEX_PREFIX || '').trim().replace(/^\/+|\/+$/g, '');
-    return {
-        enabled: !!(url && key),
-        url,
-        key,
-        bucket,
-        prefix
-    };
+    const indexId = (process.env.GOOGLE_DRIVE_INDEX_ID || DEFAULT_INDEX_FILE_ID).trim();
+    const embeddingsId = (process.env.GOOGLE_DRIVE_EMBEDDINGS_ID || DEFAULT_EMBEDDINGS_FILE_ID).trim();
+    return { enabled: Boolean(indexId && embeddingsId), indexId, embeddingsId };
 }
 
-function objectPath(name) {
-    const cfg = getConfig();
-    if (!cfg.prefix) return name;
-    return cfg.prefix + '/' + name;
-}
-
-function storageApiBase() {
-    const cfg = getConfig();
-    return cfg.url + '/storage/v1/object/' + encodeURIComponent(cfg.bucket);
-}
-
-function resumableUploadEndpoint() {
-    const cfg = getConfig();
-    const parsed = new URL(cfg.url);
-    const hostname = parsed.hostname.replace(/\.supabase\.co$/i, '.storage.supabase.co');
-    return parsed.protocol + '//' + hostname + '/storage/v1/upload/resumable';
-}
-
-function authHeaders() {
-    const cfg = getConfig();
-    return {
-        Authorization: 'Bearer ' + cfg.key,
-        apikey: cfg.key
-    };
-}
-
-function encodeMetadataValue(value) {
-    return Buffer.from(String(value), 'utf8').toString('base64');
-}
-
-function resumableMetadata(blobName) {
-    const cfg = getConfig();
-    return [
-        'bucketName ' + encodeMetadataValue(cfg.bucket),
-        'objectName ' + encodeMetadataValue(objectPath(blobName)),
-        'contentType ' + encodeMetadataValue(blobName.endsWith('.json') ? 'application/json' : 'application/octet-stream'),
-        'cacheControl ' + encodeMetadataValue('3600')
-    ].join(',');
-}
-
-// ─── Upload ────────────────────────────────────────────────────────────────
-
-/**
- * Upload a local file to Supabase Storage.
- * Files up to 6 MiB use the normal object upload. Larger files use the
- * Supabase TUS resumable endpoint with exactly 6 MiB chunks.
- */
-export async function uploadFile(localPath, blobName) {
-    const cfg = getConfig();
-    if (!cfg.enabled) {
-        return { ok: false, reason: 'supabase_disabled' };
+function formatBytes(bytes) {
+    if (bytes < 1024) return `${bytes} B`;
+    const units = ['KB', 'MB', 'GB', 'TB'];
+    let value = bytes;
+    let unit = -1;
+    while (value >= 1024 && unit < units.length - 1) {
+        value /= 1024;
+        unit += 1;
     }
-    if (!existsSync(localPath)) {
-        return { ok: false, reason: 'file_not_found', path: localPath };
+    return `${value.toFixed(value >= 100 ? 0 : value >= 10 ? 1 : 2)} ${units[unit]}`;
+}
+
+function formatDuration(seconds) {
+    if (!Number.isFinite(seconds) || seconds < 0) return '--:--';
+    const total = Math.ceil(seconds);
+    const hours = Math.floor(total / 3600);
+    const minutes = Math.floor((total % 3600) / 60);
+    const secs = total % 60;
+    if (hours > 0) return `${hours}h ${String(minutes).padStart(2, '0')}m`;
+    return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+}
+
+function printProgress(name, downloaded, total, startedAt, newLine = false) {
+    const percent = total > 0 ? Math.min(100, (downloaded / total) * 100) : 0;
+    const elapsed = Math.max(0.001, (Date.now() - startedAt) / 1000);
+    const speed = downloaded / elapsed;
+    const remaining = speed > 0 && total > 0 ? Math.max(0, (total - downloaded) / speed) : Infinity;
+    const width = 28;
+    const filled = Math.round((percent / 100) * width);
+    const bar = '█'.repeat(filled) + '░'.repeat(width - filled);
+    const totalText = total > 0 ? formatBytes(total) : 'unknown size';
+    const line = `[GoogleDrive] Downloading ${name} [${bar}] ${percent.toFixed(1)}% | ${formatBytes(downloaded)} / ${totalText} | ${formatBytes(speed)}/s | ETA ${formatDuration(remaining)}`;
+    process.stdout.write('\r' + line + (newLine ? '\n' : ''));
+}
+
+function getCookieHeader(response) {
+    const cookies = response.headers.getSetCookie?.() || [];
+    return cookies.map((cookie) => cookie.split(';', 1)[0]).join('; ');
+}
+
+function getConfirmationToken(html) {
+    const patterns = [
+        /[?&]confirm=([0-9A-Za-z_-]+)/i,
+        /name=["']confirm["'][^>]*value=["']([^"']+)/i,
+        /confirm=([0-9A-Za-z_-]+)/i,
+        /[?&]uuid=([0-9A-Za-z_-]+)/i
+    ];
+    for (const pattern of patterns) {
+        const match = html.match(pattern);
+        if (match?.[1]) return match[1];
     }
+    return null;
+}
 
-    const stat = await fs.stat(localPath);
-    if (stat.size > RESUMABLE_THRESHOLD) {
-        return uploadFileResumable(localPath, blobName, stat.size);
-    }
+function isHtmlResponse(response) {
+    return (response.headers.get('content-type') || '').toLowerCase().includes('text/html');
+}
 
-    const buffer = await fs.readFile(localPath);
-    const url = storageApiBase() + '/' + encodeURIComponent(objectPath(blobName));
-
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-            ...authHeaders(),
-            'Content-Type': blobName.endsWith('.json') ? 'application/json' : 'application/octet-stream',
-            'x-upsert': 'true'
-        },
-        body: buffer
+async function fetchWithTimeout(url, options = {}) {
+    return fetch(url, {
+        ...options,
+        signal: AbortSignal.timeout(DOWNLOAD_TIMEOUT_MS),
+        redirect: 'follow'
     });
-
-    if (!response.ok) {
-        const text = await response.text().catch(() => '');
-        return { ok: false, status: response.status, error: text.slice(0, 300) };
-    }
-
-    return { ok: true, blob: blobName, size: stat.size, method: 'standard' };
 }
 
-/**
- * Upload a large file using Supabase Storage's TUS resumable-upload protocol.
- * The file remains a single object in Storage; it is only transferred in
- * 6 MiB chunks to avoid the standard-upload payload-size limit.
- */
-async function uploadFileResumable(localPath, blobName, fileSize) {
-    const endpoint = resumableUploadEndpoint();
+async function resolveDownloadUrl(fileId) {
+    const urls = [
+        `https://drive.usercontent.google.com/download?id=${encodeURIComponent(fileId)}&export=download`,
+        `https://drive.google.com/uc?export=download&id=${encodeURIComponent(fileId)}`
+    ];
 
-    const createResponse = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-            ...authHeaders(),
-            'Tus-Resumable': '1.0.0',
-            'Upload-Length': String(fileSize),
-            'Upload-Metadata': resumableMetadata(blobName),
-            'x-upsert': 'true'
+    for (const baseUrl of urls) {
+        const response = await fetchWithTimeout(baseUrl);
+        if (!isHtmlResponse(response)) {
+            return { url: response.url || baseUrl, cookie: getCookieHeader(response), response };
         }
-    });
 
-    if (!createResponse.ok) {
-        const text = await createResponse.text().catch(() => '');
-        return { ok: false, status: createResponse.status, error: text.slice(0, 500), method: 'resumable' };
+        const html = await response.text();
+        const token = getConfirmationToken(html);
+        if (!token) continue;
+
+        const cookie = getCookieHeader(response);
+        const confirmedUrl = `${baseUrl}&confirm=${encodeURIComponent(token)}`;
+        const confirmedResponse = await fetchWithTimeout(confirmedUrl, {
+            headers: cookie ? { Cookie: cookie } : {}
+        });
+
+        if (!isHtmlResponse(confirmedResponse)) {
+            return {
+                url: confirmedResponse.url || confirmedUrl,
+                cookie: cookie || getCookieHeader(confirmedResponse),
+                response: confirmedResponse
+            };
+        }
     }
 
-    const locationHeader = createResponse.headers.get('location');
-    if (!locationHeader) {
-        return { ok: false, status: createResponse.status, error: 'Supabase did not return a resumable upload URL', method: 'resumable' };
-    }
+    throw new Error('Google Drive returned an HTML download/confirmation page instead of the file. Make sure the file is shared as "Anyone with the link" and is downloadable.');
+}
 
-    const uploadUrl = new URL(locationHeader, endpoint).toString();
-    const file = await fs.open(localPath, 'r');
-    let offset = 0;
+async function downloadGoogleDriveFile(fileId, localPath, displayName) {
+    const tempPath = `${localPath}.download`;
+    const startedAt = Date.now();
 
-    try {
-        while (offset < fileSize) {
-            const chunkLength = Math.min(RESUMABLE_CHUNK_SIZE, fileSize - offset);
-            const chunk = Buffer.allocUnsafe(chunkLength);
-            const { bytesRead } = await file.read(chunk, 0, chunkLength, offset);
-            if (bytesRead !== chunkLength) {
-                return { ok: false, status: 500, error: `Unexpected end of file at ${offset}B`, method: 'resumable' };
+    console.log(`[GoogleDrive] Starting download: ${displayName}`);
+    console.log(`[GoogleDrive] Streaming download | Timeout: ${DOWNLOAD_TIMEOUT_MS / 1000}s | Retries: ${MAX_DOWNLOAD_RETRIES}`);
+
+    for (let attempt = 1; attempt <= MAX_DOWNLOAD_RETRIES; attempt += 1) {
+        try {
+            if (attempt > 1) {
+                console.log(`[GoogleDrive] Retrying ${displayName} (attempt ${attempt}/${MAX_DOWNLOAD_RETRIES})...`);
             }
 
-            let uploaded = false;
-            let lastError = '';
+            await fs.rm(tempPath, { force: true });
+            const resolved = await resolveDownloadUrl(fileId);
+            const response = resolved.response;
 
-            for (let attempt = 1; attempt <= 3 && !uploaded; attempt += 1) {
-                try {
-                    const patchResponse = await fetch(uploadUrl, {
-                        method: 'PATCH',
-                        headers: {
-                            ...authHeaders(),
-                            'Tus-Resumable': '1.0.0',
-                            'Upload-Offset': String(offset),
-                            'Content-Type': 'application/offset+octet-stream',
-                            'Content-Length': String(chunkLength)
-                        },
-                        body: chunk
-                    });
-
-                    if (patchResponse.ok) {
-                        const returnedOffset = Number(patchResponse.headers.get('upload-offset'));
-                        if (Number.isFinite(returnedOffset) && returnedOffset >= offset + chunkLength) {
-                            offset = returnedOffset;
-                        } else {
-                            offset += chunkLength;
-                        }
-                        uploaded = true;
-                        const percent = ((offset / fileSize) * 100).toFixed(1);
-                        console.log(`[SupabaseStorage] Uploading ${blobName}: ${percent}% (${offset}/${fileSize}B)`);
-                        continue;
-                    }
-
-                    lastError = (await patchResponse.text().catch(() => '')).slice(0, 500);
-
-                    // If a response was lost after the server accepted the chunk,
-                    // ask TUS for the authoritative offset before retrying.
-                    const headResponse = await fetch(uploadUrl, {
-                        method: 'HEAD',
-                        headers: {
-                            ...authHeaders(),
-                            'Tus-Resumable': '1.0.0'
-                        }
-                    });
-                    const serverOffset = Number(headResponse.headers.get('upload-offset'));
-                    if (headResponse.ok && Number.isFinite(serverOffset) && serverOffset >= offset) {
-                        offset = serverOffset;
-                        uploaded = true;
-                        continue;
-                    }
-                } catch (error) {
-                    lastError = error?.message || String(error);
-                }
-
-                if (!uploaded && attempt < 3) {
-                    await new Promise((resolve) => setTimeout(resolve, attempt * 1500));
-                }
+            if (!response.ok) {
+                const text = await response.text().catch(() => '');
+                throw new Error(`HTTP ${response.status}: ${text.slice(0, 300)}`);
             }
 
-            if (!uploaded) {
-                return { ok: false, status: 502, error: lastError || 'Chunk upload failed after 3 attempts', method: 'resumable' };
+            const total = Number(response.headers.get('content-length')) || 0;
+            let downloaded = 0;
+            let lastPrinted = 0;
+            const output = createWriteStream(tempPath, { flags: 'w' });
+
+            // Node's pipeline expects Node streams. fetch() returns a Web ReadableStream,
+            // so convert it explicitly before piping it into the filesystem stream.
+            // Using a Node Transform also lets us report progress without introducing
+            // Web WritableStream/Node WritableStream incompatibilities.
+            const progressStream = new Transform({
+                transform(chunk, encoding, callback) {
+                    downloaded += chunk.length;
+                    const now = Date.now();
+                    if (downloaded - lastPrinted >= 256 * 1024 || (total > 0 && downloaded >= total)) {
+                        lastPrinted = downloaded;
+                        printProgress(displayName, downloaded, total, startedAt);
+                    }
+                    callback(null, chunk);
+                }
+            });
+
+            try {
+                await pipeline(Readable.fromWeb(response.body), progressStream, output);
+            } finally {
+                progressStream.destroy();
+                output.destroy();
+            }
+
+            if (total > 0 && downloaded !== total) {
+                throw new Error(`Incomplete download: received ${downloaded} of ${total} bytes`);
+            }
+
+            const stat = await fs.stat(tempPath);
+            if (stat.size === 0) throw new Error('Downloaded file is empty');
+
+            await fs.rm(localPath, { force: true });
+            await fs.rename(tempPath, localPath);
+            printProgress(displayName, stat.size, total || stat.size, startedAt, true);
+            console.log(`[GoogleDrive] Download complete: ${displayName} (${formatBytes(stat.size)}).`);
+            return { ok: true, blob: displayName, size: stat.size, method: 'google_drive' };
+        } catch (error) {
+            const message = error?.message || String(error);
+            if (attempt < MAX_DOWNLOAD_RETRIES) {
+                const delayMs = attempt * 1500;
+                console.log(`\n[GoogleDrive] Attempt ${attempt}/${MAX_DOWNLOAD_RETRIES} failed: ${message}`);
+                console.log(`[GoogleDrive] Waiting ${delayMs / 1000}s before retry...`);
+                await new Promise((resolve) => setTimeout(resolve, delayMs));
+            } else {
+                console.error(`\n[GoogleDrive] Failed to download ${displayName}: ${message}`);
             }
         }
-    } finally {
-        await file.close();
     }
 
-    return { ok: true, blob: blobName, size: fileSize, method: 'resumable' };
+    await fs.rm(tempPath, { force: true }).catch(() => {});
+    return { ok: false, status: 502, error: `Download failed after ${MAX_DOWNLOAD_RETRIES} attempts`, method: 'google_drive' };
 }
 
-/**
- * Upload both index files (rag_index.json + rag_embeddings.bin) to Supabase.
- */
+export async function uploadFile() {
+    return { ok: false, reason: 'google_drive_read_only', error: 'Google Drive integration is download-only. Upload the RAG files to Google Drive manually.' };
+}
+
 export async function uploadIndexFiles() {
-    const cfg = getConfig();
-    if (!cfg.enabled) {
-        console.log('[SupabaseStorage] Disabled (SUPABASE_URL / SUPABASE_SERVICE_KEY not set). Skipping upload.');
-        return { ok: false, reason: 'supabase_disabled' };
-    }
-
-    const results = {};
-    const indexRes = await uploadFile(INDEX_FILE, INDEX_BLOB_NAME);
-    results.index = indexRes;
-
-    const embedRes = await uploadFile(EMBEDDINGS_FILE, EMBEDDINGS_BLOB_NAME);
-    results.embeddings = embedRes;
-
-    const allOk = indexRes.ok && embedRes.ok;
-    console.log(
-        '[SupabaseStorage] Upload ' + (allOk ? 'OK' : 'FAILED') +
-        ' (index=' + (indexRes.ok ? indexRes.size + 'B' : (indexRes.error || indexRes.reason)) +
-        ', embeddings=' + (embedRes.ok ? embedRes.size + 'B' : (embedRes.error || embedRes.reason)) + ')'
-    );
-
-    return { ok: allOk, bucket: cfg.bucket, prefix: cfg.prefix, results };
+    return { ok: false, reason: 'google_drive_read_only', error: 'Upload the RAG index files to Google Drive manually; this server integration only downloads them.' };
 }
 
-// ─── Download ──────────────────────────────────────────────────────────────
-
-/**
- * Download a single object from Supabase Storage to a local file.
- * Streams the response to disk so a large embeddings file does not need to
- * be held entirely in memory.
- */
 export async function downloadFile(blobName, localPath) {
     const cfg = getConfig();
-    if (!cfg.enabled) {
-        return { ok: false, reason: 'supabase_disabled' };
-    }
-
-    const url = storageApiBase() + '/' + encodeURIComponent(objectPath(blobName));
-    const response = await fetch(url, {
-        method: 'GET',
-        headers: authHeaders()
-    });
-
-    if (!response.ok) {
-        const text = await response.text().catch(() => '');
-        return { ok: false, status: response.status, error: text.slice(0, 200) };
-    }
-
-    if (!response.body) {
-        return { ok: false, status: 500, error: 'Supabase returned an empty response body' };
-    }
-
-    await pipeline(
-        Readable.fromWeb(response.body),
-        createWriteStream(localPath)
-    );
-
-    const size = (await fs.stat(localPath)).size;
-    return { ok: true, blob: blobName, size };
+    if (!cfg.enabled) return { ok: false, reason: 'google_drive_disabled' };
+    const fileId = blobName === 'rag_index.json' ? cfg.indexId : blobName === 'rag_embeddings.bin' ? cfg.embeddingsId : null;
+    if (!fileId) return { ok: false, reason: 'unknown_blob', blob: blobName };
+    return downloadGoogleDriveFile(fileId, localPath, blobName);
 }
 
-/**
- * Download both index files from Supabase Storage to the local server dir.
- * Only downloads files that are NOT already present locally.
- * Returns { downloaded: [...], skipped: [...], ok, enabled }.
- */
 export async function downloadIndexFiles() {
     const cfg = getConfig();
     if (!cfg.enabled) {
-        console.log('[SupabaseStorage] Disabled (SUPABASE_URL / SUPABASE_SERVICE_KEY not set). Skipping download.');
-        return { ok: false, reason: 'supabase_disabled', downloaded: [], skipped: [] };
+        console.log('[GoogleDrive] Disabled: no Google Drive file IDs configured.');
+        return { ok: false, reason: 'google_drive_disabled', downloaded: [], skipped: [] };
     }
 
     const downloaded = [];
     const skipped = [];
+    const failures = [];
 
-    for (const [localPath, blobName] of [
-        [INDEX_FILE, INDEX_BLOB_NAME],
-        [EMBEDDINGS_FILE, EMBEDDINGS_BLOB_NAME]
-    ]) {
+    for (const [localPath, blobName] of [[INDEX_FILE, 'rag_index.json'], [EMBEDDINGS_FILE, 'rag_embeddings.bin']]) {
         if (existsSync(localPath)) {
-            skipped.push(blobName);
-            continue;
+            const size = (await fs.stat(localPath)).size;
+            if (size > 0) {
+                skipped.push(blobName);
+                console.log(`[GoogleDrive] Using existing local file: ${blobName} (${formatBytes(size)})`);
+                continue;
+            }
+            await fs.rm(localPath, { force: true });
         }
-        const res = await downloadFile(blobName, localPath);
-        if (res.ok) {
-            downloaded.push(blobName);
-            console.log('[SupabaseStorage] Downloaded ' + blobName + ' (' + res.size + 'B)');
-        } else {
-            console.warn('[SupabaseStorage] Download skipped ' + blobName + ': ' + (res.error || res.reason));
-        }
+
+        const result = await downloadFile(blobName, localPath);
+        if (result.ok) downloaded.push(blobName);
+        else failures.push({ blob: blobName, error: result.error || result.reason });
     }
 
-    return { ok: true, enabled: true, downloaded, skipped };
+    return { ok: failures.length === 0, enabled: true, downloaded, skipped, failures };
 }
 
-// ─── Discovery / listing (optional helpers) ────────────────────────────────
-
-/**
- * Check whether a storage object exists.
- */
 export async function objectExists(blobName) {
-    const cfg = getConfig();
-    if (!cfg.enabled) return false;
-    const url = storageApiBase() + '/' + encodeURIComponent(objectPath(blobName));
-    const response = await fetch(url, { method: 'HEAD', headers: authHeaders() });
-    return response.ok;
+    const localPath = blobName === 'rag_index.json' ? INDEX_FILE : blobName === 'rag_embeddings.bin' ? EMBEDDINGS_FILE : null;
+    return Boolean(localPath && existsSync(localPath) && (await fs.stat(localPath)).size > 0);
 }
 
-// ─── CLI entry (upload after a local rebuild) ──────────────────────────────
-
-/**
- * Run as a standalone script:
- *   node server/supabase_storage.js --upload
- *   node server/supabase_storage.js --download
- */
 const isDirectRun = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 if (isDirectRun) {
     const flag = process.argv[2];
-    if (flag === '--upload') {
-        uploadIndexFiles().then((r) => {
-            console.log('Upload result:', r);
-            process.exit(r.ok ? 0 : 1);
-        }).catch((e) => {
-            console.error('Upload failed:', e?.message || String(e));
+    if (flag === '--download') {
+        downloadIndexFiles().then((result) => {
+            console.log('Download result:', result);
+            process.exit(result.ok ? 0 : 1);
+        }).catch((error) => {
+            console.error('Download failed:', error?.message || String(error));
             process.exit(1);
         });
-    } else if (flag === '--download') {
-        downloadIndexFiles().then((r) => {
-            console.log('Download result:', r);
-            process.exit(0);
-        }).catch((e) => {
-            console.error('Download failed:', e?.message || String(e));
-            process.exit(1);
-        });
+    } else if (flag === '--upload') {
+        console.log('[GoogleDrive] Upload is not performed by this server. Upload the two files to Google Drive manually.');
+        process.exit(1);
     } else {
-        console.log('Usage: node server/supabase_storage.js --upload | --download');
+        console.log('Usage: node server/supabase_storage.js --download | --upload');
         process.exit(1);
     }
 }
