@@ -16,6 +16,8 @@ services:
         value: 10000
       - key: RAG_WARM_INDEX
         value: 0
+      - key: RAG_USE_PREBUILT_INDEX
+        value: 1
       - key: EMBEDDING_MODE
         value: local
       - key: GEMINI_API_KEY
