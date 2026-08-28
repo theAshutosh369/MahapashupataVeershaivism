@@ -13,7 +13,7 @@
     "frontend": "vite",
     "start": "npm-run-all -p server-main-seq server-dataset server-list frontend",
     "server-main-seq": "node --max-old-space-size=4096 server/server.js",
-    "prod": "RAG_USE_PREBUILT_INDEX=1 node --max-old-space-size=4096 server/server.js"
+    "prod": "node --max-old-space-size=4096 server/render_bootstrap.js"
   },
   "dependencies": {
     "@google/genai": "^0.6.1",
