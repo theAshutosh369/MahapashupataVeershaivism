@@ -19,6 +19,14 @@ try {
     // Environment variables may already be supplied by the hosting platform.
 }
 
+// Render is always a production deployment. Force the pre-built Google Drive
+// index path before index_manager.js evaluates its startup decision, even when
+// the Render dashboard uses a start command other than the repository's
+// render.yaml/package.json command.
+if (process.env.RENDER === 'true') {
+    process.env.RAG_USE_PREBUILT_INDEX = '1';
+}
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const INDEX_FILE = path.resolve(__dirname, 'rag_index.json');
 const EMBEDDINGS_FILE = path.resolve(__dirname, 'rag_embeddings.bin');
