@@ -19,7 +19,7 @@ function parseApiKeys() {
     // unexpected/old GEMINI_API_KEY from silently being tried first.
     const configuredList = String(process.env.GEMINI_API_KEYS || '').trim();
     const source = configuredList || String(process.env.GEMINI_API_KEY || '');
-    return [...new Set(source.split(/[\s,;]+').map((key) => String(key || '').trim()).filter(Boolean))];
+    return [...new Set(source.split(/[\s,;]+/).map((key) => String(key || '').trim()).filter(Boolean))];
 }
 
 export class GeminiProvider extends LLMProvider {
