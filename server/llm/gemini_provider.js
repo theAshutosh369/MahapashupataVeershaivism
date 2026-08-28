@@ -13,6 +13,7 @@ import { LLMProvider, ProvCode } from './base.js';
 
 // Use a stable model instead of the mutable gemini-flash-latest alias.
 const GEMINI_DEFAULT_MODEL = 'gemini-2.5-flash';
+const GEMINI_UNAVAILABLE_MESSAGE = 'Gemini is temporarily unavailable. All configured Gemini API keys are currently unavailable or have reached their quota. Please try again later.';
 
 function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -20,16 +21,10 @@ function sleep(ms) {
 
 function parseApiKeys() {
     const values = [];
-
-    // Backward compatible: the existing single-key variable still works.
     if (process.env.GEMINI_API_KEY) values.push(process.env.GEMINI_API_KEY);
-
-    // Preferred for failover. Comma, semicolon and newline separated values
-    // are accepted so Render/environment managers can use whichever is easier.
     if (process.env.GEMINI_API_KEYS) {
         values.push(...String(process.env.GEMINI_API_KEYS).split(/[\s,;]+/));
     }
-
     return [...new Set(values.map((key) => String(key || '').trim()).filter(Boolean))];
 }
 
@@ -42,21 +37,13 @@ export class GeminiProvider extends LLMProvider {
         this._quotaBlockedUntil = new Map();
     }
 
-    name() {
-        return 'gemini';
-    }
+    name() { return 'gemini'; }
 
-    getApiKeys() {
-        return parseApiKeys();
-    }
+    getApiKeys() { return parseApiKeys(); }
 
-    getApiKey() {
-        return this.getApiKeys()[0];
-    }
+    getApiKey() { return this.getApiKeys()[0]; }
 
-    isConfigured() {
-        return this.getApiKeys().length > 0;
-    }
+    isConfigured() { return this.getApiKeys().length > 0; }
 
     getModel() {
         const configured = process.env.GEMINI_MODEL;
@@ -66,18 +53,11 @@ export class GeminiProvider extends LLMProvider {
     }
 
     getModelInfo() {
-        return {
-            provider: 'gemini',
-            model: this.getModel(),
-            keyCount: this.getApiKeys().length
-        };
+        return { provider: 'gemini', model: this.getModel(), keyCount: this.getApiKeys().length };
     }
 
-    // Deliberately one model only. GEMINI_FALLBACK_MODELS is not used because
-    // this application is configured to keep the exact same Gemini model.
-    getModelChain() {
-        return [this.getModel()];
-    }
+    // Deliberately one model only. GEMINI_FALLBACK_MODELS is not used.
+    getModelChain() { return [this.getModel()]; }
 
     async _getClient(apiKey) {
         if (!this._clients.has(apiKey)) {
@@ -96,8 +76,6 @@ export class GeminiProvider extends LLMProvider {
     }
 
     _quotaResetTime() {
-        // Gemini daily quotas reset at midnight Pacific Time. Keep the key
-        // blocked only until the next Pacific midnight, not permanently.
         const now = new Date();
         const pacificNow = new Date(now.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
         const nextPacific = new Date(pacificNow);
@@ -116,29 +94,24 @@ export class GeminiProvider extends LLMProvider {
     }
 
     _markQuotaExhausted(apiKey) {
-        const until = this._quotaResetTime();
-        this._quotaBlockedUntil.set(apiKey, until);
+        this._quotaBlockedUntil.set(apiKey, this._quotaResetTime());
         console.warn(`[GeminiProvider] Gemini key quota exhausted; rotating key until the next Pacific quota reset.`);
     }
 
     _availableKeys() {
-        const keys = this.getApiKeys();
-        return keys.filter((key) => !this._isQuotaBlocked(key));
+        return this.getApiKeys().filter((key) => !this._isQuotaBlocked(key));
     }
 
     _orderedKeys() {
         const keys = this._availableKeys();
         if (!keys.length) return [];
-
         const start = this._keyIndex % keys.length;
         const ordered = [...keys.slice(start), ...keys.slice(0, start)];
         this._keyIndex = (start + 1) % keys.length;
         return ordered;
     }
 
-    _isQuotaError(code) {
-        return code === ProvCode.QUOTA_EXHAUSTED;
-    }
+    _isQuotaError(code) { return code === ProvCode.QUOTA_EXHAUSTED; }
 
     _shouldRetrySameKey(code) {
         return code === ProvCode.RATE_LIMITED ||
@@ -163,16 +136,10 @@ export class GeminiProvider extends LLMProvider {
         for (const apiKey of this._orderedKeys()) {
             attemptedKey = true;
             const client = await this._getClient(apiKey);
-
             for (let attempt = 0; attempt < maxAttempts; attempt++) {
                 try {
                     console.log(`[GeminiProvider] Generating with ${model} using key ${this._keyLabel(apiKey)} (attempt ${attempt + 1}/${maxAttempts})`);
-                    const result = await client.models.generateContent({
-                        model,
-                        contents: prompt,
-                        config: this._config(),
-                        abortSignal: signal
-                    });
+                    const result = await client.models.generateContent({ model, contents: prompt, config: this._config(), abortSignal: signal });
                     const text = String(result?.text || result?.response?.text?.() || '').trim();
                     if (text) return text;
                     throw new Error('Gemini returned an empty response');
@@ -181,18 +148,11 @@ export class GeminiProvider extends LLMProvider {
                     lastError = norm.message;
                     lastCode = norm.provCode;
                     console.warn(`[GeminiProvider] Generation failed with ${model} using key ${this._keyLabel(apiKey)} [${norm.provCode}]: ${this.extractErrorText(error).trim()}`);
-
-                    if (norm.provCode === ProvCode.AUTHENTICATION_ERROR) {
-                        // Invalid key should not consume time on retries, but it
-                        // should not stop other configured keys from working.
-                        break;
-                    }
-
+                    if (norm.provCode === ProvCode.AUTHENTICATION_ERROR) break;
                     if (norm.provCode === ProvCode.MODEL_NOT_FOUND || this._isQuotaError(norm.provCode)) {
                         if (this._isQuotaError(norm.provCode)) this._markQuotaExhausted(apiKey);
                         break;
                     }
-
                     if (attempt < maxAttempts - 1 && this._shouldRetrySameKey(norm.provCode)) {
                         const delay = Math.min(backoffBase * 2 ** attempt, 15000) + Math.floor(Math.random() * 500);
                         await sleep(delay);
@@ -203,9 +163,7 @@ export class GeminiProvider extends LLMProvider {
             }
         }
 
-        if (!attemptedKey) {
-            console.warn('[GeminiProvider] All configured Gemini keys are currently quota-blocked.');
-        }
+        if (!attemptedKey) console.warn('[GeminiProvider] All configured Gemini keys are currently quota-blocked.');
         console.warn(`[GeminiProvider] All Gemini keys failed for model ${model}. Last error [${lastCode}]: ${lastError}`);
         return null;
     }
@@ -223,6 +181,7 @@ export class GeminiProvider extends LLMProvider {
         let lastCode = null;
         let lastError = null;
         let attemptedKey = false;
+        let emittedAnyToken = false;
 
         for (const apiKey of this._orderedKeys()) {
             attemptedKey = true;
@@ -236,34 +195,22 @@ export class GeminiProvider extends LLMProvider {
                     if (signal.aborted) controller.abort();
                     else signal.addEventListener('abort', forwardAbort, { once: true });
                 }
-                const timeout = setTimeout(() => {
-                    timedOut = true;
-                    controller.abort();
-                }, timeoutMs);
+                const timeout = setTimeout(() => { timedOut = true; controller.abort(); }, timeoutMs);
 
                 try {
                     console.log(`[GeminiProvider] Streaming with ${model} using key ${this._keyLabel(apiKey)} (attempt ${attempt + 1}/${maxAttempts})`);
-                    const stream = await client.models.generateContentStream({
-                        model,
-                        contents: prompt,
-                        config: this._config(),
-                        abortSignal: controller.signal
-                    });
-
+                    const stream = await client.models.generateContentStream({ model, contents: prompt, config: this._config(), abortSignal: controller.signal });
                     const iterable = stream?.stream || stream;
-                    if (!iterable || typeof iterable[Symbol.asyncIterator] !== 'function') {
-                        throw new Error('Gemini streaming response has no async iterable');
-                    }
+                    if (!iterable || typeof iterable[Symbol.asyncIterator] !== 'function') throw new Error('Gemini streaming response has no async iterable');
 
                     let fullText = '';
                     for await (const chunk of iterable) {
                         let text = String(chunk?.text || '');
-                        if (!text && chunk?.candidates?.[0]?.content?.parts) {
-                            text = chunk.candidates[0].content.parts.map((p) => p?.text || '').join('');
-                        }
+                        if (!text && chunk?.candidates?.[0]?.content?.parts) text = chunk.candidates[0].content.parts.map((p) => p?.text || '').join('');
                         text = text.replace(/<think>[\s\S]*?<\/think>/gi, '');
                         if (!text) continue;
                         fullText += text;
+                        emittedAnyToken = true;
                         onToken?.(text);
                     }
 
@@ -274,24 +221,18 @@ export class GeminiProvider extends LLMProvider {
                 } catch (error) {
                     clearTimeout(timeout);
                     if (signal) signal.removeEventListener('abort', forwardAbort);
-
                     if (signal?.aborted) throw error;
-                    const normalized = this.normalizeError(
-                        timedOut ? new Error(`Gemini streaming timed out after ${timeoutMs}ms`) : error
-                    );
+
+                    const normalized = this.normalizeError(timedOut ? new Error(`Gemini streaming timed out after ${timeoutMs}ms`) : error);
                     lastCode = normalized.provCode;
                     lastError = normalized.message;
                     console.warn(`[GeminiProvider] Stream failed with ${model} using key ${this._keyLabel(apiKey)} [${normalized.provCode}]: ${this.extractErrorText(error).trim()}`);
 
-                    if (normalized.provCode === ProvCode.AUTHENTICATION_ERROR) {
-                        break;
-                    }
-
+                    if (normalized.provCode === ProvCode.AUTHENTICATION_ERROR) break;
                     if (normalized.provCode === ProvCode.MODEL_NOT_FOUND || this._isQuotaError(normalized.provCode)) {
                         if (this._isQuotaError(normalized.provCode)) this._markQuotaExhausted(apiKey);
                         break;
                     }
-
                     if (attempt < maxAttempts - 1 && this._shouldRetrySameKey(normalized.provCode)) {
                         const delay = Math.min(backoffBase * 2 ** attempt, 15000) + Math.floor(Math.random() * 500);
                         await sleep(delay);
@@ -302,10 +243,19 @@ export class GeminiProvider extends LLMProvider {
             }
         }
 
-        if (!attemptedKey) {
-            console.warn('[GeminiProvider] All configured Gemini keys are currently quota-blocked for streaming.');
-        }
+        if (!attemptedKey) console.warn('[GeminiProvider] All configured Gemini keys are currently quota-blocked for streaming.');
         console.warn(`[GeminiProvider] All Gemini keys failed for model ${model}. Last error [${lastCode}]: ${lastError}`);
+
+        // The RAG engine normally falls back from a failed stream to a second,
+        // non-streaming generation. That is wasteful when every Gemini key has
+        // already been tried. Return a controlled terminal response instead so
+        // the same request is not sent to Gemini a second time.
+        if (!emittedAnyToken) {
+            console.warn('[GeminiProvider] All Gemini streaming keys exhausted; returning terminal availability message without another Gemini attempt.');
+            onToken?.(GEMINI_UNAVAILABLE_MESSAGE);
+            return GEMINI_UNAVAILABLE_MESSAGE;
+        }
+
         return null;
     }
 
