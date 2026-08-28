@@ -17,7 +17,6 @@ function AiAgent() {
         answer,
         sources,
         confidence,
-        datasetLabel,
         topK,
         setTopK,
         answerMode,
@@ -68,14 +67,6 @@ function AiAgent() {
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, flexWrap: 'wrap' }}>
                             <div>
                                 <h1 style={{ margin: 0, fontSize: 'var(--font-h2)', color: '#7A1F1F' }}>AI Agent</h1>
-                                <p style={{ marginTop: 8, color: '#555', fontSize: 'var(--font-body)' }}>
-                                    Ask questions based on local datasets.
-                                </p>
-                                {datasetLabel && (
-                                    <div style={{ marginTop: 6, fontSize: 13, color: '#6b7280' }}>
-                                        Context: <strong>{datasetLabel}</strong>
-                                    </div>
-                                )}
                             </div>
                         </div>
 
