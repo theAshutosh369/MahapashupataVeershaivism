@@ -1,6 +1,30 @@
+import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import type { RAGSource } from '../../types/rag';
+import '../../styles/components/answerPanel.css';
+
+// ─── Inline SVG Icons ──────────────────────────────────────────────────────
+
+const CopyIcon = () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+    </svg>
+);
+
+const SourcesIcon = () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="11" cy="11" r="8" />
+        <path d="m21 21-4.3-4.3" />
+    </svg>
+);
+
+const CheckIcon = () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="20 6 9 17 4 12" />
+    </svg>
+);
 
 type AnswerPanelProps = {
     answer: string;
@@ -11,34 +35,21 @@ type AnswerPanelProps = {
     onCopyReferences: () => void;
 };
 
-export default function AnswerPanel({ answer, sources, confidence, loading, onCopyAnswer, onCopyReferences }: AnswerPanelProps) {
+export default function AnswerPanel({ answer, sources, loading, onCopyAnswer }: AnswerPanelProps) {
+    const [showSources, setShowSources] = useState(false);
+    const [copied, setCopied] = useState(false);
     const sourceCount = sources.length;
 
-    return (
-        <div style={{
-            padding: 'clamp(12px, 2vw, 18px)',
-            backgroundColor: 'rgba(248,250,252,0.95)',
-            border: '1px solid rgba(122,31,31,0.18)',
-            borderRadius: 16
-        }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, flexWrap: 'wrap', alignItems: 'flex-start' }}>
-                <div>
-                    <div style={{ fontSize: 'clamp(16px, 2vw, 20px)', fontWeight: 800, color: '#7A1F1F' }}>Answer</div>
-                    <div style={{ marginTop: 6, color: '#334155', fontSize: 'var(--font-body)' }}>
-                        Confidence: <strong>{confidence}%</strong> · Sources: <strong>{sourceCount}</strong>
-                    </div>
-                </div>
-                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                    <button type="button" onClick={onCopyAnswer} disabled={loading || !answer} className="btn" style={{ fontSize: 13, padding: '8px 12px' }}>
-                        Copy answer
-                    </button>
-                    <button type="button" onClick={onCopyReferences} disabled={loading || sourceCount === 0} className="btn" style={{ fontSize: 13, padding: '8px 12px' }}>
-                        Copy references
-                    </button>
-                </div>
-            </div>
+    function handleCopy() {
+        onCopyAnswer();
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    }
 
-            <div className="markdown-content" style={{ marginTop: 14, color: '#1f2937', fontSize: 'var(--font-body)' }}>
+    return (
+        <div className="assistant-bubble">
+            {/* Answer text */}
+            <div className="markdown-content" style={{ color: '#1f2937', fontSize: 'var(--font-body)' }}>
                 {answer ? (
                     <>
                         <ReactMarkdown remarkPlugins={[remarkGfm]}>{answer}</ReactMarkdown>
@@ -57,7 +68,56 @@ export default function AnswerPanel({ answer, sources, confidence, loading, onCo
                     </ReactMarkdown>
                 )}
             </div>
+
+
+            {/* Action buttons below answer */}
+            {!loading && answer && (
+                <div className="assistant-actions">
+                    <button
+                        type="button"
+                        className="assistant-action-btn"
+                        onClick={handleCopy}
+                        title="Copy answer"
+                    >
+                        {copied ? <CheckIcon /> : <CopyIcon />}
+                        <span>{copied ? 'Copied' : 'Copy'}</span>
+                    </button>
+                    {sourceCount > 0 && (
+                        <button
+                            type="button"
+                            className="assistant-action-btn"
+                            onClick={() => setShowSources(!showSources)}
+                            title="View sources"
+                        >
+                            <SourcesIcon />
+                            <span>{showSources ? 'Hide sources' : 'View sources'}</span>
+                        </button>
+                    )}
+                </div>
+
+            )}
+
+            {/* Sources panel (inline, collapsible) */}
+            {showSources && sourceCount > 0 && (
+                <div className="sources-inline-panel">
+                    <div style={{ fontWeight: 600, fontSize: 13, color: '#374151', marginBottom: 8 }}>
+                        Retrieved References
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                        {sources.map((source, index) => (
+                            <details key={source.id} className="source-detail">
+                                <summary>
+                                    [{index + 1}] {source.dataset}
+                                    {source.page !== undefined && ` · Page ${source.page}`}
+                                    {source.vachanaNumber !== undefined && ` · Vachana ${source.vachanaNumber}`}
+                                </summary>
+                                <div className="source-detail-content">{source.excerpt}</div>
+                                <div className="source-detail-score">Score: {source.score}</div>
+                            </details>
+                        ))}
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
-

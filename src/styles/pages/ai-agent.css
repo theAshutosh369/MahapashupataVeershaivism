@@ -100,8 +100,8 @@
 }
 
 .ai-message.user {
-    background: var(--color-primary-light);
-    border: 1px solid rgba(122, 31, 31, 0.12);
+    /* background: var(--color-primary-light); */
+    /* border: 1px solid rgba(122, 31, 31, 0.12); */
 }
 
 .ai-message.assistant {
