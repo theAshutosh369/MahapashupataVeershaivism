@@ -20,6 +20,7 @@ import { addTurn, getConversationContext } from './conversation_memory.js';
 import { logMemorySnapshot } from './vector_store.js';
 import { getEmbeddingDimension } from './index_manager.js';
 import { getLLMProviderChain, getLLMInfo } from './llm/index.js';
+import { GeminiProvider } from './llm/gemini_provider.js';
 
 var MAX_TOP_CHUNKS = 20;
 var RETRIEVE_CHUNKS = 50;
@@ -36,42 +37,36 @@ async function getQueryEmbedding(query) {
         return embeddingCache.get(cacheKey);
     }
 
-    var apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey || typeof apiKey !== 'string' || apiKey.trim().length === 0) {
-        console.log('[RAG Engine] No GEMINI_API_KEY found. Skipping query-time embedding.');
+    var geminiProvider = new GeminiProvider();
+    if (!geminiProvider.isConfigured()) {
+        console.log('[RAG Engine] No Gemini API keys configured. Skipping query-time embedding.');
         return null;
     }
 
-    var { GoogleGenAI } = await import('@google/genai');
-    var client = new GoogleGenAI({ apiKey: apiKey });
-
-    var result;
     try {
-        result = await client.models.embedContent({
-            model: 'models/gemini-embedding-001',
-            contents: [{ role: 'user', parts: [{ text: String(query || '').slice(0, 6000) }] }],
-            config: { outputDimensionality: 768 }
+        const results = await geminiProvider.embed({
+            texts: [String(query || '').slice(0, 6000)]
         });
+
+        if (!results || results.length === 0 || !Array.isArray(results[0])) {
+            console.log('[RAG Engine] Embedding response invalid');
+            return null;
+        }
+
+        var embedding = results[0];
+
+        // LRU cache management
+        if (embeddingCache.size >= EMBEDDING_CACHE_MAX) {
+            var firstKey = embeddingCache.keys().next().value;
+            embeddingCache.delete(firstKey);
+        }
+        embeddingCache.set(cacheKey, embedding);
+
+        return embedding;
     } catch (e) {
         console.log('[RAG Engine] Embedding API call failed: ' + e.message);
         return null;
     }
-
-    if (!result || !result.embeddings || !result.embeddings[0] || !result.embeddings[0].values) {
-        console.log('[RAG Engine] Embedding response missing values array');
-        return null;
-    }
-
-    var embedding = result.embeddings[0].values.map(Number);
-
-    // LRU cache management
-    if (embeddingCache.size >= EMBEDDING_CACHE_MAX) {
-        var firstKey = embeddingCache.keys().next().value;
-        embeddingCache.delete(firstKey);
-    }
-    embeddingCache.set(cacheKey, embedding);
-
-    return embedding;
 }
 
 // ─── Metadata formatting ────────────────────────────────────────────────────

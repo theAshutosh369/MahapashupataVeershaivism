@@ -27,6 +27,7 @@ import { VectorStore, logMemorySnapshot, ensureZeroVector, ZERO_VECTOR } from '.
 import { chunkDatasetFile, chunkAuthorFile, chunkPdfFile, chunkTxtFile } from './chunker.js';
 import { extractPdf } from './pdf_extractor.js';
 import { downloadIndexFiles } from './supabase_storage.js';
+import { GeminiProvider } from './llm/gemini_provider.js';
 
 // ─── Debug flag ────────────────────────────────────────────────────────────
 const DEBUG = false;
@@ -246,78 +247,23 @@ function getIndexDiff(indexMeta, currentSources) {
 async function embedBatch(texts, apiKey) {
     if (!texts || texts.length === 0) return [];
 
-    var requests = [];
-    for (var ti = 0; ti < texts.length; ti++) {
-        var t = String(texts[ti] || '').slice(0, 6000);
-        requests.push({
-            model: 'models/gemini-embedding-001',
-            content: { parts: [{ text: t }] },
-            outputDimensionality: EMBEDDING_DIMENSION
-        });
+    var geminiProvider = new GeminiProvider();
+    if (!geminiProvider.isConfigured()) {
+        console.warn('[IndexManager] No Gemini API keys configured. Skipping embeddings.');
+        return texts.map(() => []);
     }
 
-    var url = EMBEDDING_API_URL + '?key=' + encodeURIComponent(apiKey);
-
-    var lastError = null;
-    for (var attempt = 0; attempt <= EMBEDDING_MAX_RETRIES; attempt++) {
-        if (attempt > 0) {
-            var backoffMs = 500 * Math.pow(2, attempt - 1);
-            console.warn('[IndexManager] Retrying embedding batch (' + attempt + '/' + EMBEDDING_MAX_RETRIES + ') after ' + backoffMs + 'ms...');
-            await new Promise(function (resolve) { setTimeout(resolve, backoffMs); });
+    try {
+        const result = await geminiProvider.embed({ texts });
+        if (!result || !Array.isArray(result)) {
+            console.warn('[IndexManager] Embedding returned invalid result');
+            return texts.map(() => []);
         }
-
-        var controller = new AbortController();
-        var timeout = setTimeout(function () { controller.abort(); }, EMBEDDING_TIMEOUT);
-
-        try {
-            var response = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ requests: requests }),
-                signal: controller.signal
-            });
-
-            if (!response.ok) {
-                var errorText = await response.text().catch(function () { return ''; });
-                var err = new Error('Embedding API error ' + response.status + ': ' + errorText.slice(0, 200));
-                // Non-retryable client errors (4xx) — don't retry.
-                if (response.status >= 400 && response.status < 500) throw err;
-                lastError = err;
-                continue;
-            }
-
-            var data = await response.json();
-            if (!data || !Array.isArray(data.embeddings)) {
-                throw new Error('Embedding response missing embeddings array');
-            }
-
-            var result = [];
-            for (var ei = 0; ei < data.embeddings.length; ei++) {
-                var emb = data.embeddings[ei];
-                if (emb && Array.isArray(emb.values)) {
-                    result.push(emb.values.map(Number));
-                } else {
-                    result.push([]);
-                }
-            }
-
-            return result;
-        } catch (e) {
-            if (controller.signal.aborted) {
-                lastError = new Error('Embedding API timed out after ' + EMBEDDING_TIMEOUT + 'ms');
-            } else {
-                lastError = e;
-            }
-            // If a 4xx error was thrown, don't retry — rethrow immediately.
-            if (e instanceof Error && e.message.indexOf('Embedding API error 4') === 0) {
-                throw e;
-            }
-        } finally {
-            clearTimeout(timeout);
-        }
+        return result;
+    } catch (e) {
+        console.warn('[IndexManager] Embedding batch failed: ' + (e ? e.message : String(e)));
+        return texts.map(() => []);
     }
-
-    throw lastError || new Error('Embedding batch failed');
 }
 async function embedLargeBatch(texts, apiKey) {
     var all = [];

@@ -246,6 +246,64 @@ export class GeminiProvider extends LLMProvider {
         return null;
     }
 
+    async embed({ texts, signal }) {
+        if (!this.isConfigured()) return null;
+        if (!Array.isArray(texts) || texts.length === 0) return [];
+
+        let lastError = null;
+        let lastCode = null;
+        let attemptedKey = false;
+
+        for (const apiKey of this._orderedKeys()) {
+            attemptedKey = true;
+            const client = await this._getClient(apiKey);
+            try {
+                console.log(`[GeminiProvider] Embedding ${texts.length} texts using key ${this._keyLabel(apiKey)} (single attempt)`);
+                
+                const requests = texts.map((text) => ({
+                    model: 'models/gemini-embedding-001',
+                    content: { parts: [{ text: String(text || '').slice(0, 6000) }] },
+                    outputDimensionality: 768
+                }));
+
+                const result = await client.models.batchEmbedContents({
+                    requests,
+                    abortSignal: signal
+                });
+
+                if (!result || !Array.isArray(result.embeddings)) {
+                    throw new Error('Embedding response missing embeddings array');
+                }
+
+                const embeddings = result.embeddings.map((emb) =>
+                    emb && Array.isArray(emb.values) ? emb.values.map(Number) : []
+                );
+
+                console.log(`[GeminiProvider] Embedding completed (${embeddings.length} vectors)`);
+                return embeddings;
+            } catch (error) {
+                const norm = this.normalizeError(error);
+                lastError = norm.message;
+                lastCode = norm.provCode;
+                console.warn(`[GeminiProvider] Embedding failed using key ${this._keyLabel(apiKey)} [${norm.provCode}]: ${this.extractErrorText(error).trim()}`);
+                
+                if (norm.provCode === ProvCode.AUTHENTICATION_ERROR) {
+                    this._markAuthenticationFailed(apiKey);
+                } else if (norm.provCode === ProvCode.QUOTA_EXHAUSTED) {
+                    this._markQuotaExhausted(apiKey);
+                } else if (norm.provCode === ProvCode.TIMEOUT || norm.provCode === ProvCode.NETWORK_ERROR || norm.provCode === ProvCode.UNKNOWN || norm.provCode === ProvCode.RATE_LIMITED) {
+                    this._markTransientBlocked(apiKey);
+                }
+                // Immediately continue to the next key. No backoff and no
+                // second attempt on the current key.
+            }
+        }
+        
+        if (!attemptedKey) console.warn('[GeminiProvider] All configured Gemini keys are currently blocked for embedding.');
+        console.warn(`[GeminiProvider] All Gemini keys failed for embedding. Last error [${lastCode}]: ${lastError}`);
+        return null;
+    }
+
     _keyLabel(apiKey) {
         const key = String(apiKey || '');
         if (key.length <= 8) return '****';
