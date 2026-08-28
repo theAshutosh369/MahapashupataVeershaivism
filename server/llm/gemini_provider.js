@@ -11,7 +11,6 @@
 
 import { LLMProvider, ProvCode } from './base.js';
 
-// Use a stable model instead of the mutable gemini-flash-latest alias.
 const GEMINI_DEFAULT_MODEL = 'gemini-2.5-flash';
 const GEMINI_ERROR_PREFIX = '__RAG_GEMINI_ERROR__:';
 
@@ -35,6 +34,10 @@ export class GeminiProvider extends LLMProvider {
         this._clients = new Map();
         this._keyIndex = 0;
         this._quotaBlockedUntil = new Map();
+        // Authentication failures are not transient. Keep a bad key out of
+        // subsequent requests for this server process instead of repeatedly
+        // sending requests that can only return 401/403.
+        this._authBlocked = new Set();
     }
 
     name() { return 'gemini'; }
@@ -97,8 +100,17 @@ export class GeminiProvider extends LLMProvider {
         console.warn(`[GeminiProvider] Gemini key quota exhausted; rotating key until the next Pacific quota reset.`);
     }
 
+    _markAuthenticationFailed(apiKey) {
+        this._authBlocked.add(apiKey);
+        console.warn(`[GeminiProvider] Gemini key ${this._keyLabel(apiKey)} rejected authentication; key disabled for this server process.`);
+    }
+
+    _isBlocked(apiKey) {
+        return this._authBlocked.has(apiKey) || this._isQuotaBlocked(apiKey);
+    }
+
     _availableKeys() {
-        return this.getApiKeys().filter((key) => !this._isQuotaBlocked(key));
+        return this.getApiKeys().filter((key) => !this._isBlocked(key));
     }
 
     _orderedKeys() {
@@ -120,27 +132,13 @@ export class GeminiProvider extends LLMProvider {
     }
 
     _failureMessage(code, attemptedKeyCount) {
-        if (code === ProvCode.QUOTA_EXHAUSTED) {
-            return 'Gemini quota limit reached. Please try again later.';
-        }
-        if (code === ProvCode.RATE_LIMITED) {
-            return 'Gemini rate limit reached. Please try again shortly.';
-        }
-        if (code === ProvCode.TIMEOUT) {
-            return 'Gemini request timed out. Please try again.';
-        }
-        if (code === ProvCode.NETWORK_ERROR) {
-            return 'Gemini network error. Please try again.';
-        }
-        if (code === ProvCode.AUTHENTICATION_ERROR) {
-            return 'Gemini API key authentication failed.';
-        }
-        if (code === ProvCode.MODEL_NOT_FOUND) {
-            return 'Gemini model is unavailable for the configured API key.';
-        }
-        if (attemptedKeyCount > 1) {
-            return 'Gemini is temporarily unavailable. All configured API keys failed.';
-        }
+        if (code === ProvCode.QUOTA_EXHAUSTED) return 'Gemini quota limit reached. Please try again later.';
+        if (code === ProvCode.RATE_LIMITED) return 'Gemini rate limit reached. Please try again shortly.';
+        if (code === ProvCode.TIMEOUT) return 'Gemini request timed out. Please try again.';
+        if (code === ProvCode.NETWORK_ERROR) return 'Gemini network error. Please try again.';
+        if (code === ProvCode.AUTHENTICATION_ERROR) return 'Gemini API key authentication failed. Please check your Gemini API keys.';
+        if (code === ProvCode.MODEL_NOT_FOUND) return 'Gemini model is unavailable for the configured API key.';
+        if (attemptedKeyCount > 1) return 'Gemini is temporarily unavailable. All configured API keys failed.';
         return 'Gemini service is temporarily unavailable. Please try again.';
     }
 
@@ -172,7 +170,10 @@ export class GeminiProvider extends LLMProvider {
                     lastError = norm.message;
                     lastCode = norm.provCode;
                     console.warn(`[GeminiProvider] Generation failed with ${model} using key ${this._keyLabel(apiKey)} [${norm.provCode}]: ${this.extractErrorText(error).trim()}`);
-                    if (norm.provCode === ProvCode.AUTHENTICATION_ERROR) break;
+                    if (norm.provCode === ProvCode.AUTHENTICATION_ERROR) {
+                        this._markAuthenticationFailed(apiKey);
+                        break;
+                    }
                     if (norm.provCode === ProvCode.MODEL_NOT_FOUND || this._isQuotaError(norm.provCode)) {
                         if (this._isQuotaError(norm.provCode)) this._markQuotaExhausted(apiKey);
                         break;
@@ -187,7 +188,7 @@ export class GeminiProvider extends LLMProvider {
             }
         }
 
-        if (!attemptedKey) console.warn('[GeminiProvider] All configured Gemini keys are currently quota-blocked.');
+        if (!attemptedKey) console.warn('[GeminiProvider] All configured Gemini keys are currently blocked.');
         console.warn(`[GeminiProvider] All Gemini keys failed for model ${model}. Last error [${lastCode}]: ${lastError}`);
         return null;
     }
@@ -252,7 +253,10 @@ export class GeminiProvider extends LLMProvider {
                     lastError = normalized.message;
                     console.warn(`[GeminiProvider] Stream failed with ${model} using key ${this._keyLabel(apiKey)} [${normalized.provCode}]: ${this.extractErrorText(error).trim()}`);
 
-                    if (normalized.provCode === ProvCode.AUTHENTICATION_ERROR) break;
+                    if (normalized.provCode === ProvCode.AUTHENTICATION_ERROR) {
+                        this._markAuthenticationFailed(apiKey);
+                        break;
+                    }
                     if (normalized.provCode === ProvCode.MODEL_NOT_FOUND || this._isQuotaError(normalized.provCode)) {
                         if (this._isQuotaError(normalized.provCode)) this._markQuotaExhausted(apiKey);
                         break;
@@ -267,12 +271,9 @@ export class GeminiProvider extends LLMProvider {
             }
         }
 
-        if (attemptedKeyCount === 0) console.warn('[GeminiProvider] All configured Gemini keys are currently quota-blocked for streaming.');
+        if (attemptedKeyCount === 0) console.warn('[GeminiProvider] All configured Gemini keys are currently blocked for streaming.');
         console.warn(`[GeminiProvider] All Gemini keys failed for model ${model}. Last error [${lastCode}]: ${lastError}`);
 
-        // Send a control token that the existing SSE client converts into a
-        // proper red error message. It is intentionally not treated as answer
-        // text, so failed requests never appear as assistant answers.
         if (!emittedAnyToken) {
             const message = this._failureMessage(lastCode, attemptedKeyCount);
             console.warn(`[GeminiProvider] Reporting concise UI error: ${message}`);
