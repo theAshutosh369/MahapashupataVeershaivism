@@ -13,7 +13,7 @@ import { LLMProvider, ProvCode } from './base.js';
 
 // Use a stable model instead of the mutable gemini-flash-latest alias.
 const GEMINI_DEFAULT_MODEL = 'gemini-2.5-flash';
-const GEMINI_UNAVAILABLE_MESSAGE = 'Gemini is temporarily unavailable. All configured Gemini API keys are currently unavailable or have reached their quota. Please try again later.';
+const GEMINI_ERROR_PREFIX = '__RAG_GEMINI_ERROR__:';
 
 function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -56,7 +56,6 @@ export class GeminiProvider extends LLMProvider {
         return { provider: 'gemini', model: this.getModel(), keyCount: this.getApiKeys().length };
     }
 
-    // Deliberately one model only. GEMINI_FALLBACK_MODELS is not used.
     getModelChain() { return [this.getModel()]; }
 
     async _getClient(apiKey) {
@@ -120,6 +119,31 @@ export class GeminiProvider extends LLMProvider {
             code === ProvCode.UNKNOWN;
     }
 
+    _failureMessage(code, attemptedKeyCount) {
+        if (code === ProvCode.QUOTA_EXHAUSTED) {
+            return 'Gemini quota limit reached. Please try again later.';
+        }
+        if (code === ProvCode.RATE_LIMITED) {
+            return 'Gemini rate limit reached. Please try again shortly.';
+        }
+        if (code === ProvCode.TIMEOUT) {
+            return 'Gemini request timed out. Please try again.';
+        }
+        if (code === ProvCode.NETWORK_ERROR) {
+            return 'Gemini network error. Please try again.';
+        }
+        if (code === ProvCode.AUTHENTICATION_ERROR) {
+            return 'Gemini API key authentication failed.';
+        }
+        if (code === ProvCode.MODEL_NOT_FOUND) {
+            return 'Gemini model is unavailable for the configured API key.';
+        }
+        if (attemptedKeyCount > 1) {
+            return 'Gemini is temporarily unavailable. All configured API keys failed.';
+        }
+        return 'Gemini service is temporarily unavailable. Please try again.';
+    }
+
     async generate({ prompt, signal }) {
         if (!this.isConfigured()) {
             console.warn('[GeminiProvider] GEMINI_API_KEY / GEMINI_API_KEYS is not configured');
@@ -180,11 +204,11 @@ export class GeminiProvider extends LLMProvider {
         const backoffBase = Math.max(100, Number(process.env.GEMINI_BACKOFF_BASE_MS || 1000));
         let lastCode = null;
         let lastError = null;
-        let attemptedKey = false;
+        let attemptedKeyCount = 0;
         let emittedAnyToken = false;
 
         for (const apiKey of this._orderedKeys()) {
-            attemptedKey = true;
+            attemptedKeyCount += 1;
             const client = await this._getClient(apiKey);
 
             for (let attempt = 0; attempt < maxAttempts; attempt++) {
@@ -243,17 +267,16 @@ export class GeminiProvider extends LLMProvider {
             }
         }
 
-        if (!attemptedKey) console.warn('[GeminiProvider] All configured Gemini keys are currently quota-blocked for streaming.');
+        if (attemptedKeyCount === 0) console.warn('[GeminiProvider] All configured Gemini keys are currently quota-blocked for streaming.');
         console.warn(`[GeminiProvider] All Gemini keys failed for model ${model}. Last error [${lastCode}]: ${lastError}`);
 
-        // The RAG engine normally falls back from a failed stream to a second,
-        // non-streaming generation. That is wasteful when every Gemini key has
-        // already been tried. Return a controlled terminal response instead so
-        // the same request is not sent to Gemini a second time.
+        // Send a control token that the existing SSE client converts into a
+        // proper red error message. It is intentionally not treated as answer
+        // text, so failed requests never appear as assistant answers.
         if (!emittedAnyToken) {
-            console.warn('[GeminiProvider] All Gemini streaming keys exhausted; returning terminal availability message without another Gemini attempt.');
-            onToken?.(GEMINI_UNAVAILABLE_MESSAGE);
-            return GEMINI_UNAVAILABLE_MESSAGE;
+            const message = this._failureMessage(lastCode, attemptedKeyCount);
+            console.warn(`[GeminiProvider] Reporting concise UI error: ${message}`);
+            onToken?.(`${GEMINI_ERROR_PREFIX}${message}`);
         }
 
         return null;
