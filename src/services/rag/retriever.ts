@@ -1,6 +1,7 @@
 import type { RAGDataset, RAGQueryRequest, RAGQueryResponse } from '../../types/rag';
 
 const API_BASE = import.meta.env.VITE_RAG_API_URL ?? '';
+const GEMINI_ERROR_PREFIX = '__RAG_GEMINI_ERROR__:';
 
 export async function listRagDatasets(): Promise<RAGDataset[]> {
     console.log('Fetching RAG datasets from:', `${API_BASE}/api/rag/datasets`);
@@ -68,7 +69,11 @@ export async function queryRagAssistantStream(
         signal: opts.signal,
         onEvent: ({ type, data }) => {
             if (type === 'token') {
-                opts.onToken(typeof data === 'string' ? data : String(data ?? ''));
+                const token = typeof data === 'string' ? data : String(data ?? '');
+                if (token.startsWith(GEMINI_ERROR_PREFIX)) {
+                    throw new Error(token.slice(GEMINI_ERROR_PREFIX.length).trim() || 'Gemini request failed.');
+                }
+                opts.onToken(token);
                 return;
             }
             if (type === 'done') {
