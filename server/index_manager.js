@@ -970,24 +970,39 @@ export async function ensureIndex(dataRoot, opts) {
         logMemorySnapshot('[IndexManager] Start');
 
         // Persistence workflow: if there is no local index, try to download a
-        // pre-built index (rag_index.json + rag_embeddings.bin) from Supabase
-        // Storage so the production server loads in seconds instead of
-        // rebuilding from scratch. Disabled when env vars are not set, or when
-        // the caller explicitly requests a fresh rebuild (skipSupabaseDownload).
+        // pre-built index (rag_index.json + rag_embeddings.bin) from Google Drive
+        // so the production server loads in seconds instead of rebuilding.
         if (!(opts && opts.skipSupabaseDownload) && !existsSync(INDEX_FILE)) {
             try {
                 var dl = await downloadIndexFiles();
                 if (dl && dl.downloaded && dl.downloaded.length > 0) {
-                    console.log('[IndexManager] Downloaded index files from Supabase Storage: ' + dl.downloaded.join(', '));
+                    console.log('[IndexManager] Downloaded index files from Google Drive: ' + dl.downloaded.join(', '));
                 } else if (dl && dl.skipped && dl.skipped.length > 0) {
-                    console.log('[IndexManager] Local index files already present, skipped Supabase download.');
+                    console.log('[IndexManager] Local index files already present, skipped Google Drive download.');
                 }
             } catch (e) {
-                console.warn('[IndexManager] Supabase download attempt failed: ' + (e && e.message ? e.message : String(e)));
+                console.warn('[IndexManager] Google Drive download attempt failed: ' + (e && e.message ? e.message : String(e)));
             }
         }
 
         var existing = await loadSavedIndex();
+
+        // Production prebuilt-index mode: once the downloaded index is valid,
+        // treat it as authoritative. Do not scan datasets, compare file mtimes,
+        // chunk documents, or regenerate embeddings. Local development keeps the
+        // existing change-detection/rebuild behavior unless this flag is enabled.
+        if (existing && process.env.RAG_USE_PREBUILT_INDEX === '1') {
+            currentIndex = existing;
+            var prebuiltElapsed = Date.now() - startTime;
+            console.log('[IndexManager] Using prebuilt Google Drive index: ' +
+                (existing.chunks ? existing.chunks.length : 0) + ' chunks, ' +
+                (existing.datasetNames ? existing.datasetNames.length : 0) + ' datasets');
+            console.log('[IndexManager] Prebuilt index mode enabled — skipping dataset scan, chunking, and embedding rebuild.');
+            logMemorySnapshot('[IndexManager] Final (prebuilt index)');
+            console.log('[IndexManager] Index ready (' + prebuiltElapsed + 'ms)');
+            return currentIndex;
+        }
+
         var sourceFiles = await getSourceFiles(dataRoot, existing);
 
         if (!existing) {
