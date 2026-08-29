@@ -1,9 +1,9 @@
 /**
  * Dataset-partitioned RAG shard manager.
  *
- * This module is intentionally additive: the existing rag_index.json and
- * rag_embeddings.bin remain untouched. A migration creates a parallel
- * server/rag/ tree which can be activated after validation.
+ * Shards mirror the public/data taxonomy so the RAG storage structure stays
+ * aligned with the application's dataset structure. The existing monolithic
+ * rag_index.json and rag_embeddings.bin remain untouched during migration.
  */
 import fs from 'node:fs/promises';
 import fsSync from 'node:fs';
@@ -12,14 +12,25 @@ import { fileURLToPath } from 'node:url';
 import { VectorStore } from './vector_store.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-export const SHARD_ROOT = path.resolve(__dirname, 'rag');
+export const SHARD_ROOT = path.resolve(__dirname, '../public/data/rag');
 export const MANIFEST_FILE = path.join(SHARD_ROOT, 'manifest.json');
 
+// These names intentionally match public/data exactly.
+export const DATASET_CATEGORIES = [
+    'Agamas',
+    'Smritis',
+    'Upanishadas',
+    'Vachanas',
+    'Veershaiv Granthas',
+    'Other'
+];
+
 const CATEGORY_RULES = [
-    ['veerashaiva', /veer|vīra|lingayat|lingāyat|sharana|sharan|basava|allama|akka|channabasava/i],
-    ['vachana', /vachana|vacana/i],
-    ['agama', /agama|āgama|siddhanta|siddhānta/i],
-    ['purana', /purana|purāṇa|itihasa|itihāsa/i]
+    ['Agamas', /agama|āgama|siddhanta|siddhānta/i],
+    ['Smritis', /smriti|smṛti/i],
+    ['Upanishadas', /upanishad|upaniṣad/i],
+    ['Vachanas', /vachana|vacana/i],
+    ['Veershaiv Granthas', /veer|vīra|shaiv|śaiv|lingayat|lingāyat|sharana|sharan|basava|allama|akka|channabasava|granth/i]
 ];
 
 export function classifyDataset(dataset = '', source = '', filename = '') {
@@ -27,18 +38,11 @@ export function classifyDataset(dataset = '', source = '', filename = '') {
     for (const [category, pattern] of CATEGORY_RULES) {
         if (pattern.test(value)) return category;
     }
-    return 'other';
+    return 'Other';
 }
 
 async function ensureDir(dir) { await fs.mkdir(dir, { recursive: true }); }
-
 async function readJson(file) { return JSON.parse(await fs.readFile(file, 'utf8')); }
-
-function vectorToBuffer(vector) {
-    const out = Buffer.allocUnsafe(vector.length * 4);
-    for (let i = 0; i < vector.length; i++) out.writeFloatLE(Number(vector[i]) || 0, i * 4);
-    return out;
-}
 
 /**
  * Build shards from the existing monolithic index. This never modifies the
@@ -51,18 +55,18 @@ export async function buildShards({ indexFile, embeddingsFile, outputRoot = SHAR
     if (!Array.isArray(index.chunks)) throw new Error('Invalid monolithic RAG index: chunks[] missing');
 
     await ensureDir(outputRoot);
-    const groups = new Map();
+    const groups = new Map(DATASET_CATEGORIES.map((category) => [category, []]));
     for (const chunk of index.chunks) {
         const category = classifyDataset(chunk.dataset, chunk.source, chunk.filename);
-        if (!groups.has(category)) groups.set(category, []);
         groups.get(category).push(chunk);
     }
 
     const sourceStat = await fs.stat(indexFile);
     const embedStat = await fs.stat(embeddingsFile);
     const manifest = {
-        formatVersion: 1,
+        formatVersion: 2,
         createdAt: new Date().toISOString(),
+        layout: 'public/data',
         source: {
             indexSize: sourceStat.size,
             embeddingsSize: embedStat.size,
@@ -71,6 +75,7 @@ export async function buildShards({ indexFile, embeddingsFile, outputRoot = SHAR
             embeddingModel: index.embeddingModel || null,
             vectorCacheVersion: index.vectorCacheVersion ?? null
         },
+        categories: DATASET_CATEGORIES,
         shards: {}
     };
 
@@ -104,7 +109,7 @@ export async function buildShards({ indexFile, embeddingsFile, outputRoot = SHAR
             await shardEmbed.close();
 
             const shardIndex = {
-                formatVersion: 1,
+                formatVersion: 2,
                 category,
                 createdAt: manifest.createdAt,
                 embeddingModel: index.embeddingModel,
@@ -136,7 +141,7 @@ export async function buildShards({ indexFile, embeddingsFile, outputRoot = SHAR
 export async function hasValidShardManifest(root = SHARD_ROOT) {
     try {
         const manifest = await readJson(path.join(root, 'manifest.json'));
-        if (manifest.formatVersion !== 1 || !manifest.shards) return false;
+        if (![1, 2].includes(manifest.formatVersion) || !manifest.shards) return false;
         for (const category of Object.keys(manifest.shards)) {
             const dir = path.join(root, category);
             const index = path.join(dir, 'index.json');
@@ -150,6 +155,7 @@ export async function hasValidShardManifest(root = SHARD_ROOT) {
 }
 
 export async function loadShard(category, root = SHARD_ROOT) {
+    if (!DATASET_CATEGORIES.includes(category)) throw new Error(`Unknown RAG shard category: ${category}`);
     const dir = path.join(root, category);
     const index = await readJson(path.join(dir, 'index.json'));
     const embeddings = await VectorStore.open(path.join(dir, 'embeddings.bin'));
