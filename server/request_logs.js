@@ -25,14 +25,18 @@ function install() {
     for (const level of ['log', 'info', 'warn', 'error']) {
         console[level] = (...args) => {
             const store = storage.getStore();
-            if (store) store.logs.push({ time: istTimestamp(), level, message: args.map(stringify).join(' ') });
+            if (store) {
+                const entry = { time: istTimestamp(), level, message: args.map(stringify).join(' ') };
+                store.logs.push(entry);
+                try { store.onLog?.(entry); } catch { /* never break application logging */ }
+            }
             original[level](...args);
         };
     }
 }
-export function withRequestLogs(requestId, fn) {
+export function withRequestLogs(requestId, fn, options = {}) {
     install();
-    const state = { requestId, logs: [] };
+    const state = { requestId, logs: [], onLog: typeof options.onLog === 'function' ? options.onLog : null };
     return storage.run(state, async () => {
         try {
             return { result: await fn(), state };
