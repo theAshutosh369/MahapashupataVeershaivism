@@ -257,9 +257,11 @@ function AiAgent() {
                                                                 <div className="message-bubble-label">You</div>
                                                                 <div className="message-bubble-text">{typeof turn.content === 'string' ? renderHighlighted(turn.content, conversationSearch, activeTurnMatch ? { start: activeTurnMatch.start, end: activeTurnMatch.end } : undefined) : turn.content}</div>
                                                             </div>
-                                                            {!loading && i === lastUserTurnIndex && (
+                                                            {i === lastUserTurnIndex && (
                                                                 <div className="chat-user-message-actions">
-                                                                    <button type="button" className="chat-message-action-btn" onClick={() => beginEdit(turn.id, turn.content)} title="Edit prompt">✎ Edit</button>
+                                                                    {!loading && (
+                                                                        <button type="button" className="chat-message-action-btn" onClick={() => beginEdit(turn.id, turn.content)} title="Edit prompt">✎ Edit</button>
+                                                                    )}
                                                                     <LiveRagLogs />
                                                                 </div>
                                                             )}
