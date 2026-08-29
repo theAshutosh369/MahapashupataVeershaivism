@@ -13,6 +13,7 @@ import { LLMProvider, ProvCode } from './base.js';
 
 const GEMINI_DEFAULT_MODEL = 'gemini-2.5-flash';
 const GEMINI_ERROR_PREFIX = '__RAG_GEMINI_ERROR__:';
+const GEMINI_EMBEDDING_MODEL = 'models/gemini-embedding-001';
 
 function parseApiKeys() {
     // GEMINI_API_KEYS is authoritative when present. This prevents an
@@ -56,12 +57,22 @@ export class GeminiProvider extends LLMProvider {
         return this._clients.get(apiKey);
     }
 
-    _config() {
-        return {
-            temperature: Number(process.env.GEMINI_TEMPERATURE || 0.2),
-            topP: 0.95,
+    _config(model, signal) {
+        const config = {
             maxOutputTokens: Number(process.env.GEMINI_MAX_OUTPUT_TOKENS || 2048)
         };
+
+        // Gemini 3.x no longer supports the legacy sampling parameters.
+        // Sending temperature/topP to these models can turn a valid request
+        // into an avoidable API error. Keep the old configuration for models
+        // such as Gemini 2.5 where those parameters remain supported.
+        if (!/^models\/gemini-3(?:\.|-|$)/i.test(String(model || '')) && !/^gemini-3(?:\.|-|$)/i.test(String(model || ''))) {
+            config.temperature = Number(process.env.GEMINI_TEMPERATURE || 0.2);
+            config.topP = 0.95;
+        }
+
+        if (signal) config.abortSignal = signal;
+        return config;
     }
 
     _quotaResetTime() {
@@ -147,7 +158,11 @@ export class GeminiProvider extends LLMProvider {
             const client = await this._getClient(apiKey);
             try {
                 console.log(`[GeminiProvider] Generating with ${model} using key ${this._keyLabel(apiKey)} (single attempt)`);
-                const result = await client.models.generateContent({ model, contents: prompt, config: this._config(), abortSignal: signal });
+                const result = await client.models.generateContent({
+                    model,
+                    contents: prompt,
+                    config: this._config(model, signal)
+                });
                 const text = String(result?.text || result?.response?.text?.() || '').trim();
                 if (text) return text;
                 throw new Error('Gemini returned an empty response');
@@ -175,9 +190,6 @@ export class GeminiProvider extends LLMProvider {
     async generateStream({ prompt, signal, onToken }) {
         if (!this.isConfigured()) return null;
         const model = this.getModel();
-        // Keep the request timeout bounded so a hung Gemini endpoint cannot
-        // hold up rotation for 90 seconds. A timeout rotates immediately.
-        const timeoutMs = Math.max(1000, Number(process.env.GEMINI_TIMEOUT_MS || 10000));
         let lastCode = null;
         let lastError = null;
         let attemptedKeyCount = 0;
@@ -187,16 +199,19 @@ export class GeminiProvider extends LLMProvider {
             attemptedKeyCount += 1;
             const client = await this._getClient(apiKey);
             const controller = new AbortController();
-            let timedOut = false;
             const forwardAbort = () => controller.abort();
             if (signal) {
                 if (signal.aborted) controller.abort();
                 else signal.addEventListener('abort', forwardAbort, { once: true });
             }
-            const timeout = setTimeout(() => { timedOut = true; controller.abort(); }, timeoutMs);
+
             try {
                 console.log(`[GeminiProvider] Streaming with ${model} using key ${this._keyLabel(apiKey)} (single attempt)`);
-                const stream = await client.models.generateContentStream({ model, contents: prompt, config: this._config(), abortSignal: controller.signal });
+                const stream = await client.models.generateContentStream({
+                    model,
+                    contents: prompt,
+                    config: this._config(model, controller.signal)
+                });
                 const iterable = stream?.stream || stream;
                 if (!iterable || typeof iterable[Symbol.asyncIterator] !== 'function') throw new Error('Gemini streaming response has no async iterable');
                 let fullText = '';
@@ -209,15 +224,13 @@ export class GeminiProvider extends LLMProvider {
                     emittedAnyToken = true;
                     onToken?.(text);
                 }
-                clearTimeout(timeout);
                 if (signal) signal.removeEventListener('abort', forwardAbort);
                 console.log(`[GeminiProvider] Streaming completed (${fullText.length} chars)`);
                 return fullText.trim();
             } catch (error) {
-                clearTimeout(timeout);
                 if (signal) signal.removeEventListener('abort', forwardAbort);
                 if (signal?.aborted) throw error;
-                const normalized = this.normalizeError(timedOut ? new Error(`Gemini streaming timed out after ${timeoutMs}ms`) : error);
+                const normalized = this.normalizeError(error);
                 lastCode = normalized.provCode;
                 lastError = normalized.message;
                 console.warn(`[GeminiProvider] Stream failed with ${model} using key ${this._keyLabel(apiKey)} [${normalized.provCode}]: ${this.extractErrorText(error).trim()}`);
@@ -227,9 +240,6 @@ export class GeminiProvider extends LLMProvider {
                     if (this._isQuotaError(normalized.provCode)) this._markQuotaExhausted(apiKey);
                 } else if (normalized.provCode === ProvCode.TIMEOUT || normalized.provCode === ProvCode.NETWORK_ERROR || normalized.provCode === ProvCode.UNKNOWN || normalized.provCode === ProvCode.RATE_LIMITED) {
                     this._markTransientBlocked(apiKey);
-                }
-                if (normalized.provCode === ProvCode.TIMEOUT) {
-                    console.warn(`[GeminiProvider] Timeout on key ${this._keyLabel(apiKey)}; rotating immediately.`);
                 }
                 // Immediately rotate to the next key. There is deliberately no
                 // sleep/backoff and no retry of this key.
@@ -259,16 +269,20 @@ export class GeminiProvider extends LLMProvider {
             const client = await this._getClient(apiKey);
             try {
                 console.log(`[GeminiProvider] Embedding ${texts.length} texts using key ${this._keyLabel(apiKey)} (single attempt)`);
-                
-                const requests = texts.map((text) => ({
-                    model: 'models/gemini-embedding-001',
-                    content: { parts: [{ text: String(text || '').slice(0, 6000) }] },
-                    outputDimensionality: 768
-                }));
 
-                const result = await client.models.batchEmbedContents({
-                    requests,
-                    abortSignal: signal
+                // @google/genai exposes embeddings through models.embedContent.
+                // It accepts one string or an array of strings and returns the
+                // corresponding embeddings in the same order. The old
+                // client.models.batchEmbedContents() call does not exist in the
+                // installed JS SDK and was the cause of the previous embedding
+                // failure on every key.
+                const result = await client.models.embedContent({
+                    model: GEMINI_EMBEDDING_MODEL,
+                    contents: texts.map((text) => String(text || '').slice(0, 6000)),
+                    config: {
+                        outputDimensionality: 768,
+                        ...(signal ? { abortSignal: signal } : {})
+                    }
                 });
 
                 if (!result || !Array.isArray(result.embeddings)) {
@@ -279,6 +293,10 @@ export class GeminiProvider extends LLMProvider {
                     emb && Array.isArray(emb.values) ? emb.values.map(Number) : []
                 );
 
+                if (embeddings.length !== texts.length || embeddings.some((vector) => vector.length !== 768 || vector.some((value) => !Number.isFinite(value)))) {
+                    throw new Error(`Embedding response has invalid dimensions; expected ${texts.length} vectors of 768 dimensions`);
+                }
+
                 console.log(`[GeminiProvider] Embedding completed (${embeddings.length} vectors)`);
                 return embeddings;
             } catch (error) {
@@ -286,7 +304,7 @@ export class GeminiProvider extends LLMProvider {
                 lastError = norm.message;
                 lastCode = norm.provCode;
                 console.warn(`[GeminiProvider] Embedding failed using key ${this._keyLabel(apiKey)} [${norm.provCode}]: ${this.extractErrorText(error).trim()}`);
-                
+
                 if (norm.provCode === ProvCode.AUTHENTICATION_ERROR) {
                     this._markAuthenticationFailed(apiKey);
                 } else if (norm.provCode === ProvCode.QUOTA_EXHAUSTED) {
@@ -298,7 +316,7 @@ export class GeminiProvider extends LLMProvider {
                 // second attempt on the current key.
             }
         }
-        
+
         if (!attemptedKey) console.warn('[GeminiProvider] All configured Gemini keys are currently blocked for embedding.');
         console.warn(`[GeminiProvider] All Gemini keys failed for embedding. Last error [${lastCode}]: ${lastError}`);
         return null;
