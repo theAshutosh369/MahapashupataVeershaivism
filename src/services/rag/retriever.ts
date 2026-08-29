@@ -42,6 +42,7 @@ export async function queryRagAssistantStream(request: RAGQueryRequest, opts: {
     onLog?: (log: RAGLogEntry) => void;
     onDone: (d: RAGQueryResponse) => void;
 }): Promise<void> {
+    if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('rag-query-log-start'));
     const response = await fetch(`${API_BASE}/api/rag/query/stream`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(request), signal: opts.signal
     });
