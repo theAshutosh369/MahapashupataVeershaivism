@@ -1,15 +1,13 @@
 /**
  * Sharded RAG runtime manager.
  *
- * Runtime storage mirrors public/data exactly under public/rag:
- *   public/data/Agamas/...           -> public/rag/Agamas/index.json + embeddings.bin
- *   public/data/Smritis/...          -> public/rag/Smritis/...
- *   public/data/Upanishadas/...      -> public/rag/Upanishadas/...
- *   public/data/Vachanas/...         -> public/rag/Vachanas/...
- *   public/data/Veershaiv Granthas/... -> public/rag/Veershaiv Granthas/...
+ * Runtime storage mirrors public/data under public/rag. Runtime is READ-ONLY:
+ * it never scans public/data for indexing, never chunks source files, and never
+ * creates a monolithic rag_index.json/rag_embeddings.bin.
  *
- * This module is read-only at runtime. It never scans public/data, never chunks
- * source files, and never creates a monolithic rag_index.json/rag_embeddings.bin.
+ * A shard is any directory below public/rag containing BOTH index.json and
+ * embeddings.bin. This allows the RAG tree to mirror public/data recursively
+ * without assuming a fixed folder layout.
  */
 
 import fs from 'node:fs/promises';
@@ -32,17 +30,21 @@ function normalize(p) {
     return String(p || '').replace(/\\/g, '/').replace(/^\/+|\/+$/g, '');
 }
 
-function shardNameForDataset(dataset) {
-    const value = normalize(dataset);
-    if (!value) return null;
-    return value.split('/')[0];
+function shardCategory(shardName) {
+    const value = normalize(shardName);
+    return value ? value.split('/')[0] : '';
+}
+
+function datasetCategory(dataset) {
+    return shardCategory(dataset);
 }
 
 function safeShardPath(shardName) {
     const name = normalize(shardName);
     if (!name || name === '.' || name === '..' || name.includes('..')) return null;
-    const full = path.resolve(ragRoot, name);
-    if (full !== path.resolve(ragRoot) && !full.startsWith(path.resolve(ragRoot) + path.sep)) return null;
+    const root = path.resolve(ragRoot);
+    const full = path.resolve(root, name);
+    if (full !== root && !full.startsWith(root + path.sep)) return null;
     return full;
 }
 
@@ -53,32 +55,52 @@ async function readJson(filePath) {
     return value;
 }
 
-async function discoverShards() {
-    const entries = await fs.readdir(ragRoot, { withFileTypes: true });
-    const names = [];
+/** Discover shard directories recursively without ever inspecting public/data. */
+async function discoverShards(dir = ragRoot, relative = '') {
+    const out = [];
+    let entries;
+    try {
+        entries = await fs.readdir(dir, { withFileTypes: true });
+    } catch {
+        return out;
+    }
+
+    let hasIndex = false;
+    let hasEmbeddings = false;
+    for (const entry of entries) {
+        if (!entry.isFile()) continue;
+        if (entry.name === 'index.json') hasIndex = true;
+        if (entry.name === 'embeddings.bin') hasEmbeddings = true;
+    }
+
+    if (hasIndex && hasEmbeddings && relative) {
+        out.push(normalize(relative));
+        // A directory containing a shard is a leaf runtime shard. Do not mix
+        // its children into another shard.
+        return out;
+    }
+
     for (const entry of entries) {
         if (!entry.isDirectory()) continue;
-        const dir = safeShardPath(entry.name);
-        if (!dir) continue;
-        try {
-            await fs.access(path.join(dir, 'index.json'));
-            await fs.access(path.join(dir, 'embeddings.bin'));
-            names.push(entry.name);
-        } catch {
-            // Ignore non-RAG directories.
-        }
+        const childRelative = relative ? `${relative}/${entry.name}` : entry.name;
+        out.push(...await discoverShards(path.join(dir, entry.name), childRelative));
     }
-    return names.sort((a, b) => a.localeCompare(b));
+    return out;
 }
 
 export async function ensureIndex(dataRoot, opts = {}) {
+    // dataRoot is intentionally ignored. It remains in the signature for
+    // compatibility with the existing route layer.
+    void dataRoot;
+
     if (readyPromise) return readyPromise;
 
     readyPromise = (async () => {
         if (opts.ragRoot) ragRoot = path.resolve(opts.ragRoot);
-        else if (dataRoot) ragRoot = path.resolve(path.dirname(dataRoot), 'rag');
+        else ragRoot = DEFAULT_RAG_ROOT;
 
         console.log('[ShardedRAG] RAG root:', ragRoot);
+        console.log('[ShardedRAG] Runtime is read-only; source data is not scanned or chunked.');
 
         let loadedManifest = null;
         try {
@@ -87,28 +109,57 @@ export async function ensureIndex(dataRoot, opts = {}) {
             loadedManifest = null;
         }
 
-        const shards = Array.isArray(loadedManifest?.shards)
-            ? loadedManifest.shards.map(s => typeof s === 'string' ? s : s?.name).filter(Boolean)
-            : await discoverShards();
+        const discovered = await discoverShards();
+        const configured = Array.isArray(loadedManifest?.shards)
+            ? loadedManifest.shards
+                .map(s => typeof s === 'string' ? s : s?.path || s?.name)
+                .filter(Boolean)
+                .map(normalize)
+            : [];
+
+        // Prefer manifest entries that actually exist. If the manifest is
+        // absent/stale, discover the real shard tree instead of rebuilding it.
+        const manifestCandidates = configured.length > 0 ? configured : discovered;
+        const shards = [];
+        for (const shard of manifestCandidates) {
+            const dir = safeShardPath(shard);
+            if (!dir) continue;
+            try {
+                await fs.access(path.join(dir, 'index.json'));
+                await fs.access(path.join(dir, 'embeddings.bin'));
+                shards.push(shard);
+            } catch {
+                // Ignore stale manifest entries.
+            }
+        }
+
+        // If a manifest omitted a newly-created shard, include it. No source
+        // files are touched by this fallback.
+        for (const shard of discovered) {
+            if (!shards.includes(shard)) shards.push(shard);
+        }
 
         if (shards.length === 0) {
-            throw new Error('No RAG shards found under ' + ragRoot + '. Expected public/rag/<category>/index.json and embeddings.bin.');
+            throw new Error('No RAG shards found under ' + ragRoot + '. Expected public/rag/**/index.json + embeddings.bin.');
         }
 
         const datasetNames = [];
         let chunkCount = 0;
         const shardInfo = [];
 
-        // Only read small metadata counts here. Do NOT load chunk arrays.
-        for (const shard of shards) {
+        for (const shard of shards.sort((a, b) => a.localeCompare(b))) {
             const dir = safeShardPath(shard);
-            if (!dir) continue;
             try {
                 const idx = await readJson(path.join(dir, 'index.json'));
                 const count = Array.isArray(idx.chunks) ? idx.chunks.length : Number(idx.chunkCount) || 0;
                 chunkCount += count;
                 if (Array.isArray(idx.datasetNames)) datasetNames.push(...idx.datasetNames);
-                shardInfo.push({ name: shard, chunkCount: count });
+                shardInfo.push({
+                    name: shard,
+                    path: shard,
+                    category: shardCategory(shard),
+                    chunkCount: count
+                });
             } catch (e) {
                 console.warn('[ShardedRAG] Ignoring invalid shard ' + shard + ': ' + e.message);
             }
@@ -122,12 +173,17 @@ export async function ensureIndex(dataRoot, opts = {}) {
             chunkCount
         };
 
-        console.log('[ShardedRAG] Loaded manifest: ' + shardInfo.length + ' shards, ' + chunkCount + ' chunks');
-        console.log('[ShardedRAG] Runtime mode: shard-local metadata + lazy batched embeddings');
+        console.log('[ShardedRAG] Loaded ' + shardInfo.length + ' shards, ' + chunkCount + ' chunks');
+        console.log('[ShardedRAG] Retrieval mode: shard-local keyword + batched semantic candidates; no loadAll()');
         return manifest;
     })();
 
-    return readyPromise;
+    try {
+        return await readyPromise;
+    } catch (error) {
+        readyPromise = null;
+        throw error;
+    }
 }
 
 export function getCurrentIndex() {
@@ -149,20 +205,41 @@ export function getCurrentEmbeddingStore() { return null; }
 async function loadShard(shardName) {
     const dir = safeShardPath(shardName);
     if (!dir) throw new Error('Invalid RAG shard: ' + shardName);
+
     const index = await readJson(path.join(dir, 'index.json'));
     if (!Array.isArray(index.chunks)) throw new Error('Shard index has no chunks array: ' + shardName);
-    const embeddingPath = path.join(dir, 'embeddings.bin');
-    const store = await VectorStore.open(embeddingPath);
+
+    // Guard against the exact class of cross-folder corruption we are trying
+    // to prevent: every chunk must belong to the shard's source category.
+    const category = shardCategory(shardName);
+    for (const chunk of index.chunks) {
+        const dataset = normalize(chunk?.dataset);
+        if (dataset && datasetCategory(dataset) !== category) {
+            throw new Error(`Shard/category mismatch in ${shardName}: ${dataset}`);
+        }
+    }
+
+    const store = await VectorStore.open(path.join(dir, 'embeddings.bin'));
+    if (store.dimension() !== EMBEDDING_DIMENSION) {
+        await store.close();
+        throw new Error(`Embedding dimension mismatch in ${shardName}: ${store.dimension()} != ${EMBEDDING_DIMENSION}`);
+    }
     return { name: shardName, dir, index, store };
 }
 
 function selectedShards(selection) {
     const all = manifest?.shards?.map(s => s.name) || [];
     if (!selection) return all;
+
     const values = Array.isArray(selection) ? selection : [selection];
-    const wanted = new Set(values.map(v => shardNameForDataset(v)).filter(Boolean));
-    if (wanted.size === 0) return all;
-    return all.filter(name => wanted.has(name));
+    const wantedDatasets = values.map(v => normalize(v)).filter(Boolean);
+    if (wantedDatasets.length === 0) return all;
+
+    const wantedCategories = new Set(wantedDatasets.map(datasetCategory));
+    return all.filter(name => {
+        const category = shardCategory(name);
+        return wantedCategories.has(category) || wantedDatasets.includes(name);
+    });
 }
 
 function selectedDatasets(selection) {
@@ -170,6 +247,18 @@ function selectedDatasets(selection) {
     const values = Array.isArray(selection) ? selection : [selection];
     const set = new Set(values.map(v => normalize(v)).filter(Boolean));
     return set.size ? set : null;
+}
+
+function candidateMatchesSelection(chunk, selectedSet) {
+    if (!selectedSet) return true;
+    const dataset = normalize(chunk?.dataset);
+    for (const selected of selectedSet) {
+        if (dataset === selected) return true;
+        // Selecting a category is allowed to include its datasets; selecting a
+        // specific dataset remains exact.
+        if (datasetCategory(selected) === datasetCategory(dataset) && selected === datasetCategory(selected)) return true;
+    }
+    return false;
 }
 
 export async function retrieveFromShards(query, datasetSelection, topK = 10, queryEmbedding = null) {
@@ -181,59 +270,71 @@ export async function retrieveFromShards(query, datasetSelection, topK = 10, que
     const allResults = [];
 
     for (const shardName of shardNames) {
-        let shard;
+        let shard = null;
         try {
             shard = await loadShard(shardName);
             let candidates = shard.index.chunks;
-            if (selectedSet) {
-                candidates = candidates.filter(chunk => selectedSet.has(normalize(chunk.dataset)));
-            }
+            if (selectedSet) candidates = candidates.filter(chunk => candidateMatchesSelection(chunk, selectedSet));
             if (!candidates.length) continue;
 
-            // Keyword retrieval stays shard-local. This prevents one huge global
-            // array and also guarantees that a file can never migrate between
-            // categories during retrieval.
+            // Keyword search remains shard-local. It is only used to build a
+            // small reranking candidate pool; embeddings are never attached to
+            // every chunk.
             const keywordCandidates = keywordSearch(query, candidates, { topK: perShardTop });
 
             let semanticCandidates = [];
             if (queryEmbedding && shard.store.size() > 0) {
-                const semantic = await shard.store.searchBatched(queryEmbedding, perShardTop, 500);
-                const byEmbedding = new Map();
+                const semanticHits = await shard.store.searchBatched(queryEmbedding, perShardTop, 500);
+                const byEmbeddingIndex = new Map();
                 for (const chunk of candidates) {
                     if (Number.isInteger(chunk.embeddingIndex) && chunk.embeddingIndex >= 0) {
-                        byEmbedding.set(chunk.embeddingIndex, chunk);
+                        byEmbeddingIndex.set(chunk.embeddingIndex, chunk);
                     }
                 }
-                for (const hit of semantic) {
-                    const chunk = byEmbedding.get(hit.index);
+                for (const hit of semanticHits) {
+                    const chunk = byEmbeddingIndex.get(hit.index);
                     if (chunk) semanticCandidates.push({ chunk, similarity: hit.score });
                 }
             }
 
-            // Union only the small candidate sets. Attach embeddings only for
-            // these candidates, never for the entire shard.
+            // Union the two small candidate sets, then perform the exact same
+            // hybrid scoring logic the existing agent uses.
             const union = new Map();
-            for (const item of keywordCandidates) union.set(item.chunk.id, item.chunk);
-            for (const item of semanticCandidates) union.set(item.chunk.id, item.chunk);
+            for (const item of keywordCandidates) {
+                if (item?.chunk?.id) union.set(item.chunk.id, item.chunk);
+            }
+            for (const item of semanticCandidates) {
+                if (item?.chunk?.id) union.set(item.chunk.id, item.chunk);
+            }
 
             const candidateArray = [...union.values()];
-            if (queryEmbedding && candidateArray.length) {
-                const semanticMap = new Map(semanticCandidates.map(item => [item.chunk.id, item.similarity]));
+            if (!candidateArray.length) continue;
+
+            const semanticMap = new Map(semanticCandidates.map(item => [item.chunk.id, item.similarity]));
+            if (queryEmbedding && semanticMap.size > 0) {
                 for (const chunk of candidateArray) {
-                    if (semanticMap.has(chunk.id)) {
-                        try { chunk.embedding = await shard.store.get(chunk.embeddingIndex); } catch { /* keyword still works */ }
+                    if (!semanticMap.has(chunk.id)) continue;
+                    try {
+                        chunk.embedding = await shard.store.get(chunk.embeddingIndex);
+                    } catch {
+                        // Keep keyword/fuzzy retrieval available if one vector
+                        // is malformed or missing.
                     }
                 }
             }
 
-            let results = [];
+            let results;
             if (queryEmbedding && candidateArray.some(c => c.embedding)) {
-                results = hybridSearch(queryEmbedding, query, candidateArray, { topK: perShardTop, retrieveK: perShardTop });
+                results = hybridSearch(queryEmbedding, query, candidateArray, {
+                    topK: perShardTop,
+                    retrieveK: perShardTop
+                });
             } else {
                 results = keywordCandidates;
             }
 
             for (const result of results) {
+                if (!result?.chunk) continue;
                 result.shard = shardName;
                 allResults.push(result);
             }
@@ -248,15 +349,18 @@ export async function retrieveFromShards(query, datasetSelection, topK = 10, que
         }
     }
 
-    allResults.sort((a, b) => (Number(b.score ?? b.similarity ?? 0) - Number(a.score ?? a.similarity ?? 0)));
+    allResults.sort((a, b) => Number(b.score ?? b.similarity ?? 0) - Number(a.score ?? a.similarity ?? 0));
+
     const seen = new Set();
     const finalResults = [];
+    const limit = Math.min(25, Number(topK) || 10);
     for (const item of allResults) {
         const id = item.chunk?.id;
         if (id && seen.has(id)) continue;
         if (id) seen.add(id);
         finalResults.push(item);
-        if (finalResults.length >= Math.min(25, Number(topK) || 10)) break;
+        if (finalResults.length >= limit) break;
     }
+
     return finalResults;
 }
