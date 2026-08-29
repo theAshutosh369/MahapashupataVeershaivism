@@ -1,29 +1,16 @@
 /**
  * RAG Engine — Main orchestration layer.
  *
- * Coordinates retrieval, reranking, prompt building, and provider-agnostic LLM
- * answer generation. The final generation layer is behind an LLM provider
- * abstraction (Gemini / OpenAI / auto-fallback) — see server/llm/.
- *
- * RETRIEVAL ARCHITECTURE:
- *   1. Query embedding generated via Google gemini-embedding-001 (768-dim)
- *   2. Vector search via vector_store.js (Float32 binary, lazy-loaded, batched)
- *   3. Hybrid scoring: semantic (0.5) + keyword (0.25) + fuzzy (0.15) + boost (0.10)
- *   4. If embeddings unavailable → pure keyword search fallback
- *   5. Results reranked → top 8-10 sent to the active LLM provider
+ * Runtime retrieval is shard-native. It never loads the complete embedding
+ * matrix into memory and never calls VectorStore.loadAll().
  */
 
-import { getCurrentIndex } from './index_manager.js';
-import { loadEmbeddings } from './vector_index.js';
-import { hybridSearch, keywordSearch } from './hybrid_search.js';
+import { retrieveFromShards } from './sharded_index_manager.js';
 import { addTurn, getConversationContext } from './conversation_memory.js';
-import { logMemorySnapshot } from './vector_store.js';
-import { getEmbeddingDimension } from './index_manager.js';
 import { getLLMProviderChain, getLLMInfo } from './llm/index.js';
 import { GeminiProvider } from './llm/gemini_provider.js';
 
 var MAX_TOP_CHUNKS = 20;
-var RETRIEVE_CHUNKS = 50;
 
 var embeddingCache = new Map();
 var EMBEDDING_CACHE_MAX = 50;
@@ -31,7 +18,7 @@ var EMBEDDING_CACHE_MAX = 50;
 // ─── Query embedding ────────────────────────────────────────────────────────
 
 async function getQueryEmbedding(query) {
-    var cacheKey = query.toLowerCase().trim();
+    var cacheKey = String(query || '').toLowerCase().trim();
     if (embeddingCache.has(cacheKey)) {
         console.log('[RAG Engine] Using cached embedding for query');
         return embeddingCache.get(cacheKey);
@@ -54,14 +41,11 @@ async function getQueryEmbedding(query) {
         }
 
         var embedding = results[0];
-
-        // LRU cache management
         if (embeddingCache.size >= EMBEDDING_CACHE_MAX) {
             var firstKey = embeddingCache.keys().next().value;
             embeddingCache.delete(firstKey);
         }
         embeddingCache.set(cacheKey, embedding);
-
         return embedding;
     } catch (e) {
         console.log('[RAG Engine] Embedding API call failed: ' + e.message);
@@ -303,9 +287,7 @@ function buildSystemPrompt() {
 }
 
 function buildPrompt(query, matched, answerMode, conversationContext) {
-    if (!matched || matched.length === 0) {
-        return 'No relevant context found for: ' + query;
-    }
+    if (!matched || matched.length === 0) return 'No relevant context found for: ' + query;
 
     var citations = [];
     for (var mi = 0; mi < matched.length; mi++) {
@@ -337,18 +319,12 @@ function buildPrompt(query, matched, answerMode, conversationContext) {
     }
 
     var context = [buildSystemPrompt()];
-
-    if (conversationContext) {
-        context.push(conversationContext);
-    }
-
+    if (conversationContext) context.push(conversationContext);
     context.push('### Retrieved Context');
     context.push(citations.join('\n\n---\n\n'));
-
-    var styleInstruction = answerMode === 'concise' ?
-        'Provide a concise but complete answer.' :
-        'Provide a detailed, thorough answer that remains grounded in the context. Explain concepts clearly.';
-
+    var styleInstruction = answerMode === 'concise'
+        ? 'Provide a concise but complete answer.'
+        : 'Provide a detailed, thorough answer that remains grounded in the context. Explain concepts clearly.';
     context.push('');
     context.push('### Question');
     context.push(query);
@@ -357,117 +333,38 @@ function buildPrompt(query, matched, answerMode, conversationContext) {
     context.push(styleInstruction);
     context.push('');
     context.push('If you cannot answer from the context alone, say exactly: "I could not find this information in the selected dataset."');
-
     return context.join('\n\n');
 }
 
-// ─── Retrieval ──────────────────────────────────────────────────────────────
-
-function normalizeDatasetSelection(selection) {
-    if (selection === null || selection === undefined) return null;
-    if (Array.isArray(selection)) {
-        if (selection.length === 0) return null;
-        var set = new Set();
-        for (var si = 0; si < selection.length; si++) {
-            var p = String(selection[si] || '').trim();
-            if (p && p !== '__ALL__') set.add(p);
-        }
-        return set.size > 0 ? set : null;
-    }
-    var s = String(selection || '').trim();
-    if (!s || s === '__ALL__') return null;
-    return new Set([s]);
-}
+// ─── Sharded retrieval ──────────────────────────────────────────────────────
 
 async function retrieveChunks(query, datasetSelection, topK) {
-    var index = getCurrentIndex();
-    if (!index || !Array.isArray(index.chunks)) {
-        console.log('[RAG Engine] No index available');
-        return [];
-    }
-
-    var candidates = index.chunks;
-    var selectedSet = normalizeDatasetSelection(datasetSelection);
-    if (selectedSet) {
-        var filtered = [];
-        for (var ci = 0; ci < candidates.length; ci++) {
-            if (selectedSet.has(candidates[ci].dataset)) filtered.push(candidates[ci]);
-        }
-        candidates = filtered;
-    }
-
-    if (candidates.length === 0) {
-        console.log('[RAG Engine] No candidates found for the selected dataset(s): ' +
-            (Array.isArray(datasetSelection) ? datasetSelection.join(', ') : String(datasetSelection || 'ALL')));
-        return [];
-    }
-
     var effectiveTopK = Math.min(MAX_TOP_CHUNKS, Number(topK) || MAX_TOP_CHUNKS);
+    var queryEmbedding = null;
 
     try {
         console.log('[RAG Engine] Generating query embedding...');
-        var queryEmbedding = await getQueryEmbedding(query);
-
-        if (queryEmbedding) {
-            console.log('[RAG Engine] Loading embeddings for hybrid search...');
-            logMemorySnapshot('[RAG Engine] Before embedding load');
-
-            var store = await loadEmbeddings();
-
-            if (store && store.size() > 0) {
-                logMemorySnapshot('[RAG Engine] After embedding load');
-
-                try {
-                    var embedDim = getEmbeddingDimension();
-                    var allEmbeddings = await store.loadAll();
-                    if (allEmbeddings && allEmbeddings.length >= embedDim) {
-                        for (var ce = 0; ce < candidates.length; ce++) {
-                            var ceChunk = candidates[ce];
-                            var ceIdx = ceChunk.embeddingIndex;
-                            if (ceIdx >= 0 && (ceIdx + 1) * embedDim <= allEmbeddings.length) {
-                                ceChunk.embedding = allEmbeddings.subarray(ceIdx * embedDim, (ceIdx + 1) * embedDim);
-                            }
-                        }
-                        console.log('[RAG Engine] Attached embeddings to ' + candidates.length + ' candidate chunks');
-                    }
-                } catch (embedErr) {
-                    console.warn('[RAG Engine] Could not attach embeddings: ' + embedErr.message);
-                }
-
-                var results = hybridSearch(queryEmbedding, query, candidates, {
-                    topK: effectiveTopK,
-                    retrieveK: RETRIEVE_CHUNKS
-                });
-
-                for (var ce2 = 0; ce2 < candidates.length; ce2++) {
-                    try { delete candidates[ce2].embedding; } catch (eD) { /* ignore */ }
-                }
-
-                logMemorySnapshot('[RAG Engine] After hybrid search');
-
-                if (results.length > 0) {
-                    console.log('[RAG Engine] Hybrid search returned ' + results.length + ' results');
-                    return results;
-                }
-
-                console.log('[RAG Engine] Hybrid search returned 0 results, falling back to keyword');
-            } else {
-                console.log('[RAG Engine] Embedding store empty, falling back to keyword search');
-            }
-        } else {
-            console.log('[RAG Engine] No query embedding, falling back to keyword search');
-        }
+        queryEmbedding = await getQueryEmbedding(query);
     } catch (error) {
-        console.warn('[RAG Engine] Embedding/hybrid search failed: ' + error.message);
-        console.log('[RAG Engine] Falling back to keyword search');
+        console.warn('[RAG Engine] Query embedding failed: ' + error.message);
     }
 
-    var keywordResults = keywordSearch(query, candidates, { topK: effectiveTopK });
-    console.log('[RAG Engine] Keyword search returned ' + keywordResults.length + ' results');
-    return keywordResults;
+    try {
+        console.log('[RAG Engine] Sharded retrieval: keyword candidates + batched semantic search');
+        var results = await retrieveFromShards(query, datasetSelection, effectiveTopK, queryEmbedding);
+        if (results.length > 0) {
+            console.log('[RAG Engine] Sharded hybrid search returned ' + results.length + ' results');
+            return results;
+        }
+        console.log('[RAG Engine] Sharded retrieval returned 0 results');
+        return [];
+    } catch (error) {
+        console.warn('[RAG Engine] Sharded retrieval failed: ' + error.message);
+        return [];
+    }
 }
 
-// ─── Answer generation (provider-agnostic) ─────────────────────────────────
+// ─── Answer generation ─────────────────────────────────────────────────────
 
 async function generateAnswer(prompt) {
     var chain = getLLMProviderChain();
@@ -483,41 +380,32 @@ async function generateAnswer(prompt) {
 
     var startTime = Date.now();
     var lastErr = null;
-
     for (var pi = 0; pi < chain.length; pi++) {
         var provider = chain[pi];
         var label = provider.name() === 'gemini' ? 'Gemini' : 'OpenAI';
         try {
             var text = await provider.generate({ prompt: prompt });
             if (text) {
-                var elapsed = Date.now() - startTime;
-                console.log('[RAG Engine] ' + label + ' generation successful (' + elapsed + 'ms, ' + text.length + ' chars)');
+                console.log('[RAG Engine] ' + label + ' generation successful (' + (Date.now() - startTime) + 'ms, ' + text.length + ' chars)');
                 return text;
             }
-            console.log('[RAG Engine] ' + label + ' returned no answer. ' +
-                (pi < chain.length - 1 ? 'Switching provider...' : 'No more providers.'));
+            console.log('[RAG Engine] ' + label + ' returned no answer. ' + (pi < chain.length - 1 ? 'Switching provider...' : 'No more providers.'));
         } catch (e) {
             if (e?.isFinalProviderError) throw e;
             lastErr = e;
-            console.warn('[RAG Engine] ' + label + ' generation failed: ' + String(e && e.message ? e.message : e));
-            if (pi < chain.length - 1) {
-                console.log('[RAG Engine] Switching to next provider...');
-            }
+            console.warn('[RAG Engine] ' + label + ' generation failed: ' + String(e?.message || e));
+            if (pi < chain.length - 1) console.log('[RAG Engine] Switching to next provider...');
         }
     }
-
-    if (lastErr) {
-        console.warn('[RAG Engine] All providers failed. Last error: ' + String(lastErr && lastErr.message ? lastErr.message : lastErr));
-    }
+    if (lastErr) console.warn('[RAG Engine] All providers failed. Last error: ' + String(lastErr?.message || lastErr));
     return null;
 }
 
-// ─── Streaming answer generation (provider-agnostic) ────────────────────────
+// ─── Streaming answer generation ───────────────────────────────────────────
 
 async function generateAnswerStream(prompt, opts) {
     var onToken = opts ? opts.onToken : null;
     var signal = opts ? opts.signal : null;
-
     var chain = getLLMProviderChain();
     if (!chain || chain.length === 0) {
         console.log('[RAG Engine] No LLM provider configured for streaming');
@@ -531,7 +419,6 @@ async function generateAnswerStream(prompt, opts) {
 
     var startTime = Date.now();
     var lastErr = null;
-
     for (var pi = 0; pi < chain.length; pi++) {
         var provider = chain[pi];
         var label = provider.name() === 'gemini' ? 'Gemini' : 'OpenAI';
@@ -539,31 +426,66 @@ async function generateAnswerStream(prompt, opts) {
             var fullText = await provider.generateStream({
                 prompt: prompt,
                 signal: signal,
-                onToken: function (token) {
-                    if (onToken) onToken(token);
-                }
+                onToken: function (token) { if (onToken) onToken(token); }
             });
             if (fullText) {
-                var elapsed = Date.now() - startTime;
-                console.log('[RAG Engine] ' + label + ' streaming successful (' + elapsed + 'ms, ' + fullText.length + ' chars)');
+                console.log('[RAG Engine] ' + label + ' streaming successful (' + (Date.now() - startTime) + 'ms, ' + fullText.length + ' chars)');
                 return fullText;
             }
-            console.log('[RAG Engine] ' + label + ' streaming returned no answer. ' +
-                (pi < chain.length - 1 ? 'Switching provider...' : 'No more providers.'));
+            console.log('[RAG Engine] ' + label + ' streaming returned no answer. ' + (pi < chain.length - 1 ? 'Switching provider...' : 'No more providers.'));
         } catch (e) {
             if (e?.isFinalProviderError) throw e;
             lastErr = e;
-            console.warn('[RAG Engine] ' + label + ' streaming failed: ' + String(e && e.message ? e.message : e));
-            if (pi < chain.length - 1) {
-                console.log('[RAG Engine] Switching to next provider...');
-            }
+            console.warn('[RAG Engine] ' + label + ' streaming failed: ' + String(e?.message || e));
+            if (pi < chain.length - 1) console.log('[RAG Engine] Switching to next provider...');
         }
     }
-
-    if (lastErr) {
-        console.warn('[RAG Engine] All streaming providers failed. Last error: ' + String(lastErr && lastErr.message ? lastErr.message : lastErr));
-    }
+    if (lastErr) console.warn('[RAG Engine] All streaming providers failed. Last error: ' + String(lastErr?.message || lastErr));
     return null;
+}
+
+function makeSources(matched) {
+    var sources = [];
+    for (var si = 0; si < matched.length; si++) {
+        var item = matched[si];
+        var score = item.score || item.similarity || 0;
+        sources.push({
+            id: item.chunk.id,
+            dataset: item.chunk.dataset,
+            sourceType: item.chunk.sourceType,
+            filename: item.chunk.filename,
+            source: item.chunk.source,
+            page: item.chunk.page,
+            vachanaNumber: item.chunk.vachanaNumber,
+            author: item.chunk.author,
+            title: item.chunk.title,
+            language: item.chunk.language,
+            score: Math.round(score * 100) / 100,
+            excerpt: item.chunk.text.length > 220 ? item.chunk.text.slice(0, 220) + '...' : item.chunk.text
+        });
+    }
+    return sources;
+}
+
+function makeRetrievedChunks(matched) {
+    var retrievedChunks = [];
+    for (var ri = 0; ri < matched.length; ri++) {
+        var item = matched[ri];
+        retrievedChunks.push({
+            id: item.chunk.id,
+            dataset: item.chunk.dataset,
+            sourceType: item.chunk.sourceType,
+            filename: item.chunk.filename,
+            source: item.chunk.source,
+            page: item.chunk.page,
+            vachanaNumber: item.chunk.vachanaNumber,
+            author: item.chunk.author,
+            title: item.chunk.title,
+            language: item.chunk.language,
+            text: item.chunk.text
+        });
+    }
+    return retrievedChunks;
 }
 
 // ─── Public query API ───────────────────────────────────────────────────────
@@ -577,20 +499,12 @@ export async function query(queryText, selectedDataset, topK, answerMode, includ
     console.log('[RAG Engine] Query: "' + queryStr.substring(0, 100) + '" dataset=' + (Array.isArray(selection) ? selection.join(', ') : String(selection || 'ALL')));
 
     var matched = await retrieveChunks(queryStr, selection, topK);
-
     if (matched.length === 0) {
-        return {
-            answer: 'I could not find this information in the selected dataset.',
-            sources: [],
-            confidence: 0,
-            retrievedChunks: [],
-            prompt: ''
-        };
+        return { answer: 'I could not find this information in the selected dataset.', sources: [], confidence: 0, retrievedChunks: [], prompt: '' };
     }
 
     var conversationContext = includeConversationMemory ? getConversationContext() : '';
     var promptText = buildPrompt(queryStr, matched, answerMode, conversationContext);
-
     var answerText;
     try {
         answerText = await generateAnswer(promptText);
@@ -599,71 +513,22 @@ export async function query(queryText, selectedDataset, topK, answerMode, includ
         console.warn('[RAG Engine] LLM generation failed: ' + error.message);
         answerText = null;
     }
+    if (!answerText) answerText = 'I could not find this information in the selected dataset.';
 
-    if (!answerText) {
-        answerText = 'I could not find this information in the selected dataset.';
-    }
-
-    var sources = [];
-    for (var si = 0; si < matched.length; si++) {
-        var item = matched[si];
-        var score = item.score || item.similarity || 0;
-        sources.push({
-            id: item.chunk.id,
-            dataset: item.chunk.dataset,
-            sourceType: item.chunk.sourceType,
-            filename: item.chunk.filename,
-            source: item.chunk.source,
-            page: item.chunk.page,
-            vachanaNumber: item.chunk.vachanaNumber,
-            author: item.chunk.author,
-            title: item.chunk.title,
-            language: item.chunk.language,
-            score: Math.round(score * 100) / 100,
-            excerpt: item.chunk.text.length > 220 ? item.chunk.text.slice(0, 220) + '...' : item.chunk.text
-        });
-    }
-
-    var retrievedChunks = [];
-    for (var ri = 0; ri < matched.length; ri++) {
-        var item2 = matched[ri];
-        retrievedChunks.push({
-            id: item2.chunk.id,
-            dataset: item2.chunk.dataset,
-            sourceType: item2.chunk.sourceType,
-            filename: item2.chunk.filename,
-            source: item2.chunk.source,
-            page: item2.chunk.page,
-            vachanaNumber: item2.chunk.vachanaNumber,
-            author: item2.chunk.author,
-            title: item2.chunk.title,
-            language: item2.chunk.language,
-            text: item2.chunk.text
-        });
-    }
-
+    var sources = makeSources(matched);
+    var retrievedChunks = makeRetrievedChunks(matched);
     var firstScore = matched[0] ? (matched[0].score || matched[0].similarity || 0) : 0;
     var confidence = Math.round(Math.min(1, firstScore) * 100);
-
     addTurn('user', queryStr);
     addTurn('assistant', answerText);
+    console.log('[RAG Engine] Completed in ' + (Date.now() - startTime) + 'ms');
 
-    var elapsed = Date.now() - startTime;
-    console.log('[RAG Engine] Completed in ' + elapsed + 'ms');
-
-    return {
-        answer: answerText,
-        sources: sources,
-        confidence: confidence,
-        retrievedChunks: retrievedChunks,
-        prompt: promptText
-    };
+    return { answer: answerText, sources, confidence, retrievedChunks, prompt: promptText };
 }
 
 export async function queryStream(queryText, selectedDataset, topK, answerMode, includeConversationMemory, conversationHistory, streamOpts, datasetSelection) {
     var onToken = streamOpts ? streamOpts.onToken : null;
     var signal = streamOpts ? streamOpts.signal : null;
-
     var startTime = Date.now();
     var queryStr = String(queryText || '');
     var selection = datasetSelection && datasetSelection.length > 0
@@ -672,22 +537,15 @@ export async function queryStream(queryText, selectedDataset, topK, answerMode, 
     console.log('[RAG Engine] Stream query: "' + queryStr.substring(0, 100) + '" dataset=' + (Array.isArray(selection) ? selection.join(', ') : String(selection || 'ALL')));
 
     var matched = await retrieveChunks(queryStr, selection, topK);
-
     if (matched.length === 0) {
-        return {
-            answer: 'I could not find this information in the selected dataset.',
-            sources: [],
-            confidence: 0,
-            retrievedChunks: [],
-            prompt: ''
-        };
+        return { answer: 'I could not find this information in the selected dataset.', sources: [], confidence: 0, retrievedChunks: [], prompt: '' };
     }
 
     var conversationContext = includeConversationMemory ? getConversationContext() : '';
     var promptText = buildPrompt(queryStr, matched, answerMode, conversationContext);
-
     var fullAnswer = '';
     var streamFailed = false;
+
     try {
         fullAnswer = await generateAnswerStream(promptText, {
             onToken: function (token) {
@@ -696,22 +554,13 @@ export async function queryStream(queryText, selectedDataset, topK, answerMode, 
             },
             signal: signal
         });
-        if (fullAnswer === null) {
-            streamFailed = true;
-        }
+        if (fullAnswer === null) streamFailed = true;
     } catch (error) {
-        if (error?.isFinalProviderError) {
-            console.warn('[RAG Engine] Final Gemini provider error: ' + error.message);
-            throw error;
-        }
+        if (error?.isFinalProviderError) throw error;
         console.warn('[RAG Engine] Stream generation error: ' + error.message);
         streamFailed = true;
     }
 
-    // Only use the non-streaming path for an actual recoverable stream failure.
-    // A terminal Gemini key-pool failure is propagated immediately so the UI
-    // can display the concise red error instead of waiting through another
-    // generation attempt.
     if (streamFailed || !fullAnswer) {
         console.log('[RAG Engine] Streaming failed. Falling back to non-streaming generation...');
         try {
@@ -721,66 +570,19 @@ export async function queryStream(queryText, selectedDataset, topK, answerMode, 
             console.warn('[RAG Engine] Non-streaming fallback failed: ' + fbError.message);
             fullAnswer = null;
         }
-        if (!fullAnswer) {
-            fullAnswer = 'I could not find this information in the selected dataset.';
-        }
+        if (!fullAnswer) fullAnswer = 'I could not find this information in the selected dataset.';
     }
 
-    var sources = [];
-    for (var si = 0; si < matched.length; si++) {
-        var item = matched[si];
-        var score = item.score || item.similarity || 0;
-        sources.push({
-            id: item.chunk.id,
-            dataset: item.chunk.dataset,
-            sourceType: item.chunk.sourceType,
-            filename: item.chunk.filename,
-            source: item.chunk.source,
-            page: item.chunk.page,
-            vachanaNumber: item.chunk.vachanaNumber,
-            author: item.chunk.author,
-            title: item.chunk.title,
-            language: item.chunk.language,
-            score: Math.round(score * 100) / 100,
-            excerpt: item.chunk.text.length > 220 ? item.chunk.text.slice(0, 220) + '...' : item.chunk.text
-        });
-    }
-
-    var retrievedChunks = [];
-    for (var ri = 0; ri < matched.length; ri++) {
-        var item2 = matched[ri];
-        retrievedChunks.push({
-            id: item2.chunk.id,
-            dataset: item2.chunk.dataset,
-            sourceType: item2.chunk.sourceType,
-            filename: item2.chunk.filename,
-            source: item2.chunk.source,
-            page: item2.chunk.page,
-            vachanaNumber: item2.chunk.vachanaNumber,
-            author: item2.chunk.author,
-            title: item2.chunk.title,
-            language: item2.chunk.language,
-            text: item2.chunk.text
-        });
-    }
-
+    var sources = makeSources(matched);
+    var retrievedChunks = makeRetrievedChunks(matched);
     var firstScore = matched[0] ? (matched[0].score || matched[0].similarity || 0) : 0;
     var confidence = Math.round(Math.min(1, firstScore) * 100);
-
     addTurn('user', queryStr);
     addTurn('assistant', fullAnswer);
-
-    var elapsed = Date.now() - startTime;
-    console.log('[RAG Engine] Stream completed in ' + (elapsed/1000) + 'seconds');
+    console.log('[RAG Engine] Stream completed in ' + ((Date.now() - startTime) / 1000) + 'seconds');
     console.log('---------------------------------------------------');
 
-    return {
-        answer: fullAnswer,
-        sources: sources,
-        confidence: confidence,
-        retrievedChunks: retrievedChunks,
-        prompt: promptText
-    };
+    return { answer: fullAnswer, sources, confidence, retrievedChunks, prompt: promptText };
 }
 
 export function clearEmbeddingCache() {
