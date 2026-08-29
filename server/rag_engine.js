@@ -205,6 +205,7 @@ function buildSystemPrompt() {
         'The *Candrajñānāgama* gives a particularly direct statement on this point:',
         '',
         '> तदात्महितमाकाङ्क्षमाणः संपूजयेच्चरान् ।',
+        '>',
         '> तेषां यथा मनस्तृप्तिः सैव पूजा निगद्यते ॥',
         '>',
         '> [Translation in the user’s language]',
@@ -316,7 +317,6 @@ function buildPrompt(query, matched, answerMode, conversationContext) {
         var isDoc = isPdf || chunk.sourceType === 'txt' || String(chunk.dataset || '').toLowerCase().endsWith('.txt');
         var parts;
         if (isDoc) {
-            // PDF/TXT citations: title/author/page — never "Vachana".
             parts = [
                 '[' + citationId + '] Source: ' + (chunk.title || chunk.filename || chunk.dataset),
                 'Author: ' + (chunk.author || 'Unknown'),
@@ -363,19 +363,6 @@ function buildPrompt(query, matched, answerMode, conversationContext) {
 
 // ─── Retrieval ──────────────────────────────────────────────────────────────
 
-/**
- * Normalize the dataset selection into a Set of leaf dataset paths.
- *
- * Supports three forms:
- *   - undefined/null/'__ALL__'/''  → null (no filtering; search all chunks)
- *   - a single string path        → Set with one path (legacy backward compat)
- *   - an array of path strings    → Set of paths (multi-select / folder selection)
- *
- * A path is a relative file path like "authors/basavaṇṇa.json" or
- * "datasets/Suprabodha_Agama.json" or "Veershaiv Granthas/Notes.txt".
- * Folder selection is resolved by every caller to the full set of leaf file
- * paths it contains, so this function only needs to handle leaf paths.
- */
 function normalizeDatasetSelection(selection) {
     if (selection === null || selection === undefined) return null;
     if (Array.isArray(selection)) {
@@ -392,21 +379,6 @@ function normalizeDatasetSelection(selection) {
     return new Set([s]);
 }
 
-/**
- * Retrieve chunks relevant to the query.
- *
- * Strategy:
- * 1. Generate query embedding (if GEMINI_API_KEY available)
- * 2. Run hybrid search: semantic + keyword + fuzzy + boost
- *    - Semantic uses the vector store (loaded lazily)
- *    - Keyword/fuzzy/boost use chunk metadata
- * 3. If embedding/API unavailable → fall back to pure keyword search
- * 4. Return top 10 reranked results
- *
- * `datasetSelection` accepts a single path string OR an array of leaf paths;
- * filtering is centralized here so every retrieval mode (hybrid, keyword,
- * vector, rerank) respects the selected folders/files.
- */
 async function retrieveChunks(query, datasetSelection, topK) {
     var index = getCurrentIndex();
     if (!index || !Array.isArray(index.chunks)) {
@@ -414,7 +386,6 @@ async function retrieveChunks(query, datasetSelection, topK) {
         return [];
     }
 
-    // Get all candidates (optionally filtered by dataset selection)
     var candidates = index.chunks;
     var selectedSet = normalizeDatasetSelection(datasetSelection);
     if (selectedSet) {
@@ -441,15 +412,11 @@ async function retrieveChunks(query, datasetSelection, topK) {
             console.log('[RAG Engine] Loading embeddings for hybrid search...');
             logMemorySnapshot('[RAG Engine] Before embedding load');
 
-            // Load embeddings from binary store (lazy — loads on first call)
             var store = await loadEmbeddings();
 
             if (store && store.size() > 0) {
                 logMemorySnapshot('[RAG Engine] After embedding load');
 
-                // Attach embeddings from the binary store to candidate chunks so
-                // hybridSearch can compute semantic (cosine) scores. Chunks store
-                // only an embeddingIndex; the vectors live in rag_embeddings.bin.
                 try {
                     var embedDim = getEmbeddingDimension();
                     var allEmbeddings = await store.loadAll();
@@ -472,8 +439,6 @@ async function retrieveChunks(query, datasetSelection, topK) {
                     retrieveK: RETRIEVE_CHUNKS
                 });
 
-                // Detach embeddings from chunks so the full store buffer is not
-                // pinned in memory after the search completes.
                 for (var ce2 = 0; ce2 < candidates.length; ce2++) {
                     try { delete candidates[ce2].embedding; } catch (eD) { /* ignore */ }
                 }
@@ -497,7 +462,6 @@ async function retrieveChunks(query, datasetSelection, topK) {
         console.log('[RAG Engine] Falling back to keyword search');
     }
 
-    // Fallback: pure keyword search (no embeddings needed)
     var keywordResults = keywordSearch(query, candidates, { topK: effectiveTopK });
     console.log('[RAG Engine] Keyword search returned ' + keywordResults.length + ' results');
     return keywordResults;
@@ -505,16 +469,6 @@ async function retrieveChunks(query, datasetSelection, topK) {
 
 // ─── Answer generation (provider-agnostic) ─────────────────────────────────
 
-/**
- * Build the answer through the configured LLM provider chain.
- *
- * The provider chain comes from server/llm (getLLMProviderChain). Each provider
- * handles its own model chain, retries, and error classification internally.
- * Here we simply iterate the chain: if a provider returns null (recoverable
- * failure such as quota exhausted / model not found / rate limited), we move on
- * to the next provider. This gives immediate Gemini → OpenAI fallback without
- * repeated long retries on quota exhaustion.
- */
 async function generateAnswer(prompt) {
     var chain = getLLMProviderChain();
     if (!chain || chain.length === 0) {
@@ -543,6 +497,7 @@ async function generateAnswer(prompt) {
             console.log('[RAG Engine] ' + label + ' returned no answer. ' +
                 (pi < chain.length - 1 ? 'Switching provider...' : 'No more providers.'));
         } catch (e) {
+            if (e?.isFinalProviderError) throw e;
             lastErr = e;
             console.warn('[RAG Engine] ' + label + ' generation failed: ' + String(e && e.message ? e.message : e));
             if (pi < chain.length - 1) {
@@ -559,16 +514,6 @@ async function generateAnswer(prompt) {
 
 // ─── Streaming answer generation (provider-agnostic) ────────────────────────
 
-/**
- * Stream the answer through the configured LLM provider chain.
- *
- * Iterates the provider chain; if a provider's stream returns null (recoverable
- * failure such as quota exhausted / rate limited), the next provider starts
- * streaming immediately. Tokens are forwarded to the existing onToken callback
- * so the frontend stream is never interrupted and the user does not need to
- * resubmit. If all providers fail, returns null (caller falls back to the
- * non-streaming path).
- */
 async function generateAnswerStream(prompt, opts) {
     var onToken = opts ? opts.onToken : null;
     var signal = opts ? opts.signal : null;
@@ -606,6 +551,7 @@ async function generateAnswerStream(prompt, opts) {
             console.log('[RAG Engine] ' + label + ' streaming returned no answer. ' +
                 (pi < chain.length - 1 ? 'Switching provider...' : 'No more providers.'));
         } catch (e) {
+            if (e?.isFinalProviderError) throw e;
             lastErr = e;
             console.warn('[RAG Engine] ' + label + ' streaming failed: ' + String(e && e.message ? e.message : e));
             if (pi < chain.length - 1) {
@@ -625,8 +571,6 @@ async function generateAnswerStream(prompt, opts) {
 export async function query(queryText, selectedDataset, topK, answerMode, includeConversationMemory, conversationHistory, datasetSelection) {
     var startTime = Date.now();
     var queryStr = String(queryText || '');
-    // datasetSelection may be an array of leaf paths (multi/folder select) or
-    // null/undefined. Prefer it over the single legacy `selectedDataset`.
     var selection = datasetSelection && datasetSelection.length > 0
         ? datasetSelection
         : (selectedDataset && selectedDataset !== '__ALL__' ? selectedDataset : null);
@@ -651,6 +595,7 @@ export async function query(queryText, selectedDataset, topK, answerMode, includ
     try {
         answerText = await generateAnswer(promptText);
     } catch (error) {
+        if (error?.isFinalProviderError) throw error;
         console.warn('[RAG Engine] LLM generation failed: ' + error.message);
         answerText = null;
     }
@@ -721,8 +666,6 @@ export async function queryStream(queryText, selectedDataset, topK, answerMode, 
 
     var startTime = Date.now();
     var queryStr = String(queryText || '');
-    // datasetSelection may be an array of leaf paths (multi/folder select) or
-    // null/undefined. Prefer it over the single legacy `selectedDataset`.
     var selection = datasetSelection && datasetSelection.length > 0
         ? datasetSelection
         : (selectedDataset && selectedDataset !== '__ALL__' ? selectedDataset : null);
@@ -753,23 +696,28 @@ export async function queryStream(queryText, selectedDataset, topK, answerMode, 
             },
             signal: signal
         });
-        // generateAnswerStream returns null when all providers fail streaming.
         if (fullAnswer === null) {
             streamFailed = true;
         }
     } catch (error) {
+        if (error?.isFinalProviderError) {
+            console.warn('[RAG Engine] Final Gemini provider error: ' + error.message);
+            throw error;
+        }
         console.warn('[RAG Engine] Stream generation error: ' + error.message);
         streamFailed = true;
     }
 
-    // Streaming could not produce an answer (all providers failed / errored).
-    // Fall back to the non-streaming generation path so the user still receives
-    // an answer (which itself tries the full provider chain).
+    // Only use the non-streaming path for an actual recoverable stream failure.
+    // A terminal Gemini key-pool failure is propagated immediately so the UI
+    // can display the concise red error instead of waiting through another
+    // generation attempt.
     if (streamFailed || !fullAnswer) {
         console.log('[RAG Engine] Streaming failed. Falling back to non-streaming generation...');
         try {
             fullAnswer = await generateAnswer(promptText);
         } catch (fbError) {
+            if (fbError?.isFinalProviderError) throw fbError;
             console.warn('[RAG Engine] Non-streaming fallback failed: ' + fbError.message);
             fullAnswer = null;
         }
