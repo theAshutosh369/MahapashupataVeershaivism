@@ -1,9 +1,10 @@
 /**
  * Dataset-partitioned RAG shard manager.
  *
- * Shards mirror the public/data taxonomy so the RAG storage structure stays
- * aligned with the application's dataset structure. The existing monolithic
- * rag_index.json and rag_embeddings.bin remain untouched during migration.
+ * Shards mirror the public/data taxonomy while living in a separate top-level
+ * public/rag tree. This keeps RAG storage independent from source datasets.
+ * The existing monolithic rag_index.json and rag_embeddings.bin remain
+ * untouched during migration.
  */
 import fs from 'node:fs/promises';
 import fsSync from 'node:fs';
@@ -12,10 +13,10 @@ import { fileURLToPath } from 'node:url';
 import { VectorStore } from './vector_store.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-export const SHARD_ROOT = path.resolve(__dirname, '../public/data/rag');
+export const SHARD_ROOT = path.resolve(__dirname, '../public/rag');
 export const MANIFEST_FILE = path.join(SHARD_ROOT, 'manifest.json');
 
-// These names intentionally match public/data exactly.
+// These names intentionally match the public/data taxonomy exactly.
 export const DATASET_CATEGORIES = [
     'Agamas',
     'Smritis',
@@ -66,7 +67,7 @@ export async function buildShards({ indexFile, embeddingsFile, outputRoot = SHAR
     const manifest = {
         formatVersion: 2,
         createdAt: new Date().toISOString(),
-        layout: 'public/data',
+        layout: 'public/rag',
         source: {
             indexSize: sourceStat.size,
             embeddingsSize: embedStat.size,
