@@ -79,6 +79,8 @@ export function attachRagRoutes(app, { publicRoot }) {
                 console.log('[RAG Request] Dataset:', datasetSelection || selectedDataset, '| topK:', topK, '| answerMode:', answerMode);
                 return queryStream(trimmedQuery, selectedDataset, Math.min(25, Number(topK) || 10), answerMode, includeConversationMemory, conversationHistory,
                     { onToken: (token) => { if (!token) return; fullAnswer += token; send('token', token); }, signal: controller.signal }, datasetSelection);
+            }, {
+                onLog: (entry) => send?.('log', { requestLogId, ...entry })
             });
             result = execution.result; capturedLogs = getRequestLogs(execution.state);
             debugLog('Stream completed in ' + (Date.now() - startTime) + 'ms');
