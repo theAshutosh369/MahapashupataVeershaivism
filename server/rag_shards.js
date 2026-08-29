@@ -2,9 +2,9 @@
  * Dataset-partitioned RAG shard manager.
  *
  * Shards mirror the public/data taxonomy while living in a separate top-level
- * public/rag tree. This keeps RAG storage independent from source datasets.
- * The existing monolithic rag_index.json and rag_embeddings.bin remain
- * untouched during migration.
+ * public/rag tree. Category assignment is structural, never semantic: a file
+ * is placed in the same category as its source file. This prevents names such
+ * as "Siddhanta" from incorrectly moving a Veershaiv Grantha into Agamas.
  */
 import fs from 'node:fs/promises';
 import fsSync from 'node:fs';
@@ -26,20 +26,39 @@ export const DATASET_CATEGORIES = [
     'Other'
 ];
 
-const CATEGORY_RULES = [
-    ['Agamas', /agama|āgama|siddhanta|siddhānta/i],
-    ['Smritis', /smriti|smṛti/i],
-    ['Upanishadas', /upanishad|upaniṣad/i],
-    ['Vachanas', /vachana|vacana/i],
-    ['Veershaiv Granthas', /veer|vīra|shaiv|śaiv|lingayat|lingāyat|sharana|sharan|basava|allama|akka|channabasava|granth/i]
-];
+function normalizePath(value = '') {
+    return String(value || '').replace(/\\/g, '/').replace(/^\.\//, '');
+}
 
-export function classifyDataset(dataset = '', source = '', filename = '') {
-    const value = `${dataset} ${source} ${filename}`.toLowerCase();
-    for (const [category, pattern] of CATEGORY_RULES) {
-        if (pattern.test(value)) return category;
+function categoryFromPath(value = '') {
+    const normalized = normalizePath(value);
+    const marker = 'public/data/';
+    const markerIndex = normalized.toLowerCase().indexOf(marker);
+    if (markerIndex >= 0) {
+        const remainder = normalized.slice(markerIndex + marker.length);
+        const firstFolder = remainder.split('/')[0];
+        const exact = DATASET_CATEGORIES.find((category) => category.toLowerCase() === firstFolder.toLowerCase());
+        if (exact) return exact;
     }
-    return 'Other';
+
+    // Also support index metadata that already stores the source path relative
+    // to public/data, e.g. "Veershaiv Granthas/book.txt".
+    const firstFolder = normalized.split('/')[0];
+    return DATASET_CATEGORIES.find((category) => category.toLowerCase() === firstFolder.toLowerCase()) || null;
+}
+
+/**
+ * Resolve the shard strictly from the original source folder.
+ *
+ * IMPORTANT: do not classify using words contained in a dataset title or
+ * filename. For example, "A_Preamble_To_The_Study_Of_Sri_SiddhantaShikhamani"
+ * remains in "Veershaiv Granthas" if that is where the source file lives.
+ */
+export function classifyDataset(dataset = '', source = '', filename = '') {
+    const explicitCategory = [dataset, source, filename]
+        .map(categoryFromPath)
+        .find(Boolean);
+    return explicitCategory || 'Other';
 }
 
 async function ensureDir(dir) { await fs.mkdir(dir, { recursive: true }); }
