@@ -1,0 +1,166 @@
+name: Apply sharded RAG integration patch
+
+on:
+  push:
+    branches: [branch1]
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch1
+        uses: actions/checkout@v4
+        with:
+          ref: branch1
+          fetch-depth: 1
+
+      - name: Apply targeted patches
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          import re
+
+          root = Path('.')
+
+          # ---- rag_engine.js: switch only retrieval wiring ----
+          p = root / 'server/rag_engine.js'
+          s = p.read_text(encoding='utf-8')
+
+          old_imports = """import { getCurrentIndex } from './index_manager.js';
+          import { loadEmbeddings } from './vector_index.js';
+          import { hybridSearch, keywordSearch } from './hybrid_search.js';
+          import { addTurn, getConversationContext } from './conversation_memory.js';
+          import { logMemorySnapshot } from './vector_store.js';
+          import { getEmbeddingDimension } from './index_manager.js';"""
+          new_imports = """import { hybridSearch, keywordSearch } from './hybrid_search.js';
+          import { addTurn, getConversationContext } from './conversation_memory.js';
+          import { ensureIndex as ensureShardedIndex, retrieveFromShards } from './sharded_index_manager.js';"""
+          if old_imports not in s:
+              raise SystemExit('rag_engine import block not found; refusing unsafe patch')
+          s = s.replace(old_imports, new_imports, 1)
+
+          start = s.index('async function retrieveChunks(query, datasetSelection, topK) {')
+          end_marker = '\n// ─── Answer generation (provider-agnostic)'
+          end = s.index(end_marker, start)
+          new_retrieve = '''async function retrieveChunks(query, datasetSelection, topK) {
+              // Runtime retrieval is exclusively backed by public/rag shards.
+              // This path never scans public/data, chunks source files, or loads
+              // every embedding into memory.
+              await ensureShardedIndex();
+
+              var effectiveTopK = Math.min(MAX_TOP_CHUNKS, Number(topK) || MAX_TOP_CHUNKS);
+              console.log('[RAG Engine] Generating query embedding...');
+              var queryEmbedding = await getQueryEmbedding(query);
+
+              try {
+                  var results = await retrieveFromShards(
+                      query,
+                      datasetSelection,
+                      effectiveTopK,
+                      queryEmbedding
+                  );
+
+                  if (results.length > 0) {
+                      console.log('[RAG Engine] ' + (queryEmbedding ? 'Hybrid' : 'Keyword') +
+                          ' shard search returned ' + results.length + ' results');
+                      return results;
+                  }
+
+                  console.log('[RAG Engine] Shard retrieval returned 0 results, falling back to keyword search');
+              } catch (error) {
+                  console.warn('[RAG Engine] Shard retrieval failed: ' + error.message);
+                  console.log('[RAG Engine] Falling back to shard-local keyword search');
+              }
+
+              // retrieveFromShards already performs keyword fallback when no
+              // embedding is available. Re-run without an embedding only if a
+              // transient semantic failure occurred.
+              try {
+                  var keywordOnly = await retrieveFromShards(query, datasetSelection, effectiveTopK, null);
+                  console.log('[RAG Engine] Keyword shard search returned ' + keywordOnly.length + ' results');
+                  return keywordOnly;
+              } catch (keywordError) {
+                  console.warn('[RAG Engine] Keyword shard retrieval failed: ' + keywordError.message);
+                  return [];
+              }
+          }
+'''
+          s = s[:start] + new_retrieve + s[end:]
+          p.write_text(s, encoding='utf-8')
+
+          # ---- rag_routes.js: route initialization/status/dataset listing ----
+          p = root / 'server/rag_routes.js'
+          s = p.read_text(encoding='utf-8')
+
+          old = """import path from 'node:path';
+          import { ensureIndex, getCurrentIndex, getEmbeddingModelName, getEmbeddingDimension, getEmbeddingFilePath } from './index_manager.js';
+          import { query, queryStream, clearEmbeddingCache } from './rag_engine.js';
+          import { getCurrentEmbeddingStore } from './index_manager.js';"""
+          new = """import path from 'node:path';
+          import { ensureIndex, getCurrentIndex, getEmbeddingModelName, getEmbeddingDimension, getEmbeddingFilePath } from './sharded_index_manager.js';
+          import { query, queryStream, clearEmbeddingCache } from './rag_engine.js';
+          import { getCurrentEmbeddingStore } from './sharded_index_manager.js';"""
+          if old not in s:
+              raise SystemExit('rag_routes import block not found; refusing unsafe patch')
+          s = s.replace(old, new, 1)
+
+          # Replace the source-data scan in /api/rag/datasets with the manifest
+          # dataset list. This is important: deployment must never inspect
+          # public/data just to populate the selector.
+          marker = """    app.get('/api/rag/datasets', async (_req, res) => {"""
+          ds_start = s.index(marker)
+          ds_end = s.index("\n    app.post('/api/rag/query/stream'", ds_start)
+          ds_block = '''    app.get('/api/rag/datasets', async (_req, res) => {
+              try {
+                  await ensureIndex(dataRoot);
+                  const index = getCurrentIndex();
+                  const datasets = Array.isArray(index?.datasetNames) ? index.datasetNames : [];
+                  res.json({ ok: true, datasets });
+              } catch (error) {
+                  res.status(500).json({ ok: false, error: String(error) });
+              }
+          });
+'''
+          s = s[:ds_start] + ds_block + s[ds_end:]
+
+          # Make status report shard totals rather than looking for a monolithic
+          # chunks array.
+          old_status = """const index = getCurrentIndex(); const llm = getLLMInfo();
+              res.json({ ok: true, ready: true, datasetCount: index?.datasetNames?.length || 0, chunkCount: index?.chunks?.length || 0,"""
+          new_status = """const index = getCurrentIndex(); const llm = getLLMInfo();
+              res.json({ ok: true, ready: true, sharded: true, datasetCount: index?.datasetNames?.length || 0, chunkCount: index?.chunkCount || 0,"""
+          if old_status not in s:
+              raise SystemExit('rag_routes status block not found; refusing unsafe patch')
+          s = s.replace(old_status, new_status, 1)
+          s = s.replace("embeddingStorage: 'Float32 binary',", "embeddingStorage: 'Sharded Float32 binary',", 1)
+          p.write_text(s, encoding='utf-8')
+
+          # Validate that the intended imports and retrieval path are present.
+          for path, needles in {
+              'server/rag_engine.js': ['sharded_index_manager.js', 'retrieveFromShards', 'async function retrieveChunks'],
+              'server/rag_routes.js': ["from './sharded_index_manager.js'", "app.get('/api/rag/datasets'"],
+          }.items():
+              text = (root / path).read_text(encoding='utf-8')
+              for needle in needles:
+                  if needle not in text:
+                      raise SystemExit(f'validation failed: {path}: {needle}')
+          PY
+
+      - name: Syntax check patched server files
+        run: |
+          node --check server/rag_engine.js
+          node --check server/rag_routes.js
+          node --check server/sharded_index_manager.js
+
+      - name: Commit patch and remove one-time workflow
+        run: |
+          rm -f .github/workflows/patch-sharded-rag-branch1.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add server/rag_engine.js server/rag_routes.js .github/workflows/patch-sharded-rag-branch1.yml
+          git commit -m "feat: wire RAG engine to sharded runtime" || exit 0
+          git push origin HEAD:branch1
