@@ -8,6 +8,7 @@ import Settings from "./pages/Settings";
 import DatasetGenerator from "./pages/DatasetGenerator";
 import AiAgent from "./pages/AiAgent";
 import ScrollNavigator from "./components/ScrollNavigator";
+import LiveRagLogs from "./components/ai/LiveRagLogs";
 
 function AppShell() {
     const location = useLocation();
@@ -15,42 +16,16 @@ function AppShell() {
     return (
         <>
             <ScrollNavigator pathname={location.pathname} />
+            {location.pathname === '/agent' && <LiveRagLogs />}
 
             <Routes>
-                <Route
-                    path="/"
-                    element={<Home />}
-                />
-
-                <Route
-                    path="/about"
-                    element={<About />}
-                />
-
-                <Route
-                    path="/global-search"
-                    element={<GlobalSearch />}
-                />
-
-                <Route
-                    path="/settings"
-                    element={<Settings />}
-                />
-
-                <Route
-                    path="/dataset"
-                    element={<DatasetGenerator />}
-                />
-
-                <Route
-                    path="/author/:id"
-                    element={<Author />}
-                />
-
-                <Route
-                    path="/agent"
-                    element={<AiAgent />}
-                />
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/global-search" element={<GlobalSearch />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/dataset" element={<DatasetGenerator />} />
+                <Route path="/author/:id" element={<Author />} />
+                <Route path="/agent" element={<AiAgent />} />
             </Routes>
         </>
     );
