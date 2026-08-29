@@ -3,8 +3,9 @@
  *
  *   LLM_PROVIDER=gemini   → only Gemini
  *   LLM_PROVIDER=openai   → only OpenAI
- *   LLM_PROVIDER=auto     → Gemini primary, OpenAI fallback
- *                          (or the single configured provider if only one key exists)
+ *   LLM_PROVIDER=auto     → Gemini primary; when Gemini keys are configured,
+ *                           use the Gemini key pool only (no model/provider switch)
+ *                           → otherwise use the single configured provider
  *
  * The factory also validates configuration at startup and exposes:
  *   - getLLMProvider()       → the primary provider (or null)
@@ -21,7 +22,7 @@ function env(key) {
 }
 
 function hasGeminiKey() {
-    return env('GEMINI_API_KEY').length > 0;
+    return env('GEMINI_API_KEYS').length > 0 || env('GEMINI_API_KEY').length > 0;
 }
 
 function hasOpenAIKey() {
@@ -53,8 +54,8 @@ export function validateLLMConfig() {
 
     if (mode === 'gemini') {
         if (!gemini) {
-            console.error('[LLM Config] ERROR: LLM_PROVIDER=gemini but GEMINI_API_KEY is missing. Set GEMINI_API_KEY.');
-            return { mode, gemini, openai, ok: false, message: 'GEMINI_API_KEY missing for gemini mode' };
+            console.error('[LLM Config] ERROR: LLM_PROVIDER=gemini but no Gemini API key is configured. Set GEMINI_API_KEYS or GEMINI_API_KEY.');
+            return { mode, gemini, openai, ok: false, message: 'Gemini API key(s) missing for gemini mode' };
         }
         return { mode, gemini, openai, ok: true, message: 'gemini' };
     }
@@ -67,24 +68,21 @@ export function validateLLMConfig() {
         return { mode, gemini, openai, ok: true, message: 'openai' };
     }
 
-    // auto mode
-    if (!gemini && !openai) {
-        console.error('[LLM Config] ERROR: LLM_PROVIDER=auto but neither GEMINI_API_KEY nor OPENAI_API_KEY is set. ' +
-            'At least one is required.');
-        return { mode, gemini, openai, ok: false, message: 'No LLM API key configured' };
+    // auto mode: if Gemini has a key pool, Gemini is the only generation
+    // provider. This preserves the user's requirement to keep the SAME Gemini
+    // model and rotate only between configured Gemini API keys.
+    if (gemini) {
+        console.log('[LLM Config] auto mode: Gemini key pool present. Using Gemini only; OpenAI will not be used as fallback.');
+        return { mode, gemini, openai, ok: true, message: 'gemini-key-pool' };
     }
 
-    if (gemini && !openai) {
-        console.warn('[LLM Config] auto mode: only GEMINI_API_KEY present. Using Gemini only.');
-        return { mode, gemini, openai, ok: true, message: 'gemini' };
-    }
-    if (openai && !gemini) {
-        console.warn('[LLM Config] auto mode: only OPENAI_API_KEY present. Using OpenAI only.');
+    if (openai) {
+        console.warn('[LLM Config] auto mode: no Gemini keys present. Using OpenAI only.');
         return { mode, gemini, openai, ok: true, message: 'openai' };
     }
 
-    console.log('[LLM Config] auto mode: Gemini primary, OpenAI fallback.');
-    return { mode, gemini, openai, ok: true, message: 'auto' };
+    console.error('[LLM Config] ERROR: LLM_PROVIDER=auto but neither Gemini nor OpenAI credentials are set.');
+    return { mode, gemini, openai, ok: false, message: 'No LLM API key configured' };
 }
 
 /**
@@ -101,21 +99,17 @@ export function getLLMProvider(opts) {
         return hasOpenAIKey() ? new OpenAIProvider(opts) : null;
     }
 
-    // auto
-    const gemini = hasGeminiKey();
-    const openai = hasOpenAIKey();
-    if (gemini) return new GeminiProvider(opts);
-    if (openai) return new OpenAIProvider(opts);
+    // auto: prefer Gemini whenever any Gemini key/list is configured.
+    if (hasGeminiKey()) return new GeminiProvider(opts);
+    if (hasOpenAIKey()) return new OpenAIProvider(opts);
     return null;
 }
 
 /**
- * Build the ordered chain of providers for auto-fallback.
- *   - gemini mode → [Gemini]
- *   - openai mode → [OpenAI]
- *   - auto        → [Gemini, OpenAI] (or single configured provider)
- *
- * Returns an array of provider instances (possibly empty).
+ * Build the ordered chain of providers.
+ * In auto mode, a configured Gemini key pool is terminal: GeminiProvider itself
+ * rotates through all Gemini keys, so the chain must not fall through to a
+ * different model/provider.
  */
 export function getLLMProviderChain(opts) {
     const mode = getConfiguredMode();
@@ -130,8 +124,10 @@ export function getLLMProviderChain(opts) {
         return chain;
     }
 
-    // auto
-    if (hasGeminiKey()) chain.push(new GeminiProvider(opts));
+    if (hasGeminiKey()) {
+        chain.push(new GeminiProvider(opts));
+        return chain;
+    }
     if (hasOpenAIKey()) chain.push(new OpenAIProvider(opts));
     return chain;
 }

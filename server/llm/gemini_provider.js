@@ -1,25 +1,37 @@
 /**
  * GeminiProvider — Google Gemini LLM provider.
- * Keeps Gemini-specific configuration, retry/backoff and streaming isolated
- * behind the normalized LLMProvider interface.
  *
- * Multiple Gemini API keys are supported for failover while keeping the SAME
- * Gemini model. Keys should normally belong to separate Google projects if
- * they are intended to provide separate quota pools; Gemini quotas are
- * project-level, not key-level.
+ * Gemini generation uses the current Interactions API over native fetch. This
+ * avoids the legacy GenerateContent stream parser and its "Incomplete JSON
+ * segment at the end" failure mode while keeping the SAME configured Gemini
+ * model. Multiple API keys are rotated only when the current key cannot serve
+ * the request.
  */
 
 import { LLMProvider, ProvCode } from './base.js';
 
 const GEMINI_DEFAULT_MODEL = 'gemini-2.5-flash';
-const GEMINI_ERROR_PREFIX = '__RAG_GEMINI_ERROR__:';
+const GEMINI_EMBEDDING_MODEL = 'models/gemini-embedding-001';
+const GEMINI_INTERACTIONS_URL = 'https://generativelanguage.googleapis.com/v1beta/interactions';
 
 function parseApiKeys() {
-    // GEMINI_API_KEYS is authoritative when present. This prevents an
-    // unexpected/old GEMINI_API_KEY from silently being tried first.
+    // GEMINI_API_KEYS is authoritative when present. GEMINI_API_KEY is only a
+    // fallback for installations that have not configured the key list.
     const configuredList = String(process.env.GEMINI_API_KEYS || '').trim();
     const source = configuredList || String(process.env.GEMINI_API_KEY || '');
     return [...new Set(source.split(/[\s,;]+/).map((key) => String(key || '').trim()).filter(Boolean))];
+}
+
+function normalizeModelForInteractions(model) {
+    return String(model || '').replace(/^models\//i, '');
+}
+
+function createProviderError(code, message, details) {
+    const err = new Error(message);
+    err.provCode = code;
+    err.isProviderError = true;
+    if (details !== undefined) err.details = details;
+    return err;
 }
 
 export class GeminiProvider extends LLMProvider {
@@ -56,12 +68,37 @@ export class GeminiProvider extends LLMProvider {
         return this._clients.get(apiKey);
     }
 
-    _config() {
-        return {
-            temperature: Number(process.env.GEMINI_TEMPERATURE || 0.2),
-            topP: 0.95,
+    _config(model, signal) {
+        const config = {
             maxOutputTokens: Number(process.env.GEMINI_MAX_OUTPUT_TOKENS || 2048)
         };
+
+        // Gemini 3.x does not support the legacy sampling parameters.
+        if (!/^models\/gemini-3(?:\.|-|$)/i.test(String(model || '')) && !/^gemini-3(?:\.|-|$)/i.test(String(model || ''))) {
+            config.temperature = Number(process.env.GEMINI_TEMPERATURE || 0.2);
+            config.topP = 0.95;
+        }
+
+        if (signal) config.abortSignal = signal;
+        return config;
+    }
+
+    _interactionGenerationConfig(model) {
+        const maxOutputTokens = Number(process.env.GEMINI_MAX_OUTPUT_TOKENS || 2048);
+        const config = { max_output_tokens: maxOutputTokens };
+
+        // Gemini 3.x uses thinking_level rather than legacy sampling controls.
+        if (/^models\/gemini-3(?:\.|-|$)/i.test(String(model || '')) || /^gemini-3(?:\.|-|$)/i.test(String(model || ''))) {
+            const configuredLevel = String(process.env.GEMINI_THINKING_LEVEL || 'medium').trim().toLowerCase();
+            config.thinking_level = ['low', 'medium', 'high'].includes(configuredLevel) ? configuredLevel : 'medium';
+        } else {
+            const temperature = Number(process.env.GEMINI_TEMPERATURE || 0.2);
+            if (Number.isFinite(temperature)) config.temperature = temperature;
+            const topP = Number(process.env.GEMINI_TOP_P || 0.95);
+            if (Number.isFinite(topP)) config.top_p = topP;
+        }
+
+        return config;
     }
 
     _quotaResetTime() {
@@ -84,7 +121,7 @@ export class GeminiProvider extends LLMProvider {
 
     _markQuotaExhausted(apiKey) {
         this._quotaBlockedUntil.set(apiKey, this._quotaResetTime());
-        console.warn(`[GeminiProvider] Gemini key quota exhausted; rotating immediately to the next key.`);
+        console.warn('[GeminiProvider] Gemini key quota exhausted; rotating immediately to the next key.');
     }
 
     _markAuthenticationFailed(apiKey) {
@@ -125,7 +162,7 @@ export class GeminiProvider extends LLMProvider {
     _failureMessage(code, attemptedKeyCount) {
         if (code === ProvCode.QUOTA_EXHAUSTED) return 'Gemini quota limit reached on the configured API keys.';
         if (code === ProvCode.RATE_LIMITED) return 'Gemini rate limit reached on the configured API keys.';
-        if (code === ProvCode.TIMEOUT) return 'Gemini request timed out on the configured API keys.';
+        if (code === ProvCode.TIMEOUT) return 'Gemini service did not respond in time on the configured API keys.';
         if (code === ProvCode.NETWORK_ERROR) return 'Gemini network error on the configured API keys.';
         if (code === ProvCode.AUTHENTICATION_ERROR) return 'Gemini API key authentication failed.';
         if (code === ProvCode.MODEL_NOT_FOUND) return 'Gemini model is unavailable for the configured API keys.';
@@ -133,40 +170,90 @@ export class GeminiProvider extends LLMProvider {
         return 'Gemini service is temporarily unavailable.';
     }
 
+    async _fetchJson(apiKey, body, signal) {
+        const response = await fetch(GEMINI_INTERACTIONS_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-goog-api-key': apiKey
+            },
+            body: JSON.stringify(body),
+            signal
+        });
+
+        const text = await response.text();
+        let data = null;
+        try { data = text ? JSON.parse(text) : null; } catch { data = null; }
+
+        if (!response.ok) {
+            const message = data?.error?.message || text || `Gemini HTTP ${response.status}`;
+            throw createProviderError(
+                this._classifyHttpStatus(response.status, message),
+                message,
+                { status: response.status, response: data }
+            );
+        }
+
+        return data;
+    }
+
+    _classifyHttpStatus(status, message) {
+        if (status === 401 || status === 403) return ProvCode.AUTHENTICATION_ERROR;
+        if (status === 404) return ProvCode.MODEL_NOT_FOUND;
+        if (status === 429) {
+            const lower = String(message || '').toLowerCase();
+            return /quota|resource_exhausted|per_day|daily|exhausted/.test(lower)
+                ? ProvCode.QUOTA_EXHAUSTED
+                : ProvCode.RATE_LIMITED;
+        }
+        if (status === 408 || status === 504) return ProvCode.TIMEOUT;
+        if (status >= 500) return ProvCode.UNKNOWN;
+        if (status === 400 || status === 422) return ProvCode.INVALID_REQUEST;
+        return ProvCode.UNKNOWN;
+    }
+
     async generate({ prompt, signal }) {
         if (!this.isConfigured()) return null;
         const model = this.getModel();
-        // Key rotation is intentionally one attempt per key. Never wait and
-        // retry the same key before trying the next configured key.
+        const interactionModel = normalizeModelForInteractions(model);
         let lastError = null;
         let lastCode = null;
         let attemptedKey = false;
 
         for (const apiKey of this._orderedKeys()) {
             attemptedKey = true;
-            const client = await this._getClient(apiKey);
+            const controller = new AbortController();
+            const forwardAbort = () => controller.abort();
+            if (signal) {
+                if (signal.aborted) controller.abort();
+                else signal.addEventListener('abort', forwardAbort, { once: true });
+            }
+
             try {
                 console.log(`[GeminiProvider] Generating with ${model} using key ${this._keyLabel(apiKey)} (single attempt)`);
-                const result = await client.models.generateContent({ model, contents: prompt, config: this._config(), abortSignal: signal });
-                const text = String(result?.text || result?.response?.text?.() || '').trim();
+                const result = await this._fetchJson(apiKey, {
+                    model: interactionModel,
+                    input: String(prompt || ''),
+                    stream: false,
+                    store: false,
+                    generation_config: this._interactionGenerationConfig(model)
+                }, controller.signal);
+
+                if (signal) signal.removeEventListener('abort', forwardAbort);
+                const text = this._extractInteractionText(result).trim();
                 if (text) return text;
-                throw new Error('Gemini returned an empty response');
+                throw createProviderError(ProvCode.UNKNOWN, 'Gemini returned an empty response');
             } catch (error) {
+                if (signal) signal.removeEventListener('abort', forwardAbort);
+                if (signal?.aborted) throw error;
                 const norm = this.normalizeError(error);
                 lastError = norm.message;
                 lastCode = norm.provCode;
                 console.warn(`[GeminiProvider] Generation failed with ${model} using key ${this._keyLabel(apiKey)} [${norm.provCode}]: ${this.extractErrorText(error).trim()}`);
-                if (norm.provCode === ProvCode.AUTHENTICATION_ERROR) {
-                    this._markAuthenticationFailed(apiKey);
-                } else if (norm.provCode === ProvCode.MODEL_NOT_FOUND || this._isQuotaError(norm.provCode)) {
-                    if (this._isQuotaError(norm.provCode)) this._markQuotaExhausted(apiKey);
-                } else if (norm.provCode === ProvCode.TIMEOUT || norm.provCode === ProvCode.NETWORK_ERROR || norm.provCode === ProvCode.UNKNOWN || norm.provCode === ProvCode.RATE_LIMITED) {
-                    this._markTransientBlocked(apiKey);
-                }
-                // Immediately continue to the next key. No backoff and no
-                // second attempt on the current key.
+                this._markKeyAfterFailure(apiKey, norm.provCode);
             }
         }
+
         if (!attemptedKey) console.warn('[GeminiProvider] All configured Gemini keys are currently blocked.');
         console.warn(`[GeminiProvider] All Gemini keys failed for model ${model}. Last error [${lastCode}]: ${lastError}`);
         return null;
@@ -175,75 +262,137 @@ export class GeminiProvider extends LLMProvider {
     async generateStream({ prompt, signal, onToken }) {
         if (!this.isConfigured()) return null;
         const model = this.getModel();
-        // Keep the request timeout bounded so a hung Gemini endpoint cannot
-        // hold up rotation for 90 seconds. A timeout rotates immediately.
-        const timeoutMs = Math.max(1000, Number(process.env.GEMINI_TIMEOUT_MS || 10000));
+        const interactionModel = normalizeModelForInteractions(model);
         let lastCode = null;
         let lastError = null;
         let attemptedKeyCount = 0;
-        let emittedAnyToken = false;
 
         for (const apiKey of this._orderedKeys()) {
             attemptedKeyCount += 1;
-            const client = await this._getClient(apiKey);
             const controller = new AbortController();
-            let timedOut = false;
             const forwardAbort = () => controller.abort();
             if (signal) {
                 if (signal.aborted) controller.abort();
                 else signal.addEventListener('abort', forwardAbort, { once: true });
             }
-            const timeout = setTimeout(() => { timedOut = true; controller.abort(); }, timeoutMs);
+
             try {
-                console.log(`[GeminiProvider] Streaming with ${model} using key ${this._keyLabel(apiKey)} (single attempt)`);
-                const stream = await client.models.generateContentStream({ model, contents: prompt, config: this._config(), abortSignal: controller.signal });
-                const iterable = stream?.stream || stream;
-                if (!iterable || typeof iterable[Symbol.asyncIterator] !== 'function') throw new Error('Gemini streaming response has no async iterable');
-                let fullText = '';
-                for await (const chunk of iterable) {
-                    let text = String(chunk?.text || '');
-                    if (!text && chunk?.candidates?.[0]?.content?.parts) text = chunk.candidates[0].content.parts.map((p) => p?.text || '').join('');
-                    text = text.replace(/<think>[\s\S]*?<\/think>/gi, '');
-                    if (!text) continue;
-                    fullText += text;
-                    emittedAnyToken = true;
-                    onToken?.(text);
+                console.log(`[GeminiProvider] Streaming with ${model} using key ${this._keyLabel(apiKey)} (Interactions API, single attempt)`);
+
+                // There is deliberately NO artificial per-key timeout here.
+                // If Gemini returns an HTTP/SSE error, rotation happens immediately.
+                // Once streaming starts, the answer is allowed to finish normally.
+                const response = await fetch(GEMINI_INTERACTIONS_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'text/event-stream',
+                        'x-goog-api-key': apiKey
+                    },
+                    body: JSON.stringify({
+                        model: interactionModel,
+                        input: String(prompt || ''),
+                        stream: true,
+                        store: false,
+                        generation_config: this._interactionGenerationConfig(model)
+                    }),
+                    signal: controller.signal
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    let errorData = null;
+                    try { errorData = errorText ? JSON.parse(errorText) : null; } catch { /* ignore */ }
+                    const message = errorData?.error?.message || errorText || `Gemini HTTP ${response.status}`;
+                    throw createProviderError(this._classifyHttpStatus(response.status, message), message, { status: response.status, response: errorData });
                 }
-                clearTimeout(timeout);
+
+                if (!response.body) throw createProviderError(ProvCode.NETWORK_ERROR, 'Gemini streaming response has no body');
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let buffer = '';
+                let fullText = '';
+                let sawEvent = false;
+
+                const processEvent = (rawEvent) => {
+                    const lines = rawEvent.split(/\r?\n/);
+                    let eventType = '';
+                    const dataLines = [];
+                    for (const line of lines) {
+                        if (line.startsWith('event:')) eventType = line.slice(6).trim();
+                        else if (line.startsWith('data:')) dataLines.push(line.slice(5).trimStart());
+                    }
+                    if (!dataLines.length) return;
+                    const rawData = dataLines.join('\n');
+                    if (rawData === '[DONE]') return;
+
+                    let event;
+                    try { event = JSON.parse(rawData); }
+                    catch (parseError) {
+                        throw createProviderError(ProvCode.UNKNOWN, `Gemini stream event could not be parsed: ${parseError.message}`);
+                    }
+                    sawEvent = true;
+
+                    if (eventType === 'error' || event?.event_type === 'error') {
+                        const error = event?.error || {};
+                        throw createProviderError(
+                            this._classifyHttpStatus(Number(error.code) || 500, error.message),
+                            error.message || 'Gemini streaming request failed',
+                            error
+                        );
+                    }
+
+                    if (event?.event_type === 'step.delta' && event?.delta?.type === 'text') {
+                        const text = String(event.delta.text || '');
+                        if (text) {
+                            fullText += text;
+                            onToken?.(text);
+                        }
+                    }
+                };
+
+                while (true) {
+                    const { value, done } = await reader.read();
+                    if (done) break;
+                    buffer += decoder.decode(value, { stream: true });
+                    const events = buffer.split(/\r?\n\r?\n/);
+                    buffer = events.pop() || '';
+                    for (const rawEvent of events) processEvent(rawEvent);
+                }
+                buffer += decoder.decode();
+                if (buffer.trim()) processEvent(buffer);
+
+                if (!sawEvent) throw createProviderError(ProvCode.UNKNOWN, 'Gemini stream ended without an SSE event');
+                if (!fullText.trim()) throw createProviderError(ProvCode.UNKNOWN, 'Gemini returned an empty response');
+
                 if (signal) signal.removeEventListener('abort', forwardAbort);
                 console.log(`[GeminiProvider] Streaming completed (${fullText.length} chars)`);
                 return fullText.trim();
             } catch (error) {
-                clearTimeout(timeout);
                 if (signal) signal.removeEventListener('abort', forwardAbort);
                 if (signal?.aborted) throw error;
-                const normalized = this.normalizeError(timedOut ? new Error(`Gemini streaming timed out after ${timeoutMs}ms`) : error);
+                const normalized = this.normalizeError(error);
                 lastCode = normalized.provCode;
                 lastError = normalized.message;
                 console.warn(`[GeminiProvider] Stream failed with ${model} using key ${this._keyLabel(apiKey)} [${normalized.provCode}]: ${this.extractErrorText(error).trim()}`);
-                if (normalized.provCode === ProvCode.AUTHENTICATION_ERROR) {
-                    this._markAuthenticationFailed(apiKey);
-                } else if (normalized.provCode === ProvCode.MODEL_NOT_FOUND || this._isQuotaError(normalized.provCode)) {
-                    if (this._isQuotaError(normalized.provCode)) this._markQuotaExhausted(apiKey);
-                } else if (normalized.provCode === ProvCode.TIMEOUT || normalized.provCode === ProvCode.NETWORK_ERROR || normalized.provCode === ProvCode.UNKNOWN || normalized.provCode === ProvCode.RATE_LIMITED) {
-                    this._markTransientBlocked(apiKey);
-                }
-                if (normalized.provCode === ProvCode.TIMEOUT) {
-                    console.warn(`[GeminiProvider] Timeout on key ${this._keyLabel(apiKey)}; rotating immediately.`);
-                }
-                // Immediately rotate to the next key. There is deliberately no
-                // sleep/backoff and no retry of this key.
+                this._markKeyAfterFailure(apiKey, normalized.provCode);
+                // Rotate immediately. There is no retry and no sleep.
             }
         }
 
         if (attemptedKeyCount === 0) console.warn('[GeminiProvider] All configured Gemini keys are currently blocked for streaming.');
+        const message = this._failureMessage(lastCode, attemptedKeyCount);
         console.warn(`[GeminiProvider] All Gemini keys failed for model ${model}. Last error [${lastCode}]: ${lastError}`);
-        if (!emittedAnyToken) {
-            const message = this._failureMessage(lastCode, attemptedKeyCount);
-            console.warn(`[GeminiProvider] Reporting concise UI error: ${message}`);
-            onToken?.(`${GEMINI_ERROR_PREFIX}${message}`);
-        }
-        return null;
+        console.warn(`[GeminiProvider] Reporting concise UI error: ${message}`);
+
+        const error = createProviderError(lastCode || ProvCode.UNKNOWN, message, {
+            model,
+            attemptedKeyCount,
+            lastError
+        });
+        error.isFinalProviderError = true;
+        throw error;
     }
 
     async embed({ texts, signal }) {
@@ -259,49 +408,56 @@ export class GeminiProvider extends LLMProvider {
             const client = await this._getClient(apiKey);
             try {
                 console.log(`[GeminiProvider] Embedding ${texts.length} texts using key ${this._keyLabel(apiKey)} (single attempt)`);
-                
-                const requests = texts.map((text) => ({
-                    model: 'models/gemini-embedding-001',
-                    content: { parts: [{ text: String(text || '').slice(0, 6000) }] },
-                    outputDimensionality: 768
-                }));
-
-                const result = await client.models.batchEmbedContents({
-                    requests,
-                    abortSignal: signal
+                const result = await client.models.embedContent({
+                    model: GEMINI_EMBEDDING_MODEL,
+                    contents: texts.map((text) => String(text || '').slice(0, 6000)),
+                    config: {
+                        outputDimensionality: 768,
+                        ...(signal ? { abortSignal: signal } : {})
+                    }
                 });
 
-                if (!result || !Array.isArray(result.embeddings)) {
-                    throw new Error('Embedding response missing embeddings array');
+                if (!result || !Array.isArray(result.embeddings)) throw new Error('Embedding response missing embeddings array');
+                const embeddings = result.embeddings.map((emb) => emb && Array.isArray(emb.values) ? emb.values.map(Number) : []);
+                if (embeddings.length !== texts.length || embeddings.some((vector) => vector.length !== 768 || vector.some((value) => !Number.isFinite(value)))) {
+                    throw new Error(`Embedding response has invalid dimensions; expected ${texts.length} vectors of 768 dimensions`);
                 }
-
-                const embeddings = result.embeddings.map((emb) =>
-                    emb && Array.isArray(emb.values) ? emb.values.map(Number) : []
-                );
-
                 console.log(`[GeminiProvider] Embedding completed (${embeddings.length} vectors)`);
                 return embeddings;
             } catch (error) {
+                if (signal?.aborted) throw error;
                 const norm = this.normalizeError(error);
                 lastError = norm.message;
                 lastCode = norm.provCode;
                 console.warn(`[GeminiProvider] Embedding failed using key ${this._keyLabel(apiKey)} [${norm.provCode}]: ${this.extractErrorText(error).trim()}`);
-                
-                if (norm.provCode === ProvCode.AUTHENTICATION_ERROR) {
-                    this._markAuthenticationFailed(apiKey);
-                } else if (norm.provCode === ProvCode.QUOTA_EXHAUSTED) {
-                    this._markQuotaExhausted(apiKey);
-                } else if (norm.provCode === ProvCode.TIMEOUT || norm.provCode === ProvCode.NETWORK_ERROR || norm.provCode === ProvCode.UNKNOWN || norm.provCode === ProvCode.RATE_LIMITED) {
-                    this._markTransientBlocked(apiKey);
-                }
-                // Immediately continue to the next key. No backoff and no
-                // second attempt on the current key.
+                this._markKeyAfterFailure(apiKey, norm.provCode);
             }
         }
-        
+
         if (!attemptedKey) console.warn('[GeminiProvider] All configured Gemini keys are currently blocked for embedding.');
         console.warn(`[GeminiProvider] All Gemini keys failed for embedding. Last error [${lastCode}]: ${lastError}`);
         return null;
+    }
+
+    _extractInteractionText(result) {
+        if (!result) return '';
+        if (typeof result.output_text === 'string') return result.output_text;
+        const steps = Array.isArray(result.steps) ? result.steps : [];
+        return steps
+            .filter((step) => step?.type === 'model_output')
+            .flatMap((step) => Array.isArray(step.content) ? step.content : [])
+            .map((part) => part?.text || '')
+            .join('');
+    }
+
+    _markKeyAfterFailure(apiKey, code) {
+        if (code === ProvCode.AUTHENTICATION_ERROR) {
+            this._markAuthenticationFailed(apiKey);
+        } else if (code === ProvCode.QUOTA_EXHAUSTED) {
+            this._markQuotaExhausted(apiKey);
+        } else if (code === ProvCode.TIMEOUT || code === ProvCode.NETWORK_ERROR || code === ProvCode.UNKNOWN || code === ProvCode.RATE_LIMITED) {
+            this._markTransientBlocked(apiKey);
+        }
     }
 
     _keyLabel(apiKey) {

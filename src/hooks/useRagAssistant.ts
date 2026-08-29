@@ -215,14 +215,18 @@ export default function useRagAssistant() {
         abortControllerRef.current = controller;
         const myStreamId = ++streamIdRef.current;
 
-        const rawTimeoutMs = Number(import.meta.env.VITE_RAG_STREAM_TIMEOUT_MS ?? 30000);
-        const timeoutMs = Number.isFinite(rawTimeoutMs) && rawTimeoutMs > 0 ? rawTimeoutMs : 30000;
-        if (rawTimeoutMs !== timeoutMs) {
-            console.warn('[RAG client] Invalid VITE_RAG_STREAM_TIMEOUT_MS:', import.meta.env.VITE_RAG_STREAM_TIMEOUT_MS, 'using', timeoutMs);
+        // There is intentionally no client-side generation timeout. Gemini can
+        // legitimately take longer than a fixed wall-clock limit to produce a
+        // grounded answer. Server-side provider failover handles actual API
+        // errors immediately, while Stop remains available to the user.
+        const rawTimeout = import.meta.env.VITE_RAG_STREAM_TIMEOUT_MS;
+        const timeoutMs = rawTimeout === undefined || rawTimeout === '' ? 0 : Number(rawTimeout);
+        if (!Number.isFinite(timeoutMs) || timeoutMs < 0) {
+            console.warn('[RAG client] Invalid VITE_RAG_STREAM_TIMEOUT_MS:', rawTimeout, 'ignoring client timeout');
         }
 
         let timeout: number | undefined;
-        if (timeoutMs > 0) {
+        if (Number.isFinite(timeoutMs) && timeoutMs > 0) {
             timeout = window.setTimeout(() => {
                 try { controller.abort(); } catch { /* ignore */ }
             }, timeoutMs);
