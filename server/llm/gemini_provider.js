@@ -11,7 +11,6 @@
 import { LLMProvider, ProvCode } from './base.js';
 
 const GEMINI_DEFAULT_MODEL = 'gemini-2.5-flash';
-const GEMINI_ERROR_PREFIX = '__RAG_GEMINI_ERROR__:';
 const GEMINI_EMBEDDING_MODEL = 'models/gemini-embedding-001';
 const GEMINI_INTERACTIONS_URL = 'https://generativelanguage.googleapis.com/v1beta/interactions';
 
@@ -21,15 +20,6 @@ function parseApiKeys() {
     const configuredList = String(process.env.GEMINI_API_KEYS || '').trim();
     const source = configuredList || String(process.env.GEMINI_API_KEY || '');
     return [...new Set(source.split(/[\s,;]+/).map((key) => String(key || '').trim()).filter(Boolean))];
-}
-
-function getKeyAttemptTimeoutMs() {
-    // This is ONLY a connection/first-event guard. It is NOT a total generation
-    // timeout. Once Gemini has opened the stream, a long answer is allowed to
-    // finish normally. Keeping this short prevents one broken/overloaded key
-    // from blocking rotation for minutes.
-    const configured = Number(process.env.GEMINI_KEY_ATTEMPT_TIMEOUT_MS || 5000);
-    return Number.isFinite(configured) && configured > 0 ? configured : 5000;
 }
 
 function normalizeModelForInteractions(model) {
@@ -286,19 +276,18 @@ export class GeminiProvider extends LLMProvider {
                 else signal.addEventListener('abort', forwardAbort, { once: true });
             }
 
-            let firstEventTimer = null;
             try {
                 console.log(`[GeminiProvider] Streaming with ${model} using key ${this._keyLabel(apiKey)} (Interactions API, single attempt)`);
 
-                // Only guard connection/first SSE event. Once the stream starts,
-                // there is NO total-generation timeout.
-                const timeoutMs = getKeyAttemptTimeoutMs();
-                const requestPromise = fetch(GEMINI_INTERACTIONS_URL, {
+                // There is deliberately NO artificial per-key timeout here.
+                // If Gemini returns an HTTP/SSE error, rotation happens immediately.
+                // Once streaming starts, the answer is allowed to finish normally.
+                const response = await fetch(GEMINI_INTERACTIONS_URL, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Accept': 'text/event-stream'
-                    ,   'x-goog-api-key': apiKey
+                        'Accept': 'text/event-stream',
+                        'x-goog-api-key': apiKey
                     },
                     body: JSON.stringify({
                         model: interactionModel,
@@ -309,17 +298,6 @@ export class GeminiProvider extends LLMProvider {
                     }),
                     signal: controller.signal
                 });
-
-                const firstEventPromise = new Promise((_, reject) => {
-                    firstEventTimer = setTimeout(() => {
-                        controller.abort();
-                        reject(createProviderError(ProvCode.TIMEOUT, `Gemini key did not start streaming within ${timeoutMs}ms`));
-                    }, timeoutMs);
-                });
-
-                const response = await Promise.race([requestPromise, firstEventPromise]);
-                if (firstEventTimer) clearTimeout(firstEventTimer);
-                firstEventTimer = null;
 
                 if (!response.ok) {
                     const errorText = await response.text();
@@ -392,7 +370,6 @@ export class GeminiProvider extends LLMProvider {
                 console.log(`[GeminiProvider] Streaming completed (${fullText.length} chars)`);
                 return fullText.trim();
             } catch (error) {
-                if (firstEventTimer) clearTimeout(firstEventTimer);
                 if (signal) signal.removeEventListener('abort', forwardAbort);
                 if (signal?.aborted) throw error;
                 const normalized = this.normalizeError(error);
@@ -409,10 +386,13 @@ export class GeminiProvider extends LLMProvider {
         console.warn(`[GeminiProvider] All Gemini keys failed for model ${model}. Last error [${lastCode}]: ${lastError}`);
         console.warn(`[GeminiProvider] Reporting concise UI error: ${message}`);
 
-        // Keep compatibility with the existing SSE client: it already treats
-        // this prefix as a user-visible error instead of answer text.
-        onToken?.(`${GEMINI_ERROR_PREFIX}${message}`);
-        return `${GEMINI_ERROR_PREFIX}${message}`;
+        const error = createProviderError(lastCode || ProvCode.UNKNOWN, message, {
+            model,
+            attemptedKeyCount,
+            lastError
+        });
+        error.isFinalProviderError = true;
+        throw error;
     }
 
     async embed({ texts, signal }) {
