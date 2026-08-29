@@ -1,10 +1,10 @@
-import { createPortal } from 'react-dom';
 import { useEffect, useRef, useState } from 'react';
 import type { RAGLogEntry } from '../../types/rag';
 
 const LogsIcon = () => (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <rect x="3" y="3" width="18" height="18" rx="2" /><path d="M7 8h10M7 12h10M7 16h6" />
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <rect x="3" y="3" width="18" height="18" rx="2" />
+        <path d="M7 8h10M7 12h10M7 16h6" />
     </svg>
 );
 
@@ -12,7 +12,6 @@ export default function LiveRagLogs() {
     const [logs, setLogs] = useState<RAGLogEntry[]>([]);
     const [open, setOpen] = useState(false);
     const [active, setActive] = useState(false);
-    const [position, setPosition] = useState({ top: 0, right: 16 });
     const [copied, setCopied] = useState(false);
     const logScrollRef = useRef<HTMLDivElement | null>(null);
 
@@ -31,6 +30,7 @@ export default function LiveRagLogs() {
         const onStart = () => {
             setLogs([]);
             setOpen(false);
+            setCopied(false);
             setActive(true);
         };
         window.addEventListener('rag-query-log-live', onLog);
@@ -44,100 +44,61 @@ export default function LiveRagLogs() {
     }, []);
 
     useEffect(() => {
-        if (open && logScrollRef.current) logScrollRef.current.scrollTop = logScrollRef.current.scrollHeight;
+        if (open && logScrollRef.current) {
+            logScrollRef.current.scrollTop = logScrollRef.current.scrollHeight;
+        }
     }, [open, logs]);
-
-    useEffect(() => {
-        const updatePosition = () => {
-            const bubbles = document.querySelectorAll<HTMLElement>('.user-message-bubble');
-            const bubble = bubbles[bubbles.length - 1];
-            if (!bubble) return;
-            const rect = bubble.getBoundingClientRect();
-            // The question is right-aligned. Put the Logs button immediately
-            // to its left, vertically aligned with the question bubble.
-            const buttonWidth = 78;
-            const gap = 8;
-            const preferredRight = window.innerWidth - rect.left + gap;
-            const maxRight = window.innerWidth - 12;
-            const minRight = 12;
-            const right = Math.min(maxRight, Math.max(minRight, preferredRight));
-            const top = Math.max(8, Math.min(rect.top + 4, window.innerHeight - 44));
-            setPosition({ top, right: Math.max(minRight, right - Math.min(buttonWidth, 0)) });
-        };
-        updatePosition();
-        const observer = new MutationObserver(updatePosition);
-        observer.observe(document.body, { childList: true, subtree: true });
-        window.addEventListener('resize', updatePosition);
-        window.addEventListener('scroll', updatePosition, true);
-        return () => {
-            observer.disconnect();
-            window.removeEventListener('resize', updatePosition);
-            window.removeEventListener('scroll', updatePosition, true);
-        };
-    }, [logs.length, active]);
 
     if (!active && !logs.length) return null;
 
     const handleCopyLogs = async () => {
-        const text = logs.map(l => `[${l.time}] ${l.level.toUpperCase()} ${l.message}`).join('\n');
+        const text = logs.map((log) => `[${log.time}] ${log.level.toUpperCase()} ${log.message}`).join('\n');
         try {
             await navigator.clipboard.writeText(text);
             setCopied(true);
-            setTimeout(() => setCopied(false), 2000); // reset after 2s
+            window.setTimeout(() => setCopied(false), 2000);
         } catch {
-            // optional: show error
+            // Clipboard access may be unavailable in some browser contexts.
         }
     };
 
-    const panelTop = Math.min(position.top + 38, Math.max(12, window.innerHeight - 500));
-    const panel = open ? (
-        <div style={{ position: 'fixed', top: panelTop, right: position.right, width: 'min(680px, calc(100vw - 24px))', maxHeight: 'min(560px, calc(100vh - 24px))', zIndex: 10000, background: '#111827', color: '#e5e7eb', border: '1px solid #374151', borderRadius: 10, boxShadow: '0 12px 35px rgba(0,0,0,.28)', overflow: 'hidden' }}>
-            <div style={{ padding: '10px 12px', background: '#1f2937', borderBottom: '1px solid #374151', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
-                <span style={{ fontWeight: 600, fontSize: 13 }}>Live application logs</span>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <span style={{ fontSize: 11, opacity: .7 }}>
-                        {logs.length} entries · IST {active ? '· LIVE' : '· COMPLETE'}
-                    </span>
-                    <button
-                        type="button"
-                        onClick={handleCopyLogs}
-                        style={{
-                            padding: '4px 8px',
-                            fontSize: 11,
-                            border: '1px solid #d1d5db',
-                            borderRadius: 6,
-                            background: '#fff',
-                            color: '#374151',
-                            cursor: 'pointer'
-                        }}
-                    >
-                        {copied ? 'Copied' : 'Copy logs'}
-                    </button>
-                </div>
-            </div>
-            <div ref={logScrollRef} style={{ maxHeight: 400, overflowY: 'auto', padding: 10, fontFamily: 'ui-monospace, SFMono-Regular, Consolas, monospace', fontSize: 11.5, lineHeight: 1.55 }}>
-                {logs.length ? logs.map((log, index) => (
-                    <div key={`${log.time}-${index}`} style={{ display: 'grid', gridTemplateColumns: '166px 52px minmax(0, 1fr)', gap: 8, padding: '3px 0', color: log.level === 'error' ? '#fca5a5' : log.level === 'warn' ? '#fcd34d' : '#d1d5db' }}>
-                        <span style={{ opacity: .78 }}>{log.time}</span>
-                        <span style={{ textTransform: 'uppercase' }}>{log.level}</span>
-                        <span style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>{log.message}</span>
+    return (
+        <div className="chat-live-logs">
+            <button
+                type="button"
+                className="chat-message-action-btn chat-live-logs-btn"
+                onClick={() => setOpen((value) => !value)}
+                title="View live application logs for this question"
+                aria-label="View live application logs for this question"
+                aria-expanded={open}
+            >
+                <LogsIcon />
+                {open ? 'Hide logs' : 'Logs'}{active ? ' •' : ''}
+            </button>
+            {open && (
+                <div className="chat-live-logs-panel" role="region" aria-label="Live application logs">
+                    <div className="chat-live-logs-header">
+                        <span className="chat-live-logs-title">Live application logs</span>
+                        <div className="chat-live-logs-meta">
+                            <span>{logs.length} entries · IST {active ? '· LIVE' : '· COMPLETE'}</span>
+                            <button type="button" className="chat-live-logs-copy" onClick={handleCopyLogs}>
+                                {copied ? 'Copied' : 'Copy logs'}
+                            </button>
+                        </div>
                     </div>
-                )) : <div style={{ opacity: .7 }}>Waiting for application logs…</div>}
-            </div>
+                    <div ref={logScrollRef} className="chat-live-logs-body">
+                        {logs.length ? logs.map((log, index) => (
+                            <div key={`${log.time}-${index}`} className={`chat-live-log-row chat-live-log-${log.level}`}>
+                                <span className="chat-live-log-time">{log.time}</span>
+                                <span className="chat-live-log-level">{log.level}</span>
+                                <span className="chat-live-log-message">{log.message}</span>
+                            </div>
+                        )) : (
+                            <div className="chat-live-logs-empty">Waiting for application logs…</div>
+                        )}
+                    </div>
+                </div>
+            )}
         </div>
-    ) : null;
-
-    const button = (
-        <button
-            type="button"
-            onClick={() => setOpen((value) => !value)}
-            title="View live application logs for this question"
-            aria-label="View live application logs for this question"
-            style={{ position: 'fixed', top: position.top, right: position.right, zIndex: 10001, display: 'inline-flex', alignItems: 'center', gap: 6, padding: '7px 10px', border: '1px solid #d1d5db', borderRadius: 8, background: '#fff', color: '#374151', fontSize: 12, fontWeight: 600, cursor: 'pointer', boxShadow: '0 2px 8px rgba(0,0,0,.12)' }}
-        >
-            <LogsIcon /> {open ? 'Hide logs' : 'Logs'}{active ? ' •' : ''}
-        </button>
     );
-
-    return createPortal(<>{button}{panel}</>, document.body);
 }

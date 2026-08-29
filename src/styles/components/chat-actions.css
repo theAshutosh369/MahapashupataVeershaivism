@@ -165,6 +165,88 @@
     font-variant-numeric: tabular-nums;
 }
 
+/* Live logs are part of the same action row as Edit. They are hidden by
+   default and become visible only when the question/wrap is hovered or focused. */
+.chat-live-logs {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.chat-live-logs-panel {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 8px);
+    width: min(680px, 82vw);
+    max-height: min(560px, 70vh);
+    z-index: 1000;
+    background: #111827;
+    color: #e5e7eb;
+    border: 1px solid #374151;
+    border-radius: 10px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, .28);
+    overflow: hidden;
+    text-align: left;
+}
+
+.chat-live-logs-header {
+    padding: 10px 12px;
+    background: #1f2937;
+    border-bottom: 1px solid #374151;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.chat-live-logs-title {
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.chat-live-logs-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    opacity: .78;
+}
+
+.chat-live-logs-copy {
+    padding: 4px 8px;
+    font-size: 11px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #fff;
+    color: #374151;
+    cursor: pointer;
+}
+
+.chat-live-logs-body {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 10px;
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 11.5px;
+    line-height: 1.55;
+}
+
+.chat-live-log-row {
+    display: grid;
+    grid-template-columns: 166px 52px minmax(0, 1fr);
+    gap: 8px;
+    padding: 3px 0;
+}
+
+.chat-live-log-time { opacity: .78; }
+.chat-live-log-level { text-transform: uppercase; }
+.chat-live-log-message { white-space: pre-wrap; word-break: break-word; }
+.chat-live-log-error { color: #fca5a5; }
+.chat-live-log-warn { color: #fcd34d; }
+.chat-live-log-info,
+.chat-live-log-log { color: #d1d5db; }
+.chat-live-logs-empty { opacity: .7; }
+
 @media (max-width: 768px) {
     .chat-user-message-wrap {
         width: fit-content;
@@ -187,5 +269,20 @@
     .chat-edit-message-box {
         width: 94vw;
         max-width: none;
+    }
+
+    .chat-live-logs-panel {
+        position: fixed;
+        left: 12px;
+        right: 12px;
+        bottom: 70px;
+        width: auto;
+        max-height: 65vh;
+    }
+
+    .chat-live-log-row {
+        grid-template-columns: 1fr;
+        gap: 1px;
+        padding: 5px 0;
     }
 }
