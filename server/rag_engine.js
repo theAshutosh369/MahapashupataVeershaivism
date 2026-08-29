@@ -771,7 +771,7 @@ export async function queryStream(queryText, selectedDataset, topK, answerMode, 
     addTurn('assistant', fullAnswer);
 
     var elapsed = Date.now() - startTime;
-    console.log('[RAG Engine] Stream completed in ' + elapsed + 'ms');
+    console.log('[RAG Engine] Stream completed in ' + (elapsed/1000) + 'seconds');
     console.log('---------------------------------------------------');
 
     return {
