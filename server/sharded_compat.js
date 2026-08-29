@@ -78,6 +78,12 @@ export async function getIndex() {
     return ensureCompat();
 }
 
+// Compatibility alias used by the legacy index_manager facade.
+// It intentionally points to the same lazy sharded index and never builds chunks.
+export async function getCompatIndex() {
+    return ensureCompat();
+}
+
 export async function ensureIndex() {
     return ensureCompat();
 }
