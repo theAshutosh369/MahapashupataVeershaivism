@@ -10,7 +10,7 @@ export async function consumeSseStream({
     signal
 }: {
     response: Response;
-    onEvent: (event: { type: 'token' | 'done' | 'error'; data?: unknown }) => void;
+    onEvent: (event: { type: 'token' | 'log' | 'done' | 'error'; data?: unknown }) => void;
     signal: AbortSignal;
 }): Promise<void> {
     if (!response.body) throw new Error('SSE response has no body');
@@ -34,7 +34,7 @@ export async function consumeSseStream({
 
         for (const part of parts) {
             const lines = part.split(/\r?\n/);
-            let eventType: 'token' | 'done' | 'error' | null = null;
+            let eventType: 'token' | 'log' | 'done' | 'error' | null = null;
             let dataJson: string | null = null;
 
             for (const line of lines) {
@@ -42,7 +42,7 @@ export async function consumeSseStream({
                 if (!trimmed) continue;
                 if (trimmed.startsWith('event:')) {
                     const raw = trimmed.slice('event:'.length).trim();
-                    if (raw === 'token' || raw === 'done' || raw === 'error') eventType = raw;
+                    if (raw === 'token' || raw === 'log' || raw === 'done' || raw === 'error') eventType = raw;
                 } else if (trimmed.startsWith('data:')) {
                     dataJson = trimmed.slice('data:'.length).trim();
                 }
@@ -61,9 +61,9 @@ export async function consumeSseStream({
 
             onEvent({ type: eventType, data: parsed });
 
-            // `done` and `error` are terminal SSE events. Do not keep waiting for
-            // the server to close the connection and do not abort the fetch from
-            // inside the event callback.
+            // `done` and `error` are terminal SSE events. A log event is
+            // deliberately non-terminal so the UI can keep receiving logs and
+            // answer tokens while the request is still running.
             if (eventType === 'done' || eventType === 'error') {
                 try { await reader.cancel(); } catch { /* ignore */ }
                 if (eventType === 'error') {
