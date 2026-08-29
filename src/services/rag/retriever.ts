@@ -55,7 +55,10 @@ export async function queryRagAssistantStream(request: RAGQueryRequest, opts: {
         onEvent: ({ type, data }) => {
             if (type === 'log') {
                 const log = data as RAGLogEntry;
-                if (log && typeof log.message === 'string') opts.onLog?.(log);
+                if (log && typeof log.message === 'string') {
+                    opts.onLog?.(log);
+                    if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('rag-query-log-live', { detail: log }));
+                }
                 return;
             }
             if (type === 'token') {
@@ -66,6 +69,9 @@ export async function queryRagAssistantStream(request: RAGQueryRequest, opts: {
             }
             if (type === 'done') {
                 const done = data as RAGQueryResponse;
+                if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('rag-query-logs-complete', {
+                    detail: { requestLogId: done.requestLogId, answer: done.answer || '', logs: done.logs || [] }
+                }));
                 opts.onDone(done);
                 return;
             }
