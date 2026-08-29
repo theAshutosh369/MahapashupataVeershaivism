@@ -1,4 +1,4 @@
-import type { RAGDataset, RAGQueryRequest, RAGQueryResponse } from '../../types/rag';
+import type { RAGDataset, RAGLogEntry, RAGQueryRequest, RAGQueryResponse } from '../../types/rag';
 
 const API_BASE = import.meta.env.VITE_RAG_API_URL ?? '';
 const GEMINI_ERROR_PREFIX = '__RAG_GEMINI_ERROR__:';
@@ -39,6 +39,7 @@ export async function queryRagAssistant(request: RAGQueryRequest): Promise<RAGQu
 export async function queryRagAssistantStream(request: RAGQueryRequest, opts: {
     signal: AbortSignal;
     onToken: (t: string) => void;
+    onLog?: (log: RAGLogEntry) => void;
     onDone: (d: RAGQueryResponse) => void;
 }): Promise<void> {
     const response = await fetch(`${API_BASE}/api/rag/query/stream`, {
@@ -52,6 +53,11 @@ export async function queryRagAssistantStream(request: RAGQueryRequest, opts: {
     await consumeSseStream({
         response, signal: opts.signal,
         onEvent: ({ type, data }) => {
+            if (type === 'log') {
+                const log = data as RAGLogEntry;
+                if (log && typeof log.message === 'string') opts.onLog?.(log);
+                return;
+            }
             if (type === 'token') {
                 const token = typeof data === 'string' ? data : String(data ?? '');
                 if (token.startsWith(GEMINI_ERROR_PREFIX)) throw new Error(token.slice(GEMINI_ERROR_PREFIX.length).trim() || 'Gemini request failed.');
@@ -60,11 +66,6 @@ export async function queryRagAssistantStream(request: RAGQueryRequest, opts: {
             }
             if (type === 'done') {
                 const done = data as RAGQueryResponse;
-                if (typeof window !== 'undefined' && Array.isArray(done.logs)) {
-                    window.dispatchEvent(new CustomEvent('rag-query-logs', {
-                        detail: { requestLogId: done.requestLogId, answer: done.answer || '', logs: done.logs }
-                    }));
-                }
                 opts.onDone(done);
                 return;
             }
