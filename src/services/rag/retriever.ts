@@ -36,6 +36,34 @@ export async function queryRagAssistant(request: RAGQueryRequest): Promise<RAGQu
     return data as RAGQueryResponse;
 }
 
+function normalizeStreamToken(data: unknown): string {
+    if (typeof data === 'string') return data;
+    if (data == null) return '';
+    if (typeof data === 'object') {
+        const value = data as Record<string, unknown>;
+        const candidates = [
+            value.text,
+            value.token,
+            value.content,
+            value.delta,
+            value.output_text,
+            value.outputText
+        ];
+        for (const candidate of candidates) {
+            if (typeof candidate === 'string') return candidate;
+            if (candidate && typeof candidate === 'object') {
+                const nested = candidate as Record<string, unknown>;
+                if (typeof nested.text === 'string') return nested.text;
+                if (typeof nested.value === 'string') return nested.value;
+            }
+        }
+        // Never render JavaScript's useless "[object Object]" in the chat.
+        // This fallback is only for unexpected provider payloads.
+        try { return JSON.stringify(data); } catch { return ''; }
+    }
+    return String(data);
+}
+
 export async function queryRagAssistantStream(request: RAGQueryRequest, opts: {
     signal: AbortSignal;
     onToken: (t: string) => void;
@@ -63,9 +91,9 @@ export async function queryRagAssistantStream(request: RAGQueryRequest, opts: {
                 return;
             }
             if (type === 'token') {
-                const token = typeof data === 'string' ? data : String(data ?? '');
+                const token = normalizeStreamToken(data);
                 if (token.startsWith(GEMINI_ERROR_PREFIX)) throw new Error(token.slice(GEMINI_ERROR_PREFIX.length).trim() || 'Gemini request failed.');
-                opts.onToken(token);
+                if (token) opts.onToken(token);
                 return;
             }
             if (type === 'done') {
