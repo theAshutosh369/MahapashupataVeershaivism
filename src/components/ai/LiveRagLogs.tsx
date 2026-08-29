@@ -23,7 +23,7 @@ export default function LiveRagLogs() {
         };
         const onComplete = (event: Event) => {
             const detail = (event as CustomEvent<{ logs?: RAGLogEntry[] }>).detail;
-            if (Array.isArray(detail?.logs) && detail.logs.length) setLogs(detail.logs);
+            if (Array.isArray(detail?.logs)) setLogs(detail.logs);
             setActive(false);
         };
         const onStart = () => { setLogs([]); setOpen(false); setActive(true); };
@@ -43,12 +43,10 @@ export default function LiveRagLogs() {
             const bubble = bubbles[bubbles.length - 1];
             if (!bubble) return;
             const rect = bubble.getBoundingClientRect();
-            const width = Math.min(560, window.innerWidth - 24);
             setPosition({
-                top: open ? Math.max(12, Math.min(window.innerHeight - 440, rect.bottom + 8)) : Math.max(8, rect.bottom + 6),
+                top: Math.max(8, rect.bottom + 6),
                 right: Math.max(12, window.innerWidth - rect.right)
             });
-            void width;
         };
         updatePosition();
         const observer = new MutationObserver(updatePosition);
@@ -60,24 +58,24 @@ export default function LiveRagLogs() {
             window.removeEventListener('resize', updatePosition);
             window.removeEventListener('scroll', updatePosition, true);
         };
-    }, [open, logs.length]);
+    }, [logs.length, active]);
 
-    if (!logs.length) return null;
+    if (!active && !logs.length) return null;
 
     const panel = open ? (
-        <div style={{ position: 'fixed', top: position.top, right: position.right, width: 'min(560px, calc(100vw - 24px))', maxHeight: 'min(520px, calc(100vh - 24px))', zIndex: 10000, background: '#111827', color: '#e5e7eb', border: '1px solid #374151', borderRadius: 10, boxShadow: '0 12px 35px rgba(0,0,0,.28)', overflow: 'hidden' }}>
+        <div style={{ position: 'fixed', top: Math.min(position.top, Math.max(12, window.innerHeight - 500)), right: position.right, width: 'min(560px, calc(100vw - 24px))', maxHeight: 'min(520px, calc(100vh - 24px))', zIndex: 10000, background: '#111827', color: '#e5e7eb', border: '1px solid #374151', borderRadius: 10, boxShadow: '0 12px 35px rgba(0,0,0,.28)', overflow: 'hidden' }}>
             <div style={{ padding: '10px 12px', background: '#1f2937', borderBottom: '1px solid #374151', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
                 <span style={{ fontWeight: 600, fontSize: 13 }}>Live application logs</span>
-                <span style={{ fontSize: 11, opacity: .7 }}>{logs.length} entries · IST {active ? '· LIVE' : ''}</span>
+                <span style={{ fontSize: 11, opacity: .7 }}>{logs.length} entries · IST {active ? '· LIVE' : '· COMPLETE'}</span>
             </div>
             <div style={{ maxHeight: 450, overflowY: 'auto', padding: 10, fontFamily: 'ui-monospace, SFMono-Regular, Consolas, monospace', fontSize: 11.5, lineHeight: 1.55 }}>
-                {logs.map((log, index) => (
+                {logs.length ? logs.map((log, index) => (
                     <div key={`${log.time}-${index}`} style={{ display: 'grid', gridTemplateColumns: '166px 48px 1fr', gap: 8, padding: '3px 0', color: log.level === 'error' ? '#fca5a5' : log.level === 'warn' ? '#fcd34d' : '#d1d5db' }}>
                         <span style={{ opacity: .78 }}>{log.time}</span>
                         <span style={{ textTransform: 'uppercase' }}>{log.level}</span>
                         <span style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>{log.message}</span>
                     </div>
-                ))}
+                )) : <div style={{ opacity: .7 }}>Waiting for application logs…</div>}
             </div>
         </div>
     ) : null;
