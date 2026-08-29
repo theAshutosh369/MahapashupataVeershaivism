@@ -1,5 +1,5 @@
 import { createPortal } from 'react-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { RAGLogEntry } from '../../types/rag';
 
 const LogsIcon = () => (
@@ -13,6 +13,7 @@ export default function LiveRagLogs() {
     const [open, setOpen] = useState(false);
     const [active, setActive] = useState(false);
     const [position, setPosition] = useState({ top: 0, right: 16 });
+    const logScrollRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         const onLog = (event: Event) => {
@@ -36,6 +37,10 @@ export default function LiveRagLogs() {
             window.removeEventListener('rag-query-log-start', onStart);
         };
     }, []);
+
+    useEffect(() => {
+        if (open && logScrollRef.current) logScrollRef.current.scrollTop = logScrollRef.current.scrollHeight;
+    }, [open, logs]);
 
     useEffect(() => {
         const updatePosition = () => {
@@ -68,7 +73,7 @@ export default function LiveRagLogs() {
                 <span style={{ fontWeight: 600, fontSize: 13 }}>Live application logs</span>
                 <span style={{ fontSize: 11, opacity: .7 }}>{logs.length} entries · IST {active ? '· LIVE' : '· COMPLETE'}</span>
             </div>
-            <div style={{ maxHeight: 450, overflowY: 'auto', padding: 10, fontFamily: 'ui-monospace, SFMono-Regular, Consolas, monospace', fontSize: 11.5, lineHeight: 1.55 }}>
+            <div ref={logScrollRef} style={{ maxHeight: 450, overflowY: 'auto', padding: 10, fontFamily: 'ui-monospace, SFMono-Regular, Consolas, monospace', fontSize: 11.5, lineHeight: 1.55 }}>
                 {logs.length ? logs.map((log, index) => (
                     <div key={`${log.time}-${index}`} style={{ display: 'grid', gridTemplateColumns: '166px 48px 1fr', gap: 8, padding: '3px 0', color: log.level === 'error' ? '#fca5a5' : log.level === 'warn' ? '#fcd34d' : '#d1d5db' }}>
                         <span style={{ opacity: .78 }}>{log.time}</span>
