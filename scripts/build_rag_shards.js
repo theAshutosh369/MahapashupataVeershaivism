@@ -7,7 +7,7 @@
  *   node scripts/build_rag_shards.js
  *
  * The original server/rag_index.json and server/rag_embeddings.bin are read
- * only. New files are written below server/rag/.
+ * only. New files are written below public/rag/.
  */
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -32,7 +32,7 @@ try {
     for (const [name, info] of Object.entries(manifest.shards)) {
         console.log(`  - ${name}: ${info.chunks} chunks, ${info.vectors} vectors`);
     }
-    console.log('[RAG Shards] Validate the generated server/rag/ tree before activating it.');
+    console.log('[RAG Shards] Validate the generated public/rag/ tree before activating it.');
 } catch (error) {
     console.error('[RAG Shards] Migration failed:', error?.stack || error?.message || error);
     process.exitCode = 1;
