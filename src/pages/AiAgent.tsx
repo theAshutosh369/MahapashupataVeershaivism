@@ -7,6 +7,7 @@ import useRagAssistant from '../hooks/useRagAssistant';
 import QueryControls from '../components/ai/QueryControls';
 import AnswerPanel from '../components/ai/AnswerPanel';
 import ChatSidebar from '../components/ai/ChatSidebar';
+import LiveRagLogs from '../components/ai/LiveRagLogs';
 import { formatCitationLines } from '../components/ai/formatCitation';
 
 function AiAgent() {
@@ -291,6 +292,8 @@ function AiAgent() {
                                 <div ref={messagesEndRef}/>
                             </div>
                         </div>
+
+                        <LiveRagLogs />
 
                         <div className="ai-chat-composer">
                             <div className="ai-chat-composer-inner">
