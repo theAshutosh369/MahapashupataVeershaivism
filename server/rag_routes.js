@@ -10,9 +10,28 @@ import { getCurrentEmbeddingStore } from './index_manager.js';
 import { uploadIndexFiles } from './supabase_storage.js';
 import { getLLMInfo, validateLLMConfig } from './llm/index.js';
 import { withRequestLogs, getRequestLogs, createRequestLogId } from './request_logs.js';
+import { validateGrounding, calculateConfidence, extractCitedSources } from './accuracy_guard.js';
 
 const DEBUG = process.env.RAG_DEBUG === '1';
 function debugLog(...args) { if (DEBUG) console.log('[RAG/DEBUG]', ...args); }
+
+const NO_DATASET_ANSWER = 'I could not find this information in the selected dataset.';
+
+function applyAccuracy(answer, retrievedChunks, retrievalConfidence) {
+    const matched = Array.isArray(retrievedChunks) ? retrievedChunks.map(chunk => ({ chunk })) : [];
+    const validation = validateGrounding(answer, matched);
+    const confidence = Math.max(0, Math.min(100,
+        calculateConfidence(matched, validation) || Number(retrievalConfidence) || 0
+    ));
+    const citedSources = extractCitedSources(answer, matched);
+
+    return {
+        ...validation,
+        confidence,
+        citedSources,
+        citationCount: citedSources.length
+    };
+}
 
 export function attachRagRoutes(app, { publicRoot }) {
     const dataRoot = path.join(publicRoot, 'data');
@@ -86,8 +105,19 @@ export function attachRagRoutes(app, { publicRoot }) {
             debugLog('Stream completed in ' + (Date.now() - startTime) + 'ms');
             debugLog('Answer length: ' + fullAnswer.length + ', Sources: ' + (result.sources?.length || 0));
             if (controller.signal.aborted) return;
-            send('done', { ok: true, answer: (result?.answer || fullAnswer || '').trim(), sources: result?.sources || [], confidence: result?.confidence || 0,
-                retrievedChunks: result?.retrievedChunks || [], prompt: result?.prompt || '', requestLogId, logs: capturedLogs });
+
+            const retrievedChunks = result?.retrievedChunks || [];
+            const accuracy = applyAccuracy(result?.answer || fullAnswer || '', retrievedChunks, result?.confidence || 0);
+            console.log('[RAG Accuracy] Grounded:', accuracy.grounded, '| confidence:', accuracy.confidence + '%', '| citations:', accuracy.citationCount);
+            if (accuracy.reasons?.length) console.warn('[RAG Accuracy] ' + accuracy.reasons.join(' | '));
+            send('accuracy', { requestLogId, grounded: accuracy.grounded, confidence: accuracy.confidence, citations: accuracy.citations,
+                invalidCitations: accuracy.invalidCitations, evidence: accuracy.evidence, paragraphEvidence: accuracy.paragraphEvidence,
+                citedSources: accuracy.citedSources, reasons: accuracy.reasons });
+
+            send('done', { ok: true, answer: (result?.answer || fullAnswer || '').trim(), sources: result?.sources || [],
+                confidence: accuracy.confidence, retrievedChunks, prompt: result?.prompt || '', requestLogId, logs: capturedLogs,
+                grounded: accuracy.grounded, citations: accuracy.citations, citedSources: accuracy.citedSources,
+                evidence: accuracy.evidence, paragraphEvidence: accuracy.paragraphEvidence, accuracyReasons: accuracy.reasons });
         } catch (error) {
             capturedLogs = getRequestLogs(error?.requestLogState);
             const message = error instanceof Error ? error.message : String(error);
@@ -107,7 +137,22 @@ export function attachRagRoutes(app, { publicRoot }) {
             const trimmedQuery = queryText.trim(); if (!trimmedQuery) return res.status(400).json({ ok: false, error: 'Query text cannot be empty.' });
             const datasetSelection = Array.isArray(selectedDatasets) && selectedDatasets.length > 0 ? selectedDatasets.filter(p => p && typeof p === 'string').map(p => p.trim()) : null;
             const result = await query(trimmedQuery, selectedDataset, Math.min(25, Number(topK) || 10), answerMode, includeConversationMemory, conversationHistory, datasetSelection);
-            return res.json({ ok: true, answer: result.answer, sources: result.sources, confidence: result.confidence, retrievedChunks: result.retrievedChunks, prompt: result.prompt });
+            const retrievedChunks = result?.retrievedChunks || [];
+            const accuracy = applyAccuracy(result?.answer || '', retrievedChunks, result?.confidence || 0);
+            let answer = result?.answer || NO_DATASET_ANSWER;
+
+            // Do not discard a valid paraphrase merely because it lacks a verbatim quote.
+            // Only replace the answer when the validator finds no usable grounding at all.
+            if (!accuracy.grounded && accuracy.supportRatio < 0.20 && accuracy.citations.length === 0) {
+                answer = NO_DATASET_ANSWER;
+            }
+
+            console.log('[RAG Accuracy] Grounded:', accuracy.grounded, '| confidence:', accuracy.confidence + '%', '| citations:', accuracy.citationCount);
+            if (accuracy.reasons?.length) console.warn('[RAG Accuracy] ' + accuracy.reasons.join(' | '));
+
+            return res.json({ ok: true, answer, sources: result.sources, confidence: accuracy.confidence, retrievedChunks,
+                prompt: result.prompt, grounded: accuracy.grounded, citations: accuracy.citations, citedSources: accuracy.citedSources,
+                evidence: accuracy.evidence, paragraphEvidence: accuracy.paragraphEvidence, accuracyReasons: accuracy.reasons });
         } catch (error) { res.status(500).json({ ok: false, error: String(error) }); }
     });
 
