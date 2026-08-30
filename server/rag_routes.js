@@ -10,7 +10,7 @@ import { getCurrentEmbeddingStore } from './index_manager.js';
 import { uploadIndexFiles } from './supabase_storage.js';
 import { getLLMInfo, validateLLMConfig } from './llm/index.js';
 import { withRequestLogs, getRequestLogs, createRequestLogId } from './request_logs.js';
-import { validateGrounding, calculateConfidence, extractCitedSources } from './accuracy_guard.js';
+import { validateGrounding, extractCitedSources } from './accuracy_guard.js';
 
 const DEBUG = process.env.RAG_DEBUG === '1';
 function debugLog(...args) { if (DEBUG) console.log('[RAG/DEBUG]', ...args); }
@@ -20,9 +20,9 @@ const NO_DATASET_ANSWER = 'I could not find this information in the selected dat
 function applyAccuracy(answer, retrievedChunks, retrievalConfidence) {
     const matched = Array.isArray(retrievedChunks) ? retrievedChunks.map(chunk => ({ chunk })) : [];
     const validation = validateGrounding(answer, matched);
-    const confidence = Math.max(0, Math.min(100,
-        calculateConfidence(matched, validation) || Number(retrievalConfidence) || 0
-    ));
+    const retrieval = Math.max(0, Math.min(100, Number(retrievalConfidence) || 0));
+    const grounding = Math.max(0, Math.min(100, Number(validation.confidence) || 0));
+    const confidence = Math.round(retrieval * 0.45 + grounding * 0.55);
     const citedSources = extractCitedSources(answer, matched);
 
     return {
@@ -141,8 +141,8 @@ export function attachRagRoutes(app, { publicRoot }) {
             const accuracy = applyAccuracy(result?.answer || '', retrievedChunks, result?.confidence || 0);
             let answer = result?.answer || NO_DATASET_ANSWER;
 
-            // Do not discard a valid paraphrase merely because it lacks a verbatim quote.
-            // Only replace the answer when the validator finds no usable grounding at all.
+            // Keep faithful paraphrases. Only replace an answer when the validator
+            // finds essentially no grounding and no citation/evidence support.
             if (!accuracy.grounded && accuracy.supportRatio < 0.20 && accuracy.citations.length === 0) {
                 answer = NO_DATASET_ANSWER;
             }
