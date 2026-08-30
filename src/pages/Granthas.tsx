@@ -12,7 +12,7 @@ function displayGranthaName(fileName: string) { return String(fileName || '').re
 function escapeRegExp(value: string) { return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 type SearchMatch = { start: number; end: number };
 type SearchMode = 'current' | 'folder' | 'all';
-type SearchHistoryEntry = { id: string; query: string; mode: SearchMode; caseSensitive: boolean; wholeWord: boolean; regex: boolean; createdAt: number };
+type SearchHistoryEntry = { id: string; query: string; mode: SearchMode; caseSensitive: boolean; wholeWord: boolean; regex: boolean; createdAt: number; scopePath?: string };
 type GlobalResult = { path: string; name: string; matches: number; snippets: string[]; firstMatch: number };
 type GlobalSearchState = { open: boolean; query: string; caseSensitive: boolean; wholeWord: boolean; regex: boolean; results: GlobalResult[]; error: string; searching: boolean; selectedPath: string | null };
 
@@ -110,19 +110,20 @@ function Granthas() {
     const matches = currentSearchState.matches;
 
     function publicFileUrl(filePath: string) { return `/data/${filePath.split('/').map(encodeURIComponent).join('/')}`; }
-    function persistSearchHistory(query: string, mode: SearchMode, caseSensitive: boolean, wholeWord: boolean, regex: boolean) {
+    function persistSearchHistory(query: string, mode: SearchMode, caseSensitive: boolean, wholeWord: boolean, regex: boolean, scopePath = selectedPath ?? undefined) {
         const normalized = query.trim(); if (!normalized) return;
         setSearchHistory((previous) => {
-            const nextEntry: SearchHistoryEntry = { id: `${Date.now()}-${Math.random().toString(36).slice(2)}`, query: normalized, mode, caseSensitive, wholeWord, regex, createdAt: Date.now() };
-            const next = [nextEntry, ...previous.filter((item) => !(item.query === normalized && item.mode === mode && item.caseSensitive === caseSensitive && item.wholeWord === wholeWord && item.regex === regex))].slice(0, 20);
+            const nextEntry: SearchHistoryEntry = { id: `${Date.now()}-${Math.random().toString(36).slice(2)}`, query: normalized, mode, caseSensitive, wholeWord, regex, scopePath, createdAt: Date.now() };
+            const next = [nextEntry, ...previous.filter((item) => !(item.query === normalized && item.mode === mode && item.caseSensitive === caseSensitive && item.wholeWord === wholeWord && item.regex === regex && item.scopePath === scopePath))].slice(0, 20);
             localStorage.setItem(SEARCH_HISTORY_KEY, JSON.stringify(next));
             return next;
         });
     }
     function clearSearchHistory() { setSearchHistory([]); localStorage.removeItem(SEARCH_HISTORY_KEY); }
     function applyHistory(entry: SearchHistoryEntry) {
+        if (entry.scopePath && paths.includes(entry.scopePath) && entry.scopePath !== selectedPath) selectGrantha(entry.scopePath);
         setSearch(entry.query); setSearchMode(entry.mode); setSearchCaseSensitive(entry.caseSensitive); setSearchWholeWord(entry.wholeWord); setSearchRegex(entry.regex); setActiveMatch(0); setShowSearchHistory(false); setSearchMenuOpen(false); setCurrentSearchOpen(true);
-        if (entry.mode === 'folder') void runFolderSearch(entry.query, entry.caseSensitive, entry.wholeWord, entry.regex);
+        if (entry.mode === 'folder') void runFolderSearch(entry.query, entry.caseSensitive, entry.wholeWord, entry.regex, entry.scopePath);
         if (entry.mode === 'all') { setGlobalSearch(entry.query); setGlobalCaseSensitive(entry.caseSensitive); setGlobalWholeWord(entry.wholeWord); setGlobalRegex(entry.regex); setGlobalOpen(true); void runGlobalSearch(entry.query, entry.caseSensitive, entry.wholeWord, entry.regex); }
     }
     function persistRecent(path: string) {
@@ -172,7 +173,7 @@ function Granthas() {
     }, []);
 
     useEffect(() => { if (activeMatch >= matches.length) setActiveMatch(Math.max(0, matches.length - 1)); }, [matches.length, activeMatch]);
-    useEffect(() => { if (!currentSearchOpen || searchMode !== 'current' || !search || matches.length === 0) return; viewerRef.current?.querySelector<HTMLElement>(`[data-search-match="${activeMatch}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, [activeMatch, matches.length, search, content, currentSearchOpen, searchMode]);
+    useEffect(() => { if (!currentSearchOpen || !search || matches.length === 0) return; viewerRef.current?.querySelector<HTMLElement>(`[data-search-match="${activeMatch}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, [activeMatch, matches.length, search, content, currentSearchOpen]);
 
     function handleViewerScroll() { if (selectedPath && viewerRef.current) updatePosition(selectedPath, viewerRef.current.scrollTop); }
     async function toggleFullscreen() {
@@ -182,7 +183,7 @@ function Granthas() {
     function nextMatch() { if (matches.length) setActiveMatch((value) => (value + 1) % matches.length); }
     function previousMatch() { if (matches.length) setActiveMatch((value) => (value - 1 + matches.length) % matches.length); }
     function renderContent() {
-        if (searchMode !== 'current' || !currentSearchOpen || !search.trim() || matches.length === 0 || currentSearchState.error) return <pre>{content}</pre>;
+        if (!currentSearchOpen || !search.trim() || matches.length === 0 || currentSearchState.error) return <pre>{content}</pre>;
         const parts: ReactNode[] = []; let cursor = 0;
         matches.forEach((match, index) => { if (match.start > cursor) parts.push(content.slice(cursor, match.start)); parts.push(<mark key={`${match.start}-${match.end}-${index}`} className={index === activeMatch ? 'granthas-search-match is-active' : 'granthas-search-match'} data-search-match={index}>{content.slice(match.start, match.end)}</mark>); cursor = match.end; });
         if (cursor < content.length) parts.push(content.slice(cursor));
@@ -208,17 +209,19 @@ function Granthas() {
         return results;
     }
 
-    async function runFolderSearch(queryOverride = search, caseSensitive = searchCaseSensitive, wholeWord = searchWholeWord, regex = searchRegex) {
+    async function runFolderSearch(queryOverride = search, caseSensitive = searchCaseSensitive, wholeWord = searchWholeWord, regex = searchRegex, scopePath = selectedPath) {
         const query = queryOverride.trim(); if (!query) { setFolderResults([]); setFolderError(''); return; }
+        const scopeParts = (scopePath ?? '').split('/').filter(Boolean); const prefix = scopeParts.slice(0, -1).join('/');
+        const candidatePaths = prefix ? paths.filter((path) => path.startsWith(`${prefix}/`)) : folderPaths;
         const test = findMatches('', query, caseSensitive, wholeWord, regex); if (test.error) { setFolderError(test.error); setFolderResults([]); return; }
-        setFolderSearching(true); setFolderError(''); setFolderResults([]); persistSearchHistory(query, 'folder', caseSensitive, wholeWord, regex);
-        try { await searchPaths(folderPaths, query, caseSensitive, wholeWord, regex, setFolderResults); } finally { setFolderSearching(false); }
+        setFolderSearching(true); setFolderError(''); setFolderResults([]); persistSearchHistory(query, 'folder', caseSensitive, wholeWord, regex, scopePath);
+        try { await searchPaths(candidatePaths, query, caseSensitive, wholeWord, regex, setFolderResults); } finally { setFolderSearching(false); }
     }
 
     async function runGlobalSearch(queryOverride = globalSearch, caseSensitive = globalCaseSensitive, wholeWord = globalWholeWord, regex = globalRegex) {
         const query = queryOverride.trim(); if (!query) { setGlobalResults([]); setGlobalError(''); return; }
         const test = findMatches('', query, caseSensitive, wholeWord, regex); if (test.error) { setGlobalError(test.error); setGlobalResults([]); return; }
-        setGlobalSearching(true); setGlobalError(''); setGlobalResults([]); persistSearchHistory(query, 'all', caseSensitive, wholeWord, regex);
+        setGlobalSearching(true); setGlobalError(''); setGlobalResults([]); persistSearchHistory(query, 'all', caseSensitive, wholeWord, regex, selectedPath ?? undefined);
         try { await searchPaths(paths, query, caseSensitive, wholeWord, regex, setGlobalResults); } finally { setGlobalSearching(false); }
     }
 
@@ -229,22 +232,20 @@ function Granthas() {
         setGlobalSearch(search); setGlobalCaseSensitive(searchCaseSensitive); setGlobalWholeWord(searchWholeWord); setGlobalRegex(searchRegex); setGlobalOpen(true);
     }
     function submitActiveSearch() {
-        if (searchMode === 'current') { persistSearchHistory(search, 'current', searchCaseSensitive, searchWholeWord, searchRegex); setActiveMatch(0); return; }
+        if (searchMode === 'current') { persistSearchHistory(search, 'current', searchCaseSensitive, searchWholeWord, searchRegex, selectedPath ?? undefined); setActiveMatch(0); return; }
         if (searchMode === 'folder') { void runFolderSearch(); return; }
         setGlobalSearch(search); setGlobalCaseSensitive(searchCaseSensitive); setGlobalWholeWord(searchWholeWord); setGlobalRegex(searchRegex); setGlobalOpen(true); void runGlobalSearch(search, searchCaseSensitive, searchWholeWord, searchRegex);
     }
     function openFolderResult(result: GlobalResult) {
-        setSearchMode('folder'); setCurrentSearchOpen(true); setSearch(search); setSearchCaseSensitive(searchCaseSensitive); setSearchWholeWord(searchWholeWord); setSearchRegex(searchRegex); setActiveMatch(0); selectGrantha(result.path, false, 0);
-        requestAnimationFrame(() => { const state = findMatches(content, search, searchCaseSensitive, searchWholeWord, searchRegex); if (state.matches.length) setActiveMatch(state.matches.findIndex((match) => match.start >= result.firstMatch) >= 0 ? state.matches.findIndex((match) => match.start >= result.firstMatch) : 0); });
+        setSearchMode('current'); setCurrentSearchOpen(true); setSearch(search); setSearchCaseSensitive(searchCaseSensitive); setSearchWholeWord(searchWholeWord); setSearchRegex(searchRegex); setActiveMatch(0); selectGrantha(result.path, false, 0);
     }
     function openGlobalResult(path: string, matchIndex = 0) {
-        const result = globalResults.find((item) => item.path === path); setSearch(globalSearch); setSearchCaseSensitive(globalCaseSensitive); setSearchWholeWord(globalWholeWord); setSearchRegex(globalRegex); setSearchMode('all'); setCurrentSearchOpen(true); setActiveMatch(matchIndex); selectGrantha(path, true, matchIndex);
-        if (result) requestAnimationFrame(() => { setActiveMatch(0); });
+        setSearch(globalSearch); setSearchCaseSensitive(globalCaseSensitive); setSearchWholeWord(globalWholeWord); setSearchRegex(globalRegex); setSearchMode('current'); setCurrentSearchOpen(true); setActiveMatch(matchIndex); selectGrantha(path, true, matchIndex);
     }
     function returnToSearchResults() {
         if (!previousGlobalState) return;
         const state = previousGlobalState;
-        setSelectedPath(state.selectedPath); setGlobalSearch(state.query); setGlobalCaseSensitive(state.caseSensitive); setGlobalWholeWord(state.wholeWord); setGlobalRegex(state.regex); setGlobalResults(state.results); setGlobalError(state.error); setGlobalSearching(state.searching); setGlobalOpen(true); setSearch(''); setSearchMode('current'); setCaseSensitive(false); setWholeWord(false); setRegexMode(false); setActiveMatch(0); setCurrentSearchOpen(false); setPreviousGlobalState(null);
+        setSelectedPath(state.selectedPath); setGlobalSearch(state.query); setGlobalCaseSensitive(state.caseSensitive); setGlobalWholeWord(state.wholeWord); setGlobalRegex(state.regex); setGlobalResults(state.results); setGlobalError(state.error); setGlobalSearching(state.searching); setGlobalOpen(true); setSearch(''); setSearchMode('current'); setSearchCaseSensitive(false); setSearchWholeWord(false); setSearchRegex(false); setActiveMatch(0); setCurrentSearchOpen(false); setPreviousGlobalState(null);
     }
 
     return (<><Navbar /><main className="container granthas-page">
@@ -263,7 +264,7 @@ function Granthas() {
             <button type="button" className="granthas-reader-button" onClick={() => selectAdjacent(-1)} disabled={selectedIndex <= 0} aria-label="Previous Grantha">← Previous</button><button type="button" className="granthas-reader-button" onClick={() => selectAdjacent(1)} disabled={selectedIndex < 0 || selectedIndex >= paths.length - 1} aria-label="Next Grantha">Next →</button>
             {previousGlobalState && <button type="button" className="granthas-back-button" onClick={returnToSearchResults}>← Back to search result</button>}
             <div className="granthas-search-menu-wrap"><button type="button" className={`granthas-search-toggle ${currentSearchOpen ? 'is-active' : ''}`} onClick={() => { setSearchMenuOpen((v) => !v); setShowSearchHistory(false); }} aria-expanded={searchMenuOpen || currentSearchOpen} aria-haspopup="menu">⌕ Search</button>{searchMenuOpen && <div className="granthas-search-menu" role="menu"><button type="button" onClick={() => openSearchMode('current')} role="menuitem"><strong>⌕ Search in current Grantha</strong><small>{selectedName}</small></button><button type="button" onClick={() => openSearchMode('folder')} role="menuitem"><strong>⌕ Search current folder</strong><small>{selectedFolder || 'No folder selected'}</small></button><button type="button" onClick={() => openSearchMode('all')} role="menuitem"><strong>⌕ Search in all Granthas</strong><small>{paths.length} files</small></button></div>}</div>
-            <div className="granthas-popover-wrap"><button type="button" className="granthas-reader-button" onClick={() => { setShowSearchHistory((v) => !v); setSearchMenuOpen(false); setShowRecent(false); setShowBookmarks(false); }}>◷ Search history</button>{showSearchHistory && <div className="granthas-popover granthas-history-popover">{searchHistory.length ? <>{searchHistory.map((entry) => <button type="button" key={entry.id} onClick={() => applyHistory(entry)}><strong>{entry.query}</strong><small>{entry.mode === 'current' ? 'Current Grantha' : entry.mode === 'folder' ? 'Current folder' : 'All Granthas'} · {new Date(entry.createdAt).toLocaleString('en-IN')}</small></button>)}<button type="button" className="granthas-history-clear" onClick={clearSearchHistory}>Clear history</button></> : <span>No search history yet.</span>}</div>}</div>
+            <div className="granthas-popover-wrap"><button type="button" className="granthas-reader-button" onClick={() => { setShowSearchHistory((v) => !v); setSearchMenuOpen(false); setShowRecent(false); setShowBookmarks(false); }}>◷ Search history</button>{showSearchHistory && <div className="granthas-popover granthas-history-popover">{searchHistory.length ? <>{searchHistory.map((entry) => <button type="button" key={entry.id} onClick={() => applyHistory(entry)}><strong>{entry.query}</strong><small>{entry.mode === 'current' ? `Current Grantha${entry.scopePath ? ` · ${displayGranthaName(entry.scopePath.split('/').pop() || entry.scopePath)}` : ''}` : entry.mode === 'folder' ? `Current folder${entry.scopePath ? ` · ${entry.scopePath.split('/').slice(0, -1).map((part) => part.replace(/_/g, ' ')).join(' / ')}` : ''}` : 'All Granthas'} · {new Date(entry.createdAt).toLocaleString('en-IN')}</small></button>)}<button type="button" className="granthas-history-clear" onClick={clearSearchHistory}>Clear history</button></> : <span>No search history yet.</span>}</div>}</div>
             <button type="button" className="granthas-reader-button" onClick={toggleFullscreen}>{isFullscreen ? '⛶ Exit full screen' : '⛶ Full screen'}</button>
         </div></div>
         {currentSearchOpen && <div id="current-grantha-search" className="granthas-advanced-search" aria-label="Advanced Grantha search">
