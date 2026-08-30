@@ -1,98 +1,127 @@
 /* Granthas action rail layout.
-   Keep the reader controls outside the document card so they do not consume
-   reading space. The rail becomes part of the normal flow on smaller screens. */
+   Keep page and reader actions outside the document card so they do not consume
+   reading space. Desktop uses fixed rails; smaller screens return the controls
+   to normal document flow. */
 
 @media (min-width: 1101px) {
-  /* The page-level Advanced Global Search button is redundant: Search already
-     exposes Current / Folder / All Granthas. */
   .granthas-page-header .granthas-actions > button:first-child {
-    display: none;
+    display: none !important;
   }
 
-  /* Keep Edit Dataset / Create Dataset as a compact vertical action group on
-     the far right of the page header. */
   .granthas-page-header .granthas-actions {
-    position: fixed;
+    position: fixed !important;
     z-index: 70;
-    right: 18px;
-    top: 108px;
-    width: 150px;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
+    right: 18px !important;
+    top: 108px !important;
+    width: 150px !important;
+    max-width: 150px !important;
+    min-width: 150px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    flex-wrap: nowrap !important;
     gap: 8px;
+    box-sizing: border-box;
   }
 
-  .granthas-page-header .granthas-action {
-    width: 100%;
+  .granthas-page-header .granthas-actions .granthas-action {
+    width: 150px !important;
+    max-width: 150px !important;
+    min-width: 150px !important;
+    box-sizing: border-box;
     min-height: 38px;
     white-space: nowrap;
   }
 
-  /* Reader controls form the second vertical group beneath the page actions. */
   .granthas-detail {
     overflow: visible;
   }
 
+  /* Reader controls are a narrow fixed rail. Explicit dimensions prevent the
+     generic Granthas flex rules from making each button span the viewport. */
   .granthas-detail-heading-actions {
-    position: fixed;
+    position: fixed !important;
     z-index: 70;
-    right: 18px;
-    top: 202px;
-    width: 150px;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
+    right: 18px !important;
+    top: 202px !important;
+    width: 150px !important;
+    max-width: 150px !important;
+    min-width: 150px !important;
+    height: auto !important;
+    max-height: calc(100vh - 220px);
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    flex-wrap: nowrap !important;
     gap: 8px;
+    box-sizing: border-box;
+    overflow: visible !important;
   }
 
   .granthas-detail-heading-actions > *,
   .granthas-detail-heading-actions .granthas-popover-wrap,
   .granthas-detail-heading-actions .granthas-search-menu-wrap {
-    width: 100%;
+    width: 150px !important;
+    max-width: 150px !important;
+    min-width: 150px !important;
+    flex: 0 0 auto !important;
+    box-sizing: border-box;
   }
 
   .granthas-detail-heading-actions .granthas-reader-button,
   .granthas-detail-heading-actions .granthas-search-toggle,
   .granthas-detail-heading-actions .granthas-back-button {
-    width: 100%;
+    display: flex !important;
+    width: 150px !important;
+    max-width: 150px !important;
+    min-width: 150px !important;
     min-height: 38px;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
     white-space: normal;
+    text-align: center;
   }
 
-  /* Open popovers/search menus to the left of the rail so they remain inside
-     the viewport and never cover the document controls. */
-  .granthas-detail-heading-actions .granthas-popover {
-    top: 0;
-    right: calc(100% + 8px);
-  }
-
+  .granthas-detail-heading-actions .granthas-popover,
   .granthas-detail-heading-actions .granthas-search-menu {
-    top: 0;
-    right: calc(100% + 8px);
+    top: 0 !important;
+    right: calc(100% + 8px) !important;
+    left: auto !important;
+    width: min(390px, 70vw) !important;
+    max-width: min(390px, 70vw) !important;
+    min-width: 0 !important;
   }
 
-  /* In fullscreen the action rail belongs to the fullscreen reader instead
-     of floating outside it. */
   .granthas-detail:fullscreen .granthas-detail-heading-actions {
-    position: static;
-    width: auto;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
+    position: static !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: flex-start !important;
+    overflow: visible !important;
   }
 
   .granthas-detail:fullscreen .granthas-detail-heading-actions > *,
   .granthas-detail:fullscreen .granthas-detail-heading-actions .granthas-popover-wrap,
-  .granthas-detail:fullscreen .granthas-detail-heading-actions .granthas-search-menu-wrap {
-    width: auto;
+  .granthas-detail:fullscreen .granthas-detail-heading-actions .granthas-search-menu-wrap,
+  .granthas-detail:fullscreen .granthas-detail-heading-actions .granthas-reader-button,
+  .granthas-detail:fullscreen .granthas-detail-heading-actions .granthas-search-toggle,
+  .granthas-detail:fullscreen .granthas-detail-heading-actions .granthas-back-button {
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    flex: 0 0 auto !important;
   }
 }
 
 @media (max-width: 1100px) {
-  /* The separate header button is still redundant on tablet widths. */
   .granthas-page-header .granthas-actions > button:first-child {
-    display: none;
+    display: none !important;
   }
 }
