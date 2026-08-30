@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import GranthasTree from '../components/GranthasTree';
 import IASTSearchInput from '../components/IASTSearchInput';
+import TextIntelligence from '../components/granthas/TextIntelligence';
 import { listGranthas } from '../api_granthas';
 import '../styles/pages/granthas.css';
 
@@ -275,8 +276,26 @@ function Granthas() {
             {searchMode === 'folder' && <div className="granthas-local-results">{folderSearching && folderResults.length === 0 ? <div className="granthas-content-state">Searching current folder…</div> : folderError ? <div className="granthas-search-error">{folderError}</div> : folderResults.length ? folderResults.map((result) => <button type="button" className="granthas-global-result" key={result.path} onClick={() => openFolderResult(result)}><div className="granthas-global-result-title"><span>{result.name}</span><small>{result.matches} match{result.matches === 1 ? '' : 'es'}</small></div>{result.snippets.map((snippet, i) => <div className="granthas-global-snippet" key={i}>{snippet}</div>)}</button>) : !folderSearching && search.trim() ? <div className="granthas-tree-empty">No matches found in this folder.</div> : null}</div>}
         </div>}
         <div className="granthas-reading-toolbar"><span>Reading controls</span><button type="button" onClick={() => changeFontSize(-1)} aria-label="Decrease font size">A−</button><button type="button" onClick={resetReadingControls} aria-label="Reset reading controls">A</button><button type="button" onClick={() => changeFontSize(1)} aria-label="Increase font size">A+</button><span className="granthas-toolbar-divider" aria-hidden="true" /><button type="button" onClick={() => changeLineHeight(-0.1)} aria-label="Decrease line spacing">− spacing</button><button type="button" onClick={() => changeLineHeight(0.1)} aria-label="Increase line spacing">+ spacing</button><span className="granthas-reading-value">{fontSize}px · {lineHeight.toFixed(1)}×</span></div>
-        <div className="granthas-content-viewer" ref={viewerRef} onScroll={handleViewerScroll}>{contentLoading ? <div className="granthas-content-state">Loading Grantha…</div> : contentError ? <div className="granthas-content-state is-error">{contentError}</div> : <div className="granthas-content-text" style={{ '--granthas-font-size': `${fontSize}px`, '--granthas-line-height': lineHeight } as React.CSSProperties}>{renderContent()}</div>}</div></> : null}</div></section>
+        <div className="granthas-content-viewer" ref={viewerRef} onScroll={handleViewerScroll}>{contentLoading ? <div className="granthas-content-state">Loading Grantha…</div> : contentError ? <div className="granthas-content-state is-error">{contentError}</div> : <div className="granthas-content-text" style={{ '--granthas-font-size': `${fontSize}px`, '--granthas-line-height': lineHeight } as React.CSSProperties}>{renderContent()}</div>}</div>
+        <TextIntelligence selectedPath={selectedPath} selectedName={selectedName} paths={paths} onOpenGrantha={(path) => selectGrantha(path)} />
+        </> : null}</div></section>
     </main><Footer />
-    <style>{`\n      .granthas-search-menu-wrap { position: relative; flex: 0 0 auto; }\n      .granthas-search-menu { position:absolute; z-index:50; top:calc(100% + 6px); right:0; width:min(340px, 78vw); padding:6px; border:1px solid #d8cec8; border-radius:9px; background:#fff; box-shadow:0 10px 28px rgba(0,0,0,.16); }\n      .granthas-search-menu button { display:block; width:100%; border:0; background:transparent; border-radius:7px; padding:10px; text-align:left; color:#302b28; cursor:pointer; font:inherit; }\n      .granthas-search-menu button:hover { background:#f4ebe6; color:#7A1F1F; }\n      .granthas-search-menu strong { display:block; font-size:13px; }\n      .granthas-search-menu small { display:block; margin-top:3px; color:#888; font-size:11px; overflow-wrap:anywhere; }\n      .granthas-search-mode-heading { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; color:#7A1F1F; font-size:13px; }\n      .granthas-search-mode-heading button { border:1px solid #d8cec8; background:#faf8f6; border-radius:5px; padding:4px 8px; color:#7A1F1F; cursor:pointer; font:inherit; font-size:11px; }\n      .granthas-local-results { margin-top:10px; max-height:34vh; overflow:auto; border-top:1px solid #eee8e3; }\n      .granthas-history-popover { width:min(390px, 82vw); }\n      .granthas-history-popover button { display:block; width:100%; }\n      .granthas-history-popover strong { display:block; color:#7A1F1F; font-size:13px; }\n      .granthas-history-popover small { display:block; margin-top:3px; color:#888; font-size:10px; }\n      .granthas-history-clear { border-top:1px solid #eee8e3 !important; margin-top:4px; color:#a32020 !important; }\n      @media (max-width:800px) { .granthas-search-menu { left:0; right:auto; } .granthas-history-popover { left:auto; right:0; } }\n    `}</style></>);
+    <style>{`\
+      .granthas-search-menu-wrap { position: relative; flex: 0 0 auto; }\
+      .granthas-search-menu { position:absolute; z-index:50; top:calc(100% + 6px); right:0; width:min(340px, 78vw); padding:6px; border:1px solid #d8cec8; border-radius:9px; background:#fff; box-shadow:0 10px 28px rgba(0,0,0,.16); }\
+      .granthas-search-menu button { display:block; width:100%; border:0; background:transparent; border-radius:7px; padding:10px; text-align:left; color:#302b28; cursor:pointer; font:inherit; }\
+      .granthas-search-menu button:hover { background:#f4ebe6; color:#7A1F1F; }\
+      .granthas-search-menu strong { display:block; font-size:13px; }\
+      .granthas-search-menu small { display:block; margin-top:3px; color:#888; font-size:11px; overflow-wrap:anywhere; }\
+      .granthas-search-mode-heading { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; color:#7A1F1F; font-size:13px; }\
+      .granthas-search-mode-heading button { border:1px solid #d8cec8; background:#faf8f6; border-radius:5px; padding:4px 8px; color:#7A1F1F; cursor:pointer; font:inherit; font-size:11px; }\
+      .granthas-local-results { margin-top:10px; max-height:34vh; overflow:auto; border-top:1px solid #eee8e3; }\
+      .granthas-history-popover { width:min(390px, 82vw); }\
+      .granthas-history-popover button { display:block; width:100%; }\
+      .granthas-history-popover strong { display:block; color:#7A1F1F; font-size:13px; }\
+      .granthas-history-popover small { display:block; margin-top:3px; color:#888; font-size:10px; }\
+      .granthas-history-clear { border-top:1px solid #eee8e3 !important; margin-top:4px; color:#a32020 !important; }\
+      @media (max-width:800px) { .granthas-search-menu { left:0; right:auto; } .granthas-history-popover { left:auto; right:0; } }\
+    `}</style></>);
 }
 export default Granthas;
