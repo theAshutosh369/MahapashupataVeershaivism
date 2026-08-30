@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_API_URL ?? '';
+const API_BASE = import.meta.env.VITE_API_URL ?? (import.meta.env.DEV ? 'http://localhost:3003' : '');
 
 export type GranthaTreeResponse = {
     ok: boolean;
@@ -6,9 +6,9 @@ export type GranthaTreeResponse = {
 };
 
 /**
- * Returns every file under public/data as a path relative to public/data.
- * The order and directory structure are preserved by sorting paths naturally
- * on the server/client boundary; no categorisation or relocation is applied.
+ * Returns every Grantha/source file under public/data as a path relative to
+ * public/data. The existing dataset-list API owns the filesystem scan, so the
+ * Granthas page does not duplicate or reclassify the source hierarchy.
  */
 export async function listGranthas(): Promise<string[]> {
     const response = await fetch(`${API_BASE}/api/granthas/list`, { method: 'GET' });
