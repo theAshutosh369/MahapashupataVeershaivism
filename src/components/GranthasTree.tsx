@@ -18,6 +18,12 @@ type TreeNodeProps = {
     onSelect: (path: string) => void;
 };
 
+function displayName(label: string, isFile: boolean) {
+    let value = String(label || '').replace(/_/g, ' ');
+    if (isFile) value = value.replace(/\.(txt|json)$/i, '');
+    return value;
+}
+
 function TreeNode({ node, depth, expanded, searchActive, selectedPath, onToggle, onSelect }: TreeNodeProps) {
     const isFolder = node.type === 'folder' || node.type === 'root';
     const isExpanded = expanded.has(node.id);
@@ -28,7 +34,7 @@ function TreeNode({ node, depth, expanded, searchActive, selectedPath, onToggle,
             <button type="button" className={`granthas-tree-row ${isSelected ? 'is-selected' : ''}`} style={{ paddingLeft: 10 + depth * 16 }} onClick={() => { if (isFolder) onToggle(node.id); else if (node.path) onSelect(node.path); }} title={node.path || node.label}>
                 <span className={`granthas-tree-caret ${isFolder ? '' : 'empty'}`} aria-hidden="true">{isFolder ? (isExpanded ? '▾' : '▸') : ''}</span>
                 <span className="granthas-tree-icon" aria-hidden="true">{isFolder ? '📁' : '📄'}</span>
-                <span className="granthas-tree-label">{node.label}</span>
+                <span className="granthas-tree-label">{displayName(node.label, node.type === 'file')}</span>
                 {isFolder && !searchActive && <span className="granthas-tree-count">{node.fileCount}</span>}
             </button>
             {isFolder && isExpanded && node.children.length > 0 && (
@@ -43,8 +49,6 @@ export default function GranthasTree({ paths, selectedPath, onSelect }: Granthas
     const [search, setSearch] = useState('');
     const [expanded, setExpanded] = useState<Set<string>>(new Set());
 
-    // The tree is empty during the first render while the API loads. Rebuild
-    // the default-expanded top-level folders when the real paths arrive.
     useEffect(() => {
         setExpanded((previous) => {
             if (previous.size > 0 || tree.length === 0) return previous;
@@ -66,6 +70,19 @@ export default function GranthasTree({ paths, selectedPath, onSelect }: Granthas
         return ids;
     }, [expanded, searchActive, visibleTree]);
 
+    const folderIds = useMemo(() => {
+        const ids: string[] = [];
+        const walk = (nodes: RAGDatasetNode[]) => {
+            for (const node of nodes) {
+                if (node.type === 'folder') { ids.push(node.id); walk(node.children); }
+            }
+        };
+        walk(tree);
+        return ids;
+    }, [tree]);
+
+    const allExpanded = folderIds.length > 0 && folderIds.every((id) => expanded.has(id));
+
     function toggle(id: string) {
         setExpanded((previous) => {
             const next = new Set(previous);
@@ -74,22 +91,17 @@ export default function GranthasTree({ paths, selectedPath, onSelect }: Granthas
         });
     }
 
-    function expandAll() {
-        const next = new Set<string>();
-        const walk = (nodes: RAGDatasetNode[]) => {
-            for (const node of nodes) {
-                if (node.type === 'folder') { next.add(node.id); walk(node.children); }
-            }
-        };
-        walk(tree);
-        setExpanded(next);
+    function toggleAll() {
+        setExpanded(allExpanded ? new Set() : new Set(folderIds));
     }
 
     return (
         <aside className="granthas-tree-panel" aria-label="Granthas folder tree">
             <div className="granthas-tree-panel-header">
                 <div><h2>Granthas</h2><span>{paths.length} files</span></div>
-                <button type="button" className="granthas-tree-expand" onClick={expandAll}>Expand all</button>
+                <button type="button" className="granthas-tree-expand" onClick={toggleAll} disabled={folderIds.length === 0}>
+                    {allExpanded ? 'Collapse all' : 'Expand all'}
+                </button>
             </div>
             <div className="granthas-tree-search">
                 <input type="search" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search Granthas…" aria-label="Search Granthas" />
