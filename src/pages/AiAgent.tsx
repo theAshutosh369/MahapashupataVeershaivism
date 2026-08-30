@@ -161,6 +161,10 @@ function AiAgent() {
         }
     }
 
+    const lastUserTurnIndex = chatHistory.reduce((lastIndex, turn, index) => (
+        turn.role === 'user' ? index : lastIndex
+    ), -1);
+
     return (
         <div className="ai-chat-page">
             <Navbar />
@@ -253,9 +257,12 @@ function AiAgent() {
                                                                 <div className="message-bubble-label">You</div>
                                                                 <div className="message-bubble-text">{typeof turn.content === 'string' ? renderHighlighted(turn.content, conversationSearch, activeTurnMatch ? { start: activeTurnMatch.start, end: activeTurnMatch.end } : undefined) : turn.content}</div>
                                                             </div>
-                                                            {!loading && (
+                                                            {i === lastUserTurnIndex && (
                                                                 <div className="chat-user-message-actions">
-                                                                    <button type="button" className="chat-message-action-btn" onClick={() => beginEdit(turn.id, turn.content)} title="Edit prompt">✎ Edit</button>
+                                                                    {!loading && (
+                                                                        <button type="button" className="chat-message-action-btn" onClick={() => beginEdit(turn.id, turn.content)} title="Edit prompt">✎ Edit</button>
+                                                                    )}
+                                                                    <LiveRagLogs />
                                                                 </div>
                                                             )}
                                                         </>
@@ -292,8 +299,6 @@ function AiAgent() {
                                 <div ref={messagesEndRef}/>
                             </div>
                         </div>
-
-                        <LiveRagLogs />
 
                         <div className="ai-chat-composer">
                             <div className="ai-chat-composer-inner">
