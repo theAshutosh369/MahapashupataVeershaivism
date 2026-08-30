@@ -11,6 +11,7 @@ import { uploadIndexFiles } from './supabase_storage.js';
 import { getLLMInfo, validateLLMConfig } from './llm/index.js';
 import { withRequestLogs, getRequestLogs, createRequestLogId } from './request_logs.js';
 import { validateGrounding, extractCitedSources } from './accuracy_guard.js';
+import { makeAnswerCacheKey, getCachedAnswer, setCachedAnswer, clearAnswerCache, getPerformanceCacheStats } from './performance_cache.js';
 
 const DEBUG = process.env.RAG_DEBUG === '1';
 function debugLog(...args) { if (DEBUG) console.log('[RAG/DEBUG]', ...args); }
@@ -33,10 +34,34 @@ function applyAccuracy(answer, retrievedChunks, retrievalConfidence) {
     };
 }
 
+function cacheKeyForRequest({ queryText, selectedDataset, datasetSelection, topK, answerMode, includeConversationMemory }) {
+    return makeAnswerCacheKey({
+        query: queryText,
+        selectedDataset,
+        datasetSelection,
+        topK,
+        answerMode,
+        includeConversationMemory
+    });
+}
+
+function sendCachedStream(send, cached, requestLogId) {
+    const answer = String(cached?.answer || '');
+    // Emit the cached answer in small chunks so the existing chat UI receives
+    // exactly the same token events it expects from a live stream.
+    const chunkSize = 256;
+    for (let i = 0; i < answer.length; i += chunkSize) {
+        send('token', answer.slice(i, i + chunkSize));
+    }
+    send('accuracy', { requestLogId, ...(cached.accuracy || {}) });
+    send('done', { ...(cached.done || {}), requestLogId, cacheHit: true });
+}
+
 export function attachRagRoutes(app, { publicRoot }) {
     const dataRoot = path.join(publicRoot, 'data');
     console.log('[RAG Routes] Initialized. Data root:', dataRoot);
     console.log('[RAG Routes] Embedding: Google gemini-embedding-001 (768-dim)');
+    console.log('[RAG Routes] Phase 3: bounded answer cache + existing query-embedding cache + lazy shard retrieval');
     validateLLMConfig();
     const llmInfo = getLLMInfo();
     console.log('[RAG Routes] LLM provider mode: ' + llmInfo.mode + ' | primary: ' + llmInfo.primaryProvider + ' | model: ' + llmInfo.primaryModel);
@@ -45,11 +70,12 @@ export function attachRagRoutes(app, { publicRoot }) {
         try {
             await ensureIndex(dataRoot);
             const index = getCurrentIndex(); const llm = getLLMInfo();
-            res.json({ ok: true, ready: true, datasetCount: index?.datasetNames?.length || 0, chunkCount: index?.chunks?.length || 0,
+            res.json({ ok: true, ready: true, datasetCount: index?.datasetNames?.length || 0, chunkCount: index?.chunks?.length || index?.chunkCount || 0,
                 embeddingModel: getEmbeddingModelName(), embeddingDimension: getEmbeddingDimension(), llmProvider: llm.primaryProvider || 'none',
                 llmModel: llm.primaryModel, llmMode: llm.mode, llmChain: llm.chain, embeddingStorage: 'Float32 binary',
                 embeddingFilePath: getEmbeddingFilePath(), embeddingsLoaded: getCurrentEmbeddingStore() ? getCurrentEmbeddingStore().isLoaded() : false,
-                embedStorageBytes: getCurrentEmbeddingStore() ? getCurrentEmbeddingStore().getMemoryBytes() : 0, debugMode: DEBUG });
+                embedStorageBytes: getCurrentEmbeddingStore() ? getCurrentEmbeddingStore().getMemoryBytes() : 0, debugMode: DEBUG,
+                performanceCache: getPerformanceCacheStats() });
         } catch (error) { res.status(500).json({ ok: false, error: String(error) }); }
     });
 
@@ -92,6 +118,18 @@ export function attachRagRoutes(app, { publicRoot }) {
             send = (event, data) => { try { if (event) res.write('event: ' + event + '\n'); res.write('data: ' + JSON.stringify(data) + '\n\n'); } catch { /* disconnected */ } };
             const controller = new AbortController(); req.on('close', () => { try { controller.abort(); } catch {} });
             const startTime = Date.now(); let fullAnswer = ''; let result;
+            const cacheKey = cacheKeyForRequest({ queryText: trimmedQuery, selectedDataset, datasetSelection, topK: Math.min(25, Number(topK) || 10), answerMode, includeConversationMemory });
+
+            if (cacheKey) {
+                const cached = getCachedAnswer(cacheKey);
+                if (cached) {
+                    console.log('[Performance] Answer cache HIT for query:', trimmedQuery.substring(0, 100));
+                    send('log', { requestLogId, timestamp: new Date().toISOString(), level: 'LOG', message: 'Answer cache hit; Gemini generation and retrieval skipped.' });
+                    if (!controller.signal.aborted) sendCachedStream(send, cached, requestLogId);
+                    return;
+                }
+                console.log('[Performance] Answer cache MISS for query:', trimmedQuery.substring(0, 100));
+            }
 
             const execution = await withRequestLogs(requestLogId, async () => {
                 console.log('[RAG Request] Question:', trimmedQuery);
@@ -114,10 +152,22 @@ export function attachRagRoutes(app, { publicRoot }) {
                 invalidCitations: accuracy.invalidCitations, evidence: accuracy.evidence, paragraphEvidence: accuracy.paragraphEvidence,
                 citedSources: accuracy.citedSources, reasons: accuracy.reasons });
 
-            send('done', { ok: true, answer: (result?.answer || fullAnswer || '').trim(), sources: result?.sources || [],
+            const donePayload = { ok: true, answer: (result?.answer || fullAnswer || '').trim(), sources: result?.sources || [],
                 confidence: accuracy.confidence, retrievedChunks, prompt: result?.prompt || '', requestLogId, logs: capturedLogs,
                 grounded: accuracy.grounded, citations: accuracy.citations, citedSources: accuracy.citedSources,
-                evidence: accuracy.evidence, paragraphEvidence: accuracy.paragraphEvidence, accuracyReasons: accuracy.reasons });
+                evidence: accuracy.evidence, paragraphEvidence: accuracy.paragraphEvidence, accuracyReasons: accuracy.reasons };
+
+            if (cacheKey && donePayload.answer && donePayload.answer !== NO_DATASET_ANSWER) {
+                setCachedAnswer(cacheKey, {
+                    answer: donePayload.answer,
+                    accuracy: { grounded: accuracy.grounded, confidence: accuracy.confidence, citations: accuracy.citations,
+                        invalidCitations: accuracy.invalidCitations, evidence: accuracy.evidence, paragraphEvidence: accuracy.paragraphEvidence,
+                        citedSources: accuracy.citedSources, reasons: accuracy.reasons, citationCount: accuracy.citationCount },
+                    done: { ...donePayload, requestLogId: undefined, logs: [] }
+                });
+                console.log('[Performance] Answer cached for future identical requests.');
+            }
+            send('done', donePayload);
         } catch (error) {
             capturedLogs = getRequestLogs(error?.requestLogState);
             const message = error instanceof Error ? error.message : String(error);
@@ -136,33 +186,44 @@ export function attachRagRoutes(app, { publicRoot }) {
             if (!queryText || typeof queryText !== 'string') return res.status(400).json({ ok: false, error: 'Query text is required.' });
             const trimmedQuery = queryText.trim(); if (!trimmedQuery) return res.status(400).json({ ok: false, error: 'Query text cannot be empty.' });
             const datasetSelection = Array.isArray(selectedDatasets) && selectedDatasets.length > 0 ? selectedDatasets.filter(p => p && typeof p === 'string').map(p => p.trim()) : null;
+            const cacheKey = cacheKeyForRequest({ queryText: trimmedQuery, selectedDataset, datasetSelection, topK: Math.min(25, Number(topK) || 10), answerMode, includeConversationMemory });
+            if (cacheKey) {
+                const cached = getCachedAnswer(cacheKey);
+                if (cached) {
+                    console.log('[Performance] Non-stream answer cache HIT for query:', trimmedQuery.substring(0, 100));
+                    return res.json({ ok: true, ...(cached.done || {}), requestLogId: undefined, cacheHit: true });
+                }
+            }
+
             const result = await query(trimmedQuery, selectedDataset, Math.min(25, Number(topK) || 10), answerMode, includeConversationMemory, conversationHistory, datasetSelection);
             const retrievedChunks = result?.retrievedChunks || [];
             const accuracy = applyAccuracy(result?.answer || '', retrievedChunks, result?.confidence || 0);
             let answer = result?.answer || NO_DATASET_ANSWER;
 
-            // Keep faithful paraphrases. Only replace an answer when the validator
-            // finds essentially no grounding and no citation/evidence support.
-            if (!accuracy.grounded && accuracy.supportRatio < 0.20 && accuracy.citations.length === 0) {
-                answer = NO_DATASET_ANSWER;
-            }
+            if (!accuracy.grounded && accuracy.supportRatio < 0.20 && accuracy.citations.length === 0) answer = NO_DATASET_ANSWER;
 
             console.log('[RAG Accuracy] Grounded:', accuracy.grounded, '| confidence:', accuracy.confidence + '%', '| citations:', accuracy.citationCount);
             if (accuracy.reasons?.length) console.warn('[RAG Accuracy] ' + accuracy.reasons.join(' | '));
 
-            return res.json({ ok: true, answer, sources: result.sources, confidence: accuracy.confidence, retrievedChunks,
+            const payload = { ok: true, answer, sources: result.sources, confidence: accuracy.confidence, retrievedChunks,
                 prompt: result.prompt, grounded: accuracy.grounded, citations: accuracy.citations, citedSources: accuracy.citedSources,
-                evidence: accuracy.evidence, paragraphEvidence: accuracy.paragraphEvidence, accuracyReasons: accuracy.reasons });
+                evidence: accuracy.evidence, paragraphEvidence: accuracy.paragraphEvidence, accuracyReasons: accuracy.reasons };
+            if (cacheKey && answer && answer !== NO_DATASET_ANSWER) setCachedAnswer(cacheKey, { answer, accuracy, done: payload });
+            return res.json(payload);
         } catch (error) { res.status(500).json({ ok: false, error: String(error) }); }
     });
 
-    app.post('/api/rag/clear-cache', async (_req, res) => { try { clearEmbeddingCache(); res.json({ ok: true, message: 'Embedding cache cleared' }); } catch (error) { res.status(500).json({ ok: false, error: String(error) }); } });
+    app.post('/api/rag/clear-cache', async (_req, res) => {
+        try { clearEmbeddingCache(); clearAnswerCache(); res.json({ ok: true, message: 'Embedding and answer caches cleared', performanceCache: getPerformanceCacheStats() }); }
+        catch (error) { res.status(500).json({ ok: false, error: String(error) }); }
+    });
+
     app.post('/api/rag/index/upload', async (_req, res) => {
         try { const result = await uploadIndexFiles(); if (result.ok) return res.json({ ok: true, message: 'Index uploaded to Supabase Storage', bucket: result.bucket, prefix: result.prefix || '(root)', details: result.results });
             res.status(result.reason === 'supabase_disabled' ? 400 : 500).json({ ok: false, error: result.reason || 'Upload failed', details: result });
         } catch (error) { res.status(500).json({ ok: false, error: String(error) }); }
     });
 
-    if (process.env.RAG_WARM_INDEX === '1') ensureIndex(dataRoot).then(() => console.log('[RAG Routes] Index warmed: ' + (getCurrentIndex()?.chunks?.length || 0) + ' chunks')).catch(error => console.warn('[RAG Routes] Index warmup failed:', error.message));
+    if (process.env.RAG_WARM_INDEX === '1') ensureIndex(dataRoot).then(() => console.log('[RAG Routes] Index warmed: ' + (getCurrentIndex()?.chunks?.length || getCurrentIndex()?.chunkCount || 0) + ' chunks')).catch(error => console.warn('[RAG Routes] Index warmup failed:', error.message));
     else console.log('[RAG Routes] Startup index warmup skipped (set RAG_WARM_INDEX=1 to enable). Index will be built on first query.');
 }
