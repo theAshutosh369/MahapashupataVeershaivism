@@ -80,25 +80,71 @@ export function attachRagRoutes(app, { publicRoot }) {
     });
 
     app.get('/api/rag/datasets', async (_req, res) => {
+        // Dataset discovery must not wait for the RAG index. On a deployment,
+        // the public/data tree can be readable even when the prebuilt index is
+        // still loading, unavailable, or being rebuilt. Scan the source tree
+        // first and return immediately when files are found.
         try {
-            await ensureIndex(dataRoot); const index = getCurrentIndex(); const datasets = index?.datasetNames || [];
-            try {
-                const fs = await import('node:fs/promises'); const pathMod = await import('node:path'); const found = [];
-                async function scanDir(dir) { let entries; try { entries = await fs.readdir(dir, { withFileTypes: true }); } catch { return; }
-                    for (const entry of entries) { const full = pathMod.join(dir, entry.name); if (entry.isDirectory()) await scanDir(full); else if (entry.isFile()) {
-                        const lower = entry.name.toLowerCase(); if (lower.endsWith('.json') || lower.endsWith('.pdf') || lower.endsWith('.txt')) found.push(pathMod.relative(dataRoot, full).split(pathMod.sep).join('/'));
-                    }} }
-                await scanDir(dataRoot); const fresh = found.filter(Boolean).sort(); if (fresh.length > 0) return res.json({ ok: true, datasets: fresh });
-            } catch { /* cached list */ }
-            res.json({ ok: true, datasets: datasets || [] });
+            const fs = await import('node:fs/promises');
+            const pathMod = await import('node:path');
+            const found = [];
+
+            async function scanDir(dir) {
+                let entries;
+                try { entries = await fs.readdir(dir, { withFileTypes: true }); } catch { return; }
+                for (const entry of entries) {
+                    const full = pathMod.join(dir, entry.name);
+                    if (entry.isDirectory()) {
+                        await scanDir(full);
+                    } else if (entry.isFile()) {
+                        const lower = entry.name.toLowerCase();
+                        if (lower.endsWith('.json') || lower.endsWith('.pdf') || lower.endsWith('.txt')) {
+                            const relative = pathMod.relative(dataRoot, full).split(pathMod.sep).join('/');
+                            if (relative && relative !== 'authors.json') found.push(relative);
+                        }
+                    }
+                }
+            }
+
+            await scanDir(dataRoot);
+            const fresh = found.filter(Boolean).sort((a, b) => a.localeCompare(b));
+            if (fresh.length > 0) {
+                return res.json({ ok: true, datasets: fresh, source: 'public/data' });
+            }
+
+            // Only fall back to the index when the source tree is genuinely
+            // empty. This keeps the endpoint useful for unusual deployments
+            // where the dataset files are supplied exclusively by the index.
+            await ensureIndex(dataRoot);
+            const index = getCurrentIndex();
+            return res.json({ ok: true, datasets: index?.datasetNames || [], source: 'index' });
         } catch (error) {
+            // A catalog request should remain usable even if index initialization
+            // fails. Make one final best-effort source scan before returning 500.
             try {
-                const fs = await import('node:fs/promises'); const pathMod = await import('node:path'); const datasets = [];
-                async function scanDirFor(base, dir, ext) { let entries; try { entries = await fs.readdir(dir, { withFileTypes: true }); } catch { return; }
-                    for (const entry of entries) { const full = pathMod.join(dir, entry.name); if (entry.isDirectory()) await scanDirFor(base, full, ext); else if (entry.isFile() && entry.name.toLowerCase().endsWith(ext)) datasets.push(pathMod.relative(base, full).split(pathMod.sep).join('/')); }}
-                await scanDirFor(dataRoot, dataRoot, '.json'); await scanDirFor(dataRoot, dataRoot, '.pdf'); await scanDirFor(dataRoot, dataRoot, '.txt');
-                res.json({ ok: true, datasets: datasets.sort() });
-            } catch { res.status(500).json({ ok: false, error: String(error) }); }
+                const fs = await import('node:fs/promises');
+                const pathMod = await import('node:path');
+                const datasets = [];
+                async function scanDirFor(dir) {
+                    let entries;
+                    try { entries = await fs.readdir(dir, { withFileTypes: true }); } catch { return; }
+                    for (const entry of entries) {
+                        const full = pathMod.join(dir, entry.name);
+                        if (entry.isDirectory()) await scanDirFor(full);
+                        else if (entry.isFile()) {
+                            const lower = entry.name.toLowerCase();
+                            if (lower.endsWith('.json') || lower.endsWith('.pdf') || lower.endsWith('.txt')) {
+                                const relative = pathMod.relative(dataRoot, full).split(pathMod.sep).join('/');
+                                if (relative && relative !== 'authors.json') datasets.push(relative);
+                            }
+                        }
+                    }
+                }
+                await scanDirFor(dataRoot);
+                return res.json({ ok: true, datasets: datasets.sort((a, b) => a.localeCompare(b)), source: 'public/data-fallback' });
+            } catch {
+                return res.status(500).json({ ok: false, error: String(error) });
+            }
         }
     });
 
