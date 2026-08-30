@@ -5,6 +5,7 @@ import App from "./App";
 
 import "./styles/global.css";
 import "./styles/pages/ai-agent-background.css";
+import "./styles/pages/granthas-actions.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 
