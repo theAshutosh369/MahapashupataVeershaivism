@@ -9,5 +9,50 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <style>
+      /* Granthas: keep the document title full-width and place all reader actions on the right. */
+      .granthas-detail-heading {
+        display: block;
+      }
+
+      .granthas-detail-heading > div:first-child {
+        width: 100%;
+        min-width: 0;
+      }
+
+      .granthas-detail-heading-actions {
+        width: 100%;
+        margin-top: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .granthas-page-header {
+        align-items: flex-start;
+      }
+
+      .granthas-page-header .granthas-actions {
+        margin-left: auto;
+        justify-content: flex-end;
+      }
+
+      .granthas-back-button {
+        margin-left: auto;
+      }
+
+      @media (max-width: 800px) {
+        .granthas-detail-heading-actions {
+          justify-content: flex-start;
+        }
+
+        .granthas-page-header .granthas-actions {
+          margin-left: 0;
+          justify-content: flex-start;
+        }
+      }
+    </style>
   </body>
 </html>
