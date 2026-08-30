@@ -9,6 +9,9 @@ import '../styles/pages/granthas.css';
 function Granthas() {
     const [paths, setPaths] = useState<string[]>([]);
     const [selectedPath, setSelectedPath] = useState<string | null>(null);
+    const [content, setContent] = useState('');
+    const [contentLoading, setContentLoading] = useState(false);
+    const [contentError, setContentError] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
@@ -40,6 +43,49 @@ function Granthas() {
         return `/data/${filePath.split('/').map(encodeURIComponent).join('/')}`;
     }
 
+    useEffect(() => {
+        if (!selectedPath) {
+            setContent('');
+            setContentError('');
+            return;
+        }
+
+        let cancelled = false;
+        (async () => {
+            try {
+                setContentLoading(true);
+                setContentError('');
+                setContent('');
+
+                const response = await fetch(publicFileUrl(selectedPath), { method: 'GET' });
+                if (!response.ok) {
+                    throw new Error(`Unable to load ${selectedName}.`);
+                }
+
+                const raw = await response.text();
+                if (cancelled) return;
+
+                if (selectedPath.toLowerCase().endsWith('.json')) {
+                    try {
+                        setContent(JSON.stringify(JSON.parse(raw), null, 2));
+                    } catch {
+                        setContent(raw);
+                    }
+                } else {
+                    setContent(raw);
+                }
+            } catch (err) {
+                if (!cancelled) {
+                    setContentError(err instanceof Error ? err.message : 'Unable to load Grantha content.');
+                }
+            } finally {
+                if (!cancelled) setContentLoading(false);
+            }
+        })();
+
+        return () => { cancelled = true; };
+    }, [selectedPath, selectedName]);
+
     return (
         <>
             <Navbar />
@@ -65,10 +111,21 @@ function Granthas() {
                         ) : selectedPath ? (
                             <>
                                 <div className="granthas-detail-topline">{selectedFolder || 'public/data'}</div>
-                                <h2>{selectedName}</h2>
-                                <p className="granthas-detail-path">public/data/{selectedPath}</p>
-                                <div className="granthas-detail-actions">
-                                    <a href={publicFileUrl(selectedPath)} target="_blank" rel="noreferrer" className="granthas-open-file">Open Grantha</a>
+                                <div className="granthas-detail-heading">
+                                    <div>
+                                        <h2>{selectedName}</h2>
+                                        <p className="granthas-detail-path">public/data/{selectedPath}</p>
+                                    </div>
+                                    <a href={publicFileUrl(selectedPath)} target="_blank" rel="noreferrer" className="granthas-open-file">Open</a>
+                                </div>
+                                <div className="granthas-content-viewer">
+                                    {contentLoading ? (
+                                        <div className="granthas-content-state">Loading Grantha…</div>
+                                    ) : contentError ? (
+                                        <div className="granthas-content-state is-error">{contentError}</div>
+                                    ) : (
+                                        <pre>{content}</pre>
+                                    )}
                                 </div>
                             </>
                         ) : (
