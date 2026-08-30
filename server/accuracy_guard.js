@@ -52,7 +52,6 @@ function sourceRecord(item, index) {
     };
 }
 
-/** Build stable, source-aware records used by validation and the API/UI. */
 export function buildEvidence(matched) {
     return (Array.isArray(matched) ? matched : [])
         .map(sourceRecord)
@@ -67,13 +66,31 @@ function citationIds(answer) {
     )];
 }
 
-function extractQuotedLines(answer) {
-    const lines = [];
+/**
+ * Only treat a blockquote line as an original-source quotation when it has
+ * strong lexical overlap with a retrieved source. This prevents a translated
+ * explanation placed inside a Markdown blockquote from being falsely marked
+ * as a fabricated quotation.
+ */
+function extractQuoteCandidates(answer, sources) {
+    const candidates = [];
     for (const match of String(answer || '').matchAll(/^>\s?(.*)$/gm)) {
         const line = String(match[1] || '').trim();
-        if (line && !/^\[\d+\]$/.test(line)) lines.push(line);
+        if (!line || /^\[\d+\]$/.test(line)) continue;
+        let best = null;
+        let bestScore = 0;
+        for (const source of sources) {
+            const score = overlapScore(line, source.text);
+            if (score > bestScore) {
+                bestScore = score;
+                best = source;
+            }
+        }
+        if (bestScore >= 0.65) {
+            candidates.push({ quote: line, source: best, overlap: bestScore });
+        }
     }
-    return lines;
+    return candidates;
 }
 
 function makeSourceExcerpt(source, maxLength = 320) {
@@ -81,13 +98,6 @@ function makeSourceExcerpt(source, maxLength = 320) {
     return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
 }
 
-/**
- * Validate generated text against the exact retrieved source set.
- * Citations must point to real retrieved sources. Blockquoted original text
- * must occur verbatim after whitespace/punctuation normalization. Ordinary
- * prose is checked for lexical support rather than requiring word-for-word
- * overlap, because faithful paraphrasing is valid RAG output.
- */
 export function validateGrounding(answer, matched) {
     const sources = buildEvidence(matched);
     const sourceByCitation = new Map(sources.map(source => [source.citationId, source]));
@@ -100,6 +110,7 @@ export function validateGrounding(answer, matched) {
             citations: [],
             invalidCitations: [],
             evidence: [],
+            paragraphEvidence: [],
             citedSources: [],
             reasons: ['No answer or evidence available.'],
             sourceCount: sources.length,
@@ -111,24 +122,22 @@ export function validateGrounding(answer, matched) {
 
     const citations = citationIds(text);
     const invalidCitations = citations.filter(id => !sourceByCitation.has(id));
+    const quoteCandidates = extractQuoteCandidates(text, sources);
 
-    const quotedLines = extractQuotedLines(text);
-    const quoteChecks = quotedLines.map(quote => {
-        const normalizedQuote = matchText(quote);
-        const matchingSource = sources.find(source => {
-            const sourceText = matchText(source.text);
-            return normalizedQuote.length >= 2 && sourceText.includes(normalizedQuote);
-        });
+    const exactEvidenceRecords = quoteCandidates.map(candidate => {
+        const normalizedQuote = matchText(candidate.quote);
+        const exact = normalizedQuote.length >= 2 && matchText(candidate.source.text).includes(normalizedQuote);
         return {
-            quote,
-            exact: Boolean(matchingSource),
-            citationId: matchingSource?.citationId || null,
-            sourceId: matchingSource?.id || null
+            quote: candidate.quote,
+            exact,
+            citationId: candidate.source.citationId,
+            sourceId: candidate.source.id,
+            overlap: Math.round(candidate.overlap * 100) / 100
         };
     });
 
-    const exactEvidence = quoteChecks.filter(item => item.exact).length;
-    const exactEvidenceRatio = quoteChecks.length ? exactEvidence / quoteChecks.length : 1;
+    const exactEvidence = exactEvidenceRecords.filter(item => item.exact).length;
+    const exactEvidenceRatio = exactEvidenceRecords.length ? exactEvidence / exactEvidenceRecords.length : 1;
 
     const paragraphs = text
         .replace(/^>.*$/gm, '')
@@ -171,7 +180,7 @@ export function validateGrounding(answer, matched) {
 
     const reasons = [];
     if (invalidCitations.length) reasons.push(`Invalid citation id(s): ${invalidCitations.join(', ')}`);
-    if (quoteChecks.some(item => !item.exact)) reasons.push('One or more quoted passages are not exact evidence from the retrieved sources.');
+    if (exactEvidenceRecords.some(item => !item.exact)) reasons.push('One or more source quotations do not exactly match the retrieved evidence.');
     if (supportRatio < 0.50 && paragraphs.length > 0) reasons.push('Too much answer text lacks lexical support in the retrieved evidence.');
 
     const confidence = Math.round(Math.max(0, Math.min(1,
@@ -198,20 +207,12 @@ export function validateGrounding(answer, matched) {
         excerpt: makeSourceExcerpt(source)
     }));
 
-    const exactEvidenceRecords = quoteChecks
-        .filter(item => item.exact)
-        .map(item => ({
-            quote: item.quote,
-            citationId: item.citationId,
-            sourceId: item.sourceId
-        }));
-
     return {
         grounded,
         confidence,
         citations,
         invalidCitations,
-        evidence: exactEvidenceRecords,
+        evidence: exactEvidenceRecords.filter(item => item.exact),
         paragraphEvidence,
         citedSources,
         sourceCount: sources.length,
@@ -222,7 +223,6 @@ export function validateGrounding(answer, matched) {
     };
 }
 
-/** Return only sources explicitly cited by the generated answer. */
 export function extractCitedSources(answer, matched) {
     const sources = buildEvidence(matched);
     const ids = new Set(citationIds(answer));
@@ -233,7 +233,6 @@ export function extractCitedSources(answer, matched) {
     }));
 }
 
-/** Deterministic confidence combining retrieval quality and grounding quality. */
 export function calculateConfidence(matched, validation = null) {
     const results = Array.isArray(matched) ? matched : [];
     if (!results.length) return 0;
