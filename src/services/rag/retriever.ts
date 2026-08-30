@@ -3,24 +3,62 @@ import type { RAGDataset, RAGLogEntry, RAGQueryRequest, RAGQueryResponse } from 
 const API_BASE = import.meta.env.VITE_RAG_API_URL ?? '';
 const GEMINI_ERROR_PREFIX = '__RAG_GEMINI_ERROR__:';
 
-export async function listRagDatasets(): Promise<RAGDataset[]> {
-    console.log('Fetching RAG datasets from:', `${API_BASE}/api/rag/datasets`);
-    const response = await fetch(`${API_BASE}/api/rag/datasets`, { method: 'GET' });
-    if (!response.ok) throw new Error('Failed to load dataset list');
-    const data = await response.json();
-    if (!data?.ok || !Array.isArray(data.datasets)) throw new Error('Invalid dataset list response');
-    function formatDatasetName(raw: string): string {
-        let name = raw.replace(/\.(json|pdf|txt)$/i, '');
-        try { name = decodeURIComponent(name); } catch { /* ignore */ }
-        return name;
+function formatDatasetName(raw: string): string {
+    let name = raw.replace(/\.(json|pdf|txt)$/i, '');
+    try { name = decodeURIComponent(name); } catch { /* ignore */ }
+    return name;
+}
+
+function toDatasetList(values: unknown[]): RAGDataset[] {
+    const unique = new Set<string>();
+    const datasets: RAGDataset[] = [];
+    for (const value of values) {
+        const raw = String(value ?? '').trim();
+        if (!raw || raw === 'authors.json' || raw.endsWith('/authors.json') || unique.has(raw)) continue;
+        unique.add(raw);
+        datasets.push({ name: formatDatasetName(raw), value: raw });
     }
-    return [
-        { name: 'All datasets', value: '__ALL__' },
-        ...data.datasets.filter((dataset: unknown) => String(dataset).trim().length > 0).map((dataset: unknown) => {
-            const raw = String(dataset);
-            return { name: formatDatasetName(raw), value: raw };
-        })
-    ];
+    datasets.sort((a, b) => a.name.localeCompare(b.name));
+    return [{ name: 'All datasets', value: '__ALL__' }, ...datasets];
+}
+
+export async function listRagDatasets(): Promise<RAGDataset[]> {
+    const ragUrl = `${API_BASE}/api/rag/datasets`;
+    console.log('Fetching RAG datasets from:', ragUrl);
+
+    // The RAG catalog endpoint normally returns the exact source paths used by
+    // the sharded index. Do not make the UI depend on index initialization,
+    // however: on a cold deployment the index can be unavailable while the
+    // public data directory is already readable. Fall back to the independent
+    // dataset catalog endpoint in that case.
+    try {
+        const response = await fetch(ragUrl, { method: 'GET' });
+        if (response.ok) {
+            const data = await response.json().catch(() => null);
+            if (data?.ok && Array.isArray(data.datasets)) {
+                return toDatasetList(data.datasets);
+            }
+        }
+    } catch (error) {
+        console.warn('[RAG datasets] Primary catalog unavailable:', error);
+    }
+
+    const fallbackUrl = `${API_BASE}/api/datasets/all`;
+    console.warn('[RAG datasets] Falling back to:', fallbackUrl);
+    try {
+        const response = await fetch(fallbackUrl, { method: 'GET' });
+        if (response.ok) {
+            const data = await response.json().catch(() => null);
+            if (data?.ok && Array.isArray(data.files)) {
+                const jsonFiles = data.files.filter((file: unknown) => /\.(json|pdf|txt)$/i.test(String(file)));
+                return toDatasetList(jsonFiles);
+            }
+        }
+    } catch (error) {
+        console.warn('[RAG datasets] Fallback catalog unavailable:', error);
+    }
+
+    throw new Error('Failed to load dataset list. The RAG server is not reachable.');
 }
 
 export async function queryRagAssistant(request: RAGQueryRequest): Promise<RAGQueryResponse> {
@@ -57,8 +95,6 @@ function normalizeStreamToken(data: unknown): string {
                 if (typeof nested.value === 'string') return nested.value;
             }
         }
-        // Never render JavaScript's useless "[object Object]" in the chat.
-        // This fallback is only for unexpected provider payloads.
         try { return JSON.stringify(data); } catch { return ''; }
     }
     return String(data);
