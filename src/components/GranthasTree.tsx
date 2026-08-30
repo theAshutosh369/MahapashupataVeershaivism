@@ -50,10 +50,8 @@ export default function GranthasTree({ paths, selectedPath, onSelect }: Granthas
     const [expanded, setExpanded] = useState<Set<string>>(new Set());
 
     useEffect(() => {
-        setExpanded((previous) => {
-            if (previous.size > 0 || tree.length === 0) return previous;
-            return new Set(tree.filter((node) => node.type === 'folder').map((node) => node.id));
-        });
+        if (tree.length === 0) return;
+        setExpanded((previous) => previous.size > 0 ? previous : new Set(tree.filter((node) => node.type === 'folder').map((node) => node.id)));
     }, [tree]);
 
     const searchActive = search.trim().length > 0;
@@ -61,22 +59,14 @@ export default function GranthasTree({ paths, selectedPath, onSelect }: Granthas
     const visibleExpanded = useMemo(() => {
         if (!searchActive) return expanded;
         const ids = new Set<string>();
-        const walk = (nodes: RAGDatasetNode[]) => {
-            for (const node of nodes) {
-                if (node.type === 'folder') { ids.add(node.id); walk(node.children); }
-            }
-        };
+        const walk = (nodes: RAGDatasetNode[]) => nodes.forEach((node) => { if (node.type === 'folder') { ids.add(node.id); walk(node.children); } });
         walk(visibleTree);
         return ids;
     }, [expanded, searchActive, visibleTree]);
 
     const folderIds = useMemo(() => {
         const ids: string[] = [];
-        const walk = (nodes: RAGDatasetNode[]) => {
-            for (const node of nodes) {
-                if (node.type === 'folder') { ids.push(node.id); walk(node.children); }
-            }
-        };
+        const walk = (nodes: RAGDatasetNode[]) => nodes.forEach((node) => { if (node.type === 'folder') { ids.push(node.id); walk(node.children); } });
         walk(tree);
         return ids;
     }, [tree]);
@@ -84,11 +74,7 @@ export default function GranthasTree({ paths, selectedPath, onSelect }: Granthas
     const allExpanded = folderIds.length > 0 && folderIds.every((id) => expanded.has(id));
 
     function toggle(id: string) {
-        setExpanded((previous) => {
-            const next = new Set(previous);
-            if (next.has(id)) next.delete(id); else next.add(id);
-            return next;
-        });
+        setExpanded((previous) => { const next = new Set(previous); next.has(id) ? next.delete(id) : next.add(id); return next; });
     }
 
     function toggleAll() {
@@ -99,9 +85,7 @@ export default function GranthasTree({ paths, selectedPath, onSelect }: Granthas
         <aside className="granthas-tree-panel" aria-label="Granthas folder tree">
             <div className="granthas-tree-panel-header">
                 <div><h2>Granthas</h2><span>{paths.length} files</span></div>
-                <button type="button" className="granthas-tree-expand" onClick={toggleAll} disabled={folderIds.length === 0}>
-                    {allExpanded ? 'Collapse all' : 'Expand all'}
-                </button>
+                <button type="button" className="granthas-tree-expand" onClick={toggleAll} disabled={folderIds.length === 0}>{allExpanded ? 'Collapse all' : 'Expand all'}</button>
             </div>
             <div className="granthas-tree-search">
                 <input type="search" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search Granthas…" aria-label="Search Granthas" />
