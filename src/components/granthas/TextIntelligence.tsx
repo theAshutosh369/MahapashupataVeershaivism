@@ -69,12 +69,12 @@ export default function TextIntelligence({ selectedPath, selectedName, paths, on
             const focus = selection?.focusNode;
             const viewer = document.querySelector('.granthas-content-text');
             if (!text || !viewer || !anchor || !focus || !viewer.contains(anchor) || !viewer.contains(focus)) {
-                setSelectedText('');
+                if (!action) setSelectedText('');
                 return;
             }
             const range = selection?.rangeCount ? selection.getRangeAt(0) : null;
             if (!range || range.collapsed) {
-                setSelectedText('');
+                if (!action) setSelectedText('');
                 return;
             }
             const rect = range.getBoundingClientRect();
@@ -95,7 +95,7 @@ export default function TextIntelligence({ selectedPath, selectedName, paths, on
             document.removeEventListener('touchend', updateSelection);
             window.removeEventListener('scroll', updateSelection, true);
         };
-    }, []);
+    }, [action]);
 
     useEffect(() => {
         setSelectedText('');
@@ -164,16 +164,17 @@ export default function TextIntelligence({ selectedPath, selectedName, paths, on
         setAnswer('');
         setSources([]);
         setError('');
+        setSelectedText('');
     }
 
-    if (!selectedText) return null;
+    if (!selectedText && !action) return null;
 
     const toolbarStyle: CSSProperties = {
         position: 'fixed',
         top: toolbarPosition.top,
         left: toolbarPosition.left,
         zIndex: 1200,
-        display: 'flex',
+        display: selectedText ? 'flex' : 'none',
         gap: 5,
         alignItems: 'center',
         padding: 6,
