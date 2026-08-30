@@ -23,6 +23,7 @@ function Granthas() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [search, setSearch] = useState('');
+    const [currentSearchOpen, setCurrentSearchOpen] = useState(false);
     const [caseSensitive, setCaseSensitive] = useState(false);
     const [wholeWord, setWholeWord] = useState(false);
     const [regexMode, setRegexMode] = useState(false);
@@ -40,7 +41,7 @@ function Granthas() {
 
     useEffect(() => {
         let cancelled = false;
-        (async () => { try { setLoading(true); setError(''); const files = await listGranthas(); if (!cancelled) { setPaths(files); setSelectedPath(files[0] ?? null); } } catch (err) { if (!cancelled) setError(err instanceof Error ? err.message : 'Unable to load Granthas.'); } finally { if (!cancelled) setLoading(false); } })();
+        (async () => { try { setLoading(true); setError(''); const files = await listGranthas(); if (!cancelled) { setPaths(files); setSelectedPath(null); } } catch (err) { if (!cancelled) setError(err instanceof Error ? err.message : 'Unable to load Granthas.'); } finally { if (!cancelled) setLoading(false); } })();
         return () => { cancelled = true; };
     }, []);
 
@@ -51,7 +52,7 @@ function Granthas() {
     function publicFileUrl(filePath: string) { return `/data/${filePath.split('/').map(encodeURIComponent).join('/')}`; }
 
     useEffect(() => {
-        if (!selectedPath) { setContent(''); setContentError(''); return; }
+        if (!selectedPath) { setContent(''); setContentError(''); setCurrentSearchOpen(false); return; }
         let cancelled = false;
         (async () => { try { setContentLoading(true); setContentError(''); setContent(''); setActiveMatch(0); const response = await fetch(publicFileUrl(selectedPath)); if (!response.ok) throw new Error(`Unable to load ${selectedName}.`); const raw = await response.text(); if (cancelled) return; if (selectedPath.toLowerCase().endsWith('.json')) { try { setContent(JSON.stringify(JSON.parse(raw), null, 2)); } catch { setContent(raw); } } else setContent(raw); } catch (err) { if (!cancelled) setContentError(err instanceof Error ? err.message : 'Unable to load Grantha content.'); } finally { if (!cancelled) setContentLoading(false); } })();
         return () => { cancelled = true; };
@@ -64,10 +65,10 @@ function Granthas() {
     }, [content, search, caseSensitive, wholeWord, regexMode]);
     const matches = searchState.matches;
     useEffect(() => { if (activeMatch >= matches.length) setActiveMatch(Math.max(0, matches.length - 1)); }, [matches.length, activeMatch]);
-    useEffect(() => { if (!search || matches.length === 0) return; viewerRef.current?.querySelector<HTMLElement>(`[data-search-match="${activeMatch}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, [activeMatch, matches.length, search, content]);
+    useEffect(() => { if (!currentSearchOpen || !search || matches.length === 0) return; viewerRef.current?.querySelector<HTMLElement>(`[data-search-match="${activeMatch}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, [activeMatch, matches.length, search, content, currentSearchOpen]);
     function nextMatch() { if (matches.length) setActiveMatch((value) => (value + 1) % matches.length); }
     function previousMatch() { if (matches.length) setActiveMatch((value) => (value - 1 + matches.length) % matches.length); }
-    function renderContent() { if (!search.trim() || matches.length === 0 || searchState.error) return <pre>{content}</pre>; const parts: ReactNode[] = []; let cursor = 0; matches.forEach((match, index) => { if (match.start > cursor) parts.push(content.slice(cursor, match.start)); parts.push(<mark key={`${match.start}-${match.end}-${index}`} className={index === activeMatch ? 'granthas-search-match is-active' : 'granthas-search-match'} data-search-match={index}>{content.slice(match.start, match.end)}</mark>); cursor = match.end; }); if (cursor < content.length) parts.push(content.slice(cursor)); return <pre>{parts}</pre>; }
+    function renderContent() { if (!currentSearchOpen || !search.trim() || matches.length === 0 || searchState.error) return <pre>{content}</pre>; const parts: ReactNode[] = []; let cursor = 0; matches.forEach((match, index) => { if (match.start > cursor) parts.push(content.slice(cursor, match.start)); parts.push(<mark key={`${match.start}-${match.end}-${index}`} className={index === activeMatch ? 'granthas-search-match is-active' : 'granthas-search-match'} data-search-match={index}>{content.slice(match.start, match.end)}</mark>); cursor = match.end; }); if (cursor < content.length) parts.push(content.slice(cursor)); return <pre>{parts}</pre>; }
 
     async function runGlobalSearch() {
         const query = globalSearch.trim(); if (!query) { setGlobalResults([]); setGlobalError(''); return; }
@@ -106,6 +107,7 @@ function Granthas() {
         setWholeWord(globalWholeWord);
         setRegexMode(globalRegex);
         setActiveMatch(0);
+        setCurrentSearchOpen(true);
         setGlobalOpen(false);
     }
 
@@ -126,6 +128,7 @@ function Granthas() {
         setWholeWord(false);
         setRegexMode(false);
         setActiveMatch(0);
+        setCurrentSearchOpen(false);
         setPreviousGlobalState(null);
     }
 
@@ -139,7 +142,7 @@ function Granthas() {
             {globalError && <div className="granthas-search-error">{globalError}</div>}
             <div className="granthas-global-results">{globalSearching && globalResults.length === 0 ? <div className="granthas-content-state">Searching Granthas…</div> : globalResults.length ? globalResults.map((result) => <button type="button" className="granthas-global-result" key={result.path} onClick={() => openGlobalResult(result.path)}><div className="granthas-global-result-title"><span>{result.name}</span><small>{result.matches} match{result.matches === 1 ? '' : 'es'}</small></div>{result.snippets.map((snippet, i) => <div className="granthas-global-snippet" key={i}>{snippet}</div>)}</button>) : !globalSearching && globalSearch.trim() ? <div className="granthas-tree-empty">No matches found.</div> : <div className="granthas-tree-empty">Enter a word to search all Granthas.</div>}</div>
         </section>}
-        <section className="granthas-layout"><GranthasTree paths={paths} selectedPath={selectedPath} onSelect={(path) => { setPreviousGlobalState(null); setSelectedPath(path); }} /><div className="granthas-detail">{loading ? <div className="granthas-empty-state">Loading Granthas…</div> : selectedPath ? <><div className="granthas-detail-topline">{selectedFolder || 'Granthas'}</div><div className="granthas-detail-heading"><div><h2>{selectedName}</h2><p className="granthas-detail-path">public/data/{selectedPath}</p></div>{previousGlobalState && <button type="button" className="granthas-back-button" onClick={returnToSearchResults}>← Back to search result</button>}</div><div className="granthas-advanced-search" aria-label="Advanced search in current Grantha"><IASTSearchInput value={search} onChange={(value) => { setSearch(value); setActiveMatch(0); }} content={content} /><div className="granthas-search-options"><label><input type="checkbox" checked={caseSensitive} onChange={(e) => { setCaseSensitive(e.target.checked); setActiveMatch(0); }} /> Case sensitive</label><label><input type="checkbox" checked={wholeWord} onChange={(e) => { setWholeWord(e.target.checked); setActiveMatch(0); }} /> Whole word</label><label><input type="checkbox" checked={regexMode} onChange={(e) => { setRegexMode(e.target.checked); setActiveMatch(0); }} /> Regex</label><span className="granthas-search-count">{searchState.error ? 'Invalid search' : search.trim() ? `${matches.length ? activeMatch + 1 : 0} of ${matches.length}` : 'Search current Grantha'}</span><button type="button" onClick={previousMatch} disabled={!matches.length} aria-label="Previous match">↑</button><button type="button" onClick={nextMatch} disabled={!matches.length} aria-label="Next match">↓</button></div>{searchState.error && <div className="granthas-search-error">{searchState.error}</div>}</div><div className="granthas-content-viewer" ref={viewerRef}>{contentLoading ? <div className="granthas-content-state">Loading Grantha…</div> : contentError ? <div className="granthas-content-state is-error">{contentError}</div> : renderContent()}</div></> : <div className="granthas-empty-state">Select a Grantha from the left panel.</div>}</div></section>
+        <section className="granthas-layout"><GranthasTree paths={paths} selectedPath={selectedPath} onSelect={(path) => { setPreviousGlobalState(null); setSelectedPath(path); setCurrentSearchOpen(false); }} /><div className="granthas-detail">{loading ? <div className="granthas-empty-state">Loading Granthas…</div> : selectedPath ? <><div className="granthas-detail-topline">{selectedFolder || 'Granthas'}</div><div className="granthas-detail-heading"><div><h2>{selectedName}</h2><p className="granthas-detail-path">public/data/{selectedPath}</p></div><div className="granthas-detail-heading-actions">{previousGlobalState && <button type="button" className="granthas-back-button" onClick={returnToSearchResults}>← Back to search result</button>}<button type="button" className={`granthas-search-toggle ${currentSearchOpen ? 'is-active' : ''}`} onClick={() => setCurrentSearchOpen((value) => !value)} aria-expanded={currentSearchOpen} aria-controls="current-grantha-search">⌕ {currentSearchOpen ? 'Hide search' : 'Search in this Grantha'}</button></div></div>{currentSearchOpen && <div id="current-grantha-search" className="granthas-advanced-search" aria-label="Advanced search in current Grantha"><IASTSearchInput value={search} onChange={(value) => { setSearch(value); setActiveMatch(0); }} content={content} /><div className="granthas-search-options"><label><input type="checkbox" checked={caseSensitive} onChange={(e) => { setCaseSensitive(e.target.checked); setActiveMatch(0); }} /> Case sensitive</label><label><input type="checkbox" checked={wholeWord} onChange={(e) => { setWholeWord(e.target.checked); setActiveMatch(0); }} /> Whole word</label><label><input type="checkbox" checked={regexMode} onChange={(e) => { setRegexMode(e.target.checked); setActiveMatch(0); }} /> Regex</label><span className="granthas-search-count">{searchState.error ? 'Invalid search' : search.trim() ? `${matches.length ? activeMatch + 1 : 0} of ${matches.length}` : 'Search current Grantha'}</span><button type="button" onClick={previousMatch} disabled={!matches.length} aria-label="Previous match">↑</button><button type="button" onClick={nextMatch} disabled={!matches.length} aria-label="Next match">↓</button></div>{searchState.error && <div className="granthas-search-error">{searchState.error}</div>}</div>}<div className="granthas-content-viewer" ref={viewerRef}>{contentLoading ? <div className="granthas-content-state">Loading Grantha…</div> : contentError ? <div className="granthas-content-state is-error">{contentError}</div> : renderContent()}</div></> : null}</div></section>
     </main><Footer /></>);
 }
 export default Granthas;
