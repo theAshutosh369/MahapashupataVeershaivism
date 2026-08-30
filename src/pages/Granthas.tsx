@@ -70,8 +70,8 @@ function Granthas() {
     async function runGlobalSearch() {
         const query = globalSearch.trim(); if (!query) { setGlobalResults([]); setGlobalError(''); return; }
         let pattern = globalRegex ? query : escapeRegExp(query); if (globalWholeWord) pattern = `\\b(?:${pattern})\\b`;
-        let expression: RegExp; try { expression = new RegExp(pattern, `gi${globalCaseSensitive ? '' : ''}`); } catch (err) { setGlobalError(err instanceof Error ? err.message : 'Invalid regular expression.'); setGlobalResults([]); return; }
-        setGlobalSearching(true); setGlobalError('');
+        let expression: RegExp; try { expression = new RegExp(pattern, `g${globalCaseSensitive ? '' : 'i'}`); } catch (err) { setGlobalError(err instanceof Error ? err.message : 'Invalid regular expression.'); setGlobalResults([]); return; }
+        setGlobalSearching(true); setGlobalError(''); setGlobalResults([]);
         try {
             const results: GlobalResult[] = [];
             const batchSize = 8;
