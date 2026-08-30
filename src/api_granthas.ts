@@ -1,4 +1,5 @@
-const API_BASE = import.meta.env.VITE_API_URL ?? (import.meta.env.DEV ? 'http://localhost:3003' : '');
+const configuredApiBase = String(import.meta.env.VITE_API_URL ?? '').trim();
+const API_BASE = configuredApiBase || (import.meta.env.DEV ? 'http://localhost:3003' : '');
 
 export type GranthaTreeResponse = {
     ok: boolean;
@@ -7,7 +8,7 @@ export type GranthaTreeResponse = {
 
 /**
  * Returns every Grantha/source file under public/data as a path relative to
- * public/data. The existing dataset-list API owns the filesystem scan, so the
+ * public/data. The existing Grantha-list API owns the filesystem scan, so the
  * Granthas page does not duplicate or reclassify the source hierarchy.
  */
 export async function listGranthas(): Promise<string[]> {
