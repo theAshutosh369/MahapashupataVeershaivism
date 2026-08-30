@@ -29,7 +29,7 @@ function Navbar() {
                     <Link to="/global-search" onClick={closeMenu}>Global Search</Link>
                     <Link to="/about" onClick={closeMenu}>About</Link>
                     <Link to="/settings" onClick={closeMenu}>Settings</Link>
-                    <Link to="/dataset" onClick={closeMenu}>Dataset Builder</Link>
+                    <Link to="/granthas" onClick={closeMenu}>Granthas</Link>
                     <Link to="/agent" onClick={closeMenu}>AI Agent</Link>
                 </nav>
             </div>
