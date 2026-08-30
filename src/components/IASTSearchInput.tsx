@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import type { KeyboardEvent } from 'react';
 
 type IASTSearchInputProps = {
     value: string;
@@ -31,7 +32,7 @@ function extractWords(content: string) {
 }
 
 function hasDiacritic(value: string) {
-    return /[āīūṛṝḷḹṅñṭḍṇśṣĀĪŪṚṜḶḹṄÑṬḌṆŚṢ]/u.test(value)
+    return /[āīūṛṝḷḹṅñṭḍṇśṣĀĪŪṚṜḶṄÑṬḌṆŚṢ]/u.test(value)
         || /[\u0300-\u036f]/u.test(value.normalize('NFD'));
 }
 
@@ -82,7 +83,7 @@ export default function IASTSearchInput({
         setActiveIndex(0);
     }
 
-    function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+    function handleKeyDown(event: KeyboardEvent<HTMLInputElement>) {
         if (!open || suggestions.length === 0) {
             if (event.key === 'Enter') onSubmit?.();
             if (event.key === 'Escape') setOpen(false);
