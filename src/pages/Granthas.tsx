@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -141,7 +142,7 @@ function Granthas() {
     function renderContent() {
         if (!search.trim() || matches.length === 0 || searchState.error) return <pre>{content}</pre>;
 
-        const parts: React.ReactNode[] = [];
+        const parts: ReactNode[] = [];
         let cursor = 0;
         matches.forEach((match, index) => {
             if (match.start > cursor) parts.push(content.slice(cursor, match.start));
