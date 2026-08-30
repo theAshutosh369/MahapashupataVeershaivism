@@ -43,12 +43,17 @@
 .granthas-tree-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; }
 .granthas-tree-count { margin-left: auto; padding-left: 7px; color: #999; font-size: 11px; }
 .granthas-tree-empty { padding: 20px 12px; color: #777; text-align: center; font-size: 13px; }
-.granthas-detail { padding: clamp(20px, 3vw, 34px); min-width: 0; }
+.granthas-detail { padding: clamp(20px, 3vw, 34px); min-width: 0; display: flex; flex-direction: column; }
 .granthas-detail-topline { color: #8a817b; font-size: 13px; margin-bottom: 10px; overflow-wrap: anywhere; }
-.granthas-detail h2 { color: #7A1F1F; margin: 0 0 10px; font-size: clamp(20px, 2.4vw, 28px); overflow-wrap: anywhere; }
+.granthas-detail-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.granthas-detail h2 { color: #7A1F1F; margin: 0 0 8px; font-size: clamp(20px, 2.4vw, 28px); overflow-wrap: anywhere; }
 .granthas-detail-path { margin: 0; color: #666; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
 .granthas-detail-actions { margin-top: 22px; }
-.granthas-open-file { display: inline-flex; align-items: center; min-height: 38px; padding: 0 14px; border-radius: 7px; background: #7A1F1F; color: #fff; text-decoration: none; font-size: 14px; font-weight: 600; }
+.granthas-open-file { display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 14px; border-radius: 7px; background: #7A1F1F; color: #fff; text-decoration: none; font-size: 14px; font-weight: 600; white-space: nowrap; }
+.granthas-content-viewer { margin-top: 22px; flex: 1; min-height: 440px; max-height: 68vh; overflow: auto; border: 1px solid #e7dfda; border-radius: 9px; background: #faf8f6; }
+.granthas-content-viewer pre { margin: 0; padding: 18px; white-space: pre-wrap; overflow-wrap: anywhere; color: #302b28; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 13px; line-height: 1.65; }
+.granthas-content-state { min-height: 240px; display: grid; place-items: center; padding: 24px; color: #777; text-align: center; }
+.granthas-content-state.is-error { color: #a32020; }
 .granthas-empty-state { min-height: 480px; display: grid; place-items: center; color: #777; }
 
 @media (max-width: 800px) {
@@ -58,7 +63,13 @@
     .granthas-action { flex: 1; }
     .granthas-layout { grid-template-columns: 1fr; min-height: 0; }
     .granthas-tree-panel { max-height: 55vh; min-height: 320px; }
-    .granthas-detail { min-height: 260px; }
+    .granthas-detail { min-height: 520px; }
+    .granthas-content-viewer { max-height: 55vh; }
+}
+
+@media (max-width: 520px) {
+    .granthas-detail-heading { flex-direction: column; }
+    .granthas-open-file { width: 100%; }
 }
 
 @media (max-width: 420px) {
