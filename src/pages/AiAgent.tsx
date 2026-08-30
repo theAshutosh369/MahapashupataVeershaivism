@@ -3,11 +3,13 @@ import Navbar from '../components/Navbar';
 import '../styles/pages/ai-agent.css';
 import '../styles/pages/ai-agent-fixes.css';
 import '../styles/components/chat-actions.css';
+import '../styles/components/dictate-button.css';
 import useRagAssistant from '../hooks/useRagAssistant';
 import QueryControls from '../components/ai/QueryControls';
 import AnswerPanel from '../components/ai/AnswerPanel';
 import ChatSidebar from '../components/ai/ChatSidebar';
 import LiveRagLogs from '../components/ai/LiveRagLogs';
+import DictateButton from '../components/ai/DictateButton';
 import { formatCitationLines } from '../components/ai/formatCitation';
 
 function AiAgent() {
@@ -341,6 +343,17 @@ function AiAgent() {
                                         className="ai-chat-textarea"
                                         disabled={loading}
                                     />
+                                    {!loading && (
+                                        <DictateButton
+                                            value={prompt}
+                                            onChange={(nextValue) => {
+                                                setPrompt(nextValue);
+                                                requestAnimationFrame(autoResizeTextarea);
+                                            }}
+                                            disabled={loading}
+                                            language="en-IN"
+                                        />
+                                    )}
                                     {loading ? (
                                         <button onClick={stop} className="ai-chat-send-btn ai-chat-stop-btn" aria-label="Stop generating">■</button>
                                     ) : (

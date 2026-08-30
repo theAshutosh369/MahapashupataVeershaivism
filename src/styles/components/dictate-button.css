@@ -1,0 +1,85 @@
+.ai-dictate-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+}
+
+.ai-dictate-btn {
+    position: relative;
+    width: 42px;
+    height: 42px;
+    border: 0;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #4b5563;
+    background: transparent;
+    transition: background-color .15s ease, color .15s ease, transform .15s ease;
+}
+
+.ai-dictate-btn:hover:not(:disabled) {
+    background: rgba(127, 29, 29, .08);
+    color: #7f1d1d;
+}
+
+.ai-dictate-btn:active:not(:disabled) {
+    transform: scale(.94);
+}
+
+.ai-dictate-btn:disabled {
+    opacity: .42;
+    cursor: not-allowed;
+}
+
+.ai-dictate-btn.is-listening {
+    color: #b91c1c;
+    background: rgba(185, 28, 28, .10);
+}
+
+.ai-dictate-pulse {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    right: 7px;
+    top: 7px;
+    border-radius: 50%;
+    background: #dc2626;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, .14);
+    animation: ai-dictate-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes ai-dictate-pulse {
+    0%, 100% { transform: scale(.75); opacity: .65; }
+    50% { transform: scale(1); opacity: 1; }
+}
+
+.ai-dictate-error {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 8px);
+    width: max-content;
+    max-width: min(320px, 80vw);
+    padding: 7px 10px;
+    border-radius: 8px;
+    background: #7f1d1d;
+    color: #fff;
+    font-size: 12px;
+    line-height: 1.35;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .16);
+    z-index: 20;
+}
+
+@media (max-width: 600px) {
+    .ai-dictate-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .ai-dictate-error {
+        right: -4px;
+        max-width: 260px;
+    }
+}

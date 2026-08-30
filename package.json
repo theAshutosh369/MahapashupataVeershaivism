@@ -16,7 +16,7 @@
     "prod": "node --max-old-space-size=4096 server/render_bootstrap.js"
   },
   "dependencies": {
-    "@google/genai": "^0.6.1",
+    "@google/genai": "2.19.0",
     "@supabase/ssr": "^0.12.4",
     "@supabase/supabase-js": "^2.112.3",
     "@xenova/transformers": "^2.0.3",
