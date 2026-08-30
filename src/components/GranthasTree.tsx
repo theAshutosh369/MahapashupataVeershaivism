@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import type { RAGDatasetNode } from '../types/rag';
 import { buildDatasetTree, filterTreeBySearch } from '../services/rag/tree';
 
@@ -48,11 +48,6 @@ export default function GranthasTree({ paths, selectedPath, onSelect }: Granthas
     const tree = useMemo(() => buildDatasetTree(paths), [paths]);
     const [search, setSearch] = useState('');
     const [expanded, setExpanded] = useState<Set<string>>(new Set());
-
-    useEffect(() => {
-        if (tree.length === 0) return;
-        setExpanded((previous) => previous.size > 0 ? previous : new Set(tree.filter((node) => node.type === 'folder').map((node) => node.id)));
-    }, [tree]);
 
     const searchActive = search.trim().length > 0;
     const visibleTree = useMemo(() => searchActive ? filterTreeBySearch(tree, search) : tree, [tree, searchActive, search]);
