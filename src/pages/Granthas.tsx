@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import GranthasTree from '../components/GranthasTree';
+import IASTSearchInput from '../components/IASTSearchInput';
 import { listGranthas } from '../api_granthas';
 import '../styles/pages/granthas.css';
 
@@ -186,11 +187,11 @@ function Granthas() {
                                 </div>
 
                                 <div className="granthas-advanced-search" aria-label="Advanced search in current Grantha">
-                                    <div className="granthas-search-main">
-                                        <span className="granthas-search-icon" aria-hidden="true">⌕</span>
-                                        <input type="search" value={search} onChange={(event) => { setSearch(event.target.value); setActiveMatch(0); }} placeholder="Search in this Grantha…" aria-label="Search in current Grantha" />
-                                        {search && <button type="button" className="granthas-search-clear" onClick={() => { setSearch(''); setActiveMatch(0); }} aria-label="Clear search">✕</button>}
-                                    </div>
+                                    <IASTSearchInput
+                                        value={search}
+                                        onChange={(value) => { setSearch(value); setActiveMatch(0); }}
+                                        content={content}
+                                    />
                                     <div className="granthas-search-options">
                                         <label><input type="checkbox" checked={caseSensitive} onChange={(event) => { setCaseSensitive(event.target.checked); setActiveMatch(0); }} /> Case sensitive</label>
                                         <label><input type="checkbox" checked={wholeWord} onChange={(event) => { setWholeWord(event.target.checked); setActiveMatch(0); }} /> Whole word</label>
