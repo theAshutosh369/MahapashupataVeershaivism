@@ -1,6 +1,6 @@
 /**
  * Phase 2 — RAG accuracy layer.
- * Keeps source/evidence handling deterministic and independent of the LLM.
+ * Deterministic source/evidence validation. No additional LLM calls.
  */
 
 function normalizeText(value) {
@@ -52,40 +52,81 @@ function sourceRecord(item, index) {
     };
 }
 
-/** Build deterministic source-aware evidence records for the LLM and UI. */
+/** Build stable, source-aware records used by validation and the API/UI. */
 export function buildEvidence(matched) {
-    return (Array.isArray(matched) ? matched : []).map(sourceRecord).filter(source => source.text);
+    return (Array.isArray(matched) ? matched : [])
+        .map(sourceRecord)
+        .filter(source => source.text);
+}
+
+function citationIds(answer) {
+    return [...new Set(
+        [...String(answer || '').matchAll(/\[(\d+)\]/g)]
+            .map(match => Number(match[1]))
+            .filter(Number.isInteger)
+    )];
+}
+
+function extractQuotedLines(answer) {
+    const lines = [];
+    for (const match of String(answer || '').matchAll(/^>\s?(.*)$/gm)) {
+        const line = String(match[1] || '').trim();
+        if (line && !/^\[\d+\]$/.test(line)) lines.push(line);
+    }
+    return lines;
+}
+
+function makeSourceExcerpt(source, maxLength = 320) {
+    const text = normalizeText(source?.text || '');
+    return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
 }
 
 /**
- * Validate an answer against the retrieved evidence.
- * This is intentionally conservative: it never claims a statement is grounded
- * merely because a citation number exists. Quoted evidence must exist verbatim
- * (ignoring whitespace), while uncited prose must have meaningful lexical
- * support from the retrieved sources.
+ * Validate generated text against the exact retrieved source set.
+ * Citations must point to real retrieved sources. Blockquoted original text
+ * must occur verbatim after whitespace/punctuation normalization. Ordinary
+ * prose is checked for lexical support rather than requiring word-for-word
+ * overlap, because faithful paraphrasing is valid RAG output.
  */
 export function validateGrounding(answer, matched) {
     const sources = buildEvidence(matched);
     const sourceByCitation = new Map(sources.map(source => [source.citationId, source]));
     const text = String(answer || '').trim();
+
     if (!text || !sources.length) {
-        return { grounded: false, confidence: 0, citations: [], evidence: [], reasons: ['No answer or evidence available.'] };
+        return {
+            grounded: false,
+            confidence: 0,
+            citations: [],
+            invalidCitations: [],
+            evidence: [],
+            citedSources: [],
+            reasons: ['No answer or evidence available.'],
+            sourceCount: sources.length,
+            supportRatio: 0,
+            exactEvidenceRatio: 0,
+            citationCoverage: 0
+        };
     }
 
-    const citationMatches = [...text.matchAll(/\[(\d+)\]/g)];
-    const citations = [...new Set(citationMatches.map(match => Number(match[1])).filter(Number.isInteger))];
+    const citations = citationIds(text);
     const invalidCitations = citations.filter(id => !sourceByCitation.has(id));
 
-    const quotedLines = [];
-    for (const match of text.matchAll(/^>\s?(.*)$/gm)) {
-        const line = String(match[1] || '').trim();
-        if (line && !/^\[\d+\]$/.test(line)) quotedLines.push(line);
-    }
+    const quotedLines = extractQuotedLines(text);
     const quoteChecks = quotedLines.map(quote => {
         const normalizedQuote = matchText(quote);
-        const exact = sources.some(source => matchText(source.text).includes(normalizedQuote));
-        return { quote, exact };
+        const matchingSource = sources.find(source => {
+            const sourceText = matchText(source.text);
+            return normalizedQuote.length >= 2 && sourceText.includes(normalizedQuote);
+        });
+        return {
+            quote,
+            exact: Boolean(matchingSource),
+            citationId: matchingSource?.citationId || null,
+            sourceId: matchingSource?.id || null
+        };
     });
+
     const exactEvidence = quoteChecks.filter(item => item.exact).length;
     const exactEvidenceRatio = quoteChecks.length ? exactEvidence / quoteChecks.length : 1;
 
@@ -94,14 +135,39 @@ export function validateGrounding(answer, matched) {
         .split(/\n\s*\n/)
         .map(part => part.replace(/\[\d+\]/g, '').trim())
         .filter(part => part.length >= 25);
+
     let supportedParagraphs = 0;
+    const paragraphEvidence = [];
     for (const paragraph of paragraphs) {
-        const best = Math.max(...sources.map(source => overlapScore(paragraph, source.text)), 0);
-        if (best >= 0.20) supportedParagraphs++;
+        let bestScore = 0;
+        let bestSource = null;
+        for (const source of sources) {
+            const score = overlapScore(paragraph, source.text);
+            if (score > bestScore) {
+                bestScore = score;
+                bestSource = source;
+            }
+        }
+        if (bestScore >= 0.20) supportedParagraphs++;
+        paragraphEvidence.push({
+            excerpt: paragraph.length > 280 ? paragraph.slice(0, 280) + '...' : paragraph,
+            supported: bestScore >= 0.20,
+            overlap: Math.round(bestScore * 100) / 100,
+            citationId: bestSource?.citationId || null,
+            sourceId: bestSource?.id || null
+        });
     }
+
     const supportRatio = paragraphs.length ? supportedParagraphs / paragraphs.length : 1;
-    const citationCoverage = paragraphs.length ? Math.min(1, citations.length / paragraphs.length) : (citations.length ? 1 : 0.5);
-    const retrievalQuality = Math.min(1, Math.max(0, sources.slice(0, 5).reduce((sum, source) => sum + Math.min(1, Math.max(0, source.retrievalScore)), 0) / Math.max(1, Math.min(5, sources.length))));
+    const citedParagraphs = paragraphs.filter(paragraph => /\[\d+\]/.test(paragraph)).length;
+    const citationCoverage = paragraphs.length
+        ? citedParagraphs / paragraphs.length
+        : (citations.length ? 1 : 0.5);
+
+    const retrievalQuality = Math.min(1, Math.max(0,
+        sources.slice(0, 5).reduce((sum, source) => sum + Math.min(1, Math.max(0, source.retrievalScore)), 0)
+        / Math.max(1, Math.min(5, sources.length))
+    ));
 
     const reasons = [];
     if (invalidCitations.length) reasons.push(`Invalid citation id(s): ${invalidCitations.join(', ')}`);
@@ -111,14 +177,43 @@ export function validateGrounding(answer, matched) {
     const confidence = Math.round(Math.max(0, Math.min(1,
         retrievalQuality * 0.35 + supportRatio * 0.35 + exactEvidenceRatio * 0.20 + citationCoverage * 0.10
     )) * 100);
-    const grounded = invalidCitations.length === 0 && exactEvidenceRatio >= 1 && (paragraphs.length === 0 || supportRatio >= 0.50);
+
+    const grounded = invalidCitations.length === 0
+        && exactEvidenceRatio >= 1
+        && (paragraphs.length === 0 || supportRatio >= 0.50);
+
+    const citedSources = sources.filter(source => citations.includes(source.citationId)).map(source => ({
+        id: source.id,
+        citationId: source.citationId,
+        dataset: source.dataset,
+        sourceType: source.sourceType,
+        filename: source.filename,
+        source: source.source,
+        title: source.title,
+        author: source.author,
+        page: source.page,
+        vachanaNumber: source.vachanaNumber,
+        language: source.language,
+        retrievalScore: source.retrievalScore,
+        excerpt: makeSourceExcerpt(source)
+    }));
+
+    const exactEvidenceRecords = quoteChecks
+        .filter(item => item.exact)
+        .map(item => ({
+            quote: item.quote,
+            citationId: item.citationId,
+            sourceId: item.sourceId
+        }));
 
     return {
         grounded,
         confidence,
         citations,
         invalidCitations,
-        evidence: quoteChecks,
+        evidence: exactEvidenceRecords,
+        paragraphEvidence,
+        citedSources,
         sourceCount: sources.length,
         supportRatio,
         exactEvidenceRatio,
@@ -127,18 +222,26 @@ export function validateGrounding(answer, matched) {
     };
 }
 
-/** Return only sources actually cited by the generated answer. */
+/** Return only sources explicitly cited by the generated answer. */
 export function extractCitedSources(answer, matched) {
     const sources = buildEvidence(matched);
-    const ids = new Set([...String(answer || '').matchAll(/\[(\d+)\]/g)].map(match => Number(match[1])));
-    return sources.filter(source => ids.has(source.citationId));
+    const ids = new Set(citationIds(answer));
+    return sources.filter(source => ids.has(source.citationId)).map(source => ({
+        ...source,
+        text: undefined,
+        excerpt: makeSourceExcerpt(source)
+    }));
 }
 
-/** Deterministic confidence based on retrieval + grounding, with no LLM call. */
+/** Deterministic confidence combining retrieval quality and grounding quality. */
 export function calculateConfidence(matched, validation = null) {
     const results = Array.isArray(matched) ? matched : [];
     if (!results.length) return 0;
-    const retrieval = Math.max(...results.slice(0, 5).map(item => Number(item?.rerankScore ?? item?.score ?? item?.similarity ?? 0)).map(value => Math.min(1, Math.max(0, value))), 0);
+    const retrieval = Math.max(...results.slice(0, 5)
+        .map(item => Number(item?.rerankScore ?? item?.score ?? item?.similarity ?? 0))
+        .map(value => Math.min(1, Math.max(0, value))), 0);
     if (!validation) return Math.round(retrieval * 100);
-    return Math.round(Math.min(1, retrieval * 0.45 + (validation.confidence / 100) * 0.55) * 100);
+    return Math.round(Math.min(1,
+        retrieval * 0.45 + (validation.confidence / 100) * 0.55
+    ) * 100);
 }
