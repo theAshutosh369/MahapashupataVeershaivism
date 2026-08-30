@@ -18,39 +18,6 @@ let readyPromise = null;
 function normalize(value) {
     return String(value || '').replace(/\\/g, '/').replace(/^\/+|\/+$/g, '');
 }
-
-/*
- * Phase 1 — multilingual search normalization.
- *
- * This intentionally does not transliterate one Indic script into another:
- * doing so without a proper language model can change names and Sanskrit words.
- * Instead, it removes Unicode presentation noise, normalises punctuation and
- * diacritics, and keeps every original script intact.
- */
-function normalizeSearchText(value) {
-    return String(value || '')
-        .normalize('NFKC')
-        .replace(/[\u200B-\u200D\uFEFF]/g, '')
-        .replace(/[।॥]+/g, ' ')
-        .normalize('NFKD')
-        .replace(/\p{M}/gu, '')
-        .toLowerCase()
-        .replace(/[^\p{L}\p{N}\s]/gu, ' ')
-        .replace(/\s+/g, ' ')
-        .trim();
-}
-
-const QUERY_STOP_WORDS = new Set([
-    'a','an','the','is','are','was','were','be','been','being','who','what','which','when','where','why','how','whom','whose',
-    'do','does','did','has','have','had','of','to','in','on','at','for','with','by','from','as','and','or','but','not','no','yes',
-    'it','its','he','she','they','them','we','you','i','this','that','these','those','am','will','would','can','could','should','may','might',
-    'tell','me','about','give','some','info','information','explain','describe',
-    'एक','एके','कौन','क्या','कब','कहाँ','क्यों','कैसे','है','हैं','था','थे','की','के','का','को','में','से','पर','और','या','यह','वह','मुझे',
-    'ಯಾರು','ಏನು','ಯಾವ','ಯಾವಾಗ','ಎಲ್ಲಿ','ಏಕೆ','ಹೇಗೆ','ಇದು','ಅದು','ಇದೆ','ಇವೆ','ಯಾರು','ಮತ್ತು','ಅಥವಾ','ನನಗೆ',
-    'कोण','काय','कधी','कुठे','का','कसे','आहे','आहेत','होता','होते','ची','चे','चा','ला','मध्ये','पासून','आणि','किंवा','मला',
-    'कः','का','किम्','कदा','कुत्र','कथम्','कस्य','केन','च','वा','अस्ति','सन्ति','मम'
-]);
-
 function shardCategory(name) {
     const value = normalize(name);
     return value ? value.split('/')[0] : '';
@@ -142,7 +109,7 @@ export async function ensureIndex(dataRoot, opts = {}) {
         }
         manifest = { sharded: true, ragRoot, shards: shardInfo, datasetNames: [...new Set(datasetNames)].sort((a, b) => a.localeCompare(b)), chunkCount };
         console.log('[ShardedRAG] Loaded ' + shardInfo.length + ' shards, ' + chunkCount + ' chunks');
-        console.log('[ShardedRAG] Retrieval mode: hierarchical shard-local retrieval + query expansion + hybrid reranking');
+        console.log('[ShardedRAG] Retrieval mode: shard-local keyword + batched semantic candidates; no loadAll()');
         return manifest;
     })();
     try { return await readyPromise; }
@@ -173,7 +140,6 @@ async function loadShard(shardName) {
     }
     return { name: shardName, dir, index, store };
 }
-
 function selectedShards(selection) {
     const all = (manifest?.shards || []).map(s => s.name).filter(name => !isIgnoredShard(name));
     if (!selection) return all;
@@ -197,183 +163,61 @@ function matchesSelection(chunk, selectedSet) {
     return false;
 }
 
-function uniquePush(list, value, max = 8) {
-    if (!value || list.includes(value) || list.length >= max) return;
-    list.push(value);
-}
-
-/*
- * Phase 1 — query expansion without extra Gemini calls.
- * The original query remains first and is always used for semantic search.
- * Additional variants are lexical-only, keeping one user question to one
- * embedding API request and therefore avoiding quota/performance regressions.
- */
-function expandQuery(query) {
-    const original = String(query || '').trim();
-    const normalized = normalizeSearchText(original);
-    const tokens = normalized.split(/\s+/).filter(Boolean);
-    const meaningful = tokens.filter(token => token.length >= 2 && !QUERY_STOP_WORDS.has(token));
-    const variants = [];
-
-    uniquePush(variants, original);
-    uniquePush(variants, normalized);
-    uniquePush(variants, meaningful.join(' '));
-
-    // Entity-focused variants are especially useful for questions such as
-    // "who is Renukacharya and Marularadhya?" where separate names may live in
-    // different chunks or even different shards.
-    for (const token of meaningful) {
-        if (token.length >= 4) uniquePush(variants, token, 8);
-    }
-
-    return variants;
-}
-
-function lexicalRrf(resultsByVariant, chunkId) {
-    let score = 0;
-    for (let rank = 0; rank < resultsByVariant.length; rank++) {
-        const result = resultsByVariant[rank].find(item => item?.chunk?.id === chunkId);
-        if (result) score += 1 / (30 + result.rank + 1);
-    }
-    return score;
-}
-
-function fieldRelevance(query, chunk) {
-    const q = normalizeSearchText(query);
-    const meaningful = q.split(/\s+/).filter(t => t.length >= 3 && !QUERY_STOP_WORDS.has(t));
-    if (!meaningful.length) return 0;
-    const fields = [chunk?.author, chunk?.title, chunk?.dataset, chunk?.filename].map(normalizeSearchText);
-    const text = normalizeSearchText(chunk?.text || '');
-    let matched = 0;
-    for (const token of meaningful) {
-        if (fields.some(field => field.includes(token))) matched += 1;
-        else if (text.includes(token)) matched += 0.5;
-    }
-    return Math.min(1, matched / meaningful.length);
-}
-
-async function retrieveWithinShard(shardName, query, queryVariants, selectedSet, topK, queryEmbedding) {
-    let shard = null;
-    try {
-        shard = await loadShard(shardName);
-        let candidates = shard.index.chunks;
-        if (selectedSet) candidates = candidates.filter(chunk => matchesSelection(chunk, selectedSet));
-        if (!candidates.length) return [];
-
-        const perShardTop = Math.max(20, Math.min(60, Number(topK) * 5));
-        const lexicalResults = [];
-        const union = new Map();
-
-        // Stage 1: query expansion + lexical retrieval inside this shard.
-        for (const variant of queryVariants) {
-            const results = keywordSearch(variant, candidates, { topK: perShardTop });
-            const ranked = [];
-            for (let i = 0; i < results.length; i++) {
-                const item = results[i];
-                if (!item?.chunk?.id) continue;
-                ranked.push({ ...item, rank: i });
-                union.set(item.chunk.id, item.chunk);
-            }
-            lexicalResults.push(ranked);
-        }
-
-        // Stage 1b: semantic candidates are searched directly in the shard's
-        // vector file. No complete embedding matrix is loaded into memory.
-        if (queryEmbedding && shard.store.size() > 0) {
-            const semanticHits = await shard.store.searchBatched(queryEmbedding, perShardTop, 500);
-            const byIndex = new Map();
-            for (const chunk of candidates) {
-                if (Number.isInteger(chunk.embeddingIndex) && chunk.embeddingIndex >= 0) byIndex.set(chunk.embeddingIndex, chunk);
-            }
-            for (const hit of semanticHits) {
-                const chunk = byIndex.get(hit.index);
-                if (chunk) union.set(chunk.id, chunk);
-            }
-        }
-
-        if (!union.size) return [];
-
-        // Stage 2: retrieve embeddings only for the small candidate union and
-        // use the existing proven hybrid scorer as the semantic+lexical base.
-        const candidateArray = [...union.values()].slice(0, 400);
-        if (queryEmbedding) {
-            for (const chunk of candidateArray) {
-                if (!Number.isInteger(chunk.embeddingIndex) || chunk.embeddingIndex < 0) continue;
-                try { chunk.embedding = await shard.store.get(chunk.embeddingIndex); } catch { /* lexical result remains usable */ }
-            }
-        }
-
-        const baseResults = queryEmbedding && candidateArray.some(c => c.embedding)
-            ? hybridSearch(queryEmbedding, query, candidateArray, { topK: perShardTop, retrieveK: perShardTop })
-            : keywordSearch(query, candidateArray, { topK: perShardTop });
-
-        const reranked = [];
-        for (let i = 0; i < baseResults.length; i++) {
-            const item = baseResults[i];
-            if (!item?.chunk?.id) continue;
-            const expansionScore = lexicalRrf(lexicalResults, item.chunk.id);
-            const fieldScore = fieldRelevance(query, item.chunk);
-            const baseScore = Number(item.score ?? item.similarity ?? 0);
-            // Final shard-local reranking. Hybrid remains the strongest signal;
-            // expansion and metadata/entity matching resolve ambiguous results.
-            const score = (baseScore * 0.70) + (Math.min(0.10, expansionScore) * 1.5) + (fieldScore * 0.15);
-            reranked.push({ ...item, score, expansionScore, fieldScore, shard: shardName });
-        }
-        reranked.sort((a, b) => b.score - a.score);
-        return reranked.slice(0, perShardTop);
-    } finally {
-        if (shard?.store) try { await shard.store.close(); } catch { /* ignore */ }
-    }
-}
-
 export async function retrieveFromShards(query, datasetSelection, topK = 10, queryEmbedding = null) {
     if (!manifest) throw new Error('Sharded RAG is not initialized. Call ensureIndex() first.');
-
     const shardNames = selectedShards(datasetSelection);
     const selectedSet = selectedDatasets(datasetSelection);
-    const queryVariants = expandQuery(query);
-    const effectiveTopK = Math.min(25, Math.max(1, Number(topK) || 10));
-
-    console.log('[ShardedRAG] Phase 1 query variants:', queryVariants.join(' | '));
-    console.log('[ShardedRAG] Hierarchical retrieval across ' + shardNames.length + ' selected shard(s)');
-
-    // Stage 1: each shard independently retrieves and reranks candidates.
-    const shardResults = [];
+    const perShardTop = Math.max(20, Math.min(50, Number(topK) * 4));
+    const allResults = [];
     for (const shardName of shardNames) {
+        let shard = null;
         try {
-            const results = await retrieveWithinShard(shardName, query, queryVariants, selectedSet, effectiveTopK, queryEmbedding);
-            if (results.length) shardResults.push(...results);
-        } catch (error) {
-            // A malformed/unrelated shard should not destroy retrieval from all
-            // other categories. This also makes old manifests safer to deploy.
-            console.warn('[ShardedRAG] Skipping shard ' + shardName + ': ' + error.message);
+            shard = await loadShard(shardName);
+            let candidates = shard.index.chunks;
+            if (selectedSet) candidates = candidates.filter(chunk => matchesSelection(chunk, selectedSet));
+            if (!candidates.length) continue;
+            const keywordCandidates = keywordSearch(query, candidates, { topK: perShardTop });
+            let semanticCandidates = [];
+            if (queryEmbedding && shard.store.size() > 0) {
+                const hits = await shard.store.searchBatched(queryEmbedding, perShardTop, 500);
+                const byIndex = new Map();
+                for (const chunk of candidates) if (Number.isInteger(chunk.embeddingIndex) && chunk.embeddingIndex >= 0) byIndex.set(chunk.embeddingIndex, chunk);
+                for (const hit of hits) {
+                    const chunk = byIndex.get(hit.index);
+                    if (chunk) semanticCandidates.push({ chunk, similarity: hit.score });
+                }
+            }
+            const union = new Map();
+            for (const item of keywordCandidates) if (item?.chunk?.id) union.set(item.chunk.id, item.chunk);
+            for (const item of semanticCandidates) if (item?.chunk?.id) union.set(item.chunk.id, item.chunk);
+            const candidateArray = [...union.values()];
+            if (!candidateArray.length) continue;
+            const semanticMap = new Map(semanticCandidates.map(item => [item.chunk.id, item.similarity]));
+            if (queryEmbedding && semanticMap.size) {
+                for (const chunk of candidateArray) {
+                    if (!semanticMap.has(chunk.id)) continue;
+                    try { chunk.embedding = await shard.store.get(chunk.embeddingIndex); } catch { /* fallback to keyword */ }
+                }
+            }
+            const results = queryEmbedding && candidateArray.some(c => c.embedding)
+                ? hybridSearch(queryEmbedding, query, candidateArray, { topK: perShardTop, retrieveK: perShardTop })
+                : keywordCandidates;
+            for (const result of results) if (result?.chunk) { result.shard = shardName; allResults.push(result); }
+            for (const chunk of candidateArray) delete chunk.embedding;
+        } finally {
+            if (shard?.store) try { await shard.store.close(); } catch { /* ignore */ }
         }
     }
-
-    if (!shardResults.length) return [];
-
-    // Stage 2: global reranking across shard-local winners. RRF prevents a
-    // large shard from dominating merely because it produced more candidates.
-    const grouped = new Map();
-    for (const item of shardResults) {
-        const id = item?.chunk?.id;
-        if (!id) continue;
-        const existing = grouped.get(id);
-        if (!existing) grouped.set(id, { ...item, shardScore: Number(item.score) || 0, shardRanks: 1 });
-        else {
-            existing.shardScore = Math.max(existing.shardScore, Number(item.score) || 0);
-            existing.shardRanks += 1;
-        }
+    allResults.sort((a, b) => Number(b.score ?? b.similarity ?? 0) - Number(a.score ?? a.similarity ?? 0));
+    const seen = new Set();
+    const finalResults = [];
+    const limit = Math.min(25, Number(topK) || 10);
+    for (const item of allResults) {
+        const id = item.chunk?.id;
+        if (id && seen.has(id)) continue;
+        if (id) seen.add(id);
+        finalResults.push(item);
+        if (finalResults.length >= limit) break;
     }
-
-    const finalResults = [...grouped.values()];
-    finalResults.sort((a, b) => {
-        const scoreA = (a.shardScore * 0.80) + (Math.min(1, a.shardRanks / 3) * 0.20);
-        const scoreB = (b.shardScore * 0.80) + (Math.min(1, b.shardRanks / 3) * 0.20);
-        return scoreB - scoreA;
-    });
-
-    const limited = finalResults.slice(0, effectiveTopK);
-    console.log('[ShardedRAG] Phase 1 retrieval complete: ' + limited.length + ' results');
-    return limited;
+    return finalResults;
 }
