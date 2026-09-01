@@ -1,26 +1,16 @@
-# AI Agent Dataset Fix Plan - Progress
+# Fix Render.com AI Agent Deployment Issues
 
-## ✅ Step 1: Fix `/api/rag/datasets` - Decouple from embedding/index
-- [x] Modified datasets endpoint to try index first, fall back to filesystem scan
+## Steps
+- [x] 1. Diagnose the root cause (rag_index.json not deployed + enrichedCandidates bug + join bug)
+- [x] 2. Remove `server/rag_index.json` from `.gitignore`
+- [x] 3. Fix `enrichedCandidates` → `candidates` bug in `server/rag_engine.js`
+- [x] 4. Fix `lines.join('\\n')` → `lines.join('\n')` in `buildSystemPrompt()`
+- [x] 5. Verify index metadata is correct (21077 chunks, 230 datasets, embeddings bin matches)
+- [ ] 6. Commit changes (including the index file) and push so Render can deploy
+- [ ] 7. Set `GEMINI_API_KEY` in Render dashboard (if not already set)
 
-## ✅ Step 2: Fix `buildIndex()` - Make embedding failure non-fatal  
-- [x] Index is saved with chunks but without embeddings when embeddings fail
-- [x] `getEmbeddingProvider()` returns `null` instead of throwing
+## Notes
+- `server/rag_index.json` must be committed so it ships with the deployment
+- `server/rag_embeddings.bin` is already tracked and deployed
+- Set `GEMINI_API_KEY` in the Render dashboard (it's `sync: false` in render.yaml, so it must be set manually)
 
-## ✅ Step 3: Fix `selectTopChunks()` - Add keyword fallback
-- [x] Added `selectTopChunksByKeyword()` function
-- [x] `selectTopChunks()` now falls back to keyword search when embeddings aren't available
-
-## ✅ Step 4: Fix query endpoints - Handle embedding failures
-- [x] Both stream and regular query endpoints wrap embedding in try/catch
-- [x] Fall back to keyword-only retrieval when embedding fails
-
-## ✅ Step 5: Fix incremental update in ensureIndex
-- [x] Incremental embedding wrapped in try/catch
-
-## ✅ Step 6: Fix frontend dataset name formatting
-- [x] `listRagDatasets` now handles filesystem scan paths properly
-
-## ⬜ Step 7: Verify server starts and works
-- [ ] Start server and verify datasets endpoint returns data
-- [ ] Test query with keyword-only fallback
