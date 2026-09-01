@@ -81,13 +81,17 @@ async function scanJsonFiles(directory) {
     }
 }
 function buildMetadata(sourceFiles) {
+    // Sort a copy of sourceFiles by path so the stored metadata is deterministic
+    // and identical whether produced by buildIndex() or incrementalUpdate().
+    var sorted = sourceFiles.slice().sort(function (a, b) {
+        return a.path.localeCompare(b.path);
+    });
     var datasetNames = [];
-    for (var i = 0; i < sourceFiles.length; i++) {
-        datasetNames.push(sourceFiles[i].path);
+    for (var i = 0; i < sorted.length; i++) {
+        datasetNames.push(sorted[i].path);
     }
-    datasetNames.sort();
     return {
-        sourceFiles: sourceFiles,
+        sourceFiles: sorted,
         datasetNames: datasetNames
     };
 }
@@ -322,7 +326,9 @@ async function buildIndex(dataRoot) {
         throw new Error('No source files found in data directories');
     }
 
-    var datasetNames = filePaths.slice().sort();
+    // Shared metadata helper — identical format as incrementalUpdate()
+    var metadata = buildMetadata(sourceFiles);
+    var datasetNames = metadata.datasetNames;
     console.log('[IndexManager] Files: ' + datasetNames.length + ', building index');
     console.log('');
 
@@ -353,8 +359,8 @@ async function buildIndex(dataRoot) {
         await jsonWriter.write('  "embeddingModel": ' + JSON.stringify(EMBEDDING_MODEL) + ',\n');
         await jsonWriter.write('  "embeddingDimension": ' + EMBEDDING_DIMENSION + ',\n');
         await jsonWriter.write('  "createdAt": ' + JSON.stringify(new Date().toISOString()) + ',\n');
-        await jsonWriter.write('  "sourceFiles": ' + JSON.stringify(sourceFiles) + ',\n');
-        await jsonWriter.write('  "datasetNames": ' + JSON.stringify(datasetNames) + ',\n');
+        await jsonWriter.write('  "sourceFiles": ' + JSON.stringify(metadata.sourceFiles) + ',\n');
+        await jsonWriter.write('  "datasetNames": ' + JSON.stringify(metadata.datasetNames) + ',\n');
         await jsonWriter.write('  "embeddingFile": ' + JSON.stringify(path.basename(EMBEDDINGS_FILE)) + ',\n');
         await jsonWriter.write('  "chunks": [\n');
 
