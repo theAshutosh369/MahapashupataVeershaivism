@@ -311,7 +311,7 @@ export async function retrieveFromShards(query, datasetSelection, topK = 10, que
             }
 
             const results = queryEmbedding && candidateArray.some(c => c.embedding)
-                ? hybridSearch(queryEmbedding, query, candidateArray, { topK: perShardTop, retrieveK: perShardTop })
+                ? hybridSearch(queryEmbedding, query, candidateArray, { topK: perShardTop, retrieveK: perShardTop, preserveSemanticCandidates: true })
                 : keywordCandidates;
 
             for (const result of results) {
