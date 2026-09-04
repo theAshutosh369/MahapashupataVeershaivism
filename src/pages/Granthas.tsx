@@ -11,11 +11,17 @@ import '../styles/pages/granthas.css';
 
 function displayGranthaName(fileName: string) { return String(fileName || '').replace(/_/g, ' ').replace(/\.(txt|json)$/i, ''); }
 function escapeRegExp(value: string) { return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+function normalizeGranthaPath(value: string | null | undefined) { return String(value || '').replace(/\\/g, '/').replace(/^\/+|\/+$/g, ''); }
+function folderPrefixForPath(value: string | null | undefined) {
+    const normalized = normalizeGranthaPath(value);
+    const parts = normalized.split('/').filter(Boolean);
+    return parts.length > 1 ? parts.slice(0, -1).join('/') : '';
+}
 type SearchMatch = { start: number; end: number };
 type SearchMode = 'current' | 'folder' | 'all';
 type SearchHistoryEntry = { id: string; query: string; mode: SearchMode; caseSensitive: boolean; wholeWord: boolean; regex: boolean; createdAt: number; scopePath?: string };
 type GlobalResult = { path: string; name: string; matches: number; snippets: string[]; firstMatch: number };
-type GlobalSearchState = { open: boolean; query: string; caseSensitive: boolean; wholeWord: boolean; regex: boolean; results: GlobalResult[]; error: string; searching: boolean; selectedPath: string | null };
+type GlobalSearchState = { open: boolean; mode: SearchMode; scopePath: string | null; query: string; caseSensitive: boolean; wholeWord: boolean; regex: boolean; results: GlobalResult[]; error: string; searching: boolean; selectedPath: string | null };
 
 const RECENT_KEY = 'granthas-recently-opened-v1';
 const BOOKMARKS_KEY = 'granthas-bookmarks-v1';
@@ -92,6 +98,9 @@ function Granthas() {
     const [isFullscreen, setIsFullscreen] = useState(false);
     const viewerRef = useRef<HTMLDivElement>(null);
     const detailRef = useRef<HTMLDivElement>(null);
+    const readingPositionsRef = useRef<Record<string, number>>(readingPositions);
+    const positionSaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const searchRunRef = useRef(0);
 
     useEffect(() => {
         let cancelled = false;
@@ -99,7 +108,7 @@ function Granthas() {
         return () => { cancelled = true; };
     }, []);
 
-    const selectedParts = useMemo(() => (selectedPath ?? '').split('/').filter(Boolean), [selectedPath]);
+    const selectedParts = useMemo(() => normalizeGranthaPath(selectedPath).split('/').filter(Boolean), [selectedPath]);
     const selectedFileName = selectedParts[selectedParts.length - 1] ?? '';
     const selectedName = displayGranthaName(selectedFileName);
     const selectedFolder = selectedParts.slice(0, -1).map((part) => part.replace(/_/g, ' ')).join(' / ');
@@ -107,12 +116,12 @@ function Granthas() {
     const isBookmarked = selectedPath ? bookmarks.includes(selectedPath) : false;
     const recentVisible = recentPaths.filter((path) => paths.includes(path));
     const bookmarkedVisible = bookmarks.filter((path) => paths.includes(path));
-    const folderPrefix = selectedParts.slice(0, -1).join('/');
-    const folderPaths = useMemo(() => folderPrefix ? paths.filter((path) => path.startsWith(`${folderPrefix}/`)) : [], [paths, folderPrefix]);
+    const folderPrefix = folderPrefixForPath(selectedPath);
+    const folderPaths = useMemo(() => folderPrefix ? paths.filter((path) => normalizeGranthaPath(path).startsWith(`${folderPrefix}/`)) : [], [paths, folderPrefix]);
     const currentSearchState = useMemo(() => findMatches(content, search.trim(), searchCaseSensitive, searchWholeWord, searchRegex), [content, search, searchCaseSensitive, searchWholeWord, searchRegex]);
     const matches = currentSearchState.matches;
 
-    function publicFileUrl(filePath: string) { return `/data/${filePath.split('/').map(encodeURIComponent).join('/')}`; }
+    function publicFileUrl(filePath: string) { return `/data/${normalizeGranthaPath(filePath).split('/').map(encodeURIComponent).join('/')}`; }
     function persistSearchHistory(query: string, mode: SearchMode, caseSensitive: boolean, wholeWord: boolean, regex: boolean, scopePath = selectedPath ?? undefined) {
         const normalized = query.trim(); if (!normalized) return;
         setSearchHistory((previous) => {
@@ -140,7 +149,12 @@ function Granthas() {
         setBookmarks((previous) => { const next = previous.includes(path) ? previous.filter((item) => item !== path) : [path, ...previous]; localStorage.setItem(BOOKMARKS_KEY, JSON.stringify(next)); return next; });
     }
     function updatePosition(path: string, position: number) {
-        setReadingPositions((previous) => { const next = { ...previous, [path]: position }; localStorage.setItem(POSITIONS_KEY, JSON.stringify(next)); return next; });
+        readingPositionsRef.current = { ...readingPositionsRef.current, [path]: position };
+        if (positionSaveTimerRef.current) clearTimeout(positionSaveTimerRef.current);
+        positionSaveTimerRef.current = setTimeout(() => {
+            localStorage.setItem(POSITIONS_KEY, JSON.stringify(readingPositionsRef.current));
+            positionSaveTimerRef.current = null;
+        }, 150);
     }
     function changeFontSize(delta: number) {
         setFontSize((value) => { const next = Math.min(22, Math.max(10, Number((value + delta).toFixed(1)))); localStorage.setItem(FONT_SIZE_KEY, JSON.stringify(next)); return next; });
@@ -153,12 +167,20 @@ function Granthas() {
     }
     function selectGrantha(path: string, fromGlobalResult = false, matchIndex = 0) {
         if (fromGlobalResult) {
-            setPreviousGlobalState({ open: globalOpen, query: globalSearch, caseSensitive: globalCaseSensitive, wholeWord: globalWholeWord, regex: globalRegex, results: globalResults, error: globalError, searching: globalSearching, selectedPath });
+            setPreviousGlobalState({ open: globalOpen, mode: globalSearchMode, scopePath: globalScopePath, query: globalSearch, caseSensitive: globalCaseSensitive, wholeWord: globalWholeWord, regex: globalRegex, results: globalResults, error: globalError, searching: globalSearching, selectedPath });
             setGlobalOpen(false);
         } else setPreviousGlobalState(null);
         setSelectedPath(path); setActiveMatch(matchIndex); persistRecent(path); setShowRecent(false); setShowBookmarks(false);
     }
     function selectAdjacent(direction: -1 | 1) { const nextIndex = selectedIndex + direction; if (nextIndex >= 0 && nextIndex < paths.length) selectGrantha(paths[nextIndex]); }
+
+    useEffect(() => {
+        readingPositionsRef.current = readingPositions;
+    }, [readingPositions]);
+
+    useEffect(() => {
+        return () => { if (positionSaveTimerRef.current) clearTimeout(positionSaveTimerRef.current); };
+    }, []);
 
     useEffect(() => {
         if (!selectedPath) { setContent(''); setContentError(''); setCurrentSearchOpen(false); return; }
@@ -169,9 +191,11 @@ function Granthas() {
 
     useEffect(() => {
         if (!selectedPath || contentLoading || !content || !viewerRef.current) return;
-        const position = readingPositions[selectedPath] ?? 0;
-        requestAnimationFrame(() => { if (viewerRef.current) viewerRef.current.scrollTop = position; });
-    }, [selectedPath, contentLoading, content, readingPositions]);
+        const position = readingPositionsRef.current[selectedPath] ?? 0;
+        requestAnimationFrame(() => {
+            if (viewerRef.current) viewerRef.current.scrollTop = Math.min(position, Math.max(0, viewerRef.current.scrollHeight - viewerRef.current.clientHeight));
+        });
+    }, [selectedPath, contentLoading, content]);
 
     useEffect(() => {
         function handleFullscreenChange() { setIsFullscreen(Boolean(document.fullscreenElement)); }
@@ -197,11 +221,13 @@ function Granthas() {
         return <pre>{parts}</pre>;
     }
 
-    async function searchPaths(candidatePaths: string[], query: string, caseSensitive: boolean, wholeWord: boolean, regex: boolean, update: (results: GlobalResult[]) => void) {
+    async function searchPaths(candidatePaths: string[], query: string, caseSensitive: boolean, wholeWord: boolean, regex: boolean, update: (results: GlobalResult[]) => void, runId: number) {
         const results: GlobalResult[] = [];
+        const uniquePaths = Array.from(new Set(candidatePaths.map(normalizeGranthaPath).filter(Boolean)));
         const batchSize = 8;
-        for (let i = 0; i < candidatePaths.length; i += batchSize) {
-            const batch = candidatePaths.slice(i, i + batchSize);
+        for (let i = 0; i < uniquePaths.length; i += batchSize) {
+            if (runId !== searchRunRef.current) return results;
+            const batch = uniquePaths.slice(i, i + batchSize);
             const found = await Promise.all(batch.map(async (path) => {
                 try {
                     const response = await fetch(publicFileUrl(path)); if (!response.ok) return null;
@@ -210,6 +236,7 @@ function Granthas() {
                     return { path, name: displayGranthaName(path.split('/').pop() || path), matches: state.matches.length, snippets, firstMatch: state.matches[0].start };
                 } catch { return null; }
             }));
+            if (runId !== searchRunRef.current) return results;
             results.push(...found.filter((item): item is GlobalResult => Boolean(item)));
             update([...results]);
         }
@@ -218,18 +245,23 @@ function Granthas() {
 
     async function runFolderSearch(queryOverride = search, caseSensitive = searchCaseSensitive, wholeWord = searchWholeWord, regex = searchRegex, scopePath = globalScopePath ?? selectedPath) {
         const query = queryOverride.trim(); if (!query) { setFolderResults([]); setFolderError(''); return; }
-        const scopeParts = (scopePath ?? '').split('/').filter(Boolean); const prefix = scopeParts.slice(0, -1).join('/');
-        const candidatePaths = prefix ? paths.filter((path) => path.startsWith(`${prefix}/`)) : folderPaths;
+        const prefix = folderPrefixForPath(scopePath);
+        const normalizedPaths = paths.map(normalizeGranthaPath).filter(Boolean);
+        const candidatePaths = prefix
+            ? normalizedPaths.filter((path) => path.startsWith(`${prefix}/`))
+            : normalizedPaths;
         const test = findMatches('', query, caseSensitive, wholeWord, regex); if (test.error) { setFolderError(test.error); setFolderResults([]); return; }
+        const runId = ++searchRunRef.current;
         setFolderSearching(true); setFolderError(''); setFolderResults([]); persistSearchHistory(query, 'folder', caseSensitive, wholeWord, regex, scopePath);
-        try { await searchPaths(candidatePaths, query, caseSensitive, wholeWord, regex, setFolderResults); } finally { setFolderSearching(false); }
+        try { await searchPaths(candidatePaths, query, caseSensitive, wholeWord, regex, setFolderResults, runId); } finally { if (runId === searchRunRef.current) setFolderSearching(false); }
     }
 
     async function runGlobalSearch(queryOverride = globalSearch, caseSensitive = globalCaseSensitive, wholeWord = globalWholeWord, regex = globalRegex) {
         const query = queryOverride.trim(); if (!query) { setGlobalResults([]); setGlobalError(''); return; }
         const test = findMatches('', query, caseSensitive, wholeWord, regex); if (test.error) { setGlobalError(test.error); setGlobalResults([]); return; }
+        const runId = ++searchRunRef.current;
         setGlobalSearching(true); setGlobalError(''); setGlobalResults([]); persistSearchHistory(query, 'all', caseSensitive, wholeWord, regex, selectedPath ?? undefined);
-        try { await searchPaths(paths, query, caseSensitive, wholeWord, regex, setGlobalResults); } finally { setGlobalSearching(false); }
+        try { await searchPaths(paths, query, caseSensitive, wholeWord, regex, setGlobalResults, runId); } finally { if (runId === searchRunRef.current) setGlobalSearching(false); }
     }
 
     function openSearchMode(mode: SearchMode) {
@@ -242,13 +274,14 @@ function Granthas() {
     }
     function submitActiveSearch() {
         if (searchMode === 'current') { persistSearchHistory(search, 'current', searchCaseSensitive, searchWholeWord, searchRegex, selectedPath ?? undefined); setActiveMatch(0); return; }
-        setCurrentSearchOpen(false); setGlobalSearch(search); setGlobalCaseSensitive(searchCaseSensitive); setGlobalWholeWord(searchWholeWord); setGlobalRegex(searchRegex); setGlobalSearchMode(searchMode); setGlobalScopePath(selectedPath);
+        const scopePath = selectedPath;
+        setCurrentSearchOpen(false); setGlobalSearch(search); setGlobalCaseSensitive(searchCaseSensitive); setGlobalWholeWord(searchWholeWord); setGlobalRegex(searchRegex); setGlobalSearchMode(searchMode); setGlobalScopePath(scopePath);
         setGlobalOpen(true);
-        if (searchMode === 'folder') { void runFolderSearch(search, searchCaseSensitive, searchWholeWord, searchRegex, selectedPath); return; }
+        if (searchMode === 'folder') { void runFolderSearch(search, searchCaseSensitive, searchWholeWord, searchRegex, scopePath); return; }
         void runGlobalSearch(search, searchCaseSensitive, searchWholeWord, searchRegex);
     }
     function openFolderResult(result: GlobalResult) {
-        setSearchMode('current'); setCurrentSearchOpen(true); setSearch(result.name ? search : search); setSearchCaseSensitive(globalCaseSensitive); setSearchWholeWord(globalWholeWord); setSearchRegex(globalRegex); setActiveMatch(0); selectGrantha(result.path, false, 0);
+        setSearch(globalSearch); setSearchCaseSensitive(globalCaseSensitive); setSearchWholeWord(globalWholeWord); setSearchRegex(globalRegex); setSearchMode('current'); setCurrentSearchOpen(true); setActiveMatch(0); selectGrantha(result.path, true, 0);
     }
     function openGlobalResult(path: string, matchIndex = 0) {
         setSearch(globalSearch); setSearchCaseSensitive(globalCaseSensitive); setSearchWholeWord(globalWholeWord); setSearchRegex(globalRegex); setSearchMode('current'); setCurrentSearchOpen(true); setActiveMatch(matchIndex); selectGrantha(path, true, matchIndex);
@@ -256,7 +289,7 @@ function Granthas() {
     function returnToSearchResults() {
         if (!previousGlobalState) return;
         const state = previousGlobalState;
-        setSelectedPath(state.selectedPath); setGlobalSearch(state.query); setGlobalCaseSensitive(state.caseSensitive); setGlobalWholeWord(state.wholeWord); setGlobalRegex(state.regex); setGlobalResults(state.results); setGlobalError(state.error); setGlobalSearching(state.searching); setGlobalSearchMode('all'); setGlobalScopePath(state.selectedPath); setGlobalOpen(true); setSearch(''); setSearchMode('current'); setSearchCaseSensitive(false); setSearchWholeWord(false); setSearchRegex(false); setActiveMatch(0); setCurrentSearchOpen(false); setPreviousGlobalState(null);
+        setSelectedPath(state.selectedPath); setGlobalSearch(state.query); setGlobalCaseSensitive(state.caseSensitive); setGlobalWholeWord(state.wholeWord); setGlobalRegex(state.regex); setGlobalResults(state.results); setGlobalError(state.error); setGlobalSearching(state.searching); setGlobalSearchMode(state.mode); setGlobalScopePath(state.scopePath); setGlobalOpen(true); setSearch(''); setSearchMode('current'); setSearchCaseSensitive(false); setSearchWholeWord(false); setSearchRegex(false); setActiveMatch(0); setCurrentSearchOpen(false); setPreviousGlobalState(null);
     }
 
     const topSearchResults = globalSearchMode === 'folder' ? folderResults : globalResults;
