@@ -22,7 +22,10 @@ function sourcePath(source: RAGSource) {
 function openSource(source: RAGSource) {
     const path = sourcePath(source);
     if (!path) return;
-    window.location.assign(`/granthas/source?path=${encodeURIComponent(path)}&match=${encodeURIComponent(source.excerpt || '')}`);
+    const params = new URLSearchParams({ open: path, match: source.excerpt || '', from: '/agent' });
+    // Use the Granthas reader itself so the source opens in the normal
+    // tabbed/tree workspace instead of a separate source-only page.
+    window.location.assign(`/granthas?${params.toString()}`);
 }
 
 function sourceText(source: RAGSource) {
@@ -58,7 +61,9 @@ type AnswerPanelProps = {
 };
 
 export default function AnswerPanel({ answer, sources, loading, onCopyAnswer }: AnswerPanelProps) {
-    const [showSources, setShowSources] = useState(true);
+    // Sources are intentionally collapsed by default. Users can expand them
+    // without losing the answer or leaving the conversation.
+    const [showSources, setShowSources] = useState(false);
     const [showEvidence, setShowEvidence] = useState(false);
     const [copied, setCopied] = useState(false);
     const sourceCount = sources.length;
@@ -100,11 +105,11 @@ export default function AnswerPanel({ answer, sources, loading, onCopyAnswer }: 
 
             {!loading && answer && <div className="assistant-actions">
                 <button type="button" className="assistant-action-btn" onClick={handleCopy} title="Copy answer">{copied ? <CheckIcon/> : <CopyIcon/>}<span>{copied ? 'Copied' : 'Copy'}</span></button>
-                {sourceCount > 0 && <button type="button" className="assistant-action-btn" onClick={() => setShowSources(!showSources)} title="View sources"><SourcesIcon/><span>{showSources ? 'Hide sources' : 'Sources'}</span></button>}
+                {sourceCount > 0 && <button type="button" className="assistant-action-btn" onClick={() => setShowSources(!showSources)} title={showSources ? 'Hide sources' : 'Show sources'}><SourcesIcon/><span>{showSources ? 'Hide sources' : `Sources (${sourceCount})`}</span></button>}
                 {sourceCount > 0 && evidenceItems.length > 0 && <button type="button" className="assistant-action-btn" onClick={() => setShowEvidence(!showEvidence)} title="Show evidence">⌕<span>{showEvidence ? 'Hide evidence' : 'Show evidence'}</span></button>}
             </div>}
 
-            {showSources && sourceCount > 0 && <div className="sources-inline-panel"><div style={{ fontWeight: 650, fontSize: 13, color: '#374151', marginBottom: 9 }}>Sources</div><div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>{sources.map((source, index) => <div key={source.id || `${source.dataset}-${index}`} className="source-detail" style={{ padding: 10, border: '1px solid #e5ddd8', borderRadius: 9 }}><div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}><div style={{ fontSize: 12, fontWeight: 650, color: '#403936' }}>{isDocumentSource(source) ? formatCitationSummary(source, index) : <>{`[${index + 1}] ${source.dataset}`}{source.page !== undefined && ` · Page ${source.page}`}{source.vachanaNumber !== undefined && ` · Vachana ${source.vachanaNumber}`}</>}</div><button type="button" onClick={() => openSource(source)} style={{ border: 0, background: '#7A1F1F', color: '#fff', borderRadius: 6, padding: '5px 8px', cursor: 'pointer', fontSize: 10, fontWeight: 700 }}>Open</button></div><div style={{ color: '#4d4541', fontSize: 12, lineHeight: 1.55, marginTop: 6 }}>{source.excerpt}</div></div>)}</div></div>}
+            {showSources && sourceCount > 0 && <div className="sources-inline-panel"><div style={{ fontWeight: 650, fontSize: 13, color: '#374151', marginBottom: 9 }}>Sources</div><div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>{sources.map((source, index) => <div key={source.id || `${source.dataset}-${index}`} className="source-detail" role="button" tabIndex={0} onClick={() => openSource(source)} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openSource(source); } }} style={{ padding: 10, border: '1px solid #e5ddd8', borderRadius: 9, cursor: 'pointer' }}><div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}><div style={{ fontSize: 12, fontWeight: 650, color: '#403936' }}>{isDocumentSource(source) ? formatCitationSummary(source, index) : <>{`[${index + 1}] ${source.dataset}`}{source.page !== undefined && ` · Page ${source.page}`}{source.vachanaNumber !== undefined && ` · Vachana ${source.vachanaNumber}`}</>}</div><span style={{ border: 0, background: '#7A1F1F', color: '#fff', borderRadius: 6, padding: '5px 8px', fontSize: 10, fontWeight: 700 }}>Open Grantha →</span></div><div style={{ color: '#4d4541', fontSize: 12, lineHeight: 1.55, marginTop: 6 }}>{source.excerpt}</div></div>)}</div></div>}
 
             {showEvidence && evidenceItems.length > 0 && <div className="sources-inline-panel" style={{ marginTop: 10 }}><div style={{ fontWeight: 650, fontSize: 13, color: '#374151', marginBottom: 9 }}>Evidence for the answer</div><div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>{evidenceItems.map((item, index) => <div key={`${index}-${item.statement.slice(0, 20)}`} style={{ border: '1px solid #e5ddd8', borderRadius: 9, padding: 10, background: '#fff' }}><div style={{ fontSize: 12, lineHeight: 1.55, color: '#403936' }}>{item.statement.length > 360 ? `${item.statement.slice(0, 360)}…` : item.statement}</div>{item.source ? <div style={{ marginTop: 7 }}><button type="button" onClick={() => openSource(item.source!)} style={{ border: 0, background: 'transparent', padding: 0, color: '#7A1F1F', cursor: 'pointer', fontSize: 11, fontWeight: 700 }}>Show evidence · {cleanSourceTitle(item.source)} →</button><div style={{ marginTop: 5, padding: 8, borderRadius: 7, background: '#faf7f4', color: '#5a504b', fontSize: 11, lineHeight: 1.55 }}>{sourceText(item.source)}</div></div> : <div style={{ marginTop: 6, color: '#9a7a6e', fontSize: 11 }}>No sufficiently strong retrieved evidence match for this statement.</div>}</div>)}</div></div>}
         </div>
