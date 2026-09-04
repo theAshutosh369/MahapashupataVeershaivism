@@ -78,9 +78,6 @@ function detectToc(text: string): TocEntry[] {
     const entries: TocEntry[] = [];
     const lines = text.split(/\r?\n/);
     let offset = 0;
-    let chapterCount = 0;
-    let sectionCount = 0;
-    let verseCount = 0;
 
     const chapterPattern = /^(?:chapter|adhyaya|adhyāya|adhyāyaḥ|kāṇḍa|kanda|sarga|sargaḥ|book|part)\b/i;
     const sectionPattern = /^(?:section|prakaraṇa|prakarana|prakaraṇam|khaṇḍa|khanda)\b/i;
@@ -89,21 +86,17 @@ function detectToc(text: string): TocEntry[] {
     const sanskritVersePattern = /^(?:श्लोक(?:ः|म्)?\s*\d+|\d+[.)]\s*श्लोक)/;
     const numberedHeadingPattern = /^\d+(?:\.\d+){0,2}[.)]?\s+[A-ZĀĪŪṚṜḶḹŚṢṬḌḤĪŌ][^.!?]{2,120}$/;
 
-    for (let index = 0; index < lines.length; index += 1) {
-        const rawLine = lines[index];
+    for (const rawLine of lines) {
         const line = cleanHeading(rawLine);
         const lower = line.toLowerCase();
         let level: 1 | 2 | 3 | null = null;
 
         if (chapterPattern.test(line) || sanskritChapterPattern.test(line)) {
             level = 1;
-            chapterCount += 1;
         } else if (sectionPattern.test(line)) {
             level = 2;
-            sectionCount += 1;
         } else if (versePattern.test(line) || sanskritVersePattern.test(line)) {
             level = 3;
-            verseCount += 1;
         } else if (numberedHeadingPattern.test(line) && !/^(?:19|20)\d{2}\b/.test(line)) {
             level = /^(?:\d+\.){2}/.test(line) ? 3 : /^(?:\d+\.)/.test(line) ? 2 : 1;
         } else if (line.length >= 4 && line.length <= 110 && /^(?:[A-ZĀĪŪṚṜḶḹŚṢṬḌḤ][A-ZĀĪŪṚṜḶḹŚṢṬḌḤ\s,:;()'’'\-–—0-9]+)$/.test(line) && !lower.includes('page')) {
@@ -141,9 +134,7 @@ function scrollViewerToOffset(offset: number) {
             range.collapse(true);
             const rect = range.getBoundingClientRect();
             const viewerRect = viewer.getBoundingClientRect();
-            if (rect.height || rect.top) {
-                viewer.scrollTop += rect.top - viewerRect.top - 28;
-            }
+            if (rect.height || rect.top) viewer.scrollTop += rect.top - viewerRect.top - 28;
             return;
         }
         consumed = end;
