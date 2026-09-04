@@ -9,8 +9,10 @@ function normalize(value: string) {
     return String(value || '').normalize('NFKC').replace(/\s+/g, ' ').trim().toLocaleLowerCase();
 }
 
-function escapeRegExp(value: string) {
-    return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+function firstSearchPhrase(value: string) {
+    const normalized = normalize(value);
+    if (!normalized) return '';
+    return normalized.length > 90 ? normalized.slice(0, 90) : normalized;
 }
 
 export default function GranthaSourceViewer() {
@@ -50,25 +52,28 @@ export default function GranthaSourceViewer() {
         }
     }, [text]);
 
-    useEffect(() => {
-        if (!displayText || !match) return;
-        const target = normalize(match);
-        const lines = displayText.split(/\r?\n/);
-        const index = lines.findIndex((line) => normalize(line).includes(target));
-        if (index >= 0) {
-            requestAnimationFrame(() => matchRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }));
-        }
-    }, [displayText, match]);
-
     const highlighted = useMemo(() => {
         if (!displayText || !match) return null;
-        const target = normalize(match);
+        const target = firstSearchPhrase(match);
         if (!target) return null;
         const lines = displayText.split(/\r?\n/);
-        const matchLine = lines.findIndex((line) => normalize(line).includes(target));
+        const normalizedLines = lines.map(normalize);
+        let matchLine = normalizedLines.findIndex((line) => line.includes(target));
+
+        // If the evidence spans line breaks, locate its first distinctive phrase.
+        if (matchLine < 0) {
+            const words = target.split(/\s+/).filter((word) => word.length >= 3);
+            const phrase = words.slice(0, 10).join(' ');
+            if (phrase) matchLine = normalizedLines.findIndex((line) => line.includes(phrase));
+        }
         if (matchLine < 0) return null;
         return { lines, matchLine };
     }, [displayText, match]);
+
+    useEffect(() => {
+        if (!highlighted) return;
+        requestAnimationFrame(() => matchRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }));
+    }, [highlighted]);
 
     return (
         <div style={{ minHeight: '100vh', background: '#f8f5f2', color: '#332a27' }}>
@@ -89,6 +94,8 @@ export default function GranthaSourceViewer() {
                         {highlighted.lines[highlighted.matchLine]}
                     </div>
                 </section>}
+
+                {match && !highlighted && displayText && <div style={{ marginBottom: 16, padding: 12, borderRadius: 9, background: '#fff8e5', border: '1px solid #ead7a5', color: '#765b1e', fontSize: 12 }}>The source was loaded, but the retrieved excerpt could not be located verbatim in the displayed text.</div>}
 
                 {displayText && <section style={{ border: '1px solid #e0d8d3', borderRadius: 12, background: '#fff', overflow: 'hidden', boxShadow: '0 6px 22px rgba(50,35,25,.06)' }}>
                     <div style={{ padding: '10px 14px', borderBottom: '1px solid #eee7e2', color: '#777', fontSize: 11 }}>Full source text · {displayText.length.toLocaleString()} characters</div>
