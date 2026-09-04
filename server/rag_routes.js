@@ -5,7 +5,7 @@
 
 import path from 'node:path';
 import { ensureIndex, getCurrentIndex, getEmbeddingModelName, getEmbeddingDimension, getEmbeddingFilePath } from './index_manager.js';
-import { query, queryStream, clearEmbeddingCache } from './rag_engine.js';
+import { query, queryStream, conceptSearch, clearEmbeddingCache } from './rag_engine.js';
 import { getCurrentEmbeddingStore } from './index_manager.js';
 import { uploadIndexFiles } from './supabase_storage.js';
 import { getLLMInfo, validateLLMConfig } from './llm/index.js';
@@ -145,6 +145,24 @@ export function attachRagRoutes(app, { publicRoot }) {
             } catch {
                 return res.status(500).json({ ok: false, error: String(error) });
             }
+        }
+    });
+
+    // Retrieval-only semantic search for the Concepts tool. It always searches
+    // the complete corpus (all shards/Granthas), bypasses answer generation,
+    // and returns the ranked source passages directly.
+    app.post('/api/rag/concept-search', async (req, res) => {
+        try {
+            await ensureIndex(dataRoot);
+            const { query: queryText, topK = 25 } = req.body ?? {};
+            if (!queryText || typeof queryText !== 'string') return res.status(400).json({ ok: false, error: 'Concept query is required.' });
+            const trimmedQuery = queryText.trim();
+            if (!trimmedQuery) return res.status(400).json({ ok: false, error: 'Concept query cannot be empty.' });
+
+            const result = await conceptSearch(trimmedQuery, Math.min(25, Number(topK) || 25));
+            return res.json({ ok: true, semantic: true, scope: 'all-granthas', ...result });
+        } catch (error) {
+            return res.status(500).json({ ok: false, error: String(error) });
         }
     });
 
