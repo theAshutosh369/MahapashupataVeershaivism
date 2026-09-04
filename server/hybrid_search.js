@@ -25,8 +25,9 @@ function queryTokens(query) {
 // The legacy scorer is intentionally preserved, but it is quadratic-ish for
 // large candidate sets because fuzzy matching compares every query token with
 // every chunk token. Keep that expensive scorer focused on a small, highly
-// relevant lexical candidate pool. This is the compatibility optimization that
-// lets the old RAG orchestration work with large sharded indexes safely.
+// relevant lexical candidate pool. When the caller has already produced a
+// semantic candidate set, however, those candidates must not be discarded just
+// because their text does not contain the user's exact query words.
 function narrowCandidates(query, chunks, limit = 250) {
     if (!Array.isArray(chunks) || chunks.length <= limit) return chunks || [];
     const tokens = queryTokens(query);
@@ -57,7 +58,8 @@ function narrowCandidates(query, chunks, limit = 250) {
 }
 
 export function hybridSearch(queryEmbedding, query, chunks, opts = {}) {
-    const pool = narrowCandidates(query, chunks, Math.max(100, Math.min(400, Number(opts.retrieveK || 50) * 5)));
+    const sourceChunks = opts.preserveSemanticCandidates ? (chunks || []) : narrowCandidates(query, chunks, Math.max(100, Math.min(400, Number(opts.retrieveK || 50) * 5)));
+    const pool = sourceChunks;
     return legacyHybridSearch(queryEmbedding, query, pool, {
         ...opts,
         retrieveK: Math.min(Number(opts.retrieveK || 50), pool.length),
