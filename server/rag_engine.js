@@ -364,6 +364,21 @@ async function retrieveChunks(query, datasetSelection, topK) {
     }
 }
 
+// Concept search is retrieval-only: it searches the complete sharded corpus,
+// uses the Gemini query embedding when available, and does not ask the LLM to
+// generate an answer. This keeps the results tied directly to the concept the
+// user entered and prevents an answer-generation step from changing the search.
+export async function conceptSearch(queryText, topK = 25) {
+    var queryStr = String(queryText || '').trim();
+    if (!queryStr) return { retrievedChunks: [], confidence: 0 };
+
+    var matched = await retrieveChunks(queryStr, null, Math.min(25, Number(topK) || 25));
+    var retrievedChunks = makeRetrievedChunks(matched);
+    var firstScore = matched[0] ? (matched[0].score || matched[0].similarity || 0) : 0;
+    var confidence = Math.round(Math.min(1, firstScore) * 100);
+    return { retrievedChunks, confidence };
+}
+
 // ─── Answer generation ─────────────────────────────────────────────────────
 
 async function generateAnswer(prompt) {
