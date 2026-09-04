@@ -8,6 +8,7 @@ import IASTSearchInput from '../components/IASTSearchInput';
 import TextIntelligence from '../components/granthas/TextIntelligence';
 import { listGranthas } from '../api_granthas';
 import '../styles/pages/granthas.css';
+import '../styles/pages/granthas-enhancements.css';
 
 function displayGranthaName(fileName: string) { return String(fileName || '').replace(/_/g, ' ').replace(/\.(txt|json)$/i, ''); }
 function escapeRegExp(value: string) { return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
@@ -22,6 +23,7 @@ type SearchMode = 'current' | 'folder' | 'all';
 type SearchHistoryEntry = { id: string; query: string; mode: SearchMode; caseSensitive: boolean; wholeWord: boolean; regex: boolean; createdAt: number; scopePath?: string };
 type GlobalResult = { path: string; name: string; matches: number; snippets: string[]; firstMatch: number };
 type GlobalSearchState = { open: boolean; mode: SearchMode; scopePath: string | null; query: string; caseSensitive: boolean; wholeWord: boolean; regex: boolean; results: GlobalResult[]; error: string; searching: boolean; selectedPath: string | null };
+type OpenTab = { path: string };
 
 const RECENT_KEY = 'granthas-recently-opened-v1';
 const BOOKMARKS_KEY = 'granthas-bookmarks-v1';
@@ -54,6 +56,21 @@ function findMatches(text: string, query: string, caseSensitive: boolean, wholeW
     } catch (err) {
         return { matches: [], error: err instanceof Error ? err.message : 'Invalid regular expression.' };
     }
+}
+
+function getGranthaStats(content: string, path: string) {
+    const characters = content.length;
+    const words = content.trim() ? content.trim().split(/\s+/u).length : 0;
+    const lines = content ? content.split(/\r?\n/).length : 0;
+    let sections = 0;
+    if (path.toLowerCase().endsWith('.json')) {
+        try {
+            const parsed = JSON.parse(content) as unknown;
+            if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) sections = Object.keys(parsed as Record<string, unknown>).length;
+        } catch { sections = 0; }
+    }
+    if (!sections) sections = content.split(/\r?\n/).filter((line) => /^\s*(?:#{1,6}\s+|(?:chapter|adhyaya|अध्याय|खंड|section)\b|\d{1,4}[.)]\s+)/iu.test(line)).length;
+    return { characters, words, lines, sections };
 }
 
 function Granthas() {
@@ -96,6 +113,7 @@ function Granthas() {
     const [showRecent, setShowRecent] = useState(false);
     const [showBookmarks, setShowBookmarks] = useState(false);
     const [isFullscreen, setIsFullscreen] = useState(false);
+    const [openTabs, setOpenTabs] = useState<OpenTab[]>([]);
     const viewerRef = useRef<HTMLDivElement>(null);
     const detailRef = useRef<HTMLDivElement>(null);
     const readingPositionsRef = useRef<Record<string, number>>(readingPositions);
@@ -104,7 +122,7 @@ function Granthas() {
 
     useEffect(() => {
         let cancelled = false;
-        (async () => { try { setLoading(true); setError(''); const files = await listGranthas(); if (!cancelled) { setPaths(files); setSelectedPath(null); } } catch (err) { if (!cancelled) setError(err instanceof Error ? err.message : 'Unable to load Granthas.'); } finally { if (!cancelled) setLoading(false); } })();
+        (async () => { try { setLoading(true); setError(''); const files = await listGranthas(); if (!cancelled) { setPaths(files); setSelectedPath(null); setOpenTabs([]); } } catch (err) { if (!cancelled) setError(err instanceof Error ? err.message : 'Unable to load Granthas.'); } finally { if (!cancelled) setLoading(false); } })();
         return () => { cancelled = true; };
     }, []);
 
@@ -120,6 +138,7 @@ function Granthas() {
     const folderPaths = useMemo(() => folderPrefix ? paths.filter((path) => normalizeGranthaPath(path).startsWith(`${folderPrefix}/`)) : [], [paths, folderPrefix]);
     const currentSearchState = useMemo(() => findMatches(content, search.trim(), searchCaseSensitive, searchWholeWord, searchRegex), [content, search, searchCaseSensitive, searchWholeWord, searchRegex]);
     const matches = currentSearchState.matches;
+    const stats = useMemo(() => getGranthaStats(content, selectedPath ?? ''), [content, selectedPath]);
 
     function publicFileUrl(filePath: string) { return `/data/${normalizeGranthaPath(filePath).split('/').map(encodeURIComponent).join('/')}`; }
     function persistSearchHistory(query: string, mode: SearchMode, caseSensitive: boolean, wholeWord: boolean, regex: boolean, scopePath = selectedPath ?? undefined) {
@@ -166,11 +185,31 @@ function Granthas() {
         setFontSize(13); setLineHeight(1.65); localStorage.setItem(FONT_SIZE_KEY, '13'); localStorage.setItem(LINE_HEIGHT_KEY, '1.65');
     }
     function selectGrantha(path: string, fromGlobalResult = false, matchIndex = 0) {
+        const normalizedPath = normalizeGranthaPath(path);
+        setOpenTabs((previous) => previous.some((tab) => tab.path === normalizedPath) ? previous : [...previous, { path: normalizedPath }]);
         if (fromGlobalResult) {
             setPreviousGlobalState({ open: globalOpen, mode: globalSearchMode, scopePath: globalScopePath, query: globalSearch, caseSensitive: globalCaseSensitive, wholeWord: globalWholeWord, regex: globalRegex, results: globalResults, error: globalError, searching: globalSearching, selectedPath });
             setGlobalOpen(false);
         } else setPreviousGlobalState(null);
-        setSelectedPath(path); setActiveMatch(matchIndex); persistRecent(path); setShowRecent(false); setShowBookmarks(false);
+        setSelectedPath(normalizedPath); setActiveMatch(matchIndex); persistRecent(normalizedPath); setShowRecent(false); setShowBookmarks(false);
+    }
+    function closeGranthaTab(path: string) {
+        setOpenTabs((previous) => {
+            const index = previous.findIndex((tab) => tab.path === path);
+            const next = previous.filter((tab) => tab.path !== path);
+            if (selectedPath === path) {
+                const fallback = next[index] ?? next[index - 1] ?? null;
+                if (fallback) {
+                    setSelectedPath(fallback.path);
+                    setActiveMatch(0);
+                    persistRecent(fallback.path);
+                } else {
+                    setSelectedPath(null);
+                    setContent('');
+                }
+            }
+            return next;
+        });
     }
     function selectAdjacent(direction: -1 | 1) { const nextIndex = selectedIndex + direction; if (nextIndex >= 0 && nextIndex < paths.length) selectGrantha(paths[nextIndex]); }
 
@@ -309,6 +348,7 @@ function Granthas() {
             {topSearchError && <div className="granthas-search-error">{topSearchError}</div>}
             <div className="granthas-global-results">{topSearchSearching && topSearchResults.length === 0 ? <div className="granthas-content-state">Searching {globalSearchMode === 'folder' ? 'current folder' : 'Granthas'}…</div> : topSearchResults.length ? topSearchResults.map((result) => <button type="button" className="granthas-global-result" key={result.path} onClick={() => globalSearchMode === 'folder' ? openFolderResult(result) : openGlobalResult(result.path)}><div className="granthas-global-result-title"><span>{result.name}</span><small>{result.matches} match{result.matches === 1 ? '' : 'es'}</small></div>{result.snippets.map((snippet, i) => <div className="granthas-global-snippet" key={i}>{snippet}</div>)}</button>) : !topSearchSearching && globalSearch.trim() ? <div className="granthas-tree-empty">No matches found.</div> : <div className="granthas-tree-empty">Enter a word to search {globalSearchMode === 'folder' ? 'the current folder' : 'all Granthas'}.</div>}</div>
         </section>}
+        {openTabs.length > 0 && <div className="granthas-tabs" role="tablist" aria-label="Opened Granthas">{openTabs.map((tab) => { const name = displayGranthaName(tab.path.split('/').pop() || tab.path); const active = tab.path === selectedPath; return <div className={`granthas-tab ${active ? 'is-active' : ''}`} key={tab.path}><button type="button" role="tab" aria-selected={active} className="granthas-tab-main" onClick={() => selectGrantha(tab.path)} title={name}>{name}</button><button type="button" className="granthas-tab-close" onClick={() => closeGranthaTab(tab.path)} aria-label={`Close ${name}`}>×</button></div>; })}</div>}
         <section className="granthas-layout"><GranthasTree paths={paths} selectedPath={selectedPath} onSelect={(path) => selectGrantha(path)} /><div className="granthas-detail" ref={detailRef}>{loading ? <div className="granthas-empty-state">Loading Granthas…</div> : selectedPath ? <><div className="granthas-detail-topline">{selectedFolder || 'Granthas'}</div><div className="granthas-detail-heading"><div><h2>{selectedName}</h2><p className="granthas-detail-path">public/data/{selectedPath}</p></div><div className="granthas-detail-heading-actions">
             <div className="granthas-popover-wrap"><button type="button" className="granthas-reader-button" onClick={() => { setShowRecent((v) => !v); setShowBookmarks(false); }}>{'◷ Recently opened'}</button>{showRecent && <div className="granthas-popover">{recentVisible.length ? recentVisible.map((path) => <button type="button" key={path} onClick={() => selectGrantha(path)}>{displayGranthaName(path.split('/').pop() || path)}</button>) : <span>No recently opened Granthas.</span>}</div>}</div>
             <div className="granthas-popover-wrap"><button type="button" className={`granthas-reader-button ${isBookmarked ? 'is-active' : ''}`} onClick={() => { if (selectedPath) toggleBookmark(selectedPath); setShowBookmarks((v) => !v); setShowRecent(false); }}>{isBookmarked ? '★ Bookmarked' : '☆ Bookmark'}</button>{showBookmarks && <div className="granthas-popover">{bookmarkedVisible.length ? bookmarkedVisible.map((path) => <button type="button" key={path} onClick={() => selectGrantha(path)}>{displayGranthaName(path.split('/').pop() || path)}</button>) : <span>No bookmarks yet.</span>}</div>}</div>
@@ -325,6 +365,7 @@ function Granthas() {
             {currentSearchState.error && <div className="granthas-search-error">{currentSearchState.error}</div>}
         </div>}
         <div className="granthas-reading-toolbar"><span>Reading controls</span><button type="button" onClick={() => changeFontSize(-1)} aria-label="Decrease font size">A−</button><button type="button" onClick={resetReadingControls} aria-label="Reset reading controls">A</button><button type="button" onClick={() => changeFontSize(1)} aria-label="Increase font size">A+</button><span className="granthas-toolbar-divider" aria-hidden="true" /><button type="button" onClick={() => changeLineHeight(-0.1)} aria-label="Decrease line spacing">− spacing</button><button type="button" onClick={() => changeLineHeight(0.1)} aria-label="Increase line spacing">+ spacing</button><span className="granthas-reading-value">{fontSize}px · {lineHeight.toFixed(1)}×</span></div>
+        <div className="granthas-statistics" aria-label="Grantha statistics"><div><span>Characters</span><strong>{stats.characters.toLocaleString('en-IN')}</strong></div><div><span>Words</span><strong>{stats.words.toLocaleString('en-IN')}</strong></div><div><span>Lines</span><strong>{stats.lines.toLocaleString('en-IN')}</strong></div><div><span>Sections</span><strong>{stats.sections.toLocaleString('en-IN')}</strong></div><div><span>Searchable</span><strong className="is-yes">Yes</strong></div><div><span>Semantic index</span><strong className="is-yes">Yes</strong></div></div>
         <div className="granthas-content-viewer" ref={viewerRef} onScroll={handleViewerScroll}>{contentLoading ? <div className="granthas-content-state">Loading Grantha…</div> : contentError ? <div className="granthas-content-state is-error">{contentError}</div> : <div className="granthas-content-text" style={{ '--granthas-font-size': `${fontSize}px`, '--granthas-line-height': lineHeight } as React.CSSProperties}>{renderContent()}</div>}</div>
         <TextIntelligence selectedPath={selectedPath} selectedName={selectedName} paths={paths} onOpenGrantha={(path) => selectGrantha(path)} />
         </> : null}</div></section>
