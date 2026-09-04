@@ -16,6 +16,35 @@ type ApiResult = {
     sources?: RAGSource[];
     confidence?: number;
     error?: string;
+    retrievedChunks?: Array<{
+        id: string;
+        dataset: string;
+        sourceType?: 'pdf' | 'txt' | 'json';
+        filename?: string;
+        page?: number;
+        author?: string;
+        title?: string;
+        language?: string;
+        text: string;
+    }>;
+};
+
+type TocEntry = {
+    id: string;
+    title: string;
+    level: 1 | 2 | 3;
+    offset: number;
+};
+
+type ConceptResult = {
+    id: string;
+    dataset: string;
+    filename?: string;
+    page?: number;
+    title?: string;
+    author?: string;
+    language?: string;
+    text: string;
 };
 
 const LANGUAGES = ['English', 'Hindi', 'Marathi', 'Kannada', 'Sanskrit'];
@@ -39,6 +68,88 @@ function sourceExcerpt(source: RAGSource) {
     return String(source.excerpt || '').replace(/\s+/g, ' ').trim();
 }
 
+function cleanHeading(value: string) {
+    return value.replace(/^\s+|\s+$/g, '').replace(/[\u200B\uFEFF]/g, '');
+}
+
+function detectToc(text: string): TocEntry[] {
+    if (!text.trim()) return [];
+
+    const entries: TocEntry[] = [];
+    const lines = text.split(/\r?\n/);
+    let offset = 0;
+    let chapterCount = 0;
+    let sectionCount = 0;
+    let verseCount = 0;
+
+    const chapterPattern = /^(?:chapter|adhyaya|adhyāya|adhyāyaḥ|kāṇḍa|kanda|sarga|sargaḥ|book|part)\b/i;
+    const sectionPattern = /^(?:section|prakaraṇa|prakarana|prakaraṇam|khaṇḍa|khanda)\b/i;
+    const versePattern = /^(?:(?:verse|śloka|shloka|sloka|ślokaḥ|shlokaḥ)\s*(?:no\.?\s*)?\d+|\d+[.)]\s+(?:śloka|shloka|verse)\b)/i;
+    const sanskritChapterPattern = /^(?:अध्याय(?:ः|म्)?|सर्ग(?:ः|म्)?|काण्ड(?:ः|म्)?|खण्ड(?:ः|म्)?|प्रकरण(?:म्|ः)?)/;
+    const sanskritVersePattern = /^(?:श्लोक(?:ः|म्)?\s*\d+|\d+[.)]\s*श्लोक)/;
+    const numberedHeadingPattern = /^\d+(?:\.\d+){0,2}[.)]?\s+[A-ZĀĪŪṚṜḶḹŚṢṬḌḤĪŌ][^.!?]{2,120}$/;
+
+    for (let index = 0; index < lines.length; index += 1) {
+        const rawLine = lines[index];
+        const line = cleanHeading(rawLine);
+        const lower = line.toLowerCase();
+        let level: 1 | 2 | 3 | null = null;
+
+        if (chapterPattern.test(line) || sanskritChapterPattern.test(line)) {
+            level = 1;
+            chapterCount += 1;
+        } else if (sectionPattern.test(line)) {
+            level = 2;
+            sectionCount += 1;
+        } else if (versePattern.test(line) || sanskritVersePattern.test(line)) {
+            level = 3;
+            verseCount += 1;
+        } else if (numberedHeadingPattern.test(line) && !/^(?:19|20)\d{2}\b/.test(line)) {
+            level = /^(?:\d+\.){2}/.test(line) ? 3 : /^(?:\d+\.)/.test(line) ? 2 : 1;
+        } else if (line.length >= 4 && line.length <= 110 && /^(?:[A-ZĀĪŪṚṜḶḹŚṢṬḌḤ][A-ZĀĪŪṚṜḶḹŚṢṬḌḤ\s,:;()'’'\-–—0-9]+)$/.test(line) && !lower.includes('page')) {
+            level = 2;
+        }
+
+        if (level !== null && line.length > 1) {
+            entries.push({ id: `toc-${entries.length}`, title: line, level, offset });
+        }
+
+        offset += rawLine.length + 1;
+    }
+
+    // Avoid turning noisy OCR into an enormous navigation tree.
+    if (entries.length > 500) {
+        return entries.filter((entry) => entry.level < 3).slice(0, 250);
+    }
+    return entries;
+}
+
+function scrollViewerToOffset(offset: number) {
+    const viewer = document.querySelector('.granthas-content-viewer') as HTMLElement | null;
+    const content = viewer?.querySelector('.granthas-content-text') as HTMLElement | null;
+    if (!viewer || !content) return;
+
+    const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT);
+    let consumed = 0;
+    let node: Node | null;
+    while ((node = walker.nextNode())) {
+        const text = node.textContent || '';
+        const end = consumed + text.length;
+        if (offset <= end) {
+            const range = document.createRange();
+            range.setStart(node, Math.max(0, Math.min(text.length, offset - consumed)));
+            range.collapse(true);
+            const rect = range.getBoundingClientRect();
+            const viewerRect = viewer.getBoundingClientRect();
+            if (rect.height || rect.top) {
+                viewer.scrollTop += rect.top - viewerRect.top - 28;
+            }
+            return;
+        }
+        consumed = end;
+    }
+}
+
 export default function TextIntelligence({ selectedPath, selectedName, paths, onOpenGrantha }: Props) {
     const [selectedText, setSelectedText] = useState('');
     const [toolbarPosition, setToolbarPosition] = useState({ top: 0, left: 0 });
@@ -51,6 +162,15 @@ export default function TextIntelligence({ selectedPath, selectedName, paths, on
     const [confidence, setConfidence] = useState<number | null>(null);
     const [error, setError] = useState('');
 
+    const [tocOpen, setTocOpen] = useState(false);
+    const [tocSearch, setTocSearch] = useState('');
+    const [tocEntries, setTocEntries] = useState<TocEntry[]>([]);
+    const [conceptOpen, setConceptOpen] = useState(false);
+    const [conceptQuery, setConceptQuery] = useState('');
+    const [conceptLoading, setConceptLoading] = useState(false);
+    const [conceptError, setConceptError] = useState('');
+    const [conceptResults, setConceptResults] = useState<ConceptResult[]>([]);
+
     const visibleSources = useMemo(() => {
         if (action === 'references' || action === 'similar') {
             return sources.filter((source) => {
@@ -60,6 +180,12 @@ export default function TextIntelligence({ selectedPath, selectedName, paths, on
         }
         return sources;
     }, [action, paths, selectedPath, sources]);
+
+    const visibleTocEntries = useMemo(() => {
+        const query = tocSearch.trim().toLowerCase();
+        if (!query) return tocEntries;
+        return tocEntries.filter((entry) => entry.title.toLowerCase().includes(query));
+    }, [tocEntries, tocSearch]);
 
     useEffect(() => {
         const updateSelection = () => {
@@ -103,6 +229,28 @@ export default function TextIntelligence({ selectedPath, selectedName, paths, on
         setAnswer('');
         setSources([]);
         setError('');
+        setTocOpen(false);
+        setTocSearch('');
+        setTocEntries([]);
+        setConceptOpen(false);
+        setConceptQuery('');
+        setConceptError('');
+        setConceptResults([]);
+    }, [selectedPath]);
+
+    useEffect(() => {
+        if (!selectedPath) return;
+        const viewer = document.querySelector('.granthas-content-viewer');
+        if (!viewer) return;
+
+        const rebuild = () => {
+            const text = viewer.querySelector('.granthas-content-text')?.textContent || '';
+            setTocEntries(detectToc(text));
+        };
+        rebuild();
+        const observer = new MutationObserver(rebuild);
+        observer.observe(viewer, { childList: true, subtree: true, characterData: true });
+        return () => observer.disconnect();
     }, [selectedPath]);
 
     async function runAction(nextAction: Action, customQuestion = question) {
@@ -159,6 +307,60 @@ export default function TextIntelligence({ selectedPath, selectedName, paths, on
         }
     }
 
+    async function runConceptSearch() {
+        const query = conceptQuery.trim();
+        if (!query) {
+            setConceptResults([]);
+            setConceptError('Enter a concept or research question.');
+            return;
+        }
+
+        setConceptLoading(true);
+        setConceptError('');
+        setConceptResults([]);
+        try {
+            const response = await fetch('/api/rag/query', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    query,
+                    selectedDataset: '__ALL__',
+                    topK: 15,
+                    answerMode: 'concise',
+                    includeConversationMemory: false,
+                    conversationHistory: []
+                })
+            });
+            const data = await response.json() as ApiResult;
+            if (!response.ok || data.error) throw new Error(data.error || 'Concept search failed.');
+
+            const chunks = Array.isArray(data.retrievedChunks) ? data.retrievedChunks : [];
+            const unique = new Set<string>();
+            const results: ConceptResult[] = [];
+            for (const chunk of chunks) {
+                const key = `${chunk.dataset}|${chunk.id}`;
+                if (unique.has(key) || !chunk.text?.trim()) continue;
+                unique.add(key);
+                results.push({
+                    id: chunk.id,
+                    dataset: chunk.dataset,
+                    filename: chunk.filename,
+                    page: chunk.page,
+                    title: chunk.title,
+                    author: chunk.author,
+                    language: chunk.language,
+                    text: chunk.text
+                });
+            }
+            setConceptResults(results);
+            if (!results.length) setConceptError('No conceptually related passages were found in the available Granthas.');
+        } catch (err) {
+            setConceptError(err instanceof Error ? err.message : 'Concept search failed.');
+        } finally {
+            setConceptLoading(false);
+        }
+    }
+
     function closePanel() {
         setAction(null);
         setAnswer('');
@@ -167,23 +369,17 @@ export default function TextIntelligence({ selectedPath, selectedName, paths, on
         setSelectedText('');
     }
 
-    if (!selectedText && !action) return null;
-
-    const toolbarStyle: CSSProperties = {
-        position: 'fixed',
-        top: toolbarPosition.top,
-        left: toolbarPosition.left,
-        zIndex: 1200,
-        display: selectedText ? 'flex' : 'none',
-        gap: 5,
-        alignItems: 'center',
-        padding: 6,
+    const utilityButtonStyle: CSSProperties = {
         border: '1px solid #d8cec8',
-        borderRadius: 10,
+        borderRadius: 7,
         background: '#fff',
-        boxShadow: '0 8px 24px rgba(0,0,0,.18)',
-        maxWidth: 'calc(100vw - 24px)',
-        overflowX: 'auto'
+        color: '#7A1F1F',
+        padding: '7px 10px',
+        whiteSpace: 'nowrap',
+        cursor: 'pointer',
+        fontSize: 12,
+        fontWeight: 650,
+        boxShadow: '0 3px 12px rgba(0,0,0,.08)'
     };
 
     const buttonStyle: CSSProperties = {
@@ -198,8 +394,53 @@ export default function TextIntelligence({ selectedPath, selectedName, paths, on
         fontWeight: 600
     };
 
+    if (!selectedPath && !selectedText && !action) return null;
+
     return <>
-        <div className="granthas-text-intelligence-toolbar" style={toolbarStyle} role="toolbar" aria-label="Text intelligence">
+        {selectedPath && <div className="granthas-reading-utilities" style={{ position: 'fixed', right: 18, top: 82, zIndex: 1100, display: 'flex', gap: 6, flexDirection: 'column', alignItems: 'stretch' }}>
+            <button type="button" style={utilityButtonStyle} onClick={() => { setTocOpen((value) => !value); setConceptOpen(false); }}>☷ Contents{tocEntries.length ? ` (${tocEntries.length})` : ''}</button>
+            <button type="button" style={utilityButtonStyle} onClick={() => { setConceptOpen((value) => !value); setTocOpen(false); }}>⌕ Concept search</button>
+        </div>}
+
+        {tocOpen && <div style={{ position: 'fixed', top: 120, right: 18, zIndex: 1090, width: 'min(390px, calc(100vw - 36px))', maxHeight: 'calc(100vh - 150px)', overflow: 'hidden', background: '#fff', border: '1px solid #d8cec8', borderRadius: 12, boxShadow: '0 16px 45px rgba(0,0,0,.20)' }}>
+            <div style={{ padding: 13, borderBottom: '1px solid #eee5df' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
+                    <div><strong style={{ color: '#7A1F1F', fontSize: 14 }}>Contents</strong><div style={{ color: '#888', fontSize: 11, marginTop: 2 }}>{tocEntries.length ? `${tocEntries.length} detected sections` : 'No headings detected'}</div></div>
+                    <button type="button" style={{ ...buttonStyle, padding: '4px 8px', fontSize: 15 }} onClick={() => setTocOpen(false)} aria-label="Close contents">×</button>
+                </div>
+                <input type="search" value={tocSearch} onChange={(event) => setTocSearch(event.target.value)} placeholder="Filter contents…" style={{ width: '100%', boxSizing: 'border-box', marginTop: 9, border: '1px solid #d8cec8', borderRadius: 7, padding: '8px 9px', outline: 'none', font: 'inherit' }} />
+            </div>
+            <div style={{ maxHeight: 'calc(100vh - 270px)', overflow: 'auto', padding: 6 }}>
+                {visibleTocEntries.length ? visibleTocEntries.map((entry) => <button key={entry.id} type="button" onClick={() => { scrollViewerToOffset(entry.offset); setTocOpen(false); }} style={{ display: 'block', width: '100%', border: 0, borderRadius: 7, background: 'transparent', color: '#403936', textAlign: 'left', cursor: 'pointer', padding: `7px 8px 7px ${8 + (entry.level - 1) * 18}px`, font: 'inherit', fontSize: entry.level === 1 ? 13 : 12, fontWeight: entry.level === 1 ? 700 : entry.level === 2 ? 600 : 450 }}>{entry.title}</button>) : <div style={{ padding: 14, color: '#777', fontSize: 12 }}>{tocEntries.length ? 'No contents entries match the filter.' : 'This Grantha does not contain recognizable chapter, section, or verse headings.'}</div>}
+            </div>
+        </div>}
+
+        {conceptOpen && <div style={{ position: 'fixed', top: 120, right: 18, zIndex: 1090, width: 'min(650px, calc(100vw - 36px))', maxHeight: 'calc(100vh - 150px)', overflow: 'hidden', background: '#fff', border: '1px solid #d8cec8', borderRadius: 12, boxShadow: '0 16px 45px rgba(0,0,0,.20)' }}>
+            <div style={{ padding: 14, borderBottom: '1px solid #eee5df' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
+                    <div><strong style={{ color: '#7A1F1F', fontSize: 14 }}>Concept search</strong><div style={{ color: '#777', fontSize: 11, marginTop: 2 }}>Find passages related by meaning, doctrine, argument, or concept.</div></div>
+                    <button type="button" style={{ ...buttonStyle, padding: '4px 8px', fontSize: 15 }} onClick={() => setConceptOpen(false)} aria-label="Close concept search">×</button>
+                </div>
+                <div style={{ display: 'flex', gap: 7, marginTop: 10 }}>
+                    <input type="search" value={conceptQuery} onChange={(event) => setConceptQuery(event.target.value)} onKeyDown={(event) => { if (event.key === 'Enter') void runConceptSearch(); }} placeholder="e.g. Who can perform initiation?" style={{ flex: 1, minWidth: 0, border: '1px solid #d8cec8', borderRadius: 7, padding: '9px 10px', outline: 'none', font: 'inherit' }} />
+                    <button type="button" style={{ ...buttonStyle, background: '#7A1F1F', color: '#fff' }} disabled={conceptLoading || !conceptQuery.trim()} onClick={() => void runConceptSearch()}>{conceptLoading ? 'Searching…' : 'Search'}</button>
+                </div>
+            </div>
+            <div style={{ maxHeight: 'calc(100vh - 275px)', overflow: 'auto', padding: 10 }}>
+                {conceptError && <div style={{ padding: 10, borderRadius: 8, background: '#fff3f3', border: '1px solid #edcccc', color: '#a32020', fontSize: 12 }}>{conceptError}</div>}
+                {!conceptLoading && conceptResults.length > 0 && <div style={{ color: '#777', fontSize: 11, marginBottom: 7 }}>{conceptResults.length} related passages</div>}
+                {conceptResults.map((result, index) => {
+                    const path = paths.find((candidate) => candidate === result.dataset) || paths.find((candidate) => candidate.endsWith(`/${result.dataset}`) || (result.filename && candidate.endsWith(`/${result.filename}`)));
+                    return <button key={`${result.id}-${index}`} type="button" disabled={!path} onClick={() => path && onOpenGrantha(path)} style={{ display: 'block', width: '100%', textAlign: 'left', border: '1px solid #e5dcd7', borderRadius: 9, background: '#fff', padding: 11, marginBottom: 8, cursor: path ? 'pointer' : 'default' }}>
+                        <div style={{ color: '#7A1F1F', fontWeight: 700, fontSize: 12 }}>{result.title || result.filename || result.dataset}</div>
+                        <div style={{ color: '#888', fontSize: 10, marginTop: 2 }}>{result.author ? `${result.author} · ` : ''}{result.page ? `page ${result.page}` : ''}{result.language ? ` · ${result.language}` : ''}</div>
+                        <div style={{ color: '#4d4541', fontSize: 12, lineHeight: 1.55, marginTop: 6, whiteSpace: 'pre-wrap' }}>{result.text.length > 700 ? `${result.text.slice(0, 700)}…` : result.text}</div>
+                    </button>;
+                })}
+            </div>
+        </div>}
+
+        <div className="granthas-text-intelligence-toolbar" style={{ position: 'fixed', top: toolbarPosition.top, left: toolbarPosition.left, zIndex: 1200, display: selectedText ? 'flex' : 'none', gap: 5, alignItems: 'center', padding: 6, border: '1px solid #d8cec8', borderRadius: 10, background: '#fff', boxShadow: '0 8px 24px rgba(0,0,0,.18)', maxWidth: 'calc(100vw - 24px)', overflowX: 'auto' }} role="toolbar" aria-label="Text intelligence">
             <button type="button" style={buttonStyle} onMouseDown={(event) => event.preventDefault()} onClick={() => { setQuestion(''); setAction('ask'); }}>✦ Ask AI</button>
             <button type="button" style={buttonStyle} onMouseDown={(event) => event.preventDefault()} onClick={() => void runAction('translate')}>⇄ Translate</button>
             <button type="button" style={buttonStyle} onMouseDown={(event) => event.preventDefault()} onClick={() => void runAction('explain')}>☷ Explain</button>
