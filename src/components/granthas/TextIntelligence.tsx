@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { createPortal } from 'react-dom';
 import type { CSSProperties } from 'react';
 import type { RAGSource } from '../../types/rag';
 
@@ -161,6 +162,7 @@ export default function TextIntelligence({ selectedPath, selectedName, paths, on
     const [conceptLoading, setConceptLoading] = useState(false);
     const [conceptError, setConceptError] = useState('');
     const [conceptResults, setConceptResults] = useState<ConceptResult[]>([]);
+    const [utilityHost, setUtilityHost] = useState<HTMLElement | null>(null);
 
     const visibleSources = useMemo(() => {
         if (action === 'references' || action === 'similar') {
@@ -177,6 +179,17 @@ export default function TextIntelligence({ selectedPath, selectedName, paths, on
         if (!query) return tocEntries;
         return tocEntries.filter((entry) => entry.title.toLowerCase().includes(query));
     }, [tocEntries, tocSearch]);
+
+    useEffect(() => {
+        if (!selectedPath) {
+            setUtilityHost(null);
+            return;
+        }
+        const updateHost = () => setUtilityHost(document.querySelector('.granthas-detail-heading-actions'));
+        updateHost();
+        const frame = window.requestAnimationFrame(updateHost);
+        return () => window.cancelAnimationFrame(frame);
+    }, [selectedPath]);
 
     useEffect(() => {
         const updateSelection = () => {
@@ -310,17 +323,10 @@ export default function TextIntelligence({ selectedPath, selectedName, paths, on
         setConceptError('');
         setConceptResults([]);
         try {
-            const response = await fetch('/api/rag/query', {
+            const response = await fetch('/api/rag/concept-search', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    query,
-                    selectedDataset: '__ALL__',
-                    topK: 15,
-                    answerMode: 'concise',
-                    includeConversationMemory: false,
-                    conversationHistory: []
-                })
+                body: JSON.stringify({ query, topK: 25 })
             });
             const data = await response.json() as ApiResult;
             if (!response.ok || data.error) throw new Error(data.error || 'Concept search failed.');
@@ -388,10 +394,10 @@ export default function TextIntelligence({ selectedPath, selectedName, paths, on
     if (!selectedPath && !selectedText && !action) return null;
 
     return <>
-        {selectedPath && <div className="granthas-reading-utilities" style={{ position: 'fixed', right: 18, top: 82, zIndex: 1100, display: 'flex', gap: 6, flexDirection: 'column', alignItems: 'stretch' }}>
-            <button type="button" style={utilityButtonStyle} onClick={() => { setTocOpen((value) => !value); setConceptOpen(false); }}>☷ Contents{tocEntries.length ? ` (${tocEntries.length})` : ''}</button>
-            <button type="button" style={utilityButtonStyle} onClick={() => { setConceptOpen((value) => !value); setTocOpen(false); }}>⌕ Concept search</button>
-        </div>}
+        {selectedPath && utilityHost && createPortal(<>
+            <button type="button" className="granthas-reader-button granthas-intelligence-button" style={utilityButtonStyle} onClick={() => { setTocOpen((value) => !value); setConceptOpen(false); }}>☷ Contents{tocEntries.length ? ` (${tocEntries.length})` : ''}</button>
+            <button type="button" className="granthas-reader-button granthas-intelligence-button" style={utilityButtonStyle} onClick={() => { setConceptOpen((value) => !value); setTocOpen(false); }}>⌕ Concept search</button>
+        </>, utilityHost)}
 
         {tocOpen && <div style={{ position: 'fixed', top: 120, right: 18, zIndex: 1090, width: 'min(390px, calc(100vw - 36px))', maxHeight: 'calc(100vh - 150px)', overflow: 'hidden', background: '#fff', border: '1px solid #d8cec8', borderRadius: 12, boxShadow: '0 16px 45px rgba(0,0,0,.20)' }}>
             <div style={{ padding: 13, borderBottom: '1px solid #eee5df' }}>
@@ -409,7 +415,7 @@ export default function TextIntelligence({ selectedPath, selectedName, paths, on
         {conceptOpen && <div style={{ position: 'fixed', top: 120, right: 18, zIndex: 1090, width: 'min(650px, calc(100vw - 36px))', maxHeight: 'calc(100vh - 150px)', overflow: 'hidden', background: '#fff', border: '1px solid #d8cec8', borderRadius: 12, boxShadow: '0 16px 45px rgba(0,0,0,.20)' }}>
             <div style={{ padding: 14, borderBottom: '1px solid #eee5df' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
-                    <div><strong style={{ color: '#7A1F1F', fontSize: 14 }}>Concept search</strong><div style={{ color: '#777', fontSize: 11, marginTop: 2 }}>Find passages related by meaning, doctrine, argument, or concept.</div></div>
+                    <div><strong style={{ color: '#7A1F1F', fontSize: 14 }}>Concept search</strong><div style={{ color: '#777', fontSize: 11, marginTop: 2 }}>Semantic search across all available Granthas.</div></div>
                     <button type="button" style={{ ...buttonStyle, padding: '4px 8px', fontSize: 15 }} onClick={() => setConceptOpen(false)} aria-label="Close concept search">×</button>
                 </div>
                 <div style={{ display: 'flex', gap: 7, marginTop: 10 }}>
@@ -419,7 +425,7 @@ export default function TextIntelligence({ selectedPath, selectedName, paths, on
             </div>
             <div style={{ maxHeight: 'calc(100vh - 275px)', overflow: 'auto', padding: 10 }}>
                 {conceptError && <div style={{ padding: 10, borderRadius: 8, background: '#fff3f3', border: '1px solid #edcccc', color: '#a32020', fontSize: 12 }}>{conceptError}</div>}
-                {!conceptLoading && conceptResults.length > 0 && <div style={{ color: '#777', fontSize: 11, marginBottom: 7 }}>{conceptResults.length} related passages</div>}
+                {!conceptLoading && conceptResults.length > 0 && <div style={{ color: '#777', fontSize: 11, marginBottom: 7 }}>{conceptResults.length} related passages from the Grantha collection</div>}
                 {conceptResults.map((result, index) => {
                     const path = paths.find((candidate) => candidate === result.dataset) || paths.find((candidate) => candidate.endsWith(`/${result.dataset}`) || (result.filename && candidate.endsWith(`/${result.filename}`)));
                     return <button key={`${result.id}-${index}`} type="button" disabled={!path} onClick={() => path && onOpenGrantha(path)} style={{ display: 'block', width: '100%', textAlign: 'left', border: '1px solid #e5dcd7', borderRadius: 9, background: '#fff', padding: 11, marginBottom: 8, cursor: path ? 'pointer' : 'default' }}>
