@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { RAGDatasetNode } from '../types/rag';
 import { buildDatasetTree, filterTreeBySearch } from '../services/rag/tree';
+import '../styles/components/grantha-deeplink.css';
 
 type GranthasTreeProps = {
     paths: string[];
@@ -39,34 +40,25 @@ function findAndScrollToPassage(query: string) {
     const fullText = normalizeText(pre.textContent || '');
     if (!fullText) return false;
     const phrase = target.length > 180 ? target.slice(0, 180) : target;
-    if (!fullText.includes(phrase)) {
-        const words = phrase.split(/\s+/).filter((word) => word.length >= 3);
-        if (!words.length) return false;
-        const distinctive = words.slice(0, 12).join(' ');
-        if (!fullText.includes(distinctive)) return false;
-    }
+    const fallbackPhrase = phrase.split(/\s+/).filter((word) => word.length >= 3).slice(0, 12).join(' ');
+    if (!fullText.includes(phrase) && (!fallbackPhrase || !fullText.includes(fallbackPhrase))) return false;
 
     const walker = document.createTreeWalker(pre, NodeFilter.SHOW_TEXT);
     let node: Node | null;
-    let bestNode: Text | null = null;
-    let bestIndex = -1;
     while ((node = walker.nextNode())) {
         const value = normalizeText(node.textContent || '');
-        const index = value.indexOf(phrase);
-        if (index >= 0) { bestNode = node as Text; bestIndex = index; break; }
-        const words = phrase.split(/\s+/).filter((word) => word.length >= 3).slice(0, 12).join(' ');
-        const fallbackIndex = words ? value.indexOf(words) : -1;
-        if (fallbackIndex >= 0) { bestNode = node as Text; bestIndex = fallbackIndex; break; }
+        const exactIndex = value.indexOf(phrase);
+        const fallbackIndex = exactIndex >= 0 ? exactIndex : (fallbackPhrase ? value.indexOf(fallbackPhrase) : -1);
+        if (fallbackIndex < 0) continue;
+        const range = document.createRange();
+        range.setStart(node, Math.min(fallbackIndex, node.textContent?.length ?? 0));
+        range.setEnd(node, Math.min(fallbackIndex + Math.max(1, Math.min(phrase.length, 160)), node.textContent?.length ?? 0));
+        const rect = range.getBoundingClientRect();
+        const viewerRect = viewer.getBoundingClientRect();
+        viewer.scrollTop += rect.top - viewerRect.top - (viewer.clientHeight / 2) + (rect.height / 2);
+        return true;
     }
-    if (!bestNode || bestIndex < 0) return false;
-
-    const range = document.createRange();
-    range.setStart(bestNode, Math.min(bestIndex, bestNode.textContent?.length ?? 0));
-    range.setEnd(bestNode, Math.min((bestIndex + Math.max(1, phrase.length)), bestNode.textContent?.length ?? 0));
-    const rect = range.getBoundingClientRect();
-    const viewerRect = viewer.getBoundingClientRect();
-    viewer.scrollTop += rect.top - viewerRect.top - (viewer.clientHeight / 2) + (rect.height / 2);
-    return true;
+    return false;
 }
 
 function TreeNode({ node, depth, expanded, searchActive, selectedPath, onToggle, onSelect }: TreeNodeProps) {
@@ -108,8 +100,6 @@ export default function GranthasTree({ paths, selectedPath, onSelect }: Granthas
         deepLinkHandledRef.current = true;
         onSelect(matchedPath);
 
-        // Granthas loads the selected file asynchronously. Keep trying briefly
-        // so a source click lands at the retrieved passage instead of page top.
         if (deepLinkMatch) {
             let attempts = 0;
             const timer = window.setInterval(() => {
