@@ -1,0 +1,127 @@
+/* Granthas action rail layout.
+   Keep page and reader actions outside the document card so they do not consume
+   reading space. Desktop uses fixed rails; smaller screens return the controls
+   to normal document flow. */
+
+@media (min-width: 1101px) {
+  .granthas-page-header .granthas-actions > button:first-child {
+    display: none !important;
+  }
+
+  .granthas-page-header .granthas-actions {
+    position: fixed !important;
+    z-index: 70;
+    right: 18px !important;
+    top: 108px !important;
+    width: 150px !important;
+    max-width: 150px !important;
+    min-width: 150px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    flex-wrap: nowrap !important;
+    gap: 8px;
+    box-sizing: border-box;
+  }
+
+  .granthas-page-header .granthas-actions .granthas-action {
+    width: 150px !important;
+    max-width: 150px !important;
+    min-width: 150px !important;
+    box-sizing: border-box;
+    min-height: 38px;
+    white-space: nowrap;
+  }
+
+  .granthas-detail {
+    overflow: visible;
+  }
+
+  /* Reader controls are a narrow fixed rail. Explicit dimensions prevent the
+     generic Granthas flex rules from making each button span the viewport. */
+  .granthas-detail-heading-actions {
+    position: fixed !important;
+    z-index: 70;
+    right: 18px !important;
+    top: 202px !important;
+    width: 150px !important;
+    max-width: 150px !important;
+    min-width: 150px !important;
+    height: auto !important;
+    max-height: calc(100vh - 220px);
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    flex-wrap: nowrap !important;
+    gap: 8px;
+    box-sizing: border-box;
+    overflow: visible !important;
+  }
+
+  .granthas-detail-heading-actions > *,
+  .granthas-detail-heading-actions .granthas-popover-wrap,
+  .granthas-detail-heading-actions .granthas-search-menu-wrap {
+    width: 150px !important;
+    max-width: 150px !important;
+    min-width: 150px !important;
+    flex: 0 0 auto !important;
+    box-sizing: border-box;
+  }
+
+  .granthas-detail-heading-actions .granthas-reader-button,
+  .granthas-detail-heading-actions .granthas-search-toggle,
+  .granthas-detail-heading-actions .granthas-back-button {
+    display: flex !important;
+    width: 150px !important;
+    max-width: 150px !important;
+    min-width: 150px !important;
+    min-height: 38px;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .granthas-detail-heading-actions .granthas-popover,
+  .granthas-detail-heading-actions .granthas-search-menu {
+    top: 0 !important;
+    right: calc(100% + 8px) !important;
+    left: auto !important;
+    width: min(390px, 70vw) !important;
+    max-width: min(390px, 70vw) !important;
+    min-width: 0 !important;
+  }
+
+  .granthas-detail:fullscreen .granthas-detail-heading-actions {
+    position: static !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: flex-start !important;
+    overflow: visible !important;
+  }
+
+  .granthas-detail:fullscreen .granthas-detail-heading-actions > *,
+  .granthas-detail:fullscreen .granthas-detail-heading-actions .granthas-popover-wrap,
+  .granthas-detail:fullscreen .granthas-detail-heading-actions .granthas-search-menu-wrap,
+  .granthas-detail:fullscreen .granthas-detail-heading-actions .granthas-reader-button,
+  .granthas-detail:fullscreen .granthas-detail-heading-actions .granthas-search-toggle,
+  .granthas-detail:fullscreen .granthas-detail-heading-actions .granthas-back-button {
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    flex: 0 0 auto !important;
+  }
+}
+
+@media (max-width: 1100px) {
+  .granthas-page-header .granthas-actions > button:first-child {
+    display: none !important;
+  }
+}
