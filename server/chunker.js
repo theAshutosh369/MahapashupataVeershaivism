@@ -239,6 +239,151 @@ export function chunkDatasetFile(relPath, json) {
     return chunks;
 }
 
+/**
+ * Detect the most likely language/script for a block of PDF text.
+ * Used to set a meaningful `language` field on PDF chunks.
+ */
+function detectLanguage(text) {
+    const t = String(text || '');
+    if (/[\u0C80-\u0CFF]/.test(t)) return 'kannada';
+    if (/[\u0900-\u097F]/.test(t)) return 'sanskrit';
+    if (/[\u0B80-\u0BFF]/.test(t)) return 'tamil';
+    if (/[\u0C00-\u0C7F]/.test(t)) return 'telugu';
+    if (/[\u0D00-\u0D7F]/.test(t)) return 'malayalam';
+    if (/[\u0980-\u09FF]/.test(t)) return 'bengali';
+    return 'english';
+}
+
+/**
+ * Chunk extracted PDF pages into searchable chunks.
+ *
+ * Each PDF page is split with the same token-aware splitter used for JSON
+ * datasets, preserving the `page` number for citations. The dataset name is the
+ * relative path to the PDF (e.g. "Basava_Purāṇa.pdf").
+ *
+ * Each chunk carries `sourceType: 'pdf'` and the relative `filename`, plus a
+ * per-page `source` provenance ('unicode' | 'legacy' | 'ocr') so downstream
+ * code can tell whether the page was extracted directly, converted from a
+ * legacy font, or OCR'd — without the AI ever needing to know.
+ *
+ * Input: pdfData = {
+ *   totalPages,
+ *   pages: [{ page, text, source?, ocrUsed? }],
+ *   title, author
+ * }
+ */
+export function chunkPdfFile(relPath, pdfData) {
+    const chunks = [];
+    if (!pdfData || typeof pdfData !== 'object') return chunks;
+
+    const title = String(pdfData.title || path.basename(relPath)).trim();
+    const author = String(pdfData.author || '').trim() || title;
+    const pages = Array.isArray(pdfData.pages) ? pdfData.pages : [];
+    const filename = path.basename(relPath);
+
+    debugLog('chunkPdfFile: file=' + relPath + ' pages=' + pages.length);
+
+    for (let i = 0; i < pages.length; i += 1) {
+        const page = pages[i];
+        const pageNum = Number(page.page) || i + 1;
+        const pageText = String(page.text || '');
+
+        // Skip pages with no meaningful content
+        if (pageText.trim().length === 0) continue;
+
+        const language = detectLanguage(pageText);
+        const pageSource = page.source === 'ocr' ? 'ocr'
+            : (page.source === 'legacy' ? 'legacy' : 'unicode');
+
+        // The text is kept semantic for embedding (the page field handles citations).
+        const fullText = pageText;
+
+        const textChunks = splitTextIntoChunks(fullText);
+
+        for (const textChunk of textChunks) {
+            chunks.push({
+                id: relPath + '#p' + pageNum + '#c' + textChunk.chunkIndex,
+                dataset: relPath,
+                sourceType: 'pdf',
+                filename,
+                page: pageNum,
+                vachanaNumber: null,
+                author,
+                title,
+                language,
+                source: pageSource,
+                chunkIndex: textChunk.chunkIndex,
+                totalChunks: textChunk.totalChunks,
+                tokenCount: textChunk.tokenCount,
+                text: textChunk.text
+            });
+        }
+    }
+
+    debugLog('chunkPdfFile done: file=' + relPath + ' chunks=' + chunks.length);
+
+    if (chunks.length > 50000) {
+        throw new Error('[CHUNKER] chunkPdfFile produced ' + chunks.length +
+            ' chunks from ' + pages.length + ' pages — runaway detected.');
+    }
+
+    return chunks;
+}
+
+/**
+ * Chunk a UTF-8 plain-text document into searchable chunks.
+ *
+ * The text is kept verbatim (never translated during indexing) and split with
+ * the same token-aware splitter used for JSON datasets and PDFs, so chunking
+ * is fully language-agnostic (English, Kannada, Hindi, Marathi, Sanskrit).
+ *
+ * Each chunk carries `sourceType: 'txt'` and the relative `filename`. There is
+ * no page/vachana number, so those fields are null (the frontend renders TXT
+ * sources like documents, not vachanas).
+ *
+ * Input: plain UTF-8 text (string).
+ */
+export function chunkTxtFile(relPath, text) {
+    const chunks = [];
+    const raw = String(text || '');
+    if (!raw || raw.trim().length === 0) return chunks;
+
+    const title = path.basename(relPath);
+    const filename = title;
+    const language = detectLanguage(raw);
+
+    debugLog('chunkTxtFile: file=' + relPath + ' len=' + raw.length);
+
+    const textChunks = splitTextIntoChunks(raw);
+
+    for (const textChunk of textChunks) {
+        chunks.push({
+            id: relPath + '#c' + textChunk.chunkIndex,
+            dataset: relPath,
+            sourceType: 'txt',
+            filename,
+            page: null,
+            vachanaNumber: null,
+            author: null,
+            title,
+            language,
+            chunkIndex: textChunk.chunkIndex,
+            totalChunks: textChunk.totalChunks,
+            tokenCount: textChunk.tokenCount,
+            text: textChunk.text
+        });
+    }
+
+    debugLog('chunkTxtFile done: file=' + relPath + ' chunks=' + chunks.length);
+
+    if (chunks.length > 50000) {
+        throw new Error('[CHUNKER] chunkTxtFile produced ' + chunks.length +
+            ' chunks from text length ' + raw.length + ' — runaway detected.');
+    }
+
+    return chunks;
+}
+
 export function chunkAuthorFile(relPath, json) {
     const chunks = [];
     if (!json || typeof json !== 'object') return chunks;

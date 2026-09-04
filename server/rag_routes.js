@@ -18,7 +18,7 @@ function debugLog(...args) {
 export function attachRagRoutes(app, { publicRoot }) {
     const dataRoot = path.join(publicRoot, 'data');
     console.log('[RAG Routes] Initialized. Data root:', dataRoot);
-    console.log('[RAG Routes] Embedding: Google text-embedding-004 | LLM: Google gemini-2.5-flash');
+    console.log('[RAG Routes] Embedding: Google gemini-embedding-001 (768-dim) | LLM: Google gemini-flash-latest');
 
     /**
      * GET /api/rag/status - Health check and index status
@@ -35,7 +35,7 @@ export function attachRagRoutes(app, { publicRoot }) {
                 embeddingModel: getEmbeddingModelName(),
                 embeddingDimension: getEmbeddingDimension(),
                 llmProvider: 'gemini',
-                llmModel: process.env.GEMINI_MODEL || 'models/gemini-2.5-flash',
+                llmModel: process.env.GEMINI_MODEL || 'models/gemini-flash-latest',
                 embeddingStorage: 'Float32 binary',
                 embeddingFilePath: getEmbeddingFilePath(),
                 embeddingsLoaded: getCurrentEmbeddingStore() ? getCurrentEmbeddingStore().isLoaded() : false,
@@ -56,26 +56,33 @@ export function attachRagRoutes(app, { publicRoot }) {
             const index = getCurrentIndex();
             res.json({ ok: true, datasets: index?.datasetNames || [] });
         } catch (error) {
-            // Fallback: scan filesystem for datasets
+            // Fallback: scan filesystem for datasets (JSON + PDF)
             try {
                 const fs = await import('node:fs/promises');
-                const datasetRoot = path.join(dataRoot, 'datasets');
-                const authorRoot = path.join(dataRoot, 'authors');
+                const pathMod = await import('node:path');
                 const datasets = [];
 
-                try {
-                    const dsFiles = await fs.readdir(datasetRoot);
-                    for (const f of dsFiles) {
-                        if (f.endsWith('.json')) datasets.push('datasets/' + f);
+                // Recursively scan a directory for files with a given extension,
+                // returning them relative to `base` (prefixed for the UI).
+                async function scanDirFor(base, dir, ext) {
+                    let entries;
+                    try {
+                        entries = await fs.readdir(dir, { withFileTypes: true });
+                    } catch { /* ignore missing dir */ return; }
+                    for (const entry of entries) {
+                        const full = pathMod.join(dir, entry.name);
+                        if (entry.isDirectory()) {
+                            await scanDirFor(base, full, ext);
+                        } else if (entry.isFile() && entry.name.toLowerCase().endsWith(ext)) {
+                            datasets.push(pathMod.relative(base, full).split(pathMod.sep).join('/'));
+                        }
                     }
-                } catch { /* ignore */ }
+                }
 
-                try {
-                    const auFiles = await fs.readdir(authorRoot);
-                    for (const f of auFiles) {
-                        if (f.endsWith('.json')) datasets.push('authors/' + f);
-                    }
-                } catch { /* ignore */ }
+                await scanDirFor(dataRoot, path.join(dataRoot, 'datasets'), '.json');
+                await scanDirFor(dataRoot, path.join(dataRoot, 'authors'), '.json');
+                await scanDirFor(dataRoot, dataRoot, '.pdf');
+                await scanDirFor(dataRoot, dataRoot, '.txt');
 
                 res.json({ ok: true, datasets: datasets.sort() });
             } catch {

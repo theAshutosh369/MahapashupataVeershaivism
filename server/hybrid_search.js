@@ -162,7 +162,7 @@ function computeBoost(queryTokens, chunk) {
  * Cosine similarity between two vectors.
  */
 function cosineSimilarity(a, b) {
-    if (!Array.isArray(a) || !Array.isArray(b) || a.length !== b.length) return 0;
+    if ((!Array.isArray(a) && !(a instanceof Float32Array)) || (!Array.isArray(b) && !(b instanceof Float32Array)) || a.length !== b.length) return 0;
     var dot = 0;
     var magA = 0;
     var magB = 0;
@@ -182,7 +182,8 @@ function cosineSimilarity(a, b) {
  */
 function hasValidEmbeddings(chunks) {
     for (var ci = 0; ci < chunks.length; ci++) {
-        if (Array.isArray(chunks[ci].embedding) && chunks[ci].embedding.length > 0) return true;
+        var e = chunks[ci].embedding;
+        if ((Array.isArray(e) || e instanceof Float32Array) && e.length > 0) return true;
     }
     return false;
 }
@@ -213,8 +214,9 @@ export function hybridSearch(queryEmbedding, query, chunks, opts) {
     for (var ci = 0; ci < chunks.length; ci++) {
         var chunk = chunks[ci];
         var semanticScore = 0;
-        if (Array.isArray(chunk.embedding) && chunk.embedding.length > 0) {
-            semanticScore = cosineSimilarity(queryEmbedding, chunk.embedding);
+        var ce = chunk.embedding;
+        if ((Array.isArray(ce) || ce instanceof Float32Array) && ce.length > 0) {
+            semanticScore = cosineSimilarity(queryEmbedding, ce);
         }
         var keywordScore = computeKeywordScore(queryTokens, chunk);
         var fuzzyScore = computeFuzzyScore(queryTokens, chunk);

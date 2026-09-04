@@ -20,10 +20,12 @@
 import fs from 'node:fs/promises';
 import fsc from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { VectorStore, logMemorySnapshot, ensureZeroVector, ZERO_VECTOR } from './vector_store.js';
-import { chunkDatasetFile, chunkAuthorFile } from './chunker.js';
+import { chunkDatasetFile, chunkAuthorFile, chunkPdfFile, chunkTxtFile } from './chunker.js';
+import { extractPdf } from './pdf_extractor.js';
 
 // ─── Debug flag ────────────────────────────────────────────────────────────
 const DEBUG = false;
@@ -31,11 +33,13 @@ const DEBUG = false;
 var __dirname = path.dirname(fileURLToPath(import.meta.url));
 var INDEX_FILE = path.resolve(__dirname, 'rag_index.json');
 var EMBEDDINGS_FILE = path.resolve(__dirname, 'rag_embeddings.bin');
-var VECTOR_CACHE_VERSION = 4;
-var EMBEDDING_MODEL = 'text-embedding-004';
+var VECTOR_CACHE_VERSION = 5;
+var EMBEDDING_MODEL = 'gemini-embedding-001';
 var EMBEDDING_DIMENSION = 768;
-var EMBEDDING_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:batchEmbedContents';
+var EMBEDDING_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents';
 var EMBEDDING_TIMEOUT = 30000;
+var EMBEDDING_BATCH_SIZE = 100; // Google batchEmbedContents: at most 100 requests per batch
+var EMBEDDING_MAX_RETRIES = 2;
 
 var JSON_WRITE_BUFFER_SIZE = 1024 * 1024;
 
@@ -58,7 +62,7 @@ function getMemoryUsageMB() {
     }
 }
 
-async function scanJsonFiles(directory) {
+async function scanFiles(directory, extensions) {
     try {
         var entries = await fs.readdir(directory, { withFileTypes: true });
         var out = [];
@@ -66,12 +70,18 @@ async function scanJsonFiles(directory) {
             var entry = entries[ei];
             var fullPath = path.join(directory, entry.name);
             if (entry.isDirectory()) {
-                var sub = await scanJsonFiles(fullPath);
+                var sub = await scanFiles(fullPath, extensions);
                 for (var si = 0; si < sub.length; si++) out.push(sub[si]);
                 continue;
             }
-            if (entry.isFile() && entry.name.toLowerCase().endsWith('.json')) {
-                out.push(fullPath);
+            if (entry.isFile()) {
+                var lower = entry.name.toLowerCase();
+                for (var xi = 0; xi < extensions.length; xi++) {
+                    if (lower.endsWith(extensions[xi])) {
+                        out.push(fullPath);
+                        break;
+                    }
+                }
             }
         }
         return out;
@@ -79,6 +89,18 @@ async function scanJsonFiles(directory) {
         if (err.code === 'ENOENT') return [];
         throw err;
     }
+}
+
+async function scanJsonFiles(directory) {
+    return scanFiles(directory, ['.json']);
+}
+
+async function scanPdfFiles(directory) {
+    return scanFiles(directory, ['.pdf']);
+}
+
+async function scanTxtFiles(directory) {
+    return scanFiles(directory, ['.txt']);
 }
 function buildMetadata(sourceFiles) {
     // Sort a copy of sourceFiles by path so the stored metadata is deterministic
@@ -95,23 +117,67 @@ function buildMetadata(sourceFiles) {
         datasetNames: datasetNames
     };
 }
-async function getSourceFiles(dataRoot) {
+function computeFileHash(filePath) {
+    return new Promise(function (resolve, reject) {
+        var hash = crypto.createHash('sha1');
+        var stream = fsc.createReadStream(filePath);
+        stream.on('data', function (d) { hash.update(d); });
+        stream.on('end', function () { resolve(hash.digest('hex')); });
+        stream.on('error', function (e) { reject(e); });
+    });
+}
+
+/**
+ * Scan data files and build source metadata.
+ * When `existingMeta` is provided, entries whose size+mtime match the stored
+ * value are reused as-is (including their content hash) to avoid re-hashing
+ * unchanged files on every startup. Changed/new files get a fresh sha1 hash.
+ * Hashes make change detection robust against git checkout mtime changes.
+ */
+async function getSourceFiles(dataRoot, existingMeta) {
     var datasetRoot = path.join(dataRoot, 'datasets');
     var authorRoot = path.join(dataRoot, 'authors');
     var datasetFiles = await scanJsonFiles(datasetRoot);
     var authorFiles = await scanJsonFiles(authorRoot);
+    var pdfFiles = await scanPdfFiles(dataRoot);
+    var txtFiles = await scanTxtFiles(dataRoot);
     var sourceFiles = [];
+
+    var existingMap = new Map();
+    if (existingMeta && Array.isArray(existingMeta.sourceFiles)) {
+        for (var mi = 0; mi < existingMeta.sourceFiles.length; mi++) {
+            var mEntry = existingMeta.sourceFiles[mi];
+            existingMap.set(mEntry.path, mEntry);
+        }
+    }
 
     var allFiles = [];
     for (var di = 0; di < datasetFiles.length; di++) allFiles.push(datasetFiles[di]);
     for (var ai = 0; ai < authorFiles.length; ai++) allFiles.push(authorFiles[ai]);
+    for (var pi = 0; pi < pdfFiles.length; pi++) allFiles.push(pdfFiles[pi]);
+    for (var ti = 0; ti < txtFiles.length; ti++) allFiles.push(txtFiles[ti]);
 
     for (var fi = 0; fi < allFiles.length; fi++) {
         var filePath = allFiles[fi];
         try {
             var stat = await fs.stat(filePath);
             var relPath = path.relative(dataRoot, filePath).split(path.sep).join('/');
-            sourceFiles.push({ path: relPath, size: stat.size, mtime: stat.mtimeMs });
+            var existing = existingMap.get(relPath);
+            if (existing && existing.size === stat.size && existing.mtime === stat.mtimeMs) {
+                // Unchanged since last index — reuse stored metadata + hash.
+                sourceFiles.push({
+                    path: relPath,
+                    size: existing.size,
+                    mtime: existing.mtime,
+                    hash: existing.hash
+                });
+                continue;
+            }
+            var hash = '';
+            try {
+                hash = await computeFileHash(filePath);
+            } catch (e) { /* keep empty hash */ }
+            sourceFiles.push({ path: relPath, size: stat.size, mtime: stat.mtimeMs, hash: hash });
         } catch (e) { /* skip */ }
     }
 
@@ -156,7 +222,15 @@ function getIndexDiff(indexMeta, currentSources) {
         var entry = currentSources[ei];
         var existing = indexMap.get(entry.path);
         if (!existing) { toAddOrUpdate.push(entry.path); continue; }
-        if (existing.size !== entry.size || existing.mtime !== entry.mtime) { toAddOrUpdate.push(entry.path); continue; }
+        // Compare content hashes when both are available (robust against mtime
+        // changes from git checkout). Fall back to size+mtime for legacy entries.
+        var sameContent = false;
+        if (existing.hash && entry.hash) {
+            sameContent = existing.hash === entry.hash;
+        } else {
+            sameContent = existing.size === entry.size && existing.mtime === entry.mtime;
+        }
+        if (!sameContent) { toAddOrUpdate.push(entry.path); continue; }
         unchanged.push(entry.path);
     }
 
@@ -175,57 +249,79 @@ async function embedBatch(texts, apiKey) {
     for (var ti = 0; ti < texts.length; ti++) {
         var t = String(texts[ti] || '').slice(0, 6000);
         requests.push({
-            model: 'models/text-embedding-004',
-            content: { parts: [{ text: t }] }
+            model: 'models/gemini-embedding-001',
+            content: { parts: [{ text: t }] },
+            outputDimensionality: EMBEDDING_DIMENSION
         });
     }
 
     var url = EMBEDDING_API_URL + '?key=' + encodeURIComponent(apiKey);
-    var controller = new AbortController();
-    var timeout = setTimeout(function () { controller.abort(); }, EMBEDDING_TIMEOUT);
 
-    try {
-        var response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ requests: requests }),
-            signal: controller.signal
-        });
-
-        if (!response.ok) {
-            var errorText = await response.text().catch(function () { return ''; });
-            throw new Error('Embedding API error ' + response.status + ': ' + errorText.slice(0, 200));
+    var lastError = null;
+    for (var attempt = 0; attempt <= EMBEDDING_MAX_RETRIES; attempt++) {
+        if (attempt > 0) {
+            var backoffMs = 500 * Math.pow(2, attempt - 1);
+            console.warn('[IndexManager] Retrying embedding batch (' + attempt + '/' + EMBEDDING_MAX_RETRIES + ') after ' + backoffMs + 'ms...');
+            await new Promise(function (resolve) { setTimeout(resolve, backoffMs); });
         }
 
-        var data = await response.json();
-        if (!data || !Array.isArray(data.embeddings)) {
-            throw new Error('Embedding response missing embeddings array');
-        }
+        var controller = new AbortController();
+        var timeout = setTimeout(function () { controller.abort(); }, EMBEDDING_TIMEOUT);
 
-        var result = [];
-        for (var ei = 0; ei < data.embeddings.length; ei++) {
-            var emb = data.embeddings[ei];
-            if (emb && Array.isArray(emb.values)) {
-                result.push(emb.values.map(Number));
-            } else {
-                result.push([]);
+        try {
+            var response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ requests: requests }),
+                signal: controller.signal
+            });
+
+            if (!response.ok) {
+                var errorText = await response.text().catch(function () { return ''; });
+                var err = new Error('Embedding API error ' + response.status + ': ' + errorText.slice(0, 200));
+                // Non-retryable client errors (4xx) — don't retry.
+                if (response.status >= 400 && response.status < 500) throw err;
+                lastError = err;
+                continue;
             }
-        }
 
-        return result;
-    } catch (e) {
-        if (controller.signal.aborted) {
-            throw new Error('Embedding API timed out after ' + EMBEDDING_TIMEOUT + 'ms');
+            var data = await response.json();
+            if (!data || !Array.isArray(data.embeddings)) {
+                throw new Error('Embedding response missing embeddings array');
+            }
+
+            var result = [];
+            for (var ei = 0; ei < data.embeddings.length; ei++) {
+                var emb = data.embeddings[ei];
+                if (emb && Array.isArray(emb.values)) {
+                    result.push(emb.values.map(Number));
+                } else {
+                    result.push([]);
+                }
+            }
+
+            return result;
+        } catch (e) {
+            if (controller.signal.aborted) {
+                lastError = new Error('Embedding API timed out after ' + EMBEDDING_TIMEOUT + 'ms');
+            } else {
+                lastError = e;
+            }
+            // If a 4xx error was thrown, don't retry — rethrow immediately.
+            if (e instanceof Error && e.message.indexOf('Embedding API error 4') === 0) {
+                throw e;
+            }
+        } finally {
+            clearTimeout(timeout);
         }
-        throw e;
-    } finally {
-        clearTimeout(timeout);
     }
+
+    throw lastError || new Error('Embedding batch failed');
 }
 async function embedLargeBatch(texts, apiKey) {
     var all = [];
-    for (var i = 0; i < texts.length; i += 100) {
-        var part = texts.slice(i, i + 100);
+    for (var i = 0; i < texts.length; i += EMBEDDING_BATCH_SIZE) {
+        var part = texts.slice(i, i + EMBEDDING_BATCH_SIZE);
         var result = await embedBatch(part, apiKey);
         for (var j = 0; j < result.length; j++) all.push(result[j]);
     }
@@ -253,6 +349,33 @@ function chunkFile(relPath, parsed) {
         for (var ai = 0; ai < au.length; ai++) result.push(au[ai]);
     }
     return result;
+}
+
+/**
+ * Chunk a single source file — JSON datasets/authors or PDF documents.
+ * Returns an array of chunk objects.
+ */
+async function chunkSourceFile(relPath, fullPath) {
+    var lower = relPath.toLowerCase();
+    if (lower.endsWith('.pdf')) {
+        var pdfBuffer = await fs.readFile(fullPath);
+        var pdfData = await extractPdf(pdfBuffer);
+        pdfBuffer = null;
+        return chunkPdfFile(relPath, pdfData);
+    }
+    if (lower.endsWith('.txt')) {
+        var txtContent = await fs.readFile(fullPath, 'utf8');
+        var txtChunks = chunkTxtFile(relPath, txtContent);
+        txtContent = null;
+        return txtChunks;
+    }
+    // Default: JSON
+    var content = await fs.readFile(fullPath, 'utf8');
+    var parsed = JSON.parse(content);
+    var chunks = chunkFile(relPath, parsed);
+    parsed = null;
+    content = null;
+    return chunks;
 }
 
 function createJsonWriter(filePath) {
@@ -311,7 +434,7 @@ async function buildIndex(dataRoot) {
 
     console.log('');
     console.log('[IndexManager] ====== BUILDING INDEX ======');
-    console.log('[IndexManager] Embeddings: ' + (hasApiKey ? 'ENABLED (Google text-embedding-004)' : 'DISABLED (no GEMINI_API_KEY)'));
+    console.log('[IndexManager] Embeddings: ' + (hasApiKey ? 'ENABLED (' + EMBEDDING_MODEL + ', dim=' + EMBEDDING_DIMENSION + ')' : 'DISABLED (no GEMINI_API_KEY)'));
     logMemorySnapshot('[IndexManager] Before scan');
 
     var sourceFiles = await getSourceFiles(dataRoot);
@@ -374,13 +497,9 @@ async function buildIndex(dataRoot) {
             var fullPath2 = path.join(dataRoot, relPath2);
 
             try {
-                var content2 = await fs.readFile(fullPath2, 'utf8');
-                var parsed2 = JSON.parse(content2);
                 fileNumber++;
 
-                var fileChunks = chunkFile(relPath2, parsed2);
-                parsed2 = null;
-                content2 = null;
+                var fileChunks = await chunkSourceFile(relPath2, fullPath2);
 
                 var chunkCount = fileChunks.length;
 
@@ -425,6 +544,9 @@ async function buildIndex(dataRoot) {
                     var jsonChunk = {
                         id: ch.id,
                         dataset: ch.dataset,
+                        sourceType: ch.sourceType,
+                        filename: ch.filename,
+                        source: ch.source,
                         page: ch.page,
                         vachanaNumber: ch.vachanaNumber,
                         author: ch.author,
@@ -561,7 +683,7 @@ async function incrementalUpdate(dataRoot, existing, diff) {
     var startTime = Date.now();
     var apiKey = process.env.GEMINI_API_KEY;
     var hasApiKey = isValidApiKey(apiKey);
-    var currentSourceFiles = await getSourceFiles(dataRoot);
+    var currentSourceFiles = await getSourceFiles(dataRoot, existing);
     var metadata = buildMetadata(currentSourceFiles);
 
     // Ensure zero vector exists at proper dimension
@@ -666,12 +788,26 @@ async function incrementalUpdate(dataRoot, existing, diff) {
             var relPath = diff.toAddOrUpdate[fi];
             var fullPath = path.join(dataRoot, relPath);
 
+            console.log('');
+            console.log('[IndexManager] ==================================================');
+            console.log('[IndexManager] Processing file ' + (fi + 1) + '/' + diff.toAddOrUpdate.length);
+            console.log('[IndexManager] Name : ' + path.basename(relPath));
+            console.log('[IndexManager] Path : ' + relPath);
+
+            if (relPath.toLowerCase().endsWith('.pdf')) {
+                console.log('[IndexManager] Type : PDF Book');
+            } else if (relPath.toLowerCase().endsWith('.txt')) {
+                console.log('[IndexManager] Type : TXT Document');
+            } else if (relPath.startsWith('authors/')) {
+                console.log('[IndexManager] Type : Author Dataset');
+            } else {
+                console.log('[IndexManager] Type : Dataset');
+            }
+            console.log('[IndexManager] ==================================================');
+
             try {
-                var content = await fs.readFile(fullPath, 'utf8');
-                var parsed = JSON.parse(content);
-                var fileChunks = chunkFile(relPath, parsed);
-                parsed = null;
-                content = null;
+                var fileChunks = await chunkSourceFile(relPath, fullPath);
+                console.log('[IndexManager] Chunks extracted : ' + fileChunks.length);
 
                 if (fileChunks.length === 0) continue;
 
@@ -683,7 +819,17 @@ async function incrementalUpdate(dataRoot, existing, diff) {
                 var batchEmbeddings = null;
                 if (hasApiKey) {
                     try {
+                        console.log(
+                            '[IndexManager] Creating embeddings for ' +
+                            fileChunks.length +
+                            ' chunks...'
+                        );
                         batchEmbeddings = await embedLargeBatch(fileTexts, apiKey);
+                        console.log(
+                            '[IndexManager] ✓ Embeddings complete (' +
+                            batchEmbeddings.length +
+                            ' vectors)'
+                        );
                     } catch (e) {
                         console.warn('  -> Embedding failed: ' + e.message);
                     }
@@ -702,6 +848,9 @@ async function incrementalUpdate(dataRoot, existing, diff) {
                     var jsonChunk2 = {
                         id: ch2.id,
                         dataset: ch2.dataset,
+                        sourceType: ch2.sourceType,
+                        filename: ch2.filename,
+                        source: ch2.source,
                         page: ch2.page,
                         vachanaNumber: ch2.vachanaNumber,
                         author: ch2.author,
@@ -721,6 +870,10 @@ async function incrementalUpdate(dataRoot, existing, diff) {
                     await jsonWriter.write(prefix2 + JSON.stringify(jsonChunk2));
                     firstChunkInArray = false;
                 }
+                console.log('[IndexManager] ✓ Finished : ' + path.basename(relPath));
+                console.log('[IndexManager] Added     : ' + fileChunks.length + ' chunks');
+                console.log('[IndexManager] Index size: ' + newEmbeddingIndex + ' total chunks');
+                console.log('');
 
                 fileChunks = null;
                 fileTexts = null;
@@ -805,7 +958,7 @@ export async function ensureIndex(dataRoot) {
         logMemorySnapshot('[IndexManager] Start');
 
         var existing = await loadSavedIndex();
-        var sourceFiles = await getSourceFiles(dataRoot);
+        var sourceFiles = await getSourceFiles(dataRoot, existing);
 
         if (!existing) {
             console.log('[IndexManager] No existing index found. Building from scratch...');
