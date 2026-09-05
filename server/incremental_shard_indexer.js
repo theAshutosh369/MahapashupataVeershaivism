@@ -15,7 +15,7 @@ const IGNORED_BASENAMES = new Set(['authors.json']);
 function normalize(value) { return String(value || '').replace(/\\/g, '/').replace(/^\/+|\/+$/g, ''); }
 function categoryFor(relPath) { const p = normalize(relPath); return p.includes('/') ? p.split('/')[0] : 'root'; }
 function safeShardName(category) { const value = normalize(category); if (!value || value === '.' || value === '..' || value.includes('..') || IGNORED_CATEGORIES.has(value.toLowerCase())) return null; return value; }
-function isIgnoredSource(relPath) { return IGNORED_BASENAMES.has(path.basename(normalize(relPath)).toLowerCase()); }
+function isIgnoredSource(relPath) { return IGNORED_BASENAMES.has(path.posix.basename(normalize(relPath)).toLowerCase()); }
 function sha1(buffer) { return crypto.createHash('sha1').update(buffer).digest('hex'); }
 function shardDir(ragRoot, category) { const shard = safeShardName(category); return shard ? path.join(ragRoot, shard) : null; }
 async function readJson(filePath, fallback = null) { try { return JSON.parse(await fs.readFile(filePath, 'utf8')); } catch { return fallback; } }
@@ -56,6 +56,12 @@ async function embedChunks(chunks) {
 
 function sourcePathForChunk(chunk) { return normalize(chunk?.dataset || chunk?.filename || chunk?.source); }
 
+async function writeIndexAtomic(indexPath, value) {
+    const tempPath = `${indexPath}.tmp.${process.pid}.${Date.now()}`;
+    await fs.writeFile(tempPath, JSON.stringify(value), 'utf8');
+    await fs.rename(tempPath, indexPath);
+}
+
 async function appendNewFile({ dataRoot, ragRoot, relPath }) {
     const normalized = normalize(relPath);
     if (isIgnoredSource(normalized)) return { status: 'ignored', path: normalized, reason: 'authors.json' };
@@ -77,14 +83,17 @@ async function appendNewFile({ dataRoot, ragRoot, relPath }) {
     if (sourceEntry && sourceEntry.hash === fileHash) return { status: 'unchanged', path: normalized, shard: shardName, chunks: 0 };
     if (!sourceEntry && Array.isArray(index?.chunks) && index.chunks.some((chunk) => sourcePathForChunk(chunk) === normalized)) return { status: 'already-indexed', path: normalized, shard: shardName, chunks: 0 };
 
-    console.log(`[IncrementalRAG] New file detected: ${normalized}`);
+    const isUpdate = Boolean(sourceEntry);
+    console.log(`[IncrementalRAG] ${isUpdate ? 'Updated' : 'New'} file detected: ${normalized}`);
     console.log(`[IncrementalRAG] Chunking only ${normalized}`);
     const chunks = await chunkSourceFile(normalized, fullPath);
     if (!chunks.length) return { status: 'empty', path: normalized, shard: shardName, chunks: 0 };
     console.log(`[IncrementalRAG] Created ${chunks.length} chunks for ${normalized}`);
     const vectors = await embedChunks(chunks);
     let store;
-    const existingCount = Array.isArray(index?.chunks) ? index.chunks.length : 0;
+    const previousChunks = Array.isArray(index?.chunks) ? index.chunks : [];
+    const retainedChunks = isUpdate ? previousChunks.filter((chunk) => sourcePathForChunk(chunk) !== normalized) : previousChunks;
+    const existingCount = retainedChunks.length;
     if (await VectorStore.fileExists(embeddingPath)) store = await VectorStore.open(embeddingPath);
     else store = await VectorStore.create(embeddingPath, DIMENSION);
     if (store.dimension() !== DIMENSION) { await store.close(); throw new Error(`Embedding dimension mismatch in ${shardName}`); }
@@ -98,15 +107,14 @@ async function appendNewFile({ dataRoot, ragRoot, relPath }) {
             newChunks.push({ ...chunk, embeddingIndex });
         }
         await store.finalize();
-        const sourceFiles = Array.isArray(index?.sourceFiles) ? [...index.sourceFiles] : [];
+        const previousSourceFiles = Array.isArray(index?.sourceFiles) ? index.sourceFiles : [];
+        const sourceFiles = previousSourceFiles.filter((entry) => normalize(entry.path) !== normalized);
         sourceFiles.push({ path: normalized, size: stat.size, mtime: stat.mtimeMs, hash: fileHash });
-        const mergedChunks = [...(Array.isArray(index?.chunks) ? index.chunks : []), ...newChunks];
+        const mergedChunks = [...retainedChunks, ...newChunks];
         const updated = { vectorCacheVersion: Number(index?.vectorCacheVersion) || 5, embeddingModel: MODEL, embeddingDimension: DIMENSION, createdAt: index?.createdAt || new Date().toISOString(), updatedAt: new Date().toISOString(), sourceFiles: sourceFiles.sort((a, b) => a.path.localeCompare(b.path)), datasetNames: [...new Set(mergedChunks.map((chunk) => chunk.dataset).filter(Boolean))].sort(), embeddingFile: 'embeddings.bin', chunkCount: mergedChunks.length, chunks: mergedChunks };
-        const tempPath = `${indexPath}.tmp.${process.pid}.${Date.now()}`;
-        await fs.writeFile(tempPath, JSON.stringify(updated), 'utf8');
-        await fs.rename(tempPath, indexPath);
-        console.log(`[IncrementalRAG] Updated shard ${shardName}: ${existingCount} -> ${mergedChunks.length} chunks`);
-        return { status: 'indexed', path: normalized, shard: shardName, chunks: newChunks.length, embeddings: vectors.length, previousChunks: existingCount, totalChunks: mergedChunks.length };
+        await writeIndexAtomic(indexPath, updated);
+        console.log(`[IncrementalRAG] Updated shard ${shardName}: ${previousChunks.length} -> ${mergedChunks.length} chunks`);
+        return { status: 'indexed', path: normalized, shard: shardName, chunks: newChunks.length, embeddings: vectors.length, previousChunks: previousChunks.length, totalChunks: mergedChunks.length, replaced: isUpdate };
     } finally { await store.close().catch(() => {}); }
 }
 
@@ -117,9 +125,6 @@ export async function scanAndIncrementallyIndex({ dataRoot, ragRoot }) {
     const shardIndexes = new Map();
     const knownSourcePaths = new Map();
 
-    // Load each shard index ONCE. The previous implementation parsed an index
-    // for every source file and then searched every chunk, which made a startup
-    // reconciliation unnecessarily expensive for a 24k+ corpus.
     let shardEntries = [];
     try { shardEntries = await fs.readdir(ragRoot, { withFileTypes: true }); } catch { shardEntries = []; }
     for (const entry of shardEntries) {
@@ -142,11 +147,11 @@ export async function scanAndIncrementallyIndex({ dataRoot, ragRoot }) {
             const full = path.join(dir, entry.name);
             if (entry.isDirectory()) { await walk(full, rel); continue; }
             if (!entry.isFile() || !/\.(json|pdf|txt)$/i.test(entry.name)) continue;
-            if (isIgnoredSource(rel)) {
-                console.log(`[IncrementalRAG] Ignoring ${normalize(rel)} (authors.json is never indexed)`);
+            const normalized = normalize(rel);
+            if (isIgnoredSource(normalized)) {
+                console.log(`[IncrementalRAG] Ignoring ${normalized} (authors.json is never indexed)`);
                 continue;
             }
-            const normalized = normalize(rel);
             const category = categoryFor(normalized);
             if (!safeShardName(category)) continue;
             const key = category.toLowerCase();
@@ -154,11 +159,28 @@ export async function scanAndIncrementallyIndex({ dataRoot, ragRoot }) {
             const known = knownSourcePaths.get(key) || new Set();
             const stat = await fs.stat(full);
             const sourceEntry = idx?.sourceFiles?.find((item) => normalize(item.path) === normalized);
-            // Fast path: unchanged files are decided from metadata only.
+
+            // Existing source with identical size+mtime is the common fast path.
             if (sourceEntry && sourceEntry.size === stat.size && sourceEntry.mtime === stat.mtimeMs) continue;
-            // Legacy prebuilt shards: chunk metadata tells us the file is already
-            // indexed, so do not read/hash/chunk it during startup.
+            // Legacy/prebuilt index: if chunk metadata already contains this file,
+            // don't re-embed it merely because the copied file has a different mtime.
             if (!sourceEntry && known.has(normalized)) continue;
+
+            if (sourceEntry) {
+                // Metadata can change when a repository is copied/checked out.
+                // Hash the file before deciding that content actually changed.
+                const raw = await fs.readFile(full);
+                const currentHash = sha1(raw);
+                if (sourceEntry.hash && sourceEntry.hash === currentHash) {
+                    // Content is unchanged. Persist the new filesystem metadata so
+                    // future startups can use the cheap size+mtime fast path.
+                    const refreshed = { ...idx, sourceFiles: (idx.sourceFiles || []).map((item) => normalize(item.path) === normalized ? { ...item, size: stat.size, mtime: stat.mtimeMs } : item), updatedAt: new Date().toISOString() };
+                    await writeIndexAtomic(path.join(ragRoot, category, 'index.json'), refreshed);
+                    shardIndexes.set(key, refreshed);
+                    console.log(`[IncrementalRAG] Unchanged content; refreshed metadata only: ${normalized}`);
+                    continue;
+                }
+            }
             results.push(await appendNewFile({ dataRoot, ragRoot, relPath: normalized }));
         }
     }
@@ -170,7 +192,6 @@ export async function scanAndIncrementallyIndex({ dataRoot, ragRoot }) {
     return results;
 }
 
-// Kept only for API compatibility. There is intentionally NO filesystem
-// watcher. Development scans once at server startup and never scans again
-// until the server is restarted.
+// Compatibility only. Deliberately does nothing: development indexing is
+// performed exactly once during startup. No filesystem watcher is installed.
 export function startIncrementalWatcher() { return () => {}; }
