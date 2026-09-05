@@ -3,6 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { VectorStore } from './vector_store.js';
 import { hybridSearch, keywordSearch } from './hybrid_search.js';
+import { scanAndIncrementallyIndex, startIncrementalWatcher } from './incremental_shard_indexer.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(__dirname, '..');
@@ -14,6 +15,8 @@ const IGNORED_SHARD_CATEGORIES = new Set(['other']);
 let ragRoot = DEFAULT_RAG_ROOT;
 let manifest = null;
 let readyPromise = null;
+let stopIncrementalWatcher = null;
+let incrementalUpdatePromise = Promise.resolve();
 
 function normalize(value) {
     return String(value || '')
@@ -23,7 +26,6 @@ function normalize(value) {
         .replace(/^\/+|\/+$/g, '');
 }
 
-// Matching form only. Original source text is never modified.
 function normalizeForMatch(value) {
     return normalize(value)
         .toLocaleLowerCase()
@@ -43,15 +45,8 @@ function queryVariants(query) {
     const variants = new Set();
     if (original) variants.add(original);
     if (match && match !== original) variants.add(match);
-
-    // Keep expansion lexical-only. This deliberately does not create extra
-    // Gemini embedding requests, so one user question still uses one embedding.
     const tokens = match.split(/\s+/).filter(Boolean);
-    if (tokens.length > 1) {
-        for (const token of tokens) {
-            if (token.length >= 3) variants.add(token);
-        }
-    }
+    if (tokens.length > 1) for (const token of tokens) if (token.length >= 3) variants.add(token);
     return [...variants].slice(0, 8);
 }
 
@@ -59,9 +54,7 @@ function shardCategory(name) {
     const value = normalize(name);
     return value ? value.split('/')[0] : '';
 }
-function isIgnoredShard(name) {
-    return IGNORED_SHARD_CATEGORIES.has(shardCategory(name).toLowerCase());
-}
+function isIgnoredShard(name) { return IGNORED_SHARD_CATEGORIES.has(shardCategory(name).toLowerCase()); }
 function safeShardPath(shardName) {
     const name = normalize(shardName);
     if (!name || name === '.' || name === '..' || name.includes('..') || isIgnoredShard(name)) return null;
@@ -98,55 +91,97 @@ async function discoverShards(dir = ragRoot, relative = '') {
     return result;
 }
 
+async function buildManifest() {
+    let savedManifest = null;
+    try { savedManifest = await readJson(path.join(ragRoot, 'manifest.json')); } catch { savedManifest = null; }
+    const discovered = await discoverShards();
+    const configured = Array.isArray(savedManifest?.shards)
+        ? savedManifest.shards.map(s => typeof s === 'string' ? s : s?.path || s?.name).filter(Boolean).map(normalize).filter(s => !isIgnoredShard(s))
+        : [];
+    const candidates = configured.length ? configured : discovered;
+    const shards = [];
+    for (const shard of candidates) {
+        if (isIgnoredShard(shard)) continue;
+        const dir = safeShardPath(shard);
+        if (!dir) continue;
+        try {
+            await fs.access(path.join(dir, 'index.json'));
+            await fs.access(path.join(dir, 'embeddings.bin'));
+            if (!shards.includes(shard)) shards.push(shard);
+        } catch { /* stale manifest entry */ }
+    }
+    for (const shard of discovered) if (!isIgnoredShard(shard) && !shards.includes(shard)) shards.push(shard);
+
+    const datasetNames = [];
+    const shardInfo = [];
+    let chunkCount = 0;
+    for (const shard of shards.sort((a, b) => a.localeCompare(b))) {
+        const dir = safeShardPath(shard);
+        if (!dir) continue;
+        try {
+            const index = await readJson(path.join(dir, 'index.json'));
+            const count = Array.isArray(index.chunks) ? index.chunks.length : Number(index.chunkCount) || 0;
+            chunkCount += count;
+            if (Array.isArray(index.datasetNames)) datasetNames.push(...index.datasetNames);
+            shardInfo.push({ name: shard, path: shard, category: shardCategory(shard), chunkCount: count });
+        } catch (error) {
+            console.warn('[ShardedRAG] Ignoring invalid shard ' + shard + ': ' + error.message);
+        }
+    }
+    const nextManifest = { sharded: true, ragRoot, shards: shardInfo, datasetNames: [...new Set(datasetNames)].sort((a, b) => a.localeCompare(b)), chunkCount, updatedAt: new Date().toISOString() };
+    await fs.mkdir(ragRoot, { recursive: true });
+    const temp = path.join(ragRoot, `manifest.json.tmp.${process.pid}.${Date.now()}`);
+    await fs.writeFile(temp, JSON.stringify(nextManifest, null, 2), 'utf8');
+    await fs.rename(temp, path.join(ragRoot, 'manifest.json'));
+    manifest = nextManifest;
+    return manifest;
+}
+
+async function queueIncrementalScan(dataRoot) {
+    incrementalUpdatePromise = incrementalUpdatePromise
+        .then(() => scanAndIncrementallyIndex({ dataRoot, ragRoot }))
+        .then(async (results) => {
+            const indexed = results.filter((item) => item.status === 'indexed');
+            if (indexed.length) {
+                console.log(`[IncrementalRAG] Indexed ${indexed.length} new/changed source file(s): ${indexed.map((item) => item.path).join(', ')}`);
+                await buildManifest();
+            }
+            return results;
+        })
+        .catch((error) => {
+            console.warn('[IncrementalRAG] Background scan failed:', error.message);
+            return [];
+        });
+    return incrementalUpdatePromise;
+}
+
 export async function ensureIndex(dataRoot, opts = {}) {
-    void dataRoot;
+    void opts;
     if (readyPromise) return readyPromise;
     readyPromise = (async () => {
         ragRoot = opts.ragRoot ? path.resolve(opts.ragRoot) : DEFAULT_RAG_ROOT;
         console.log('[ShardedRAG] RAG root:', ragRoot);
-        console.log('[ShardedRAG] Runtime is read-only; source data is not scanned or chunked.');
-        console.log('[ShardedRAG] Ignoring unused shard category: Other');
-        let savedManifest = null;
-        try { savedManifest = await readJson(path.join(ragRoot, 'manifest.json')); } catch { savedManifest = null; }
-        const discovered = await discoverShards();
-        const configured = Array.isArray(savedManifest?.shards)
-            ? savedManifest.shards.map(s => typeof s === 'string' ? s : s?.path || s?.name).filter(Boolean).map(normalize).filter(s => !isIgnoredShard(s))
-            : [];
-        const candidates = configured.length ? configured : discovered;
-        const shards = [];
-        for (const shard of candidates) {
-            if (isIgnoredShard(shard)) continue;
-            const dir = safeShardPath(shard);
-            if (!dir) continue;
-            try {
-                await fs.access(path.join(dir, 'index.json'));
-                await fs.access(path.join(dir, 'embeddings.bin'));
-                if (!shards.includes(shard)) shards.push(shard);
-            } catch { /* stale manifest entry */ }
-        }
-        for (const shard of discovered) {
-            if (!isIgnoredShard(shard) && !shards.includes(shard)) shards.push(shard);
-        }
-        if (!shards.length) throw new Error('No RAG shards found under ' + ragRoot + '.');
-        const datasetNames = [];
-        const shardInfo = [];
-        let chunkCount = 0;
-        for (const shard of shards.sort((a, b) => a.localeCompare(b))) {
-            const dir = safeShardPath(shard);
-            if (!dir) continue;
-            try {
-                const index = await readJson(path.join(dir, 'index.json'));
-                const count = Array.isArray(index.chunks) ? index.chunks.length : Number(index.chunkCount) || 0;
-                chunkCount += count;
-                if (Array.isArray(index.datasetNames)) datasetNames.push(...index.datasetNames);
-                shardInfo.push({ name: shard, path: shard, category: shardCategory(shard), chunkCount: count });
-            } catch (error) {
-                console.warn('[ShardedRAG] Ignoring invalid shard ' + shard + ': ' + error.message);
-            }
-        }
-        manifest = { sharded: true, ragRoot, shards: shardInfo, datasetNames: [...new Set(datasetNames)].sort((a, b) => a.localeCompare(b)), chunkCount };
-        console.log('[ShardedRAG] Loaded ' + shardInfo.length + ' shards, ' + chunkCount + ' chunks');
+        console.log('[ShardedRAG] Incremental source indexing: enabled');
+        await buildManifest();
+        console.log('[ShardedRAG] Loaded ' + (manifest?.shards?.length || 0) + ' shards, ' + (manifest?.chunkCount || 0) + ' chunks');
         console.log('[ShardedRAG] Retrieval mode: shard-local keyword + batched semantic candidates + query expansion + reranking');
+
+        // Reconcile source files once after startup. Existing indexed files are
+        // skipped; a newly added file is chunked and embedded only in its shard.
+        await queueIncrementalScan(dataRoot);
+
+        if (!stopIncrementalWatcher) {
+            stopIncrementalWatcher = startIncrementalWatcher({
+                dataRoot,
+                ragRoot,
+                onUpdate: (result) => {
+                    if (result?.status === 'indexed') {
+                        console.log(`[IncrementalRAG] New source indexed: ${result.path} -> ${result.shard} (${result.chunks} chunks)`);
+                        void buildManifest().catch((error) => console.warn('[IncrementalRAG] Manifest update failed:', error.message));
+                    }
+                }
+            });
+        }
         return manifest;
     })();
     try { return await readyPromise; }
@@ -171,10 +206,7 @@ async function loadShard(shardName) {
         if (dataset && shardCategory(dataset) !== category) throw new Error(`Shard/category mismatch in ${shardName}: ${dataset}`);
     }
     const store = await VectorStore.open(path.join(dir, 'embeddings.bin'));
-    if (store.dimension() !== EMBEDDING_DIMENSION) {
-        await store.close();
-        throw new Error(`Embedding dimension mismatch in ${shardName}: ${store.dimension()} != ${EMBEDDING_DIMENSION}`);
-    }
+    if (store.dimension() !== EMBEDDING_DIMENSION) { await store.close(); throw new Error(`Embedding dimension mismatch in ${shardName}: ${store.dimension()} != ${EMBEDDING_DIMENSION}`); }
     return { name: shardName, dir, index, store };
 }
 function selectedShards(selection) {
@@ -199,50 +231,27 @@ function matchesSelection(chunk, selectedSet) {
     }
     return false;
 }
-
-function textForRerank(chunk) {
-    return normalizeForMatch([
-        chunk?.text,
-        chunk?.title,
-        chunk?.author,
-        chunk?.dataset,
-        chunk?.source,
-        chunk?.file,
-        chunk?.vachanaNumber
-    ].filter(v => v !== undefined && v !== null).join(' '));
-}
-
+function textForRerank(chunk) { return normalizeForMatch([chunk?.text, chunk?.title, chunk?.author, chunk?.dataset, chunk?.source, chunk?.file, chunk?.vachanaNumber].filter(v => v !== undefined && v !== null).join(' ')); }
 function lexicalScore(query, chunk) {
-    const q = normalizeForMatch(query);
-    if (!q) return 0;
-    const text = textForRerank(chunk);
-    if (!text) return 0;
-    let score = 0;
-    if (text.includes(q)) score += 1;
-    const terms = q.split(/\s+/).filter(t => t.length >= 2);
-    let hits = 0;
+    const q = normalizeForMatch(query); if (!q) return 0;
+    const text = textForRerank(chunk); if (!text) return 0;
+    let score = text.includes(q) ? 1 : 0;
+    const terms = q.split(/\s+/).filter(t => t.length >= 2); let hits = 0;
     for (const term of terms) if (text.includes(term)) hits++;
     if (terms.length) score += hits / terms.length * 0.75;
     return Math.min(1.75, score);
 }
-
 function rerankResults(results, query, expandedQueries) {
-    const original = normalizeForMatch(query);
-    const variants = expandedQueries.map(normalizeForMatch).filter(Boolean);
-    const unique = new Map();
+    const original = normalizeForMatch(query); const variants = expandedQueries.map(normalizeForMatch).filter(Boolean); const unique = new Map();
     for (const item of results) {
-        const chunk = item?.chunk;
-        if (!chunk) continue;
+        const chunk = item?.chunk; if (!chunk) continue;
         const id = chunk.id || `${item.shard || ''}:${chunk.embeddingIndex ?? ''}:${chunk.dataset || ''}`;
-        const semantic = Number(item.similarity ?? item.semanticScore ?? 0);
-        const base = Number(item.score ?? 0);
-        const originalLex = lexicalScore(original, chunk);
-        const expansionLex = variants.reduce((best, variant) => Math.max(best, lexicalScore(variant, chunk)), 0);
+        const semantic = Number(item.similarity ?? item.semanticScore ?? 0); const base = Number(item.score ?? 0);
+        const originalLex = lexicalScore(original, chunk); const expansionLex = variants.reduce((best, variant) => Math.max(best, lexicalScore(variant, chunk)), 0);
         const metadata = normalizeForMatch([chunk.title, chunk.author, chunk.dataset, chunk.file].filter(Boolean).join(' '));
         const entityBoost = original && metadata.includes(original) ? 0.45 : 0;
         const score = base * 0.45 + semantic * 0.30 + originalLex * 0.20 + expansionLex * 0.08 + entityBoost;
-        const existing = unique.get(id);
-        const enriched = { ...item, score, rerankScore: score };
+        const existing = unique.get(id); const enriched = { ...item, score, rerankScore: score };
         if (!existing || score > existing.rerankScore) unique.set(id, enriched);
     }
     return [...unique.values()].sort((a, b) => b.rerankScore - a.rerankScore);
@@ -250,95 +259,40 @@ function rerankResults(results, query, expandedQueries) {
 
 export async function retrieveFromShards(query, datasetSelection, topK = 10, queryEmbedding = null) {
     if (!manifest) throw new Error('Sharded RAG is not initialized. Call ensureIndex() first.');
-    const shardNames = selectedShards(datasetSelection);
-    const selectedSet = selectedDatasets(datasetSelection);
-    const expandedQueries = queryVariants(query);
-    const perShardTop = Math.max(20, Math.min(50, Number(topK) * 4));
-    const allResults = [];
-
+    const shardNames = selectedShards(datasetSelection); const selectedSet = selectedDatasets(datasetSelection); const expandedQueries = queryVariants(query);
+    const perShardTop = Math.max(20, Math.min(50, Number(topK) * 4)); const allResults = [];
     console.log('[ShardedRAG] Hierarchical retrieval: ' + shardNames.length + ' selected shard(s)');
     console.log('[ShardedRAG] Query expansion: ' + expandedQueries.length + ' lexical variant(s)');
-
     for (const shardName of shardNames) {
         let shard = null;
         try {
-            shard = await loadShard(shardName);
-            let candidates = shard.index.chunks;
+            shard = await loadShard(shardName); let candidates = shard.index.chunks;
             if (selectedSet) candidates = candidates.filter(chunk => matchesSelection(chunk, selectedSet));
             if (!candidates.length) continue;
-
-            // Query expansion is lexical-only; it adds recall without extra API calls.
             const keywordMap = new Map();
             for (const expandedQuery of expandedQueries) {
                 const found = keywordSearch(expandedQuery, candidates, { topK: perShardTop });
-                for (const item of found) {
-                    if (!item?.chunk?.id) continue;
-                    const current = keywordMap.get(item.chunk.id);
-                    if (!current || Number(item.score ?? 0) > Number(current.score ?? 0)) {
-                        keywordMap.set(item.chunk.id, item);
-                    }
-                }
+                for (const item of found) if (item?.chunk?.id) { const current = keywordMap.get(item.chunk.id); if (!current || Number(item.score ?? 0) > Number(current.score ?? 0)) keywordMap.set(item.chunk.id, item); }
             }
-            const keywordCandidates = [...keywordMap.values()];
-
-            let semanticCandidates = [];
+            const keywordCandidates = [...keywordMap.values()]; let semanticCandidates = [];
             if (queryEmbedding && shard.store.size() > 0) {
-                const hits = await shard.store.searchBatched(queryEmbedding, perShardTop, 500);
-                const byIndex = new Map();
-                for (const chunk of candidates) {
-                    if (Number.isInteger(chunk.embeddingIndex) && chunk.embeddingIndex >= 0) {
-                        byIndex.set(chunk.embeddingIndex, chunk);
-                    }
-                }
-                for (const hit of hits) {
-                    const chunk = byIndex.get(hit.index);
-                    if (chunk) semanticCandidates.push({ chunk, similarity: hit.score });
-                }
+                const hits = await shard.store.searchBatched(queryEmbedding, perShardTop, 500); const byIndex = new Map();
+                for (const chunk of candidates) if (Number.isInteger(chunk.embeddingIndex) && chunk.embeddingIndex >= 0) byIndex.set(chunk.embeddingIndex, chunk);
+                for (const hit of hits) { const chunk = byIndex.get(hit.index); if (chunk) semanticCandidates.push({ chunk, similarity: hit.score }); }
             }
-
             const union = new Map();
             for (const item of keywordCandidates) if (item?.chunk?.id) union.set(item.chunk.id, item.chunk);
             for (const item of semanticCandidates) if (item?.chunk?.id) union.set(item.chunk.id, item.chunk);
-            const candidateArray = [...union.values()];
-            if (!candidateArray.length) continue;
-
+            const candidateArray = [...union.values()]; if (!candidateArray.length) continue;
             const semanticMap = new Map(semanticCandidates.map(item => [item.chunk.id, item.similarity]));
-            if (queryEmbedding && semanticMap.size) {
-                for (const chunk of candidateArray) {
-                    if (!semanticMap.has(chunk.id)) continue;
-                    try { chunk.embedding = await shard.store.get(chunk.embeddingIndex); } catch { /* keyword fallback */ }
-                }
-            }
-
-            const results = queryEmbedding && candidateArray.some(c => c.embedding)
-                ? hybridSearch(queryEmbedding, query, candidateArray, { topK: perShardTop, retrieveK: perShardTop, preserveSemanticCandidates: true })
-                : keywordCandidates;
-
-            for (const result of results) {
-                if (result?.chunk) {
-                    result.shard = shardName;
-                    allResults.push(result);
-                }
-            }
+            if (queryEmbedding && semanticMap.size) for (const chunk of candidateArray) if (semanticMap.has(chunk.id)) try { chunk.embedding = await shard.store.get(chunk.embeddingIndex); } catch {}
+            const results = queryEmbedding && candidateArray.some(c => c.embedding) ? hybridSearch(queryEmbedding, query, candidateArray, { topK: perShardTop, retrieveK: perShardTop, preserveSemanticCandidates: true }) : keywordCandidates;
+            for (const result of results) if (result?.chunk) { result.shard = shardName; allResults.push(result); }
             for (const chunk of candidateArray) delete chunk.embedding;
-        } finally {
-            if (shard?.store) try { await shard.store.close(); } catch { /* ignore */ }
-        }
+        } finally { if (shard?.store) try { await shard.store.close(); } catch {} }
     }
-
-    // Global reranking is the final hierarchical stage: shard-local retrieval
-    // first, then a single global ranking across the selected shards.
-    const reranked = rerankResults(allResults, query, expandedQueries);
-    const seen = new Set();
-    const finalResults = [];
-    const limit = Math.min(25, Number(topK) || 10);
-    for (const item of reranked) {
-        const id = item.chunk?.id;
-        if (id && seen.has(id)) continue;
-        if (id) seen.add(id);
-        finalResults.push(item);
-        if (finalResults.length >= limit) break;
-    }
+    const reranked = rerankResults(allResults, query, expandedQueries); const seen = new Set(); const finalResults = []; const limit = Math.min(25, Number(topK) || 10);
+    for (const item of reranked) { const id = item.chunk?.id; if (id && seen.has(id)) continue; if (id) seen.add(id); finalResults.push(item); if (finalResults.length >= limit) break; }
     console.log('[ShardedRAG] Final reranked results: ' + finalResults.length);
     return finalResults;
 }
