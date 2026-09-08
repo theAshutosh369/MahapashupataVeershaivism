@@ -1,0 +1,721 @@
+{
+  "id" : 13,
+  "kannadaName" : "ಮಧುವಯ್ಯ",
+  "englishName" : "madhuvayya",
+  "vachanaCount" : 0,
+  "vachanas" : [ {
+    "authorId" : 13,
+    "number" : 1,
+    "akshara" : "a",
+    "kannada" : "ಅರಿದು ಲಿಂಗಸಂಗವಾದಲ್ಲಿ ಕಾಯವಳಿದರೇನು ?\nಕಾಯವುಳಿದು ಕೈಲಾಸಕ್ಕೆ ಹೋಗಬೇಕೆಂಬುದು,\nಜೀವನ ಉಪಾದ್ಥಿಕೆ.\nಘಟಮಟಪಟನ್ಯಾಯ ಇವೆಲ್ಲವು ಬಯಲೊಳಗು.\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿದು ಕೂಡಿದ ಮತ್ತೆ,\nಅಂಗ ಸಿಕ್ಕುವುದಕ್ಕೆ ಠಾವಿಲ್ಲ.",
+    "transliteration" : "aridu liṅgasaṅgavādalli kāyavaḷidarēnu ?\nkāyavuḷidu kailāsakke hōgabēkembudu,\njīvana upādthike.\nghaṭamaṭapaṭan'yāya ivellavu bayaloḷagu.\narkēśvaraliṅgavanaridu kūḍida matte,\naṅga sikkuvudakke ṭhāvilla.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 2,
+    "akshara" : "a",
+    "kannada" : "ಅಣ್ಣನ ಮೂರು ಕುತ್ತಿನಲ್ಲಿ,\nಅಕ್ಕ ಮೂರು ಮಕ್ಕಳ ಹೆತ್ತು,\nಅಪ್ಪನ ಕೈಯಲ್ಲಿ ಕೊಟ್ಟಳು.\nಅಣ್ಣ ಹಣ್ಣಿದ ಜಗಳ.\nಅಕ್ಕನ ಹೊಟ್ಟೆಯ ಕೇಡು.\nಅಕ್ಕನ ಕೂಸು ಅಪ್ಪನ ತಿಂದು,\nಎತ್ತ ಹೋಯಿತ್ತೆಂದರಿಯೆ.\nಅರ್ಕೇಶ್ವರಲಿಂಗವ ಕೇಳುವ ಬನ್ನಿ.",
+    "transliteration" : "aṇṇana mūru kuttinalli,\nakka mūru makkaḷa hettu,\nappana kaiyalli koṭṭaḷu.\naṇṇa haṇṇida jagaḷa.\nakkana hoṭṭeya kēḍu.\nakkana kūsu appana tindu,\netta hōyittendariye.\narkēśvaraliṅgava kēḷuva banni.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 3,
+    "akshara" : "a",
+    "kannada" : "ಅಂಗೈಯದು ಹೆಂಗಳಾಗಿ, ನೋಡುವ ಕಂಗಳು ಪುರುಷನಾಗಿ\nಉಭಯವನರಿವುದು, ಪ್ರಜಾಪತಿಯಾಗಿ.\nಚಿದ್ಘನಶಕ್ತಿ ಯೋನಿಯಲ್ಲಿ ಕೂಡಿ,\nಬಿಂದು ವಿಸರ್ಜನವಾಯಿತ್ತು.\nಅದು ಲೀಯವಾಗಲ್ಪಟ್ಟುದು ಲಿಂಗವಾಯಿತ್ತು.\nಅದು ಅಂಗೈಯಲ್ಲಿ ಅರಿಕೆ, ಕಂಗಳಿಂಗೆ ಕುರುಹು.\nಮಂಗಳಮಯ ಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿವುದಕ್ಕೆ ಇಷ್ಟದ ಗೊತ್ತೆ ?\nಅರ್ಕೇಶ್ವರಲಿಂಗವು ತಾನು ತಾನೆ.",
+    "transliteration" : "aṅgaiyadu heṅgaḷāgi, nōḍuva kaṅgaḷu puruṣanāgi\nubhayavanarivudu, prajāpatiyāgi.\ncidghanaśakti yōniyalli kūḍi,\nbindu visarjanavāyittu.\nadu līyavāgalpaṭṭudu liṅgavāyittu.\nadu aṅgaiyalli arike, kaṅgaḷiṅge kuruhu.\nmaṅgaḷamaya arkēśvaraliṅgavanarivudakke iṣṭada gotte ?\narkēśvaraliṅgavu tānu tāne.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 4,
+    "akshara" : "a",
+    "kannada" : "ಅಗ್ಘವಣಿಗಡಿವಜ್ಜೆಯುಂಟೆ ?\nವಾಯುವ ಹಿಡಿದು ಬಂದ್ಥಿಸಬಹುದೆ ?\nಅನಲಂಗೆ ತಾಳು ತುದಿ ಸುಡುವುದಕ್ಕೆ ಬೇರೆ ಬ್ಥಿನ್ನವುಂಟೆ ?\nಸುಗಂಧಕ್ಕೆ ಬುಡ ತುದಿಯಿಲ್ಲ.\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿದುದಕ್ಕೆ ಎಲ್ಲಿಯೂ ತಾನೆ.",
+    "transliteration" : "agghavaṇigaḍivajjeyuṇṭe ?\nvāyuva hiḍidu bandthisabahude ?\nanalaṅge tāḷu tudi suḍuvudakke bēre bthinnavuṇṭe ?\nsugandhakke buḍa tudiyilla.\narkēśvaraliṅgavanaridudakke elliyū tāne.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 5,
+    "akshara" : "a",
+    "kannada" : "ಅಸಿ ಕೃಷಿ ಮಸಿ ಯಾಚಕ ವಾಣಿಜ್ಯತ್ವವ\nಮಾಡುವುದು ಲೇಸು.\nಹುಸಿ ವೇಷವ ತೊಟ್ಟು ಅಸುವ ಹೊರೆವವನ ಘಟ\nಪಿಸಿತದ ತಿತ್ತಿಯಂತೆ\nಅಘಟಿತ, ಅವನನೊಲ್ಲ ಅರ್ಕೇಶ್ವರಲಿಂಗ.",
+    "transliteration" : "asi kr̥ṣi masi yācaka vāṇijyatvava\nmāḍuvudu lēsu.\nhusi vēṣava toṭṭu asuva horevavana ghaṭa\npisitada tittiyante\naghaṭita, avananolla arkēśvaraliṅga.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 6,
+    "akshara" : "a",
+    "kannada" : "ಅಂಗೈಯಲ್ಲಿ ಬೇರು ಹುಟ್ಟಿ,\nಮುಂಗೈಯಲ್ಲಿ ಮೊಳೆದೋರಿ,\nಹಿಂಗಾಲಿನಲ್ಲಿ ಮರ ಬಲಿಯಿತ್ತು.\nಮುಂಗಾಲಿನಲ್ಲಿ ಫಲ ಮೂಡಿ,\nಅಂಗೈಯಲ್ಲಿ ಹಣ್ಣಾಯಿತ್ತು.\nಕಂಗಳ ಕೂಸು ಹಣ್ಣ ಮೆದ್ದಿತ್ತು.\nಕೂಸಿನ ಅಂಗವನರಿ, ಅರ್ಕೇಶ್ವರಲಿಂಗದ ಸಂಗವ ಮಾಡು.",
+    "transliteration" : "aṅgaiyalli bēru huṭṭi,\nmuṅgaiyalli moḷedōri,\nhiṅgālinalli mara baliyittu.\nmuṅgālinalli phala mūḍi,\naṅgaiyalli haṇṇāyittu.\nkaṅgaḷa kūsu haṇṇa meddittu.\nkūsina aṅgavanari, arkēśvaraliṅgada saṅgava māḍu.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 7,
+    "akshara" : "a",
+    "kannada" : "ಅಂಗಜನ ಮನೆಯಲ್ಲಿ\nಬಂದಬಂದವರೆಲ್ಲರೂ\nಮಿಂದು ಉಂಡು ಉಟ್ಟು ಸಂದಣಿಗೊಳ್ಳುತ್ತಿದ್ದರೆ,\nಅಂಗಜನ ಬಾಗಿಲ ಕಾವ\nಕಂದಲೆಂಕರಿಗೇಕೆ ಅರ್ಕೆಶ್ವರಲಿಂಗದ ಒಲುಮೆ ?",
+    "transliteration" : "aṅgajana maneyalli\nbandabandavarellarū\nmindu uṇḍu uṭṭu sandaṇigoḷḷuttiddare,\naṅgajana bāgila kāva\nkandaleṅkarigēke arkeśvaraliṅgada olume ?",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 8,
+    "akshara" : "a",
+    "kannada" : "ಅರಿವುಳ್ಳವನಂತೆ, ಭವದಲ್ಲಿ ಬಾಹರ ಭವನವ ಕಾವನೆ ?\nತತ್ವ ಭಾವನೆಯ ಬಲ್ಲವನಂತೆ,\nತುತ್ತಿನಾಸೆಗಾಗಿ ಬೆಕ್ಕಿನಂತೆ ಧ್ಯಾನಿಸುತ್ತಿಪ್ಪನೆ ?\nಇವರಾಟ, ಮತ್ರ್ಯರ ಸಿಕ್ಕಿಸುವ ಕೂಟ,\nಅರ್ಕೇಶ್ವರಲಿಂಗನ ಕೂಟವಲ್ಲ.",
+    "transliteration" : "arivuḷḷavanante, bhavadalli bāhara bhavanava kāvane ?\ntatva bhāvaneya ballavanante,\ntuttināsegāgi bekkinante dhyānisuttippane ?\nivarāṭa, matryara sikkisuva kūṭa,\narkēśvaraliṅgana kūṭavalla.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 9,
+    "akshara" : "ā",
+    "kannada" : "ಆಡಿನ ಕಾಲ ಕಡಿದು, ಕೋಡಗದ ಹಲ್ಲ ಕಿತ್ತು,\nಉಡುವಿನ ನಾಲಗೆಯ ಒಡಗೂಡಿ ಕೂಡಿ ತಿಂದು,\nಮತ್ತೊಡೆಯನನರಿಯಬೇಕು, ಅರ್ಕೇಶ್ವರಲಿಂಗವ.",
+    "transliteration" : "āḍina kāla kaḍidu, kōḍagada halla kittu,\nuḍuvina nālageya oḍagūḍi kūḍi tindu,\nmattoḍeyananariyabēku, arkēśvaraliṅgava.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 10,
+    "akshara" : "ā",
+    "kannada" : "ಆಕಾಶದ ಮಧ್ಯದಲ್ಲಿ ಒಂದು ಭೇಕ ನುಡಿಯುತ್ತದೆ.\nಅದು ಅನೇಕ ಗೀತ ವಾದ್ಯ ನೃತ್ಯಂಗಳಿಂ[ದಾಡುತ್ತಿದ್ದಿತ್ತು].\nಎನ್ನಾಟವ ನೋಡುವರಿಲ್ಲಾಯೆಂದು ನೇತಿಗಳೆಯಿತ್ತು ತನ್ನಂಗವ.\nಅದು ನಿರ್ಜಾತನ ಒಲುಮೆ.\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿವುದಕ್ಕೆ ತೆರಪಾಗಿರಣ್ಣಾ.",
+    "transliteration" : "ākāśada madhyadalli ondu bhēka nuḍiyuttade.\nadu anēka gīta vādya nr̥tyaṅgaḷiṁ[dāḍuttiddittu].\nennāṭava nōḍuvarillāyendu nētigaḷeyittu tannaṅgava.\nadu nirjātana olume.\narkēśvaraliṅgavanarivudakke terapāgiraṇṇā.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 11,
+    "akshara" : "ā",
+    "kannada" : "ಆಡುವ ಮಾತಿಂಗೆ, ಮಾಡುವ ಕೀಲಿಂಗೆ,\nಕಡು ನಡು ಮೊದಲಿಲ್ಲ.\nಅರಿದಡೆ ಒಂದೆ ವರ್ಮ ಭೇದ.\nಮಾಡುವ ಸೂತ್ರ ಕೀಲೊಂದರಲ್ಲಿ ಅಡಗಿದಡೆ,\nಅದು ಭೇದಕತನ.\nಅರಿದು ಕುರುಹಿನಲ್ಲಿ ಮರವೆ ನಿಃಪತಿಯಾದಡೆ,\nಅರ್ಕೇಶ್ವರಲಿಂಗ ಭಿನ್ನಭಾವಿಯಲ್ಲ.",
+    "transliteration" : "āḍuva mātiṅge, māḍuva kīliṅge,\nkaḍu naḍu modalilla.\naridaḍe onde varma bhēda.\nmāḍuva sūtra kīlondaralli aḍagidaḍe,\nadu bhēdakatana.\naridu kuruhinalli marave niḥpatiyādaḍe,\narkēśvaraliṅga bhinnabhāviyalla.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 12,
+    "akshara" : "ā",
+    "kannada" : "ಆರು ಕಂಬದ ಮಾಳಿಗೆಯ ನಡುವೆ,\nಒಂದು ಮೂರುಮುಖದ ಹೆಗ್ಗಣ ತೋಡಿ ಕಂಡಿತ್ತು,\nತೋಡೊಲೆಗಳವ, ಸಾಗರದ ಮಂದಿರವ ಅದು.\nತನ್ನಿರವ ತೋರುವುದಕ್ಕೆ ಮೊದಲೆ ಮಾಳಿಗೆ ಜಾರಿತ್ತು.\nಅರ್ಕೇಶ್ವರಲಿಂಗವ ಕೇಳಿಕೊಂಬ ಬನ್ನಿ.",
+    "transliteration" : "āru kambada māḷigeya naḍuve,\nondu mūrumukhada heggaṇa tōḍi kaṇḍittu,\ntōḍolegaḷava, sāgarada mandirava adu.\ntannirava tōruvudakke modale māḷige jārittu.\narkēśvaraliṅgava kēḷikomba banni.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 13,
+    "akshara" : "ā",
+    "kannada" : "ಆಕಾಶದ ಮಳೆಯನರಿತು,\nಭೂಮಿಯ ಬೆಳೆಯನರಿತು,\nಹುಟ್ಟುವ ಬೀಜವನರಿತು,\nದೃಷ್ಟವ ಕಂಡು ಹೊತ್ತಾಡಿ,\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿವುದಕ್ಕೆ.",
+    "transliteration" : "ākāśada maḷeyanaritu,\nbhūmiya beḷeyanaritu,\nhuṭṭuva bījavanaritu,\ndr̥ṣṭava kaṇḍu hottāḍi,\narkēśvaraliṅgavanarivudakke.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 14,
+    "akshara" : "ā",
+    "kannada" : "ಆತ್ಮ ಶಯನನಾಗಿದ್ದಲ್ಲಿ ತನುವಿನ ಸಂಚಾರವ ಮರೆದು,\nಸ್ವಪ್ನಾವಸ್ಥೆಯಲ್ಲಿ ಜಾಗ್ರದಿರವನರಿವಂತೆ,\nಸ್ವಪ್ನದ ಭೇದವ ಸುಷುಪ್ತಿಯರಿದು ವಿಶ್ರಮಿಸುವಂತೆ,\nಕಾಯದ ಇಷ್ಟದ ಭೇದವನರಿ.\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿವುದಕ್ಕೆ ಉಳುಮೆಯ ಗೊತ್ತು.",
+    "transliteration" : "ātma śayananāgiddalli tanuvina san̄cārava maredu,\nsvapnāvastheyalli jāgradiravanarivante,\nsvapnada bhēdava suṣuptiyaridu viśramisuvante,\nkāyada iṣṭada bhēdavanari.\narkēśvaraliṅgavanarivudakke uḷumeya gottu.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 15,
+    "akshara" : "i",
+    "kannada" : "ಇದಿರರಿದಹರೆಂದು ಮರೆಯ ಮಾಡಿ,\nಗೂಢವ ನುಡಿಯಬಹುದೆ ವಸ್ತುವ ?\nಅರು[ವೆ]ಯಲ್ಲಿ ಕೆಂಡವ ಕಟ್ಟಿದಡೆ ಅಡಗಿಹುದೆ ?\nನೆರೆ ವಸ್ತು ಒಬ್ಬರಿಗೆ ಒಡಲೆಡೆವುಂಟೆ ?\nಅರ್ಕೇಶ್ವರಲಿಂಗ ಅರಿವರ ಮನ ಭರಿತ, ಸಂಪೂರ್ಣ.",
+    "transliteration" : "idiraridaharendu mareya māḍi,\ngūḍhava nuḍiyabahude vastuva ?\naru[ve]yalli keṇḍava kaṭṭidaḍe aḍagihude ?\nnere vastu obbarige oḍaleḍevuṇṭe ?\narkēśvaraliṅga arivara mana bharita, sampūrṇa.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 16,
+    "akshara" : "u",
+    "kannada" : "ಉರಿ ಸಿರಿ ಭೂತ ಭವಿಷ್ಯತ್ ವರ್ತಮಾನಂಗಳಲ್ಲಿ\nನೋಡುವ ಆಲಿ ಮೇಲಕ್ಕೆ ಸಿಕ್ಕಿ,\nಭಾವ ಅಂಗವ ಮರೆದು,\nಧ್ಯಾನವೆ ಮೂರ್ತಿ ಜಪ.\nಪಂಚಾಕ್ಷರಿಯ ಪ್ರಣವ ಏಕೀಕರಿಸಿದಲ್ಲಿ,\nಸಂದಿತ್ತು ಜಪ ಅರ್ಕೇಶ್ವರಲಿಂಗಕ್ಕೆ.",
+    "transliteration" : "uri siri bhūta bhaviṣyat vartamānaṅgaḷalli\nnōḍuva āli mēlakke sikki,\nbhāva aṅgava maredu,\ndhyānave mūrti japa.\npan̄cākṣariya praṇava ēkīkarisidalli,\nsandittu japa arkēśvaraliṅgakke.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 17,
+    "akshara" : "u",
+    "kannada" : "ಉರಿ ತರುವಿನಲ್ಲಿ ಹುಟ್ಟಿ ತರುವ ಸುಡುವಂತೆ,\nಜೀವ ಜೀವದಲ್ಲಿ ಹುಟ್ಟಿ ಜೀವರ ಲಯವ ಮಾಡುವಂತೆ,\nಅರಿವು ಜ್ಞಾನದಲ್ಲಿ ನಿಂದು,\nಕುರುಹನವಗವಿಸಿತ್ತು, ಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿತು.",
+    "transliteration" : "uri taruvinalli huṭṭi taruva suḍuvante,\njīva jīvadalli huṭṭi jīvara layava māḍuvante,\narivu jñānadalli nindu,\nkuruhanavagavisittu, arkēśvaraliṅgavanaritu.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 18,
+    "akshara" : "u",
+    "kannada" : "ಉಂಟೆಂದಡುಂಟು, ಇಲ್ಲಾ ಎಂದಡೆ ಇಲ್ಲ.\nಅದು ತನ್ನ ವಿಶ್ವಾಸದ ಭಾವ.\nತನಗೆ ಅನ್ಯಭಿನ್ನವಿಲ್ಲ,\nಅರ್ಕೇಶ್ವರಲಿಂಗ ತಾನಾದ ಕಾರಣ.",
+    "transliteration" : "uṇṭendaḍuṇṭu, illā endaḍe illa.\nadu tanna viśvāsada bhāva.\ntanage an'yabhinnavilla,\narkēśvaraliṅga tānāda kāraṇa.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 19,
+    "akshara" : "ū",
+    "kannada" : "ಊರೊಳಗಣ ದೇವಾಲಯದಲ್ಲಿ\nಐವರು ಹೊಲೆಯರು ಹೊಕ್ಕು,\nದೇವರ ಪೂಜಿಸುತ್ತೈದಾರೆ.\nಹೊಲೆಯರು ಮುಟ್ಟಿ ದೇವಾಲಯ ಹೊರಗಾಯಿತ್ತು,\nದೇವರೊಳಗದೆ.\nಕುಲಜರು ಹೊಲಬುದಪ್ಪಿ ಹೊಲೆ ಒಳಗಾಯಿತ್ತು,\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿದ ಕಾರಣ.",
+    "transliteration" : "ūroḷagaṇa dēvālayadalli\naivaru holeyaru hokku,\ndēvara pūjisuttaidāre.\nholeyaru muṭṭi dēvālaya horagāyittu,\ndēvaroḷagade.\nkulajaru holabudappi hole oḷagāyittu,\narkēśvaraliṅgavanarida kāraṇa.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 20,
+    "akshara" : "ū",
+    "kannada" : "ಊರೆಲ್ಲರೂ ಕೂಡಿ, ಬೇಟೆಗೆ ಹೋಗಿ,\nಹಾರುವನ ಕೊಂದರು.\nತಲೆವುಳಿದು, ಕಾಲ ಕಂಡಿಸಿ, ಕರುಳಡಗಿತ್ತು.\nಬೇಟೆ ಬೆಲೆಯಾದುದಿಲ್ಲ.\nಕೇಳುವ ಬನ್ನಿ, ಅರ್ಕೇಶ್ವರಲಿಂಗವ.",
+    "transliteration" : "ūrellarū kūḍi, bēṭege hōgi,\nhāruvana kondaru.\ntalevuḷidu, kāla kaṇḍisi, karuḷaḍagittu.\nbēṭe beleyādudilla.\nkēḷuva banni, arkēśvaraliṅgava.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 21,
+    "akshara" : "ū",
+    "kannada" : "ಊರ ಸುತ್ತಿ ಬಂದಡೆ ಬಾಗಿಲಲ್ಲಿ ಹೋಗುವ ತೆರನಂತೆ,\nಅರಿದು ಓಡಲಾಗದವಂಗೆ ಬೇರೊಂದು ತೆರನಿಲ್ಲ.\nಉರಿ ಧರಿಸಿದ ಸರದಂತೆ ಅಲ್ಲಿಯೇ ಲೇಪ,\nಅರ್ಕೇಶ್ವರಲಿಂಗದಲ್ಲಿಯೇ.",
+    "transliteration" : "ūra sutti bandaḍe bāgilalli hōguva teranante,\naridu ōḍalāgadavaṅge bērondu teranilla.\nuri dharisida saradante alliyē lēpa,\narkēśvaraliṅgadalliyē.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 22,
+    "akshara" : "e",
+    "kannada" : "ಎಲ್ಲವನರಿದು ಬಿಟ್ಟ ಬಳಿಕ,\nಮತ್ತಿನ್ನು ಗೆಲ್ಲ ಸೋಲಕ್ಕೆ\nಸನ್ನೆಯ ತಗರಿನಂತೆ,\nಹರಿವ ಸಮೂಹವನೊಲ್ಲದೆ,\nತಾ ನಿಂದಲ್ಲಿಯೆ ಸುಖವು.\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿವುದಕ್ಕಿದೇ ಗೊತ್ತು.",
+    "transliteration" : "ellavanaridu biṭṭa baḷika,\nmattinnu gella sōlakke\nsanneya tagarinante,\nhariva samūhavanollade,\ntā nindalliye sukhavu.\narkēśvaraliṅgavanarivudakkidē gottu.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 23,
+    "akshara" : "o",
+    "kannada" : "ಒಸರಿ ತುಂಬಿ ಮೇಲಕ್ಕೊಸರದಂತೆ,\nಆ ಘಟದ ಮುಖದಲ್ಲಿಯೆ ಅಡಗಿ ತೆಗೆದಡೆ,\nಕಟ್ಟಣಕೆ ಕಟ್ಟಿದಲ್ಲಿಪ್ಪಂತೆ\nನಾನಾ ಸತ್ಕ್ರೀಮಾರ್ಗದಲ್ಲಿದ್ದು,\nನಿಜನಿಶ್ಚಯವ ನೆಮ್ಮಬೇಕು, ಅರ್ಕೇಶ್ವರಲಿಂಗದಲ್ಲಿ.",
+    "transliteration" : "osari tumbi mēlakkosaradante,\nā ghaṭada mukhadalliye aḍagi tegedaḍe,\nkaṭṭaṇake kaṭṭidallippante\nnānā satkrīmārgadalliddu,\nnijaniścayava nem'mabēku, arkēśvaraliṅgadalli.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 24,
+    "akshara" : "ō",
+    "kannada" : "ಓಗರ ಹಸಿದು ಆಪ್ಯಾಯನವನುಂಡುದನಾರೂ ಅರಿಯರು.\nನೀರು ಬಾಯಾರಿ ಭೂಮಿಯ ಕುಡಿದುದನಾರೂ ಅರಿಯರು.\nದೇವರು ರೂಪಾಗಿ ಸಕಲರೊಳಗೆ ಗತಿಗೆಡುವುದನಾರೂ ಅರಿಯರು.\nವಿಪರೀತ ಕುರುಹಾಯಿತ್ತು, ಅರ್ಕೇಶ್ವರಲಿಂಗನ ಗೊತ್ತಿಗೆ ಬಂದ ಕಾರಣ.",
+    "transliteration" : "ōgara hasidu āpyāyanavanuṇḍudanārū ariyaru.\nnīru bāyāri bhūmiya kuḍidudanārū ariyaru.\ndēvaru rūpāgi sakalaroḷage gatigeḍuvudanārū ariyaru.\nviparīta kuruhāyittu, arkēśvaraliṅgana gottige banda kāraṇa.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 25,
+    "akshara" : "ka",
+    "kannada" : "ಕಣ್ಣ, ಕಾಡುವ ಗುಂಗುರ ತಿಂದು,\nಬಾಯ, ಕಾಡುವ ಕೈಯ ತಿಂದು,\nಆಪ್ಯಾಯನವಡಸಿದ ಹೊಟ್ಟೆಯ ತಿಂದು,\nಮತ್ತಿವರ ಹುಟ್ಟು ಮೆಟ್ಟನರಿಯಲೇಕೆ ?\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿಯಿರಣ್ಣಾ.",
+    "transliteration" : "kaṇṇa, kāḍuva guṅgura tindu,\nbāya, kāḍuva kaiya tindu,\nāpyāyanavaḍasida hoṭṭeya tindu,\nmattivara huṭṭu meṭṭanariyalēke ?\narkēśvaraliṅgavanariyiraṇṇā.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 26,
+    "akshara" : "ka",
+    "kannada" : "ಕಾಳಿಂಗನ ಮಡುವ ಕಲಕಿದವನ\nನಾಬ್ಥಿಯ ಕೂಸಿನ ಶಿರಪಾಣಿಯಲ್ಲಿ ಬೇಡುವ,\nಆತನ ಶಕ್ತಿಯ ಸಮರಸದಲ್ಲಿ ಓಲಾಡುವ,\nಮುಕ್ತಿವಂತರೆಲ್ಲರೂ ಕೇಳುವ ಬನ್ನಿ, ಅರ್ಕೇಶ್ವರಲಿಂಗವ.",
+    "transliteration" : "kāḷiṅgana maḍuva kalakidavana\nnābthiya kūsina śirapāṇiyalli bēḍuva,\nātana śaktiya samarasadalli ōlāḍuva,\nmuktivantarellarū kēḷuva banni, arkēśvaraliṅgava.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 27,
+    "akshara" : "ka",
+    "kannada" : "ಕಾಯವಳಿದು ಜೀವ ಬಯಲಾದಲ್ಲಿ,\nಭಾವಿಸುವ ಅರಿವ ನೆಲೆಯ ಕುರುಹೆಲ್ಲಿದ್ದಿತ್ತು ?\nಅದ ಕೇಳುವ ಬನ್ನಿ, ಅರ್ಕೇಶ್ವರಲಿಂಗವ.",
+    "transliteration" : "kāyavaḷidu jīva bayalādalli,\nbhāvisuva ariva neleya kuruhelliddittu ?\nada kēḷuva banni, arkēśvaraliṅgava.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 28,
+    "akshara" : "ka",
+    "kannada" : "ಕಾಡಿನೊಳಗಣ ವರಹನ, ಊರ ಕುಕ್ಕುರ ಕೊಲುವಾಗ\nಊರಿಗೂ ಕಾಡಿಗೂ ಏತರ ಹಗೆ ?\nಅದರ ಭೇದ ಅಲ್ಲಿಯೆ ಅಡಗಿತ್ತು.\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿಯಿರಣ್ಣಾ.",
+    "transliteration" : "kāḍinoḷagaṇa varahana, ūra kukkura koluvāga\nūrigū kāḍigū ētara hage ?\nadara bhēda alliye aḍagittu.\narkēśvaraliṅgavanariyiraṇṇā.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 29,
+    "akshara" : "ka",
+    "kannada" : "ಕಾಯದ ಸೂತಕವ ನೋಟದಿಂದ ಕಳೆದು,\nನೋಟದ ಸೂತಕವ ಭಾವದಿಂದ ಕಳೆದು,\nಭಾವದ ಪ್ರಕೃತಿ[ಯ] ಜ್ಞಾನದಿಂದ ಕಳೆದು,\nಜ್ಞಾನದ ಬೆಳಗು ನಿಂದಲ್ಲಿ,\nಅರ್ಕೇಶ್ವರಲಿಂಗವ ಮುಟ್ಟಿದ ಮುಟ್ಟು.",
+    "transliteration" : "kāyada sūtakava nōṭadinda kaḷedu,\nnōṭada sūtakava bhāvadinda kaḷedu,\nbhāvada prakr̥ti[ya] jñānadinda kaḷedu,\njñānada beḷagu nindalli,\narkēśvaraliṅgava muṭṭida muṭṭu.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 30,
+    "akshara" : "ka",
+    "kannada" : "ಕುದುರೆಯ ನರಿ ಕೊಂದು,\nನರಿಯ ಇರುಹೆ ತಿಂದು,\nಆ ಇರುಹೆ ತನ್ನ ತಾ ಸತ್ತಿತ್ತು,\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿವುದಕ್ಕೆ.",
+    "transliteration" : "kudureya nari kondu,\nnariya iruhe tindu,\nā iruhe tanna tā sattittu,\narkēśvaraliṅgavanarivudakke.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 31,
+    "akshara" : "ka",
+    "kannada" : "ಕಂಗಳ ಸೂತಕವ ಯೋನಿ ತಡೆದು,\nಬಾಯ ಬಸುರಾಗಿ, ಕೈ ಬೆಸನಾಯಿತ್ತು.\nಕೈಯ ಶಿಶುವ ಕಂಗಳ ತಾಯಿ ಎತ್ತಿ,\nಭಾವದ ದಾದಿಯ ಕೈಯಲ್ಲಿ ಕೊಟ್ಟು,\nಅರ್ಕೇಶ್ವರಲಿಂಗವು ತೊಟ್ಟಿಲಲ್ಲಿ ಬೆಳಗುತ್ತದೆ.",
+    "transliteration" : "kaṅgaḷa sūtakava yōni taḍedu,\nbāya basurāgi, kai besanāyittu.\nkaiya śiśuva kaṅgaḷa tāyi etti,\nbhāvada dādiya kaiyalli koṭṭu,\narkēśvaraliṅgavu toṭṭilalli beḷaguttade.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 32,
+    "akshara" : "ka",
+    "kannada" : "ಕಾಲು ಕೈ ತಲೆಗೆ ಹೊಣೆಯಾದ ಮತ್ತೆ\nಊರೆಲ್ಲಕ್ಕೆ ಹೇಳಲೇಕಯ್ಯ?\nತಲೆವೊಡೆಯ ತಲೆಯಳಿಸುತ್ತಿರ್ದು,\nಹಲಬರಿಗೆ ಮೊರೆಯೇಕೆ ?\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿಯಿರಣ್ಣಾ.",
+    "transliteration" : "kālu kai talege hoṇeyāda matte\nūrellakke hēḷalēkayya?\ntalevoḍeya taleyaḷisuttirdu,\nhalabarige moreyēke ?\narkēśvaraliṅgavanariyiraṇṇā.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 33,
+    "akshara" : "ka",
+    "kannada" : "ಕಂಡು ಕಾಬುದು, ಕಾಣದೆ ಅರಿವುದು,\nಭಾವಿಸಿ ಪ್ರಮಾಣಕ್ಕೆ ಬಾರದಿಪ್ಪುದು\nಭಾವವೋ, ಭ್ರಮೆಯೋ ?\nಅದೇನೆಂಬುದ ಕೇಳುವ ಬನ್ನಿ, ಅರ್ಕೇಶ್ವರಲಿಂಗವ.",
+    "transliteration" : "kaṇḍu kābudu, kāṇade arivudu,\nbhāvisi pramāṇakke bāradippudu\nbhāvavō, bhrameyō ?\nadēnembuda kēḷuva banni, arkēśvaraliṅgava.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 34,
+    "akshara" : "ka",
+    "kannada" : "ಕೋಟಿ ಮಾತನಾಡಿದಡೂ ವಸ್ತುವಿನ ಕೂಟವೊಂದೆ ಭೇದ.\nನಾನಾ ಕ್ರೀಯ ಭಾವಿಸಿದಡೂ ಸದ್ಭಾವವೊಂದೆಯಾಗಬೇಕು.\nಊರ ಸುತ್ತಿದಡೂ ಬಾಗಿಲಲ್ಲಿ ಬರಬೇಕು.\nಮರೆಯ ಮಾತು ಬೇಡ.\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿತಲ್ಲದಾಗದು.",
+    "transliteration" : "kōṭi mātanāḍidaḍū vastuvina kūṭavonde bhēda.\nnānā krīya bhāvisidaḍū sadbhāvavondeyāgabēku.\nūra suttidaḍū bāgilalli barabēku.\nmareya mātu bēḍa.\narkēśvaraliṅgavanaritalladāgadu.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 35,
+    "akshara" : "ka",
+    "kannada" : "ಕಂಜನಾಭನ ಸುತನ ರಂಜಿಸಿದಲ್ಲಿಯೆ\nಕಾಯಗುಣ ಕೇಡಾಯಿತ್ತು.\nಮನಸಿಜನ ಪಿತನ ಹಾಯವ ಬಿಟ್ಟಾಗಲೆ\nಸುಖ ಲಯವಾಯಿತ್ತು.\nಚಿತ್ತ ವಿಶ್ರಾಂತಿಯನೆಯ್ದಿದಲ್ಲಿ[ಯೆ]\nಸುಳಿದಾಡುವನ ಲಯ ಕೆಟ್ಟಿತ್ತು.\nತ್ರಿವಿಧ ಲೇಪವಾದಲ್ಲಿಯೆ\nಅರ್ಕೇಶ್ವರಲಿಂಗನ ಭಾವ, ಬ್ರಹ್ಮಕ್ಕೊಳಗಾಯಿತ್ತು.",
+    "transliteration" : "kan̄janābhana sutana ran̄jisidalliye\nkāyaguṇa kēḍāyittu.\nmanasijana pitana hāyava biṭṭāgale\nsukha layavāyittu.\ncitta viśrāntiyaneydidalli[ye]\nsuḷidāḍuvana laya keṭṭittu.\ntrividha lēpavādalliye\narkēśvaraliṅgana bhāva, brahmakkoḷagāyittu.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 36,
+    "akshara" : "ka",
+    "kannada" : "ಕಲ್ಲು ಬೆಂಕಿ ಕೂಡಿ ಉರಿವಾಗ, ಹುಲ್ಲು ಕತ್ತುದುದಿಲ್ಲ.\nಮೆಲ್ಲನೆ ಉಲುಹುವಾತನ ಸೊಲ್ಲಿನ ಬಲ್ಲತನ ಅಲ್ಲಿಯೆ ಬೆಂದಿತ್ತು.\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿಯಿರಣ್ಣಾ.",
+    "transliteration" : "kallu beṅki kūḍi urivāga, hullu kattududilla.\nmellane uluhuvātana sollina ballatana alliye bendittu.\narkēśvaraliṅgavanariyiraṇṇā.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 37,
+    "akshara" : "ka",
+    "kannada" : "ಕಂಜನಾಭಿಯಲ್ಲಿ ಕುಂಜರ ಬಂದು,\nಮಂದಿರದವರೆಲ್ಲರ ಕೊಂದಿತ್ತು.\nಕುಂಜರನ ಬೆಂಬಳಿಯವರಲ್ಲದೆ\nಕುಂಜರನ ಸಂದ ಮುರಿವರಿಲ್ಲ.\nಅರ್ಕೇಶ್ವರಲಿಂಗನ ಒಲುಮೆಯಿದ್ದವರಿಗಲ್ಲದೆ ಸಾಧ್ಯವಾಗದು.",
+    "transliteration" : "kan̄janābhiyalli kun̄jara bandu,\nmandiradavarellara kondittu.\nkun̄jarana bembaḷiyavarallade\nkun̄jarana sanda murivarilla.\narkēśvaraliṅgana olumeyiddavarigallade sādhyavāgadu.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 38,
+    "akshara" : "ka",
+    "kannada" : "ಕ್ರಿಯಾಭಾವದಲ್ಲಿ ನಿಂದು ಮಾಡುವನ ಅರ್ಚನೆ\nಕಾರ್ಪಾಸದಂತಿರಬೇಕು.\nಕಲ್ಪದ್ರುಮದ ಬಿತ್ತಿನ ಸಿಪ್ಪೆಯಂತಿರಬೇಕು.\nವರುಣಕಿರಣದ ಸಂಚಾರ ಸಂಚರಿಸುವಂತಿರಬೇಕು.\nಇದು ಕ್ರೀಶುದ್ಧತೆ, ಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿವುದಕ್ಕೆ.",
+    "transliteration" : "kriyābhāvadalli nindu māḍuvana arcane\nkārpāsadantirabēku.\nkalpadrumada bittina sippeyantirabēku.\nvaruṇakiraṇada san̄cāra san̄carisuvantirabēku.\nidu krīśud'dhate, arkēśvaraliṅgavanarivudakke.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 39,
+    "akshara" : "ka",
+    "kannada" : "ಕುಲವೆರಡಲ್ಲದೆ ಹಲವಿಲ್ಲ.\nದಿನವೆರಡಲ್ಲದೆ ಸಪ್ತದಿನವಿಲ್ಲ.\nಅರಿವು ಮರವೆಯೆರಡಲ್ಲದೆ ಬೇರೊಂದು ತೊಡಿಗೆಯಿಲ್ಲ.\nಅರ್ಕೇಶ್ವರಲಿಂಗ ಏಕರೂಪನಲ್ಲದೆ\nಬಹುನಾಮದವನಲ್ಲ.",
+    "transliteration" : "kulaveraḍallade halavilla.\ndinaveraḍallade saptadinavilla.\narivu maraveyeraḍallade bērondu toḍigeyilla.\narkēśvaraliṅga ēkarūpanallade\nbahunāmadavanalla.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 40,
+    "akshara" : "ka",
+    "kannada" : "ಕಂಗಳ ಮಧ್ಯದ ಮಲೆಯಲ್ಲಿ,\nಒಂದು ನಿಸ್ಸಂಗಶೃಂಗಿ ಮೇವುತ್ತದೆ.\nಅಂಬೊಂದು, ಹಿಳುಕು ಮೂರು,\nಅಲಗಾರು, ಮೊನೆ ಅಯಿದು ಕೂಡಿದಲ್ಲಿ,\nಧನು ನಾಲ್ಕು ಹಿಡಿದು, ನಾರಿಯೆಂಟ ಕೂಡಿ,\nಶರಸಂಧಾನದಲೆಸೆಯೆ,\nಶೃಂಗಿ ಬಿದ್ದಿತ್ತು, ಅಸು ಬದುಕಿತ್ತು,\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿದ ಕಾರಣ.",
+    "transliteration" : "kaṅgaḷa madhyada maleyalli,\nondu nis'saṅgaśr̥ṅgi mēvuttade.\nambondu, hiḷuku mūru,\nalagāru, mone ayidu kūḍidalli,\ndhanu nālku hiḍidu, nāriyeṇṭa kūḍi,\nśarasandhānadaleseye,\nśr̥ṅgi biddittu, asu badukittu,\narkēśvaraliṅgavanarida kāraṇa.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 41,
+    "akshara" : "ka",
+    "kannada" : "ಕಾಯಕ್ಕೆ ಆಚಾರಸಂಬಂಧ.\nಜೀವಕ್ಕೆ ಅರಿವುಸಂಬಂಧ.\nಅರಿವಿಂಗೆ ಜ್ಞಾನಸಂಬಂಧ.\nಜ್ಞಾನಕ್ಕೆ ಜ್ಯೋತಿಸಂಬಂಧ.\nಜ್ಯೋತಿಗೆ ಮಹಾಬೆಳಗು ಸಂಬಂಧವಾಗಿಯಲ್ಲದೆ,\nಅರ್ಕೇಶ್ವರಲಿಂಗವ ಕಾಣಬಾರದು.",
+    "transliteration" : "kāyakke ācārasambandha.\njīvakke arivusambandha.\nariviṅge jñānasambandha.\njñānakke jyōtisambandha.\njyōtige mahābeḷagu sambandhavāgiyallade,\narkēśvaraliṅgava kāṇabāradu.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 42,
+    "akshara" : "ka",
+    "kannada" : "ಕುಕ್ಕೊಂಬಿನ ಕಾಗೆಯಂತೆ, ಜೀವ ಎತ್ತ ಹಂಬಲಿಸಿದಡೂ\nಆಸೆಯೆಂಬ ಗೊತ್ತಿಗೆ ಬಹವರೆಲ್ಲರು ನಿಶ್ಚಯವನರಿಯಬಲ್ಲರೆ ?\nತುತ್ತು ಕುತ್ತಿಗಾಗಿ ವೇಷವ ತೊಟ್ಟಿಹ\nಚಿತ್ತಶುದ್ಭಾತ್ಮವಿಲ್ಲದವರ ಅರ್ಕೇಶ್ವರಲಿಂಗನೊಪ್ಪನವರ.",
+    "transliteration" : "kukkombina kāgeyante, jīva etta hambalisidaḍū\nāseyemba gottige bahavarellaru niścayavanariyaballare ?\ntuttu kuttigāgi vēṣava toṭṭiha\ncittaśudbhātmavilladavara arkēśvaraliṅganoppanavara.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 43,
+    "akshara" : "ka",
+    "kannada" : "ಕವಿಯ ಕಾಳಗದಲ್ಲಿ ರವಿ ಬಂಟನಾಗೆ,\nಶಶಿ ದೆಸೆಗೆಟ್ಟು, ಅರಸು ಬಂಟರ ಬಿಟ್ಟೋಡಿದ.\nರವಿ ರಥವ ತುಡುಕಿ ಅವಿರಥವಾದ.\nಅರ್ಕೇಶ್ವರಲಿಂಗದಲ್ಲಿಗೆ ಕವಿ ಕವಲಾಯಿತ್ತು.",
+    "transliteration" : "kaviya kāḷagadalli ravi baṇṭanāge,\nśaśi desegeṭṭu, arasu baṇṭara biṭṭōḍida.\nravi rathava tuḍuki avirathavāda.\narkēśvaraliṅgadallige kavi kavalāyittu.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 44,
+    "akshara" : "ga",
+    "kannada" : "ಗುಬ್ಬಿ ಗುಂಭವನೊಡೆದು ಒಬ್ಬುಳಿತೆಯಾಯಿತ್ತು.\nತನ್ನ ಸಿಬ್ಬುದ್ಧಿಯ ಬಿಟ್ಟು,\nಕಬ್ಬಕ್ಕಿಯ ಹಿಂಡನೊಲ್ಲದೆ,\nನಿಬ್ಬದ್ಧಿಯಾಗಿ ಅಲ್ಲಿಯೆ ಹೋಯಿತ್ತು,\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿತು.",
+    "transliteration" : "gubbi gumbhavanoḍedu obbuḷiteyāyittu.\ntanna sibbud'dhiya biṭṭu,\nkabbakkiya hiṇḍanollade,\nnibbad'dhiyāgi alliye hōyittu,\narkēśvaraliṅgavanaritu.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 45,
+    "akshara" : "gha",
+    "kannada" : "ಘಟದ ಮರೆಯಲ್ಲಿ ಅಸುವಿಪ್ಪಂತೆ,\nಫಲದ ಮರೆಯಲ್ಲಿ ರಸವಿಪ್ಪಂತೆ,\nಶಿಲೆಯ ಮರೆಯಲ್ಲಿ ಕಾಲ ಲಯನ ಲೀಲೆ ತೋರುತ್ತದೆ.\nಲೀಲೆ ನಿರ್ವಯಲಾಗಿ, ಆ ಬಯಲ ಬಂಧನವನರಿ,\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿವುದಕ್ಕೆ.",
+    "transliteration" : "ghaṭada mareyalli asuvippante,\nphalada mareyalli rasavippante,\nśileya mareyalli kāla layana līle tōruttade.\nlīle nirvayalāgi, ā bayala bandhanavanari,\narkēśvaraliṅgavanarivudakke.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 46,
+    "akshara" : "ja",
+    "kannada" : "ಜಾತಿ ಜಾತಿಯ ಕೂಡಿದಲ್ಲದೆ ನಿಹಿತ ಸುಖವಿಲ್ಲ.\nಬಲ್ಲವ ಬಲ್ಲವನಲ್ಲಿಯಲ್ಲದೆ ಒಳ್ಳೆಯ ಗುಣವಿಲ್ಲ.\nಭಟ ಮುಗ್ಗಿದಡೆ ತಿಳಿದ ಭಟ ಕೈ ಹಿಡಿದೆತ್ತಿ,\nಇದಿರಾಗೆಂದಡೆ, ಊಣೆಯವೆಲ್ಲಿ ಅಡಗಿತ್ತು ?\nಕೇಳುವ ಬನ್ನಿ, ಅರ್ಕೇಶ್ವರಲಿಂಗವ.",
+    "transliteration" : "jāti jātiya kūḍidallade nihita sukhavilla.\nballava ballavanalliyallade oḷḷeya guṇavilla.\nbhaṭa muggidaḍe tiḷida bhaṭa kai hiḍidetti,\nidirāgendaḍe, ūṇeyavelli aḍagittu ?\nkēḷuva banni, arkēśvaraliṅgava.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 47,
+    "akshara" : "ja",
+    "kannada" : "ಜಾತಿ ಜಾತಿಯ ಕೊಂದು, ನಿಹಿತ ಅನಿಹಿತವ ಕೆಡಿಸಿ,\nಜಾತ ಅಜಾತನ ಕಂಡು ನಿಹಿತವಾಗಿರಿ,\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿವುದಕ್ಕೆ.",
+    "transliteration" : "jāti jātiya kondu, nihita anihitava keḍisi,\njāta ajātana kaṇḍu nihitavāgiri,\narkēśvaraliṅgavanarivudakke.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 48,
+    "akshara" : "ta",
+    "kannada" : "ತಮ ಹಂಜರಿಸಿದಲ್ಲಿ, ಚಂಡಕರನ ಕಿರಣವೆಲ್ಲಿ ಹೊಂದಿತ್ತು ?\nಅಪ್ಪು ವಹ್ನಿಯ ಘಟಿಸಲಾಗಿ, ಧೂಮದಲ್ಲಿ ಉಳಿಯಿತ್ತು?\nಘಟ ಇಷ್ಟದಲ್ಲಿ ಕುರುಹಳಿವಾಗ, ಅರಿವೆಲ್ಲಿದ್ದಿತ್ತು ?\nಅರಿವು ನಾಮ ಅವದ್ಥಿಗಿಲ್ಲವಾಗಿ,\nಅರ್ಕೇಶ್ವರಲಿಂಗದ ಕುರುಹು ಎಲ್ಲಿದ್ದಿತ್ತು ?",
+    "transliteration" : "tama han̄jarisidalli, caṇḍakarana kiraṇavelli hondittu ?\nappu vahniya ghaṭisalāgi, dhūmadalli uḷiyittu?\nghaṭa iṣṭadalli kuruhaḷivāga, arivelliddittu ?\narivu nāma avadthigillavāgi,\narkēśvaraliṅgada kuruhu elliddittu ?",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 49,
+    "akshara" : "ta",
+    "kannada" : "ತರು ಕುಲಿಶದಲ್ಲಿ ಹೊಕ್ಕು,\nತನ್ನಯ ಕುಲವ bs್ಞೀದನವÀ ಮಾಡುವಂತೆ,\nಸಮಯವ ಹೊಕ್ಕು, ಸಮಯವ ನೇತಿಗಳೆವ\nಶ್ರಮವಿಲ್ಲದವರನೊಲ್ಲ, ಅರ್ಕೇಶ್ವರಲಿಂಗ.",
+    "transliteration" : "taru kuliśadalli hokku,\ntannaya kulava bsñīdanavaÀ māḍuvante,\nsamayava hokku, samayava nētigaḷeva\nśramavilladavaranolla, arkēśvaraliṅga.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 50,
+    "akshara" : "ta",
+    "kannada" : "ತ್ರಿಸಂಧಿಯಲ್ಲಿ ಧ್ಯಾನ ಮರವೆಯೆಂದು,\nಮಣಿಮಾಲೆಯಲ್ಲಿ ಅಗಣಿತನ ಎಣಿಕೆಯಿಂದ ಅರಿದೆಹೆನೆಂದು,\nಸಿಕ್ಕಿತ್ತು ಧ್ಯಾನ ಜಪದ ಕೃತ್ಯದಲ್ಲಿ.\nಆ ಜಪ ಧ್ಯಾನ ಭಾವ ಸಂಚಾರವಿಲ್ಲದೆ\nಭಾವಿಸಿದಲ್ಲಿ ಜಪ ಸಂದಿತ್ತು.\nನೇಮಭಾವದಲ್ಲಿ ಅಡಗಿತ್ತು,\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿದ ಕಾರಣ.",
+    "transliteration" : "trisandhiyalli dhyāna maraveyendu,\nmaṇimāleyalli agaṇitana eṇikeyinda aridehenendu,\nsikkittu dhyāna japada kr̥tyadalli.\nā japa dhyāna bhāva san̄cāravillade\nbhāvisidalli japa sandittu.\nnēmabhāvadalli aḍagittu,\narkēśvaraliṅgavanarida kāraṇa.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 51,
+    "akshara" : "ta",
+    "kannada" : "ತನು ನಿರ್ವಾಣ, ಮನ ಸಂಸಾರ.\nಮಾತು ಬ್ರಹ್ಮ, ನೀತಿ ಅಧಮ.\nಅದೇತರ ಅರಿವು ?\nಘಾತಕನ ಕೈಯ ಕತ್ತಿಯಂತೆ,\nಇದು ನಿಹಿತವಲ್ಲ, ಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿವುದಕ್ಕೆ.",
+    "transliteration" : "tanu nirvāṇa, mana sansāra.\nmātu brahma, nīti adhama.\nadētara arivu ?\nghātakana kaiya kattiyante,\nidu nihitavalla, arkēśvaraliṅgavanarivudakke.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 52,
+    "akshara" : "ta",
+    "kannada" : "ತ್ರಿವಿಧ ಘಟಿಸಿ ಕುರುಹಾದಲ್ಲಿ,\nಕುರುಹು ಅರಿವನರಿದುದಿಲ್ಲ.\nಆ ಅರಿವಿಂದ ಕುರುಹ ಪ್ರಮಾಣಿಸಿ,\nಮಧುರದಂಡದಂತೆ ಉಭಯವನರಿ.\nಅರಿದಲ್ಲಿ ಅರ್ಕೇಶ್ವರಲಿಂಗನ ಭಾವದ ಕೂಟ.",
+    "transliteration" : "trividha ghaṭisi kuruhādalli,\nkuruhu arivanaridudilla.\nā arivinda kuruha pramāṇisi,\nmadhuradaṇḍadante ubhayavanari.\naridalli arkēśvaraliṅgana bhāvada kūṭa.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 53,
+    "akshara" : "dha",
+    "kannada" : "ಧಾರೆ ಮೊನೆ ಕಟ್ಟಿದಂತೆ, ಮೀರಿ ತಾಗಬಲ್ಲುದೆ ಅಸಿಕೂರಲಗು ?\nನಿಪುಣ ಕ್ರೀಭಾವ ಶುದ್ಧವಾಗಿಯಿದ್ದವಂಗೆ\nಬೇರೆ ಇಂದ್ರಿಯಂಗಳು ಗತಿಗೆಡಿಸಬಲ್ಲವೆ ?\nಅವು, ಅರ್ಕೇಶ್ವರಲಿಂಗನ ಗೊತ್ತ ಮುಟ್ಟಲರಿಯವು.",
+    "transliteration" : "dhāre mone kaṭṭidante, mīri tāgaballude asikūralagu ?\nnipuṇa krībhāva śud'dhavāgiyiddavaṅge\nbēre indriyaṅgaḷu gatigeḍisaballave ?\navu, arkēśvaraliṅgana gotta muṭṭalariyavu.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 54,
+    "akshara" : "na",
+    "kannada" : "ನೊಣ ರಣವ ಹೊಕ್ಕು, ಶ್ರೋಣಿತವ ಭುಂಜಿಸುವಾಗ,\nಕೇಣಸರದ ಭಟರೆಲ್ಲರೂ\nನೊಣದ ರಾವಡಿಗಂಜಿ ಹೇಳದೆ ಹೋದರು.\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿಯಿರಣ್ಣಾ.",
+    "transliteration" : "noṇa raṇava hokku, śrōṇitava bhun̄jisuvāga,\nkēṇasarada bhaṭarellarū\nnoṇada rāvaḍigan̄ji hēḷade hōdaru.\narkēśvaraliṅgavanariyiraṇṇā.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 55,
+    "akshara" : "na",
+    "kannada" : "ನಾನೆಂದಡೆ ಸ್ವತಂತ್ರಿಯಲ್ಲ.\nನೀನೆಂದು ಇದಿರಿಟ್ಟಲ್ಲಿ ಭಾವಕ್ಕೆ ಬ್ಥಿನ್ನ.\nನಾನೆನಬಾರದು, ನೀನೆನಬಾರದು.\nಅರ್ಕೇಶ್ವರಲಿಂಗವ ಏನೂ ಎನಬಾರದು.",
+    "transliteration" : "nānendaḍe svatantriyalla.\nnīnendu idiriṭṭalli bhāvakke bthinna.\nnānenabāradu, nīnenabāradu.\narkēśvaraliṅgava ēnū enabāradu.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 56,
+    "akshara" : "na",
+    "kannada" : "ನಾ ನಿನ್ನನರಿವಲ್ಲಿ, ನೀನೆನ್ನ ಕೈಯಲ್ಲಿ\nಅರಿಯಿಸಿಕೊಂಬಲ್ಲಿ, ಅದೇನು ಭೇದ ?\nನಾನೆಂದಡೆ ನಿನ್ನ ಸುತ್ತಿದ ಮಾಯೆ.\nನೀನೆಂದಡೆ ನನ್ನ ಸುತ್ತಿದ ಮಾಯೆ.\nನಾ ನೀನೆಂಬಲ್ಲಿ ಉಳಿಯಿತ್ತು, ಅರ್ಕೇಶ್ವರಲಿಂಗನ ಅರಿಕೆ.",
+    "transliteration" : "nā ninnanarivalli, nīnenna kaiyalli\nariyisikomballi, adēnu bhēda ?\nnānendaḍe ninna suttida māye.\nnīnendaḍe nanna suttida māye.\nnā nīnemballi uḷiyittu, arkēśvaraliṅgana arike.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 57,
+    "akshara" : "na",
+    "kannada" : "ನೆನಹು ನಿಜದಲ್ಲಿ ನಿಂದಲ್ಲಿ ಸುರುಳಿನ ತೊಡಕು ಗಂಟುಂಟೆ ?\nಅಂಬರವನಡರಿದವಂಗೆ ಬೇರೊಂದಿಂಬ ಮಾಡಲುಂಟೆ ?\nವಸ್ತುವಿನ ಅಂಗದಲ್ಲಿ ಸರ್ವವೂ ಹಿಂಗಿದಲ್ಲಿ,\nಅರ್ಕೇಶ್ವರಲಿಂಗವ ಕಟ್ಟುವುದಕ್ಕೆ ಬೇರೊಂದು ಠಾವುಂಟೆ ?",
+    "transliteration" : "nenahu nijadalli nindalli suruḷina toḍaku gaṇṭuṇṭe ?\nambaravanaḍaridavaṅge bērondimba māḍaluṇṭe ?\nvastuvina aṅgadalli sarvavū hiṅgidalli,\narkēśvaraliṅgava kaṭṭuvudakke bērondu ṭhāvuṇṭe ?",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 58,
+    "akshara" : "na",
+    "kannada" : "ನಾಯಿಗೆ ಕಾಲು ಕೊಟ್ಟು,\nತೋಳಗೆ ಹೊಟ್ಟೆಯ ಕೊಟ್ಟು,\nಹುಲಿಗೆ ತಲೆಯ ಕೊಟ್ಟು,\nಮೆಲಿಸಿಕೊಂಬವರೆಲ್ಲಕ್ಕು ಬಲವಂತತನವೆ ?\nಅದರ ಸಲೆ ಬಲುಮೆ,\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿತವರಿಗಲ್ಲದೆ ಆಗದು.",
+    "transliteration" : "nāyige kālu koṭṭu,\ntōḷage hoṭṭeya koṭṭu,\nhulige taleya koṭṭu,\nmelisikombavarellakku balavantatanave ?\nadara sale balume,\narkēśvaraliṅgavanaritavarigallade āgadu.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 59,
+    "akshara" : "na",
+    "kannada" : "ನುಡಿಯಿರಿದಡೆ ಪರಿಕೈದೇಕೆ ?\nಕೈಯಲ್ಲಿ ಅರಿವು ವಸ್ತುವಾದಡೆ,\nಬೇರೊಂದು ಕುರುಹೇಕೆ ?\nಕೈಯಲ್ಲಿ ಕುರುಹು ಕುರುಹಿಂಗೆ ಬೇಕು.\nಅರಿವು ಅರಿವಿಂಗೆ ಬೇಕು.\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿವುದಕ್ಕೆ ಕುರುಹಿನ ಮರೆಬೇಕು.",
+    "transliteration" : "nuḍiyiridaḍe parikaidēke ?\nkaiyalli arivu vastuvādaḍe,\nbērondu kuruhēke ?\nkaiyalli kuruhu kuruhiṅge bēku.\narivu ariviṅge bēku.\narkēśvaraliṅgavanarivudakke kuruhina marebēku.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 60,
+    "akshara" : "na",
+    "kannada" : "ನೇತ್ರದಲ್ಲಿ ಕಂಡು, ಶ್ರೋತ್ರದಲ್ಲಿ ಕೇಳಿ,\nಗಾತ್ರದಲ್ಲಿ ಮುಟ್ಟಿ, ಚಿತ್ತದಲ್ಲಿ ಒಲಿಸುವಡೆ\nಮತ್ತೊಬ್ಬರಲ್ಲಿ ಹೊತ್ತುಹೋರಲೇಕಣ್ಣಾ,\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿವುದಕ್ಕೆ ?",
+    "transliteration" : "nētradalli kaṇḍu, śrōtradalli kēḷi,\ngātradalli muṭṭi, cittadalli olisuvaḍe\nmattobbaralli hottuhōralēkaṇṇā,\narkēśvaraliṅgavanarivudakke ?",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 61,
+    "akshara" : "pa",
+    "kannada" : "ಪಾಷಾಣದುದಕ ಏತರಿಂದ ದ್ರವ ?\nಪಾಷಾಣದ ಪಾವಕ ಅದೇತರಿಂದ ಕ್ರೋಧ ?\nಅಪ್ಪುವಿನ ಸಂಚಾರದ ರೂಪು ಅದೇತರ ಒಪ್ಪದಿಂದ ?\nಅರಿದರುಹಿಸಿಕೊಂಬ ಅರ್ಕೇಶ್ವರಲಿಂಗನ ಇರವು ಅದೇತರಿಂದ?",
+    "transliteration" : "pāṣāṇadudaka ētarinda drava ?\npāṣāṇada pāvaka adētarinda krōdha ?\nappuvina san̄cārada rūpu adētara oppadinda ?\naridaruhisikomba arkēśvaraliṅgana iravu adētarinda?",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 62,
+    "akshara" : "pa",
+    "kannada" : "ಪೂಜಿಸಿಕೊಂಡೆಹೆವೆಂದು, ಘನಗಂಬ್ಥೀರದಲ್ಲಿ ರಾಗಿಸಿಕೊಂಡಿಪ್ಪ\nಆತ್ಮ ತೇಜದ ಮಾತಿನ ವೇಷದ ಗರ್ವಿಗಳು,\nಆಡುವ ವಾಚಕ, ಭೇಕನ ಬಾಯಲ್ಲಿ ಸಿಕ್ಕಿದ ಮಕ್ಷಿಕ,\nಶ್ರೋಣಿತದಾಸೆಗೆ ಮಚ್ಚಿದಂತೆ.\nಮತ್ತುಂಟೆ ಅರ್ಕೇಶ್ವರಲಿಂಗನ ಕೂಟ ?",
+    "transliteration" : "pūjisikoṇḍ'̔ehevendu, ghanagambthīradalli rāgisikoṇḍippa\nātma tējada mātina vēṣada garvigaḷu,\nāḍuva vācaka, bhēkana bāyalli sikkida makṣika,\nśrōṇitadāsege maccidante.\nmattuṇṭe arkēśvaraliṅgana kūṭa ?",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 63,
+    "akshara" : "pa",
+    "kannada" : "ಪಂಜರದ ಕೋಳಿ ಮಾರ್ಜಾಲನ ಕೊಂದು ತಿಂದು,\nಬಂದುದ ಹೊಂದದೆ ತಾನೊಂದೆ ಹೊಂದಿತ್ತು,\nಪಂಜರ ಹೊರಗೆ, ಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿದ ಕಾರಣ.",
+    "transliteration" : "pan̄jarada kōḷi mārjālana kondu tindu,\nbanduda hondade tānonde hondittu,\npan̄jara horage, arkēśvaraliṅgavanarida kāraṇa.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 64,
+    "akshara" : "pa",
+    "kannada" : "ಪರಮೂರ್ತಿಯಾದಡೆ ಪರಮನ ಸಂಚವನರಿಯಬೇಕು.\nವಿರಕ್ತನಾದಡೆ ಇಹಪರ ನಾಸ್ತಿ, ಪರಮ ಪರಿಣಾಮಿಯಾಗಿರಬೇಕು.\nಜ್ಞಾನಿಯಾದಡೆ ಸರ್ವಜೀವದ ಚೇತನವನರಿಯಬೇಕು.\nಸಾಕು ಮಾತಿನ ಮಾಲೆಯ ನೀತಿಯ ನುಡಿ.\nಅರ್ಕೇಶ್ವರಲಿಂಗನ ಬೆಚ್ಚಂತೆ ಇರಬೇಕು.",
+    "transliteration" : "paramūrtiyādaḍe paramana san̄cavanariyabēku.\nviraktanādaḍe ihapara nāsti, parama pariṇāmiyāgirabēku.\njñāniyādaḍe sarvajīvada cētanavanariyabēku.\nsāku mātina māleya nītiya nuḍi.\narkēśvaraliṅgana beccante irabēku.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 65,
+    "akshara" : "pa",
+    "kannada" : "ಪೂಜೆ ಪುಣ್ಯದ ಮಾಟ, ಭವದ ಕೂಟ, ಅರಿವು ಸಂದೇಹ.\nಅರಿಯದೆ ಮರೆಯದೆ ಕರಿಗೊಂಡಿರು,\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿವುದಕ್ಕೆ.",
+    "transliteration" : "pūje puṇyada māṭa, bhavada kūṭa, arivu sandēha.\nariyade mareyade karigoṇḍiru,\narkēśvaraliṅgavanarivudakke.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 66,
+    "akshara" : "pa",
+    "kannada" : "ಪಕ್ಷಿಯ ಕುಕ್ಕೆಯೊಳಗಿಕ್ಕಿ ಮಾರಬಹುದಲ್ಲದೆ\nಮತ್ತಗಜವ ಮಾರಬಹುದೆ ಅಯ್ಯಾ ?\nಚಿತ್ರವ ಬರೆವುದಕ್ಕೆ ಲೆಕ್ಕಣಿಕೆಯಲ್ಲದೆ ಚಿತ್ತಜಗುಂಟೆ ?\nಪುನರಪಿ ವಸ್ತುವನರಿವುದಕ್ಕೆ ಹೊತ್ತುಗೊತ್ತುಂಟೆ ?\nಅರ್ಕೇಶ್ವರನ ಕೂಡುವುದಕ್ಕೆ ತತ್ಕಾಲವುಂಟೆ ?",
+    "transliteration" : "pakṣiya kukkeyoḷagikki mārabahudallade\nmattagajava mārabahude ayyā ?\ncitrava barevudakke lekkaṇikeyallade cittajaguṇṭe ?\npunarapi vastuvanarivudakke hottugottuṇṭe ?\narkēśvarana kūḍuvudakke tatkālavuṇṭe ?",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 67,
+    "akshara" : "ba",
+    "kannada" : "ಬಾಹ್ಯದಲ್ಲಿ ಶ್ರದ್ಧೆಭಾವ, ಭಾವದಲ್ಲಿ ಬಳಕೆ ನಾಸ್ತಿಯಾಗಿ,\nಅಮಳಕಫಲ ಕರದಲ್ಲಿದ್ದಂತೆ ಕಲೆದೋರದಿರು,\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿವುದಕ್ಕೆ.",
+    "transliteration" : "bāhyadalli śrad'dhebhāva, bhāvadalli baḷake nāstiyāgi,\namaḷakaphala karadalliddante kaledōradiru,\narkēśvaraliṅgavanarivudakke.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 68,
+    "akshara" : "ba",
+    "kannada" : "ಬಂಧುಗಳ ಬೆಂಬಳಿಯ ಕಳ್ಳನ ಹೆಂಡತಿಗೆ\nಭಗ ಮೂರು, ಬಾಯಾರು, ಪೃಷ್ಠ ಎಂಬತ್ತನಾಲ್ಕುಲಕ್ಷ.\nರೋಮ ಎಂಟುಕೋಟಿ.\nಹಲ್ಲು ಹದಿನಾರು, ನಾಲಗೆ ಏಳು.\nಕಿವಿ ಇಪ್ಪತ್ತೈದು, ನಾಡಿ ಶತದಶ.\nಮೂಗು ಮೂವತ್ತೇಳು, ಕಾಲೆಂಟು.\nಭುಜವೆರಡು, ಕೈವೊಂದೆ.\nಹಿಂದೆ ಮುಂದೆ ನೋಡುವ ಕಣ್ಣು,\nಅಬ್ಥಿಸಂದ್ಥಿಯೊಳಗೆ ಒಂದೆ ಅದೆ.\nಅರ್ಕೇಶ್ವರಲಿಂಗವ ಕಾಣಬಾರದು.",
+    "transliteration" : "bandhugaḷa bembaḷiya kaḷḷana heṇḍatige\nbhaga mūru, bāyāru, pr̥ṣṭha embattanālkulakṣa.\nrōma eṇṭukōṭi.\nhallu hadināru, nālage ēḷu.\nkivi ippattaidu, nāḍi śatadaśa.\nmūgu mūvattēḷu, kāleṇṭu.\nbhujaveraḍu, kaivonde.\nhinde munde nōḍuva kaṇṇu,\nabthisandthiyoḷage onde ade.\narkēśvaraliṅgava kāṇabāradu.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 69,
+    "akshara" : "ba",
+    "kannada" : "ಬ್ರಹ್ಮನ ಬಾಯಲ್ಲಿ ಅದೆ, ವಿಷ್ಣುವಿನ ಕೈಯಲ್ಲಿ ಅದೆ,\nರುದ್ರನ ಶಿರದಲ್ಲಿ ಅದೆ.\nತಲೆ ಬಾಯ ನುಂಗಿ, ಕೈ ತಲೆಯೊಳಡಗಿ,\nಕಣ್ಣು ಕಾಲಾಯಿತ್ತು,\nಅರ್ಕೇಶ್ವರಲಿಂಗನನರಿವ ಭೇದದಿಂದ.",
+    "transliteration" : "brahmana bāyalli ade, viṣṇuvina kaiyalli ade,\nrudrana śiradalli ade.\ntale bāya nuṅgi, kai taleyoḷaḍagi,\nkaṇṇu kālāyittu,\narkēśvaraliṅgananariva bhēdadinda.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 70,
+    "akshara" : "ba",
+    "kannada" : "ಬೆಲ್ಲವ ಮೆಲುವಾತನ ಹಲ್ಲು ಕಹಿಯಾಗಿ,\nಹಲ್ಲು ಕಲ್ಲಿನೊಳಗಾಗಿ,\nಅಲ್ಲಿಯೆ ಅಡಗಿ ನೋಡುತ್ತದೆ.\nಅದ ನಾವು ನೀವು ಎಲ್ಲರೂ ಅರಿವ ಬನ್ನಿ,\nಅರ್ಕೇಶ್ವರಲಿಂಗವ ಬಲ್ಲವರಹರೆ.",
+    "transliteration" : "bellava meluvātana hallu kahiyāgi,\nhallu kallinoḷagāgi,\nalliye aḍagi nōḍuttade.\nada nāvu nīvu ellarū ariva banni,\narkēśvaraliṅgava ballavarahare.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 71,
+    "akshara" : "ba",
+    "kannada" : "ಬಾವಿಯ ನೆಳಲ ಬಗ್ಗಿ ನೋಡುವನಂತೆ,\nಜೀವದಾಸೆ ನೋಟದ ಬೇಟ ಬಿಡದಂತೆ,\nಸಂಸಾರದ ಘಾತಕತನ, ಅರಿವಿನ ಮಾತಿನ ಮಾಲೆ.\nಉಭಯವ ನೇತಿಗಳೆಯದೆ\nಅರಿಯಬಾರದು, ಅರ್ಕೇಶ್ವರಲಿಂಗವ.",
+    "transliteration" : "bāviya neḷala baggi nōḍuvanante,\njīvadāse nōṭada bēṭa biḍadante,\nsansārada ghātakatana, arivina mātina māle.\nubhayava nētigaḷeyade\nariyabāradu, arkēśvaraliṅgava.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 72,
+    "akshara" : "ba",
+    "kannada" : "ಬಲೆಯ ಮೀರಿದ ಮೃಗ ಸತ್ತಿತ್ತು.\nಕೊಲ ಹೋದಾತ, ಹಲವು ಅರಿದ ತಲೆಯ ಕಂಡು,\nಹೊಲಬುದಪ್ಪಿದ.\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿಯಿರಣ್ಣಾ.",
+    "transliteration" : "baleya mīrida mr̥ga sattittu.\nkola hōdāta, halavu arida taleya kaṇḍu,\nholabudappida.\narkēśvaraliṅgavanariyiraṇṇā.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 73,
+    "akshara" : "ba",
+    "kannada" : "ಬ್ರಹ್ಮನ ಹರಿದಾಟ, ವಿಷ್ಣುವಿನ ಕಾಲಾಟ,\nರುದ್ರನ ಬಾಯಾಟ.\nಈ ತ್ರಿವಿಧ ಸಿಬ್ಬುದ್ಧಿ ಹರಿದು,\nಅಕ್ಕನ ಗುಕ್ಕಿನೊಳಗಾಗಬೇಡ.\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿಯಿರಣ್ಣಾ.",
+    "transliteration" : "brahmana haridāṭa, viṣṇuvina kālāṭa,\nrudrana bāyāṭa.\nī trividha sibbud'dhi haridu,\nakkana gukkinoḷagāgabēḍa.\narkēśvaraliṅgavanariyiraṇṇā.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 74,
+    "akshara" : "ba",
+    "kannada" : "ಬಣ್ಣ ನುಂಗಿದ ಬಂಗಾರದಂತಾಯಿತ್ತು, ಈ ಅಂಗ.\nಶಿಥಿಲವನವಗವಿಸಿದ ಸುರಾಳದಂತಾಯಿತ್ತು, ಈ ಅಂಗ.\nಪಳುಕದ ಗಿರಿಯ ಉರಿ ನೆರೆದಂತಾಯಿತ್ತು, ಈ ಅಂಗ.\nಸರಸಮಾಧಾನವನೆಯ್ದೆ ಬೆರೆದು ನೆರೆದಂತಾಯಿತ್ತು, ಈ ಅಂಗ.\nಬಯಲು ಬಯಲೊಳಗಡಗಿ, ವಸ್ತು ವಸ್ತುವ ಕೂಡಿ,\nಅರ್ಕೇಶ್ವರಲಿಂಗದಲ್ಲಿ ಒಪ್ಪಿ ಹೋಯಿತ್ತು, ಈ ಅಂಗ.",
+    "transliteration" : "baṇṇa nuṅgida baṅgāradantāyittu, ī aṅga.\nśithilavanavagavisida surāḷadantāyittu, ī aṅga.\npaḷukada giriya uri neredantāyittu, ī aṅga.\nsarasamādhānavaneyde beredu neredantāyittu, ī aṅga.\nbayalu bayaloḷagaḍagi, vastu vastuva kūḍi,\narkēśvaraliṅgadalli oppi hōyittu, ī aṅga.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 75,
+    "akshara" : "ba",
+    "kannada" : "ಬಾಹ್ಯ ರಚನೆಯಲ್ಲಿ ಸತ್ಕಿøಯಾಮಾರ್ಗ,\nಅಂತರಂಗ ಮಾರ್ಗದಲ್ಲಿ\nಕರಣಂಗಳ ಸಂಚ ವಿಸಂಚವನರಿಯಬೇಕು.\nಇದು ವಸ್ತುವ ಮುಂಚುವ ಭೇದ,\nಅರ್ಕೇಶ್ವರಲಿಂಗನ ಸಂಚಿತದ ಅಂಗ.",
+    "transliteration" : "bāhya racaneyalli satkiøyāmārga,\nantaraṅga mārgadalli\nkaraṇaṅgaḷa san̄ca visan̄cavanariyabēku.\nidu vastuva mun̄cuva bhēda,\narkēśvaraliṅgana san̄citada aṅga.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 76,
+    "akshara" : "ba",
+    "kannada" : "ಬೆತ್ತಲೆಯ ಹುತ್ತದಲ್ಲಿ ಕತ್ತಲೆಯ ಹೆಡೆಯ ಸರ್ಪ,\nತೆಕ್ಕೆ ಮಡಿಯಲರಿಯದೆ ಸಿಕ್ಕಿ,\nಅದೇ ಹುತ್ತದ ಬಾಯಲ್ಲಿ ಕಪ್ಪೆ ಹರಿದು ಬಂದು,\nಸರ್ಪನ ನುಂಗಿತ್ತು.\nಹುತ್ತ ಬಚ್ಚಬಯಲಾಯಿತ್ತು, ಅರ್ಕೇಶ್ವರಲಿಂಗನ ಗೊತ್ತು.",
+    "transliteration" : "bettaleya huttadalli kattaleya heḍeya sarpa,\ntekke maḍiyalariyade sikki,\nadē huttada bāyalli kappe haridu bandu,\nsarpana nuṅgittu.\nhutta baccabayalāyittu, arkēśvaraliṅgana gottu.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 77,
+    "akshara" : "bha",
+    "kannada" : "ಭವಸಾಗರವೆಂಬ ಸಮುದ್ರದಲ್ಲಿ,\nಸಾಕಾರವೆಂಬ ಹಡಗು,\nಚೇತನವೆಂಬ ಅಶ್ವಕಟ್ಟಿ ಬರುತ್ತಿರಲಾಗಿ,\nತ್ರಿವಿಧದ ಬಲುಗಿರಿಯ ಹೊಯಿದು, ಹಡಗೊಡೆಯಿತ್ತು.\nಲಾಯದ ಅಶ್ವ ನೀರನೊಡಗೂಡಿತ್ತು.\nಹಡಗಿನ ಸೆಟ್ಟಿ ಪರಪತಿಗಡಹಿಲ್ಲಾಯೆಂದು\nಕುದುರೆಯನೊಡಗೂಡಿದ.\nಅರ್ಕೇಶ್ವರಲಿಂಗವ ಕೇಳುವ ಬನ್ನಿ.",
+    "transliteration" : "bhavasāgaravemba samudradalli,\nsākāravemba haḍagu,\ncētanavemba aśvakaṭṭi baruttiralāgi,\ntrividhada balugiriya hoyidu, haḍagoḍeyittu.\nlāyada aśva nīranoḍagūḍittu.\nhaḍagina seṭṭi parapatigaḍahillāyendu\nkudureyanoḍagūḍida.\narkēśvaraliṅgava kēḷuva banni.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 78,
+    "akshara" : "bha",
+    "kannada" : "ಭಕ್ತಿ ಜ್ಞಾನ ವೈರಾಗ್ಯವೆಂಬ ಮಧರವ ಮರೆಯದಿರಿ.\nಅರಿವ ನೀಗಾಡಲು ಬೇಡ.\nಹೊರವೇಷವ ಹಸನಿಸಿ,\nಮೂರುಮಲದಂದವನೆಂದಿಗೂ ಸಂದ್ಥಿಸದಿರೆಂದು\nಅರ್ಕೇಶ್ವರಲಿಂಗ ಕೂಗುತಿರ್ದ.",
+    "transliteration" : "bhakti jñāna vairāgyavemba madharava mareyadiri.\nariva nīgāḍalu bēḍa.\nhoravēṣava hasanisi,\nmūrumaladandavanendigū sandthisadirendu\narkēśvaraliṅga kūgutirda.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 79,
+    "akshara" : "ma",
+    "kannada" : "ಮತ್ಸ್ಯ ಹೊಳೆಯ ನುಂಗಿ,\nಮೊಸಳೆ ಮಡುವ ನುಂಗುವಾಗ ಅಡಗಿರ್ದು ನೋಡಿ ಕಂಡೆ.\nಕೊಡಗೂಸು ಅಡಗುವ ಠಾವ, ಒಡಗೂಡಿದಲ್ಲದೆ ಕಾಣಬಾರದು,\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿವುದಕ್ಕೆ.",
+    "transliteration" : "matsya hoḷeya nuṅgi,\nmosaḷe maḍuva nuṅguvāga aḍagirdu nōḍi kaṇḍe.\nkoḍagūsu aḍaguva ṭhāva, oḍagūḍidallade kāṇabāradu,\narkēśvaraliṅgavanarivudakke.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 80,
+    "akshara" : "ma",
+    "kannada" : "ಮೊದಲು ಬೀಜ ಬಲಿದು,\nಕಡೆಯಲ್ಲಿ ಬೀಜ ಅಳಿದಲ್ಲದೆ ಅಂಕುರವಾಗದು.\nಕ್ರೀಯಲ್ಲಿ ಆಚರಿಸಿ, ಅರಿವಿನಲ್ಲಿ ವಿಶ್ರಮಿಸಿ,\nತುರೀಯ ಆತುರ ಸಮನವೆಂಬ\nತ್ರಿವಿಧ ಲೇಪವಾಗಿ ಕಂಡ ಉಳುಮೆ,\nಅರ್ಕೇಶ್ವರಲಿಂಗನ ಅರಿಕೆ.",
+    "transliteration" : "modalu bīja balidu,\nkaḍeyalli bīja aḷidallade aṅkuravāgadu.\nkrīyalli ācarisi, arivinalli viśramisi,\nturīya ātura samanavemba\ntrividha lēpavāgi kaṇḍa uḷume,\narkēśvaraliṅgana arike.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 81,
+    "akshara" : "ma",
+    "kannada" : "ಮನ ಮಹದಲ್ಲಿ ನಿಂದು,\nತನುವಿನ ವಿಕಾರವ ಬಿಟ್ಟ ಮತ್ತೆ\nಭವ ಬಂಧದವರ ಒಲವರವೇಕೆ ?\nಅದು ಸಲೆ ನೆಲೆಯಲ್ಲ, ಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿವುದಕ್ಕೆ.",
+    "transliteration" : "mana mahadalli nindu,\ntanuvina vikārava biṭṭa matte\nbhava bandhadavara olavaravēke ?\nadu sale neleyalla, arkēśvaraliṅgavanarivudakke.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 82,
+    "akshara" : "ma",
+    "kannada" : "ಮೂರುಲೋಕದ ದೈತೆ ಊರೆಲ್ಲರ ಕೊಂದು ತಿಂದು,\nಬೇರೊಂದು ಠಾವಿನಲ್ಲಿ ಆಯಿದಾಳೆ.\nಠಾವನರಿತು ದೈತೆಯ ದಾತ ಮುರಿದು,\nಅನಿಹಿತವ ನೇತಿಗಳೆದು, ನಿಹಿತವು ತಾನಾದಡೆ,\nಅರ್ಕೇಶ್ವರಲಿಂಗವ ಕೂಡಿದ ಕೂಟ.",
+    "transliteration" : "mūrulōkada daite ūrellara kondu tindu,\nbērondu ṭhāvinalli āyidāḷe.\nṭhāvanaritu daiteya dāta muridu,\nanihitava nētigaḷedu, nihitavu tānādaḍe,\narkēśvaraliṅgava kūḍida kūṭa.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 83,
+    "akshara" : "ma",
+    "kannada" : "ಮನೆಯಲ್ಲಿ ಅಟ್ಟೆನೆಂದಡೆ, ಹೊಟ್ಟೆ ತುಂಬಿದುದುಂಟೆ ?\nಇರಿಯೆಂಬ ಮಾತಿಗೆ ಘಾಯವೊಡಲಾದುದುಂಟೆ ?\nಮಾತಿನ ಮಾಲೆಯ ನುಡಿದು, ಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿದವರುಂಟೆ ?",
+    "transliteration" : "maneyalli aṭṭenendaḍe, hoṭṭe tumbiduduṇṭe ?\niriyemba mātige ghāyavoḍalāduduṇṭe ?\nmātina māleya nuḍidu, arkēśvaraliṅgavanaridavaruṇṭe ?",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 84,
+    "akshara" : "ma",
+    "kannada" : "ಮಾತಿನ ನಿಪುಣರೆಲ್ಲರೂ\nಸೋತು ಕುಳಿತರು ಅವಳ ಪೀಠಕ್ಕಾಗಿ.\nಪೀಠದ ಆಟದವರು\nಅರ್ಕೇಶ್ವರಲಿಂಗನ ಕೂಟವ ಬಲ್ಲರೆ ?",
+    "transliteration" : "mātina nipuṇarellarū\nsōtu kuḷitaru avaḷa pīṭhakkāgi.\npīṭhada āṭadavaru\narkēśvaraliṅgana kūṭava ballare ?",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 85,
+    "akshara" : "ma",
+    "kannada" : "ಮುಕ್ತಿಯ ಪಥದಲ್ಲಿ ನಿಂದು, ಸುಚಿತ್ತವನರಿದು,\nಸುಚಿತ್ತ ನೆಲೆಗೊಂಡು, ನೆಲೆವಾಸ ಬಲಿದು,\nವಿರಕ್ತಿ ನಿರ್ವಾಣಪದವಾಗಿ,\nಪಥನಾಮ ರೂಪು ನಿರ್ಲೇಪವಾಗಿ,\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿಯಬೇಕು.",
+    "transliteration" : "muktiya pathadalli nindu, sucittavanaridu,\nsucitta nelegoṇḍu, nelevāsa balidu,\nvirakti nirvāṇapadavāgi,\npathanāma rūpu nirlēpavāgi,\narkēśvaraliṅgavanariyabēku.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 86,
+    "akshara" : "ma",
+    "kannada" : "ಮಾಡುವ ಕ್ರೀ ಕರ್ಮಕಾಂಡ, ಅರಿವ ಚಿತ್ತ ಭಾವಕಾಂಡ.\nಉಭಯ ಲೇಪವಾಗಿ ನಿಂದಲ್ಲಿ ಜ್ಞಾನಕಾಂಡ.\nತ್ರಿವಿಧ ಲಯವಾದಲ್ಲಿ, ಅರ್ಕೇಶ್ವರಲಿಂಗನ ಕೂಡವ ಕೂಟ.",
+    "transliteration" : "māḍuva krī karmakāṇḍa, ariva citta bhāvakāṇḍa.\nubhaya lēpavāgi nindalli jñānakāṇḍa.\ntrividha layavādalli, arkēśvaraliṅgana kūḍava kūṭa.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 87,
+    "akshara" : "ma",
+    "kannada" : "ಮೂವರು ಸಮಗಾರರ ಬಾಗಿಲಲ್ಲಿ\nಅಯಿವರು ಹಾರುವರು ಹರಸುತ್ತೈದಾರೆ.\nಒಬ್ಬನಿಗೆ ಕೊಂಬ ಕೊಟ್ಟು, ಒಬ್ಬನಿಗೆ ಕೊಳಗ ಕೊಟ್ಟು,\nಒಬ್ಬನಿಗೆ ಕರುಳ ಕೊಟ್ಟು, ಒಬ್ಬನಿಗೆ ಗರ್ಭವ ಕೊಟ್ಟು,\nಒಬ್ಬನಿಗೆ ಏನೂಯಿಲ್ಲದೆ ತಬ್ಬಿಬ್ಬಿಯಾಯಿತ್ತು.\nಆ ಮಾದಿಗನ ಮನೆಯ ಹೊಕ್ಕು, ಮಾದಗಿತ್ತಿಯ ಅ[ಡಗ] ತಿಂದ,\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿದ ಕಾರಣ.",
+    "transliteration" : "mūvaru samagārara bāgilalli\nayivaru hāruvaru harasuttaidāre.\nobbanige komba koṭṭu, obbanige koḷaga koṭṭu,\nobbanige karuḷa koṭṭu, obbanige garbhava koṭṭu,\nobbanige ēnūyillade tabbibbiyāyittu.\nā mādigana maneya hokku, mādagittiya a[ḍaga] tinda,\narkēśvaraliṅgavanarida kāraṇa.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 88,
+    "akshara" : "ma",
+    "kannada" : "ಮಾಡುವ ಸತ್ಕ್ರೀಮಾರ್ಗ, ಇದಿರಿಗಲ್ಲದೆ\nಲಿಂಗವ ಮುಟ್ಟಲರಿಯವು.\nಸರ್ಪ ಹೆಡೆಯಲ್ಲಿ ಹೊಯಿದಡೆ\nವಿಷ ಹತ್ತಬಲ್ಲುದೆ, ದಷ್ಟವಾಗಿಯಲ್ಲದೆ ?\nಮನ ಭಾವ ಕ್ರೀ ತ್ರಿಕರಣ ಶುದ್ಧವಾಗು,\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿವುದಕ್ಕೆ.",
+    "transliteration" : "māḍuva satkrīmārga, idirigallade\nliṅgava muṭṭalariyavu.\nsarpa heḍeyalli hoyidaḍe\nviṣa hattaballude, daṣṭavāgiyallade ?\nmana bhāva krī trikaraṇa śud'dhavāgu,\narkēśvaraliṅgavanarivudakke.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 89,
+    "akshara" : "ma",
+    "kannada" : "ಮಧುರವಾಣಿಯ ಉದರದಲ್ಲಿ,\nಒಂದು ನಿಜಕುಕ್ಕುಟ ಕೂಗುತ್ತದೆ.\nಮೂವರ ಮೊಲೆಯನುಂಡು,\nಮರೆದೊರಗಬೇಡಾ ಎಂದು ಬೆಳಗಾಯಿತ್ತು.\nಅರ್ಕೇಶ್ವರಲಿಂಗವ ನೋಡುವ ಬನ್ನಿ\nಎಂದು ಕೂಗುತ್ತಿದ್ದಿತ್ತು.",
+    "transliteration" : "madhuravāṇiya udaradalli,\nondu nijakukkuṭa kūguttade.\nmūvara moleyanuṇḍu,\nmaredoragabēḍā endu beḷagāyittu.\narkēśvaraliṅgava nōḍuva banni\nendu kūguttiddittu.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 90,
+    "akshara" : "ma",
+    "kannada" : "ಮೂರುಲೋಕದ ಹುಟ್ಟಿನಲ್ಲಿ\nಒಂದು ವಾರಣ ಬಂದು,\nಊರೆಲ್ಲರ ಬರಿಕೈವುತ್ತದೆ.\nಅದಾರಿಗೂ ಅಶಕ್ಯ.\nಆ ವಾರಣನ ವಾರಿಸುವರಿಲ್ಲ.\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿತವರಿಗಲ್ಲದೆ ಆಗದು.",
+    "transliteration" : "mūrulōkada huṭṭinalli\nondu vāraṇa bandu,\nūrellara barikaivuttade.\nadārigū aśakya.\nā vāraṇana vārisuvarilla.\narkēśvaraliṅgavanaritavarigallade āgadu.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 91,
+    "akshara" : "ma",
+    "kannada" : "ಮೂರು ಸುರೆಯ ಕುಡಿದು,\nಅಡಗಿಸಿದವ ಎನ್ನ ಗುರು.\nಕಾಳಾಡ ಕಣ್ಣ ಕಿತ್ತು, ಎರಳೆಯ ತಿರುಳ ತಿಂದು,\nದಿನವ ಕಳಿದುಳಿದವ ಎನ್ನ ಗುರು.\nಆತ ಅರ್ಕೇಶ್ವರಲಿಂಗಕ್ಕೆ ಸಿಕ್ಕದವ.",
+    "transliteration" : "mūru sureya kuḍidu,\naḍagisidava enna guru.\nkāḷāḍa kaṇṇa kittu, eraḷeya tiruḷa tindu,\ndinava kaḷiduḷidava enna guru.\nāta arkēśvaraliṅgakke sikkadava.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 92,
+    "akshara" : "ra",
+    "kannada" : "ರಣದಲ್ಲಿ ಧನು ಮುರಿದ ಮತ್ತೆ, ಸರವೇನ ಮಾಡುವುದು ?\nಅಂಗ ಲಿಂಗವ ಮರೆದಲ್ಲಿ,\nಅರಿವುದಕ್ಕೆ ಆಶ್ರಯ ಇನ್ನಾವುದು ಹೇಳಿರಣ್ಣಾ ?\nಅರಿವಿಂಗೆ ಕುರುಹು, ಅರಿವು ಕುರುಹಿನಲ್ಲಿ ನಿಂದು,\nಕಾಷ್ಠದಿಂದೊದಗಿದ ಅಗ್ನಿ ಕಾಷ್ಠವ ಸುಟ್ಟು,\nತನಗಾಶ್ರಯವಿಲ್ಲದಂತಾಯಿತ್ತು.\nಹಾಗಾಗಬೇಕು, ಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿವುದಕ್ಕೆ.",
+    "transliteration" : "raṇadalli dhanu murida matte, saravēna māḍuvudu ?\naṅga liṅgava maredalli,\narivudakke āśraya innāvudu hēḷiraṇṇā ?\nariviṅge kuruhu, arivu kuruhinalli nindu,\nkāṣṭhadindodagida agni kāṣṭhava suṭṭu,\ntanagāśrayavilladantāyittu.\nhāgāgabēku, arkēśvaraliṅgavanarivudakke.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 93,
+    "akshara" : "la",
+    "kannada" : "ಲಿಂಗವನರಿತು ಅಂಗ ಲಯವಾಗಬೇಕು.\nಅಂಕುರ ತೋರಿ ಬೀಜ ನಷ್ಟವಾದಂತೆ,\nಸ್ವಯಂಭು ತೋರಿ ಪ್ರತಿಷ್ಠೆ ನಷ್ಟವಾದಂತೆ,\nಅರ್ಕೇಶ್ವರಲಿಂಗವ ಅರಿದ ಗೊತ್ತಿನ ಒಲುಮೆ.",
+    "transliteration" : "liṅgavanaritu aṅga layavāgabēku.\naṅkura tōri bīja naṣṭavādante,\nsvayambhu tōri pratiṣṭhe naṣṭavādante,\narkēśvaraliṅgava arida gottina olume.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 94,
+    "akshara" : "va",
+    "kannada" : "ವನದ ಬಾಳೆಯ ಗೊನೆಯ ಹೊಯಿದ ಕಳ್ಳನ\nಅಡಿವಜ್ಜೆಯಲ್ಲಿ ಹೋಗಿ,\nಹೆಡಗುಡಿಯ ಕಟ್ಟಿ, ಬಾದ್ಥಿಸಿ,\nಗೊನೆಯ ತೋರೆಂದಡೆ,\nಗೊನೆ ಮನೆಯೊಳಗದೆಯೆಂದ.\nಮನೆಯಾಕೆಯ ಕೇಳಿದಡೆ,\nಗೊನೆಯ ನಾ ತಿಂದೆ, ಕಳ್ಳನ ತಲೆಯ ಕುಟ್ಟಿ,\nಎನ್ನದು ಕೊಯಿದುಕೊಳ್ಳಿಯೆಂದಳು,\nಅರ್ಕೇಶ್ವರಲಿಂಗವ ಬಲ್ಲಡೆ.",
+    "transliteration" : "vanada bāḷeya goneya hoyida kaḷḷana\naḍivajjeyalli hōgi,\nheḍaguḍiya kaṭṭi, bādthisi,\ngoneya tōrendaḍe,\ngone maneyoḷagadeyenda.\nmaneyākeya kēḷidaḍe,\ngoneya nā tinde, kaḷḷana taleya kuṭṭi,\nennadu koyidukoḷḷiyendaḷu,\narkēśvaraliṅgava ballaḍe.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 95,
+    "akshara" : "śa",
+    "kannada" : "ಶಿಲೆಯೊಳಗಣ ಉರಿ ಅಡಗಿಪ್ಪಂತೆ,\nಬಲುಗೈಯನ ಕೋಲೆ ಉಡುಗಿಪ್ಪಂತೆ,\nಸಲೆ ಗರಳ ಕೊರಳೊಳಗೆ ಹೊರಹೊಮ್ಮದಂತೆ,\nಅರ್ಕೇಶ್ವರಲಿಂಗನ ತೊಡಿಗೆ ಹೀಗಾಗಬೇಕು.",
+    "transliteration" : "śileyoḷagaṇa uri aḍagippante,\nbalugaiyana kōle uḍugippante,\nsale garaḷa koraḷoḷage horahom'madante,\narkēśvaraliṅgana toḍige hīgāgabēku.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 96,
+    "akshara" : "śa",
+    "kannada" : "ಶುಕ್ಲ ಶ್ರೋಣಿತದ ಆಶ್ರಯದಲ್ಲಿ\nಕುಕ್ಕುಟ ಮರೆದಿರಲಾಗಿ,\nಬೆಕ್ಕು ನುಂಗ ಬಂದಿತ್ತು.\nಬೆಕ್ಕಿನ ಕುಕ್ಕುಟನ ಕುಕ್ಕುರ ನಂದಿಸಿತ್ತು.\nಕುಕ್ಕುರನ ಬೆಕ್ಕ ಕಾಲಜ್ಞಾನಿ ಎಚ್ಚತ್ತು,\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿದ ಕಾರಣ.",
+    "transliteration" : "śukla śrōṇitada āśrayadalli\nkukkuṭa marediralāgi,\nbekku nuṅga bandittu.\nbekkina kukkuṭana kukkura nandisittu.\nkukkurana bekka kālajñāni eccattu,\narkēśvaraliṅgavanarida kāraṇa.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 97,
+    "akshara" : "sa",
+    "kannada" : "ಸಾಕು ಬಹುಮಾತಿನ ಮಾಲೆ.\nಸ್ಥಾಣುವ ತಿರುಗುವ ಪಶುವಿನಂತೆ,\nವೇಣುವ ಹಿಡಿದ ಶುಕನಂತೆ,\nಅದು ಪ್ರಾಣಕ್ಕೆ ಬಂದಾಗ ಅರಿದ ಇರವು.\nಭಾಳಲೋಚನರಿಗೆ ಹೀಗಾಯಿತ್ತು.\nಅರ್ಕೇಶ್ವರಲಿಂಗವನರಿವರಿನ್ನಾರು ?",
+    "transliteration" : "sāku bahumātina māle.\nsthāṇuva tiruguva paśuvinante,\nvēṇuva hiḍida śukanante,\nadu prāṇakke bandāga arida iravu.\nbhāḷalōcanarige hīgāyittu.\narkēśvaraliṅgavanarivarinnāru ?",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 98,
+    "akshara" : "sa",
+    "kannada" : "ಸೂನೆಗಾರನ ಮನೆಯಲ್ಲಿ\nಮೂವರು ಹಂದೆಗಳು ಹೊಕ್ಕು,\nಹೇಳ ಹೆಸರಿಲ್ಲದೆ ಕೊಂದರೆಲ್ಲರ.\nಸೂನೆಗಾರ ಏನೂ ಎನ್ನದೆಯಿದ್ದ,\nಕೇಳುವ ಬನ್ನಿ, ಅರ್ಕೇಶ್ವರಲಿಂಗವ.",
+    "transliteration" : "sūnegārana maneyalli\nmūvaru handegaḷu hokku,\nhēḷa hesarillade kondarellara.\nsūnegāra ēnū ennadeyidda,\nkēḷuva banni, arkēśvaraliṅgava.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 99,
+    "akshara" : "sa",
+    "kannada" : "ಸತ್ತವನ ಮನೆಯಲ್ಲಿ\nಹೊತ್ತವರೆಲ್ಲರು ಅಳುತಿರ್ದಾರೆ.\nಮತ್ತೊಬ್ಬನ ಮದುವೆಗೆ ದಿಬ್ಬಣಕೆ ಬಂದು,\nಮದವಳಿಗನ ಕಾಣದೆ,\nಮನೆಮನೆಯ ಹೊಕ್ಕು ಸುತ್ತುತೈದಾರೆ.\nಕೇಳುವ ಬನ್ನಿ, ಅರ್ಕೇಶ್ವರಲಿಂಗವ.",
+    "transliteration" : "sattavana maneyalli\nhottavarellaru aḷutirdāre.\nmattobbana maduvege dibbaṇake bandu,\nmadavaḷigana kāṇade,\nmanemaneya hokku suttutaidāre.\nkēḷuva banni, arkēśvaraliṅgava.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 100,
+    "akshara" : "sa",
+    "kannada" : "ಸಾಧನೆಯಲ್ಲಿ ಬೆಳೆದ ವಿಹಂಗನಂತೆ,\nದೀಹವಾದ ಮೃಗದಂತೆ,\nಜಾತಿಜಾತಿಯ ಕೊಂದು, ಭೂತಹಿತವುಂಟೆ ?\nಸಮಯ ಸಮಯವ ಕೊಂದು,\nಬಲ್ಲಹ ಬಲ್ಲವನ ಸೊಲ್ಲು ಒಳ್ಳಿತ್ತಲ್ಲಾಯೆಂದು\nಎಲ್ಲರೊಳಗೆ ಹೇಳುವ ಖುಲ್ಲನ\nಬಲ್ಲತನವನೊಲ್ಲ, ಅರ್ಕೇಶ್ವರಲಿಂಗ.",
+    "transliteration" : "sādhaneyalli beḷeda vihaṅganante,\ndīhavāda mr̥gadante,\njātijātiya kondu, bhūtahitavuṇṭe ?\nsamaya samayava kondu,\nballaha ballavana sollu oḷḷittallāyendu\nellaroḷage hēḷuva khullana\nballatanavanolla, arkēśvaraliṅga.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 101,
+    "akshara" : "sa",
+    "kannada" : "ಸರ್ಪನಿಪ್ಪುದಕ್ಕೆ ಠಾವಲ್ಲದೆ,\nತಪ್ಪಿ ವಿಷ ಹತ್ತಿದ ಮತ್ತೆಗೊತ್ತಿಂಗೆ ನಿಲುವುದೆ ?\nಅದರೊಪ್ಪಕ್ಕೆ ಕಡೆಯೆ ಲಿಂಗಸಂಗಸಂಯೋಗ ?\nಅರ್ಕೇಶ್ವರಲಿಂಗದಲ್ಲಿ ಅಚ್ಚೊತ್ತಿದಂತಿರಬೇಕು.",
+    "transliteration" : "sarpanippudakke ṭhāvallade,\ntappi viṣa hattida mattegottiṅge niluvude ?\nadaroppakke kaḍeye liṅgasaṅgasanyōga ?\narkēśvaraliṅgadalli accottidantirabēku.",
+    "translation" : ""
+  }, {
+    "authorId" : 13,
+    "number" : 102,
+    "akshara" : "ha",
+    "kannada" : "ಹಾವನೂ ಹದ್ದನೂ ಕೂಡೆ ಮೆದ್ದು,\nಬೇವನೂ ಬೆಲ್ಲವನೂ ಕೂಡೆ ಕಲಸಿ,\nಸಾಗರದಲ್ಲಿ ಸಾಧನೆಯ ಮಾಡುವರ ಬೇಗ ನೋಡಿ,\nಅರ್ಕೇಶ್ವರಲಿಂಗನರಿವುದಕ್ಕೆ.",
+    "transliteration" : "hāvanū haddanū kūḍe meddu,\nbēvanū bellavanū kūḍe kalasi,\nsāgaradalli sādhaneya māḍuvara bēga nōḍi,\narkēśvaraliṅganarivudakke.",
+    "translation" : ""
+  } ]
+}

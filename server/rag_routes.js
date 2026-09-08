@@ -8,6 +8,7 @@ import path from 'node:path';
 import { ensureIndex, getCurrentIndex, getEmbeddingModelName, getEmbeddingDimension, getEmbeddingFilePath } from './index_manager.js';
 import { query, queryStream, clearEmbeddingCache } from './rag_engine.js';
 import { getCurrentEmbeddingStore } from './index_manager.js';
+import { uploadIndexFiles } from './supabase_storage.js';
 
 const DEBUG = process.env.RAG_DEBUG === '1';
 
@@ -48,13 +49,53 @@ export function attachRagRoutes(app, { publicRoot }) {
     });
 
     /**
-     * GET /api/rag/datasets - List available datasets
-     */
+         * GET /api/rag/datasets - List available datasets
+         *
+         * Dynamically rescans the data directory on every request so renamed, added,
+         * or reorganized folders/files appear immediately without a server restart
+         * or index rebuild. Returns the flat relative paths (JSON/PDF/TXT).
+         */
     app.get('/api/rag/datasets', async (_req, res) => {
         try {
             await ensureIndex(dataRoot);
             const index = getCurrentIndex();
-            res.json({ ok: true, datasets: index?.datasetNames || [] });
+            const datasets = index?.datasetNames || [];
+
+            // Freshest view: rescan the data root for every supported file type.
+            // This catches any folder/file changes made since the index was built.
+            try {
+                const fs = await import('node:fs/promises');
+                const pathMod = await import('node:path');
+                const found = [];
+
+                async function scanDir(dir) {
+                    let entries;
+                    try {
+                        entries = await fs.readdir(dir, { withFileTypes: true });
+                    } catch { return; }
+                    for (const entry of entries) {
+                        const full = pathMod.join(dir, entry.name);
+                        if (entry.isDirectory()) {
+                            await scanDir(full);
+                        } else if (entry.isFile()) {
+                            const lower = entry.name.toLowerCase();
+                            if (lower.endsWith('.json') || lower.endsWith('.pdf') || lower.endsWith('.txt')) {
+                                found.push(pathMod.relative(dataRoot, full).split(pathMod.sep).join('/'));
+                            }
+                        }
+                    }
+                }
+
+                await scanDir(dataRoot);
+                const fresh = found.filter(Boolean).sort();
+                // If the filesystem view differs from the cached index view, respond
+                // with the fresh list (the index will catch up on next query).
+                if (fresh.length > 0) {
+                    return res.json({ ok: true, datasets: fresh });
+                }
+            } catch { /* fall back to cached index list */ }
+
+            res.json({ ok: true, datasets: datasets || [] });
         } catch (error) {
             // Fallback: scan filesystem for datasets (JSON + PDF)
             try {
@@ -79,8 +120,7 @@ export function attachRagRoutes(app, { publicRoot }) {
                     }
                 }
 
-                await scanDirFor(dataRoot, path.join(dataRoot, 'datasets'), '.json');
-                await scanDirFor(dataRoot, path.join(dataRoot, 'authors'), '.json');
+                await scanDirFor(dataRoot, dataRoot, '.json');
                 await scanDirFor(dataRoot, dataRoot, '.pdf');
                 await scanDirFor(dataRoot, dataRoot, '.txt');
 
@@ -100,6 +140,7 @@ export function attachRagRoutes(app, { publicRoot }) {
             const {
                 query: queryText,
                 selectedDataset = '__ALL__',
+                selectedDatasets,
                 topK = 10,
                 answerMode = 'detailed',
                 includeConversationMemory = false,
@@ -115,8 +156,14 @@ export function attachRagRoutes(app, { publicRoot }) {
                 return res.status(400).json({ ok: false, error: 'Query text cannot be empty.' });
             }
 
+            // Normalize the multi/folder selection if provided. Falls back to the
+            // single legacy `selectedDataset` string when not present.
+            const datasetSelection = Array.isArray(selectedDatasets) && selectedDatasets.length > 0
+                ? selectedDatasets.filter(p => p && typeof p === 'string').map(p => p.trim())
+                : null;
+
             debugLog('Query:', trimmedQuery.substring(0, 200));
-            debugLog('Dataset:', selectedDataset, 'topK:', topK, 'mode:', answerMode);
+            debugLog('Dataset:', datasetSelection || selectedDataset, 'topK:', topK, 'mode:', answerMode);
 
             // Set up SSE
             res.writeHead(200, {
@@ -157,7 +204,8 @@ export function attachRagRoutes(app, { publicRoot }) {
                             send('token', token);
                         },
                         signal: controller.signal
-                    }
+                    },
+                    datasetSelection
                 );
 
                 const elapsed = Date.now() - startTime;
@@ -218,6 +266,7 @@ export function attachRagRoutes(app, { publicRoot }) {
             const {
                 query: queryText,
                 selectedDataset = '__ALL__',
+                selectedDatasets,
                 topK = 10,
                 answerMode = 'detailed',
                 includeConversationMemory = false,
@@ -233,7 +282,14 @@ export function attachRagRoutes(app, { publicRoot }) {
                 return res.status(400).json({ ok: false, error: 'Query text cannot be empty.' });
             }
 
+            // Normalize the multi/folder selection if provided. Falls back to the
+            // single legacy `selectedDataset` string when not present.
+            const datasetSelection = Array.isArray(selectedDatasets) && selectedDatasets.length > 0
+                ? selectedDatasets.filter(p => p && typeof p === 'string').map(p => p.trim())
+                : null;
+
             debugLog('Query:', trimmedQuery.substring(0, 200));
+            debugLog('Dataset:', datasetSelection || selectedDataset, 'topK:', topK, 'mode:', answerMode);
 
             const startTime = Date.now();
             const result = await query(
@@ -242,7 +298,8 @@ export function attachRagRoutes(app, { publicRoot }) {
                 Math.min(25, Number(topK) || 10),
                 answerMode,
                 includeConversationMemory,
-                conversationHistory
+                conversationHistory,
+                datasetSelection
             );
 
             const elapsed = Date.now() - startTime;
@@ -268,6 +325,36 @@ export function attachRagRoutes(app, { publicRoot }) {
         try {
             clearEmbeddingCache();
             res.json({ ok: true, message: 'Embedding cache cleared' });
+        } catch (error) {
+            res.status(500).json({ ok: false, error: String(error) });
+        }
+    });
+
+    /**
+     * POST /api/rag/index/upload - Admin: manually upload current index to Supabase Storage.
+     * This allows a developer to push a freshly built index to Supabase so a
+     * production server can download it on startup (bypassing a time-consuming
+     * rebuild from scratch). Requires SUPABASE_URL and SUPABASE_SERVICE_KEY env vars.
+     */
+    app.post('/api/rag/index/upload', async (_req, res) => {
+        try {
+            const result = await uploadIndexFiles();
+            if (result.ok) {
+                res.json({
+                    ok: true,
+                    message: 'Index uploaded to Supabase Storage',
+                    bucket: result.bucket,
+                    prefix: result.prefix || '(root)',
+                    details: result.results
+                });
+            } else {
+                const statusCode = result.reason === 'supabase_disabled' ? 400 : 500;
+                res.status(statusCode).json({
+                    ok: false,
+                    error: result.reason || 'Upload failed',
+                    details: result
+                });
+            }
         } catch (error) {
             res.status(500).json({ ok: false, error: String(error) });
         }

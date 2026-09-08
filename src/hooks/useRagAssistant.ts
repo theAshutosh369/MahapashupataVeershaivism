@@ -7,7 +7,10 @@ export type ChatTurn = { role: 'user' | 'assistant'; content: string; sources?: 
 
 export default function useRagAssistant() {
     const [datasets, setDatasets] = useState<RAGDataset[]>([]);
-    const [selectedDataset, setSelectedDataset] = useState<string>('__ALL__');
+    // Set of leaf dataset paths (relative to public/data) explicitly selected.
+    const [selectedPaths, setSelectedPaths] = useState<ReadonlySet<string>>(new Set());
+    // When true, the search runs across every dataset ("All Datasets").
+    const [allSelected, setAllSelected] = useState(true);
     const [prompt, setPrompt] = useState('');
     const [answer, setAnswer] = useState('');
     const [sources, setSources] = useState<RAGSource[]>([]);
@@ -31,7 +34,6 @@ export default function useRagAssistant() {
             try {
                 const list = await listRagDatasets();
                 setDatasets(list);
-                setSelectedDataset(list.length ? list[0].value : '__ALL__');
                 setStatus('');
             } catch (err) {
                 setError(err instanceof Error ? err.message : String(err));
@@ -42,11 +44,40 @@ export default function useRagAssistant() {
         loadDatasets();
     }, []);
 
+    // The flat list of dataset value paths (excluding the virtual "__ALL__" entry)
+    // used to build the tree and to send as `selectedDatasets`.
+    const datasetPathList = useMemo(
+        () => datasets.filter((dataset) => dataset.value !== '__ALL__').map((dataset) => dataset.value),
+        [datasets]
+    );
+
+    // Effective selection: when "All Datasets" is active every path is considered selected.
+    const effectiveSelected = useMemo<ReadonlySet<string>>(
+        () => (allSelected ? new Set(datasetPathList) : selectedPaths),
+        [allSelected, selectedPaths, datasetPathList]
+    );
+
+    // Backward-compatible "selected dataset" string exposed to the UI for gating.
+    // When allSelected, report "__ALL__"; otherwise the first selected path (or "" if none).
+    const selectedDataset = useMemo(() => {
+        if (allSelected) return '__ALL__';
+        return effectiveSelected.size > 0 ? Array.from(effectiveSelected)[0] : '';
+    }, [allSelected, effectiveSelected]);
+
     const datasetLabel = useMemo(() => {
-        if (!selectedDataset) return '';
-        if (selectedDataset === '__ALL__') return 'All datasets';
-        return datasets.find((dataset) => dataset.value === selectedDataset)?.name ?? selectedDataset;
-    }, [datasets, selectedDataset]);
+        if (allSelected) return 'All datasets';
+        if (effectiveSelected.size === 0) return 'No datasets selected';
+        if (effectiveSelected.size === 1) {
+            const only = Array.from(effectiveSelected)[0];
+            return datasets.find((dataset) => dataset.value === only)?.name ?? only;
+        }
+        return `${effectiveSelected.size} datasets selected`;
+    }, [datasets, allSelected, effectiveSelected]);
+
+    function handleDatasetChange(selected: Set<string>, nextAll: boolean) {
+        setSelectedPaths(selected);
+        setAllSelected(nextAll);
+    }
 
     async function startStream(request: RAGQueryRequest) {
         setLoading(true);
@@ -65,6 +96,7 @@ export default function useRagAssistant() {
         const fullRequest: RAGQueryRequest = {
             query: request.query,
             selectedDataset: request.selectedDataset,
+            selectedDatasets: request.selectedDatasets,
             topK: request.topK,
             answerMode: request.answerMode,
             includeConversationMemory,
@@ -195,6 +227,7 @@ export default function useRagAssistant() {
         const request: RAGQueryRequest = {
             query: prompt,
             selectedDataset,
+            selectedDatasets: allSelected ? undefined : Array.from(effectiveSelected),
             topK,
             answerMode,
             includeConversationMemory,
@@ -210,8 +243,13 @@ export default function useRagAssistant() {
 
     return {
         datasets,
+        datasetPathList,
+        selectedPaths,
+        setSelectedPaths,
+        allSelected,
+        setAllSelected,
+        handleDatasetChange,
         selectedDataset,
-        setSelectedDataset,
         prompt,
         setPrompt,
         answer,

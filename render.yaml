@@ -28,5 +28,13 @@ services:
         value: theAshutosh369/MahapashupataVeershaivism
       - key: GITHUB_BRANCH
         value: main
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_KEY
+        sync: false
+      - key: SUPABASE_STORAGE_BUCKET
+        value: rag-index
+      - key: SUPABASE_INDEX_PREFIX
+        value: ""
     healthCheckPath: /api/rag/status
     autoDeploy: false

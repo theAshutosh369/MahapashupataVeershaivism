@@ -10,9 +10,11 @@ import { formatCitationLines } from '../components/ai/formatCitation';
 
 function AiAgent() {
     const {
-        datasets,
+        datasetPathList,
+        selectedPaths,
+        allSelected,
+        handleDatasetChange,
         selectedDataset,
-        setSelectedDataset,
         prompt,
         setPrompt,
         answer,
@@ -135,17 +137,16 @@ function AiAgent() {
                             </summary>
                             <div style={{ padding: '8px 0' }}>
                                 <QueryControls
-                                    datasets={datasets}
-                                    selectedDataset={selectedDataset}
-                                    onDatasetChange={setSelectedDataset}
+                                    paths={datasetPathList}
+                                    selected={selectedPaths}
+                                    allSelected={allSelected}
+                                    onDatasetChange={handleDatasetChange}
                                     topK={topK}
                                     onTopKChange={setTopK}
                                     answerMode={answerMode}
                                     onAnswerModeChange={setAnswerMode}
                                     includeConversationMemory={includeConversationMemory}
                                     onIncludeConversationMemoryChange={setIncludeConversationMemory}
-                                    prompt={prompt}
-                                    onPromptChange={setPrompt}
                                     onAsk={ask}
                                     onStop={stop}
                                     onRegenerate={regenerate}
