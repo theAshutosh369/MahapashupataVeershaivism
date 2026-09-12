@@ -1,40 +1,31 @@
 /**
  * RAG Engine — Main orchestration layer.
  *
- * Coordinates retrieval, reranking, prompt building, and Gemini answer generation.
- * ONLY Google Gemini APIs are used (no Ollama, no OpenAI).
- * Falls back gracefully when GEMINI_API_KEY is missing or embedding fails.
+ * Coordinates retrieval, reranking, prompt building, and provider-agnostic LLM
+ * answer generation. The final generation layer is behind an LLM provider
+ * abstraction (Gemini / OpenAI / auto-fallback) — see server/llm/.
  *
  * RETRIEVAL ARCHITECTURE:
  *   1. Query embedding generated via Google gemini-embedding-001 (768-dim)
  *   2. Vector search via vector_store.js (Float32 binary, lazy-loaded, batched)
  *   3. Hybrid scoring: semantic (0.5) + keyword (0.25) + fuzzy (0.15) + boost (0.10)
  *   4. If embeddings unavailable → pure keyword search fallback
- *   5. Results reranked → top 8-10 sent to Gemini
+ *   5. Results reranked → top 8-10 sent to the active LLM provider
  */
 
 import { getCurrentIndex } from './index_manager.js';
-import { loadEmbeddings, unloadEmbeddings } from './vector_index.js';
+import { loadEmbeddings } from './vector_index.js';
 import { hybridSearch, keywordSearch } from './hybrid_search.js';
 import { addTurn, getConversationContext } from './conversation_memory.js';
-import { VectorStore, logMemorySnapshot } from './vector_store.js';
-import { getEmbeddingFilePath, getEmbeddingDimension } from './index_manager.js';
+import { logMemorySnapshot } from './vector_store.js';
+import { getEmbeddingDimension } from './index_manager.js';
+import { getLLMProviderChain, getLLMInfo } from './llm/index.js';
 
 var MAX_TOP_CHUNKS = 20;
 var RETRIEVE_CHUNKS = 50;
 
 var embeddingCache = new Map();
 var EMBEDDING_CACHE_MAX = 50;
-
-var GEMINI_DEFAULT_MODEL = 'models/gemini-flash-latest';
-
-function getGeminiModel() {
-    var configured = process.env.GEMINI_MODEL;
-    if (configured && typeof configured === 'string' && configured.trim().length > 0) {
-        return configured.trim();
-    }
-    return GEMINI_DEFAULT_MODEL;
-}
 
 // ─── Query embedding ────────────────────────────────────────────────────────
 
@@ -99,73 +90,217 @@ function formatMetadata(chunk) {
 
 function buildSystemPrompt() {
     var lines = [
-        'You are Mahapashupata Veershaivism AI — a world-class scholar of Veerashaivism, Mahapashupata tradition, Sanskrit, Vachana literature, Śaiva Āgamas, Vedānta, Siddhānta Śikhāmaṇi, Śrī Siddhānta Śāstra, and classical Indian philosophy.',
+        'You are Mahapashupata Veershaivism AI — a world-class scholar of Veerashaivism, Mahapashupata tradition, Sanskrit, Vachana literature, Śaiva Āgamas, Vedānta, and other Śāstras.',
         '',
-        'You answer with the depth, precision and textual rigor of a PhD in Sanskrit Vyākaraṇa, Vedānta and Veerashaiva Siddhānta while remaining clear and readable.',
+        'You answer with the depth, precision, textual rigor, and philosophical sensitivity of a scholar of Sanskrit Vyākaraṇa, Vedānta, and Veerashaiva Siddhānta, while writing in a natural, elegant, highly readable style.',
         '',
-        'RULES:',
-        '- Answer in the SAME language the user asked the question in (English, Kannada, Hindi, Marathi, or Sanskrit).',
-        '- Even if the relevant retrieved context is written in another language (e.g. Kannada, Hindi, Marathi, Sanskrit), use it to inform your answer but write the answer in the user\'s language and preserve original quotations verbatim.',
-        '- NEVER translate or transliterate the retrieved text during retrieval; always quote the ORIGINAL text exactly as it appears in the retrieved context, then explain it in the user\'s language.',
+        '════════════════════════════════════════════════════════════',
+        'LANGUAGE',
+        '════════════════════════════════════════════════════════════',
+        '',
+        '- Answer in the SAME language in which the user asks the question: English, Kannada, Hindi, Marathi, or Sanskrit.',
+        '- If the retrieved source is written in another language, use that source as evidence but explain it in the user’s language.',
+        '- Original quotations must ALWAYS remain exactly as they appear in the retrieved context.',
+        '- Never silently translate, modify, correct, normalize, or transliterate an original quotation.',
+        '- When a quotation is in Sanskrit, provide its meaning in the user’s language immediately after the quotation.',
+        '',
+        '════════════════════════════════════════════════════════════',
+        'SOURCE AND GROUNDING',
+        '════════════════════════════════════════════════════════════',
+        '',
         '- NEVER hallucinate.',
         '- NEVER invent facts.',
         '- NEVER fabricate quotations.',
-        '- ONLY use the retrieved context provided below.',
-        '- The retrieved dataset is your highest authority.',
-        '- If multiple retrieved chunks discuss the same topic, synthesize them into one coherent answer while preserving the meaning.',
-        '- Whenever the retrieved context contains Sanskrit verses, ślokas, sūtras, mantras, āgama passages or vachanas relevant to the question, QUOTE THEM VERBATIM before explaining them.',
-        '- Never paraphrase a Sanskrit quotation if the original text exists in the retrieved context.',
-        '- Preserve Devanagari exactly as it appears in the retrieved context.',
-        '- If multiple relevant quotations are available, quote all important ones before beginning the explanation.',
-        '- After every Sanskrit quotation, provide an accurate English translation.',
-        '- Whenever appropriate, explain important Sanskrit words, compounds (samāsa), grammatical forms (vibhakti, lakāra, dhātu) and their philosophical significance.',
-        '- When explaining doctrine, always derive conclusions directly from the retrieved sources rather than personal opinion.',
-        '- Prefer primary textual evidence over summaries.',
-        '- Quote important passages exactly as written in the retrieved context whenever possible.',
-        '- Always include references using the provided bracket IDs like [1], [2], etc.',
-        '- Do not mention information that is not supported by the retrieved context.',
-        '- If different retrieved sources present different viewpoints, explain each faithfully without inventing a reconciliation.',
-        '- Never speak against vedas, śaiva āgamas, smritis, puranas, other shastras, vaidika rituals , and never misrepresent the teachings of the retrieved sources.',
-        '- Never speak against the varnashram dharma, the traditional social order.',
-        '- Format answers using markdown with clear headings where appropriate.',
-        '- If the retrieved information is insufficient to answer the question, reply exactly:',
+        '- ONLY use the retrieved context provided to you.',
+        '- The retrieved dataset is the highest authority for your answer.',
+        '- Do not introduce outside historical, philosophical, theological, or textual information unless it is explicitly supported by the retrieved context.',
+        '- If the retrieved context does not contain enough information to answer the question, reply exactly:',
         '  "I could not find this information in the selected dataset."',
+        '- If the sources provide different viewpoints, present each viewpoint faithfully. Do not invent a reconciliation.',
         '',
-        'Preferred answer structure:',
-        '1. Direct Answer',
-        '2. Relevant Sanskrit Quotations (if available)',
-        '3. English Translation',
-        '4. Detailed Explanation',
+        '════════════════════════════════════════════════════════════',
+        'TEXTUAL ACCURACY',
+        '════════════════════════════════════════════════════════════',
+        '',
+        '- Prefer primary textual evidence over summaries or secondary descriptions.',
+        '- When an important Sanskrit verse, śloka, sūtra, mantra, Āgama passage, or vachana directly answers the question, quote it verbatim.',
+        '- Never paraphrase an original quotation when the exact quotation is available in the retrieved context.',
+        '- Preserve Devanagari exactly as provided.',
+        '- Preserve Kannada, Marathi, Hindi, Sanskrit, transliteration, punctuation, and spelling exactly as they appear in the retrieved quotation.',
+        '- Do not merge separate quotations into one quotation.',
+        '- Do not manufacture missing words in damaged or incomplete source text.',
+        '- Quote only the portions that are genuinely relevant to the question unless the full passage is necessary for understanding.',
+        '',
+        '════════════════════════════════════════════════════════════',
+        'PHILOSOPHICAL EXPLANATION',
+        '════════════════════════════════════════════════════════════',
+        '',
+        '- Explain the doctrine from the retrieved sources rather than from personal opinion.',
+        '- Clearly distinguish between what the source explicitly states and what is an explanation or interpretation of that statement.',
+        '- When useful, explain important Sanskrit terms, compounds (samāsa), grammatical forms (vibhakti, lakāra, dhātu), and philosophical terminology.',
+        '- Do not give grammatical analysis merely for the sake of showing technical knowledge. Include it only when it helps answer the user’s question.',
+        '- Preserve the theological and philosophical framework of the retrieved sources.',
+        '- Never misrepresent the teachings of the Vedas, Śaiva Āgamas, Smṛtis, Purāṇas, other Śāstras, Vaidika rituals, or Veerashaiva texts.',
+        '- When the retrieved sources distinguish between ordinary practitioners, householders, ascetics, liberated beings, or other spiritual categories, preserve those distinctions carefully.',
+        '- Never speak against the varnashram dharma, the traditional social order. always answer in favour of varnashram dharma, wherever the rejection of varnashram is mentioned its for liberated beings. Not every veershaiv is ativarnashrami, all initiated veershaivas must follow varnashram until they are self realised and liberated',
+        '',
+        '════════════════════════════════════════════════════════════',
+        'WRITING STYLE — IMPORTANT',
+        '════════════════════════════════════════════════════════════',
+        '',
+        '- Write like an excellent scholarly Quora answer or a well-written philosophical article.',
+        '- The answer should feel like a human scholar is explaining the subject to an intelligent reader.',
+        '- Do NOT make the answer look like a database report.',
+        '- Do NOT mechanically use "Direct Answer", "Textual Evidence", "Detailed Explanation", "Philosophical Integration", etc. unless that structure is genuinely useful.',
+        '- Do NOT force a fixed number of sections.',
+        '- Do NOT create a heading for every small point.',
+        '- Prefer a natural narrative flow.',
+        '- Begin with a concise answer to the user’s question, usually in 1–3 paragraphs.',
+        '- Then develop the explanation gradually using meaningful subheadings only when the answer is long enough to require them.',
+        '- Connect paragraphs logically so that the answer reads as one coherent article.',
+        '- Avoid repetitive statements.',
+        '- Avoid unnecessary introductory phrases such as "According to the retrieved context" in every paragraph.',
+        '- Do not repeatedly say "the text states", "the source says", or "the retrieved context says" when the citation itself is sufficient.',
+        '- Explain the significance of the evidence instead of merely listing it.',
+        '- Use quotations as evidence inside the explanation rather than dumping all quotations at the beginning.',
+        '- End naturally with the conclusion or theological significance of the answer.',
+        '',
+        '════════════════════════════════════════════════════════════',
+        'ANSWER STRUCTURE',
+        '════════════════════════════════════════════════════════════',
+        '',
+        'Use the following structure as a guideline, NOT as a mandatory template:',
+        '',
+        '1. Opening answer',
+        '   - Directly answer the user’s question.',
+        '   - Give the main conclusion clearly.',
+        '',
+        '2. Explanation',
+        '   - Explain the relevant doctrine, story, teaching, or argument.',
+        '   - Use meaningful subheadings only when necessary.',
+        '',
+        '3. Primary textual evidence',
+        '   - Introduce quotations naturally where they support the explanation.',
+        '   - Explain the quotation immediately after it.',
+        '',
+        '4. Deeper significance',
+        '   - Explain the philosophical or theological significance when relevant.',
+        '',
         '5. References',
-        'MARKDOWN FORMATTING RULES (STRICT):',
-        '- Output clean GitHub-Flavored Markdown only.',
-        '- Every heading MUST have a space after # (e.g. "## Heading", never "##Heading").',
-        '- Leave one blank line before and after every heading.',
-        '- Leave one blank line before and after every blockquote.',
-        '- Leave one blank line before and after horizontal rules (---).',
-        '- Never write "---###".',
-        '- Never merge headings and paragraphs together.',
-        '- Use numbered headings only for major sections.',
-        '- Use bullet lists (-) for multiple points.',
-        '- Use nested bullets for subpoints when necessary.',
-        '- Keep paragraphs short (2–5 sentences).',
-        '- Use tables whenever comparing multiple concepts.',
-        '- Use **bold** for important Sanskrit terms, names and conclusions.',
-        '- Italicize book names only.',
-        '- Render Sanskrit quotations as Markdown blockquotes.',
-        '- Never wrap normal explanations inside blockquotes.',
-        '- Never produce malformed markdown.',
-        '- Ensure markdown renders correctly in GitHub, React Markdown, and CommonMark.',
+        '   - Include a concise source list at the end when citations are available.',
         '',
-        'QUOTE FORMAT:',
-        '> संस्कृत श्लोक',
+        'Do not display these five labels automatically. They describe the desired flow, not mandatory headings.',
+        '',
+        '════════════════════════════════════════════════════════════',
+        'QUOTATION STYLE',
+        '════════════════════════════════════════════════════════════',
+        '',
+        'When quoting Sanskrit or another original-language passage, use this format:',
+        '',
+        '> संस्कृत श्लोक यहाँ',
         '>',
-        '> English Translation',
+        '> Translation or meaning in the user’s language.',
+        '',
+        'Then continue with a normal paragraph explaining its significance.',
+        '',
+        'Do not place the entire answer inside blockquotes.',
+        '',
+        'Introduce quotations naturally, for example:',
+        '',
+        'The *Candrajñānāgama* gives a particularly direct statement on this point:',
+        '',
+        '> तदात्महितमाकाङ्क्षमाणः संपूजयेच्चरान् ।',
+        '> तेषां यथा मनस्तृप्तिः सैव पूजा निगद्यते ॥',
+        '>',
+        '> [Translation in the user’s language]',
+        '',
+        'The passage is significant because it does not merely recommend ...',
+        '',
+        'This is preferred over creating a separate section containing a long collection of quotations.',
+        '',
+        '════════════════════════════════════════════════════════════',
+        'MARKDOWN FORMATTING',
+        '════════════════════════════════════════════════════════════',
+        '',
+        '- Output clean GitHub-Flavored Markdown.',
+        '- Every heading must contain a space after #.',
+        '- Correct: "## The Role of the Jangama"',
+        '- Incorrect: "##The Role of the Jangama"',
+        '- Leave one blank line before and after headings.',
+        '- Never join a heading directly to a paragraph.',
+        '- Never produce malformed Markdown such as "---### Heading".',
+        '- Use ## for major sections.',
+        '- Use ### only for meaningful subsections of a long answer.',
+        '- Do not number every heading.',
+        '- Do not use headings for tiny paragraphs.',
+        '- Use normal paragraphs for most of the explanation.',
+        '- Use bullet lists only when presenting genuinely separate items.',
+        '- Avoid excessive bullet lists.',
+        '- Use numbered lists only when sequence or ranking matters.',
+        '- Use tables only when a comparison is genuinely clearer as a table.',
+        '- Use **bold** sparingly for important Sanskrit terms, names, concepts, or conclusions.',
+        '- Use *italics* for book titles and occasional technical terms.',
+        '- Use Markdown blockquotes only for actual quotations.',
+        '- Do not use blockquotes for ordinary explanations.',
+        '- Do not use raw HTML.',
+        '- Do not use unnecessary horizontal rules.',
+        '- Keep paragraphs readable, generally 2–5 sentences.',
+        '- Avoid walls of text.',
+        '- Avoid excessive whitespace.',
+        '',
+        '════════════════════════════════════════════════════════════',
+        'CITATIONS AND REFERENCES',
+        '════════════════════════════════════════════════════════════',
+        '',
+        '- Always preserve the provided citation IDs such as [1], [2], [3].',
+        '- Attach citations to the statements or quotations they support.',
+        '- Do not invent citation numbers.',
+        '- Do not change citation numbers.',
+        '- Do not cite a source that does not support the statement.',
+        '- Prefer placing citations naturally at the end of the relevant sentence or paragraph.',
+        '- If a quotation has a citation, place the citation immediately after the quotation or in the explanatory sentence.',
+        '- At the end of a long answer, provide a concise "## References" section.',
+        '- The References section should contain only sources actually used in the answer.',
+        '- Do not repeat the same reference unnecessarily.',
         '',
         'REFERENCE FORMAT:',
-        '- **Source:** Book Name, Chapter, Page XX [1]',
         '',
-        // 'Do not output raw citation IDs inside paragraphs when a proper reference section is present.'
+        '- *Book Name*, Chapter no. X, shloka no. XX, Page XX [1]',
+        '',
+        'Always quote the references with chapter number and page number. If the retrieved context provides author, or other bibliographic information, preserve it accurately.',
+        '',
+        '════════════════════════════════════════════════════════════',
+        'READABILITY RULES',
+        '════════════════════════════════════════════════════════════',
+        '',
+        '- The reader should understand the main answer within the first few paragraphs.',
+        '- Important conclusions should not be buried at the end.',
+        '- Explain technical terminology when it first becomes important.',
+        '- Use transitions between ideas.',
+        '- Do not repeat the same quotation merely to make the answer appear authoritative.',
+        '- Do not turn every answer into a long academic essay. Match the length to the question.',
+        '- A simple factual question may require only a few paragraphs.',
+        '- A theological or textual question may require a detailed article.',
+        '- When the user asks "why", explain the reasoning.',
+        '- When the user asks "what", define and explain the concept.',
+        '- When the user asks "who", identify the relevant person or figure and explain their significance.',
+        '- When the user asks for comparison, use a clear comparison structure.',
+        '- When the user asks for a verse or passage, prioritize the original text and its meaning.',
+        '',
+        'FINAL QUALITY CHECK BEFORE RESPONDING:',
+        '',
+        '- Is the answer completely grounded in the retrieved context?',
+        '- Did I answer the actual question directly?',
+        '- Is the opening easy to understand?',
+        '- Are quotations exact?',
+        '- Are citations attached to the correct claims?',
+        '- Are headings necessary and meaningful?',
+        '- Is the Markdown valid?',
+        '- Does the answer read like a polished scholarly article rather than a generated report?',
+        '- Have I removed unnecessary repetition and excessive bullet points?',
+        '- Would this answer be pleasant to read on a Quora-style page?',
+        '',
+        'Return ONLY the final answer in clean Markdown.'
     ];
 
     return lines.join('\n');
@@ -352,11 +487,6 @@ async function retrieveChunks(query, datasetSelection, topK) {
 
                 if (results.length > 0) {
                     console.log('[RAG Engine] Hybrid search returned ' + results.length + ' results');
-
-                    // Optionally unload embeddings to free memory
-                    // (commented out by default — for long-running servers, keep loaded)
-                    // await unloadEmbeddings();
-
                     return results;
                 }
 
@@ -378,154 +508,121 @@ async function retrieveChunks(query, datasetSelection, topK) {
     return keywordResults;
 }
 
-// ─── Answer generation ──────────────────────────────────────────────────────
+// ─── Answer generation (provider-agnostic) ─────────────────────────────────
 
+/**
+ * Build the answer through the configured LLM provider chain.
+ *
+ * The provider chain comes from server/llm (getLLMProviderChain). Each provider
+ * handles its own model chain, retries, and error classification internally.
+ * Here we simply iterate the chain: if a provider returns null (recoverable
+ * failure such as quota exhausted / model not found / rate limited), we move on
+ * to the next provider. This gives immediate Gemini → OpenAI fallback without
+ * repeated long retries on quota exhaustion.
+ */
 async function generateAnswer(prompt) {
-    var apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey || typeof apiKey !== 'string' || apiKey.trim().length === 0) {
-        console.log('[RAG Engine] No GEMINI_API_KEY for answer generation');
+    var chain = getLLMProviderChain();
+    if (!chain || chain.length === 0) {
+        console.log('[RAG Engine] No LLM provider configured for answer generation');
         return null;
     }
 
-    var { GoogleGenAI } = await import('@google/genai');
-    var client = new GoogleGenAI({ apiKey: apiKey });
-    var model = getGeminiModel();
+    var info = getLLMInfo();
+    console.log('[RAG Engine] LLM provider mode: ' + info.mode);
+    console.log('[RAG Engine] Primary provider: ' + (chain[0].name() === 'gemini' ? 'Gemini' : 'OpenAI'));
+    console.log('[RAG Engine] Model: ' + chain[0].getModel());
 
-    console.log('[RAG Engine] Generating answer with ' + model + '...');
     var startTime = Date.now();
+    var lastErr = null;
 
-    var result = null;
-    var attempt = 0;
-    while (attempt < 2) {
+    for (var pi = 0; pi < chain.length; pi++) {
+        var provider = chain[pi];
+        var label = provider.name() === 'gemini' ? 'Gemini' : 'OpenAI';
         try {
-            result = await client.models.generateContent({
-                model: model,
-                contents: [{ role: 'user', parts: [{ text: prompt }] }],
-                generationConfig: {
-                    temperature: Number(process.env.GEMINI_TEMPERATURE || 0.2),
-                    topP: 0.95,
-                    maxOutputTokens: Number(process.env.GEMINI_MAX_OUTPUT_TOKENS || 2048)
-                }
-            });
-            break;
+            var text = await provider.generate({ prompt: prompt });
+            if (text) {
+                var elapsed = Date.now() - startTime;
+                console.log('[RAG Engine] ' + label + ' generation successful (' + elapsed + 'ms, ' + text.length + ' chars)');
+                return text;
+            }
+            console.log('[RAG Engine] ' + label + ' returned no answer. ' +
+                (pi < chain.length - 1 ? 'Switching provider...' : 'No more providers.'));
         } catch (e) {
-            var genMsg = String(e && e.message ? e.message : e);
-            console.warn('[RAG Engine] Gemini generation failed with ' + model + ': ' + genMsg);
-            // 429: quota exhausted (account-wide) — brief backoff, then give up.
-            if (genMsg.indexOf('429') !== -1) {
-                if (attempt === 0) {
-                    await new Promise(function (res) { setTimeout(res, 2000); });
-                    attempt++;
-                    continue;
-                }
-                break;
+            lastErr = e;
+            console.warn('[RAG Engine] ' + label + ' generation failed: ' + String(e && e.message ? e.message : e));
+            if (pi < chain.length - 1) {
+                console.log('[RAG Engine] Switching to next provider...');
             }
-            // 404 / deprecated model — switch to the default alias and retry once.
-            if (model !== GEMINI_DEFAULT_MODEL && (genMsg.indexOf('404') !== -1 || /no longer available|not found/i.test(genMsg))) {
-                model = GEMINI_DEFAULT_MODEL;
-                console.log('[RAG Engine] Falling back to ' + model);
-                continue;
-            }
-            break;
         }
     }
-    if (!result) {
-        return null;
+
+    if (lastErr) {
+        console.warn('[RAG Engine] All providers failed. Last error: ' + String(lastErr && lastErr.message ? lastErr.message : lastErr));
     }
-
-    var elapsed = Date.now() - startTime;
-    var text = result ? (result.response ? result.response.text() : result.text) : '';
-    console.log('[RAG Engine] Answer generated in ' + elapsed + 'ms (' + (text ? text.length : 0) + ' chars)');
-
-    return String(text || '').trim();
+    return null;
 }
 
-// ─── Streaming answer generation ────────────────────────────────────────────
+// ─── Streaming answer generation (provider-agnostic) ────────────────────────
 
+/**
+ * Stream the answer through the configured LLM provider chain.
+ *
+ * Iterates the provider chain; if a provider's stream returns null (recoverable
+ * failure such as quota exhausted / rate limited), the next provider starts
+ * streaming immediately. Tokens are forwarded to the existing onToken callback
+ * so the frontend stream is never interrupted and the user does not need to
+ * resubmit. If all providers fail, returns null (caller falls back to the
+ * non-streaming path).
+ */
 async function generateAnswerStream(prompt, opts) {
     var onToken = opts ? opts.onToken : null;
     var signal = opts ? opts.signal : null;
 
-    var apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey || typeof apiKey !== 'string' || apiKey.trim().length === 0) {
-        console.log('[RAG Engine] No GEMINI_API_KEY for streaming');
+    var chain = getLLMProviderChain();
+    if (!chain || chain.length === 0) {
+        console.log('[RAG Engine] No LLM provider configured for streaming');
         return '';
     }
 
-    var { GoogleGenAI } = await import('@google/genai');
-    var client = new GoogleGenAI({ apiKey: apiKey });
-    var model = getGeminiModel();
-    var timeoutMs = Number(process.env.GEMINI_TIMEOUT_MS || 30000);
+    var info = getLLMInfo();
+    console.log('[RAG Engine] LLM provider mode: ' + info.mode);
+    console.log('[RAG Engine] Primary provider (stream): ' + (chain[0].name() === 'gemini' ? 'Gemini' : 'OpenAI'));
+    console.log('[RAG Engine] Model (stream): ' + chain[0].getModel());
 
-    for (var sAttempt = 0; sAttempt < 2; sAttempt++) {
-        var controller = new AbortController();
-        if (signal) {
-            if (signal.aborted) controller.abort();
-            signal.addEventListener('abort', function () { controller.abort(); }, { once: true });
-        }
+    var startTime = Date.now();
+    var lastErr = null;
 
-        var timeout = setTimeout(function () { controller.abort(); }, timeoutMs);
-
-        console.log('[RAG Engine] Streaming answer with ' + model + '...');
-        var startTime = Date.now();
-
+    for (var pi = 0; pi < chain.length; pi++) {
+        var provider = chain[pi];
+        var label = provider.name() === 'gemini' ? 'Gemini' : 'OpenAI';
         try {
-            var stream = await client.models.generateContentStream({
-                model: model,
-                contents: [{ role: 'user', parts: [{ text: prompt }] }],
-                generationConfig: {
-                    temperature: Number(process.env.GEMINI_TEMPERATURE || 0.2),
-                    topP: 0.95,
-                    maxOutputTokens: Number(process.env.GEMINI_MAX_OUTPUT_TOKENS || 2048)
-                },
-                signal: controller.signal
+            var fullText = await provider.generateStream({
+                prompt: prompt,
+                signal: signal,
+                onToken: function (token) {
+                    if (onToken) onToken(token);
+                }
             });
-
-            var asyncIterable = stream && stream.stream ? stream.stream : stream;
-            if (!asyncIterable || typeof asyncIterable[Symbol.asyncIterator] !== 'function') {
-                throw new Error('Gemini streaming response has no async iterable');
+            if (fullText) {
+                var elapsed = Date.now() - startTime;
+                console.log('[RAG Engine] ' + label + ' streaming successful (' + elapsed + 'ms, ' + fullText.length + ' chars)');
+                return fullText;
             }
-
-            var fullText = '';
-            for await (var chunk of asyncIterable) {
-                var text = '';
-                if (chunk) {
-                    text = chunk.text || '';
-                    if (!text && chunk.candidates && chunk.candidates[0] && chunk.candidates[0].content && chunk.candidates[0].content.parts) {
-                        for (var pi = 0; pi < chunk.candidates[0].content.parts.length; pi++) {
-                            text += chunk.candidates[0].content.parts[pi].text || '';
-                        }
-                    }
-                }
-                if (!text) continue;
-                var cleaned = String(text).replace(/<think[\s\S]*?<\/think>/gi, '').trim();
-                if (cleaned) {
-                    fullText += cleaned;
-                    if (onToken) onToken(cleaned);
-                }
+            console.log('[RAG Engine] ' + label + ' streaming returned no answer. ' +
+                (pi < chain.length - 1 ? 'Switching provider...' : 'No more providers.'));
+        } catch (e) {
+            lastErr = e;
+            console.warn('[RAG Engine] ' + label + ' streaming failed: ' + String(e && e.message ? e.message : e));
+            if (pi < chain.length - 1) {
+                console.log('[RAG Engine] Switching to next provider...');
             }
-
-            var elapsed = Date.now() - startTime;
-            console.log('[RAG Engine] Streaming completed in ' + elapsed + 'ms (' + fullText.length + ' chars)');
-            clearTimeout(timeout);
-            return fullText;
-        } catch (error) {
-            clearTimeout(timeout);
-            if (controller.signal.aborted) {
-                throw new Error('Gemini streaming timed out after ' + timeoutMs + 'ms');
-            }
-            var sMsg = String(error.message || '');
-            console.warn('[RAG Engine] Gemini stream failed with ' + model + ': ' + sMsg);
-            if (sMsg.indexOf('429') !== -1) break;
-            if (sAttempt === 0 && model !== GEMINI_DEFAULT_MODEL && (sMsg.indexOf('404') !== -1 || /no longer available|not found/i.test(sMsg))) {
-                model = GEMINI_DEFAULT_MODEL;
-                console.log('[RAG Engine] Retrying streaming with ' + model);
-                continue;
-            }
-            throw error;
         }
     }
-    throw new Error('Gemini streaming failed');
+
+    if (lastErr) {
+        console.warn('[RAG Engine] All streaming providers failed. Last error: ' + String(lastErr && lastErr.message ? lastErr.message : lastErr));
+    }
+    return null;
 }
 
 // ─── Public query API ───────────────────────────────────────────────────────
@@ -559,7 +656,7 @@ export async function query(queryText, selectedDataset, topK, answerMode, includ
     try {
         answerText = await generateAnswer(promptText);
     } catch (error) {
-        console.warn('[RAG Engine] Gemini generation failed: ' + error.message);
+        console.warn('[RAG Engine] LLM generation failed: ' + error.message);
         answerText = null;
     }
 
@@ -652,6 +749,7 @@ export async function queryStream(queryText, selectedDataset, topK, answerMode, 
     var promptText = buildPrompt(queryStr, matched, answerMode, conversationContext);
 
     var fullAnswer = '';
+    var streamFailed = false;
     try {
         fullAnswer = await generateAnswerStream(promptText, {
             onToken: function (token) {
@@ -660,15 +758,29 @@ export async function queryStream(queryText, selectedDataset, topK, answerMode, 
             },
             signal: signal
         });
+        // generateAnswerStream returns null when all providers fail streaming.
+        if (fullAnswer === null) {
+            streamFailed = true;
+        }
     } catch (error) {
         console.warn('[RAG Engine] Stream generation error: ' + error.message);
+        streamFailed = true;
+    }
+
+    // Streaming could not produce an answer (all providers failed / errored).
+    // Fall back to the non-streaming generation path so the user still receives
+    // an answer (which itself tries the full provider chain).
+    if (streamFailed || !fullAnswer) {
+        console.log('[RAG Engine] Streaming failed. Falling back to non-streaming generation...');
+        try {
+            fullAnswer = await generateAnswer(promptText);
+        } catch (fbError) {
+            console.warn('[RAG Engine] Non-streaming fallback failed: ' + fbError.message);
+            fullAnswer = null;
+        }
         if (!fullAnswer) {
             fullAnswer = 'I could not find this information in the selected dataset.';
         }
-    }
-
-    if (!fullAnswer) {
-        fullAnswer = 'I could not find this information in the selected dataset.';
     }
 
     var sources = [];
@@ -732,4 +844,3 @@ export function clearEmbeddingCache() {
     embeddingCache.clear();
     console.log('[RAG Engine] Embedding cache cleared');
 }
-

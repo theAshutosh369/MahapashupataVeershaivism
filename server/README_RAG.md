@@ -1,8 +1,8 @@
 # RAG (Retrieval Augmented Generation) Implementation
 
-This document describes the production-quality RAG system powering the AI Agent. It indexes **JSON datasets, JSON author files, and PDF documents** into a unified semantic search index, then answers questions using Google Gemini.
+This document describes the production-quality RAG system powering the AI Agent. It indexes **JSON datasets, JSON author files, and PDF documents** into a unified semantic search index, then answers questions using a pluggable LLM provider layer (Google Gemini and/or OpenAI).
 
-Only Google Gemini APIs are used (no Ollama, no OpenAI).
+The final LLM generation layer is behind a **provider abstraction** (`server/llm/`) so the RAG engine never depends directly on a specific vendor. It supports Gemini, OpenAI, and automatic Gemini → OpenAI fallback.
 
 ## Architecture
 
@@ -75,7 +75,7 @@ Language is auto-detected from the page's Unicode script. Page numbers flow thro
    - Hybrid scoring: semantic (0.5) + keyword (0.25) + fuzzy (0.15) + boost (0.10)
    - Graceful fallback to pure keyword search when embeddings/API are unavailable
    - Prompt building with strict RAG constraints and bracket citations `[1], [2], ...`
-   - Answer generation via `gemini-2.5-flash` (streaming + non-streaming)
+   - Answer generation via the pluggable LLM provider layer (Gemini and/or OpenAI, streaming + non-streaming)
 
 4. **RAG Routes** (`server/rag_routes.js`)
    - `GET /api/rag/status` — health + index stats
@@ -87,20 +87,50 @@ Language is auto-detected from the page's Unicode script. Page numbers flow thro
 ## Environment Variables
 
 ```bash
-# Required for embeddings + LLM
-GEMINI_API_KEY=AIza...
+# ── LLM Provider (answer generation) ──────────────────────────────────────
+# LLM_PROVIDER controls which provider(s) generate answers:
+#   auto   → Gemini primary, OpenAI fallback (default)
+#   gemini → Gemini only
+#   openai → OpenAI only
+LLM_PROVIDER=auto
 
-# Optional overrides
-GEMINI_MODEL=models/gemini-2.5-flash     # answer model
+# Gemini (required for embeddings + as an LLM provider)
+GEMINI_API_KEY=AIza...
+GEMINI_MODEL=models/gemini-flash-latest     # answer model
+GEMINI_FALLBACK_MODELS=                      # optional comma-separated fallback models
 GEMINI_TEMPERATURE=0.2
 GEMINI_MAX_OUTPUT_TOKENS=2048
 GEMINI_TIMEOUT_MS=30000                   # streaming LLM timeout
+GEMINI_MAX_ATTEMPTS=3
+GEMINI_STREAM_MAX_ATTEMPTS=3
+GEMINI_BACKOFF_BASE_MS=1000
+
+# OpenAI (optional; used when LLM_PROVIDER=openai or as auto fallback)
+OPENAI_API_KEY=sk-...
+OPENAI_MODEL=gpt-4o-mini
+OPENAI_TEMPERATURE=0.2
+OPENAI_MAX_OUTPUT_TOKENS=2048
+OPENAI_MAX_ATTEMPTS=2
+OPENAI_STREAM_MAX_ATTEMPTS=2
+OPENAI_BACKOFF_BASE_MS=1000
+
+# ── Indexing / retrieval ──────────────────────────────────────────────────
 RAG_WARM_INDEX=0                          # set to 1 to build index at startup
 RAG_DEBUG=0                               # set to 1 for verbose debug logging
 RAG_PDF_MAX_BYTES=1073741824              # per-PDF size cap (default 1 GB)
 ```
 
-If `GEMINI_API_KEY` is missing or the API is unavailable/quota-limited, the index still builds with zero-vector placeholders and retrieval falls back to **pure keyword search** — answers will be unavailable but the system stays up.
+API keys stay **backend-only** — they are never sent to the React frontend.
+
+### Provider selection & auto-fallback
+
+- `LLM_PROVIDER=gemini` → uses only the configured Gemini model.
+- `LLM_PROVIDER=openai` → uses only the configured OpenAI model.
+- `LLM_PROVIDER=auto` → tries Gemini first. If Gemini fails with a quota-exhausted / model-not-found / rate-limit / auth error, it **immediately switches to OpenAI** (no long repeated retries). If only one key is configured, auto uses that provider.
+
+Both non-streaming and streaming answer generation flow through the provider chain (`server/llm/provider_factory.js`). If Gemini streaming hits a 429, OpenAI takes over the stream without the user resubmitting.
+
+Note: `GEMINI_API_KEY` is still required for **embeddings** (query-time and index-time). If it is missing, retrieval falls back to pure keyword search.
 
 ## API Endpoints
 
@@ -114,7 +144,7 @@ If `GEMINI_API_KEY` is missing or the API is unavailable/quota-limited, the inde
   "embeddingModel": "gemini-embedding-001",
   "embeddingDimension": 768,
   "llmProvider": "gemini",
-  "llmModel": "models/gemini-2.5-flash",
+  "llmModel": "models/gemini-flash-latest",
   "embeddingStorage": "Float32 binary",
   "embeddingFilePath": ".../rag_embeddings.bin"
 }
@@ -211,7 +241,7 @@ Subsequent runs load the cached index; changed/new files trigger an incremental 
 → The PDF is likely image-only (scanned). Check the extracted text by searching for a known phrase; add an OCR text layer if needed.
 
 **Answers say "could not find" even though data exists**
-→ Check `GEMINI_API_KEY`; without it the engine cannot generate answers or query-time embeddings (keyword fallback only).
+→ Check `GEMINI_API_KEY` (needed for embeddings) and that at least one LLM provider key is configured (`GEMINI_API_KEY` and/or `OPENAI_API_KEY`). Without a provider key the engine cannot generate answers.
 
 **Index not rebuilding on dataset changes**
 → Delete `server/rag_index.json` to force a full rebuild.

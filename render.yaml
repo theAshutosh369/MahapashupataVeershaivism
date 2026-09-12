@@ -22,6 +22,12 @@ services:
         sync: false
       - key: GEMINI_MODEL
         value: models/gemini-flash-latest
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-4o-mini
+      - key: LLM_PROVIDER
+        value: auto
       - key: GITHUB_TOKEN
         sync: false
       - key: GITHUB_REPO

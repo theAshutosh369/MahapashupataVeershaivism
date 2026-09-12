@@ -1,11 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Navbar from '../components/Navbar';
-// import Footer from '../components/Footer';
 import '../styles/pages/ai-agent.css';
 import useRagAssistant from '../hooks/useRagAssistant';
 import QueryControls from '../components/ai/QueryControls';
 import AnswerPanel from '../components/ai/AnswerPanel';
-// import ReferencesPanel from '../components/ai/ReferencesPanel';
+import ChatSidebar from '../components/ai/ChatSidebar';
 import { formatCitationLines } from '../components/ai/formatCitation';
 
 function AiAgent() {
@@ -32,10 +31,23 @@ function AiAgent() {
         error,
         ask,
         stop,
-        regenerate
+        regenerate,
+        conversations,
+        activeConversationId,
+        newChat,
+        selectConversation,
+        deleteConversation,
+        renameConversation,
+        togglePin,
+        clearConversations
     } = useRagAssistant();
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    const messagesContainerRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLTextAreaElement>(null);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+
+    const wasNearBottomRef = useRef(true);
 
     function copyText(text: string) {
         if (!text) return;
@@ -46,129 +58,176 @@ function AiAgent() {
         copyText(formatCitationLines(sources));
     }
 
-    // Auto-scroll to bottom on new messages
+    // Auto-scroll to the newest message when a new message arrives or during streaming.
     useEffect(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+        const container = messagesContainerRef.current;
+        if (!container) return;
+        // Only scroll if the user is near the bottom (or there is little content).
+        const distanceFromBottom =
+            container.scrollHeight - container.scrollTop - container.clientHeight;
+        if (distanceFromBottom < 160) {
+            wasNearBottomRef.current = true;
+        }
+        if (wasNearBottomRef.current) {
+            messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+        }
     }, [chatHistory, answer]);
+
+    // Never force-scroll while the user scrolls upward.
+    function handleScroll() {
+        const container = messagesContainerRef.current;
+        if (!container) return;
+        const distanceFromBottom =
+            container.scrollHeight - container.scrollTop - container.clientHeight;
+        wasNearBottomRef.current = distanceFromBottom < 160;
+    }
+
+    function handleNewChat() {
+        newChat();
+        setSidebarOpen(false);
+        inputRef.current?.focus();
+    }
+
+    function handleAsk() {
+        ask();
+        // Focus remains on input for follow-ups.
+    }
 
     return (
         <div className="ai-chat-page">
             <Navbar />
             <main className="ai-chat-main">
-                <div className="ai-chat-container">
-                    {/* Header info */}
-                    <div style={{ padding: '16px 0 8px' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, flexWrap: 'wrap' }}>
-                            <div>
-                                <h1 style={{ margin: 0, fontSize: 'var(--font-h2)', color: '#7A1F1F' }}>AI Agent</h1>
-                            </div>
+                <div className="ai-chat-layout">
+                    <ChatSidebar
+                        conversations={conversations}
+                        activeConversationId={activeConversationId}
+                        mobileOpen={sidebarOpen}
+                        onCloseMobile={() => setSidebarOpen(false)}
+                        onNewChat={handleNewChat}
+                        onSelect={selectConversation}
+                        onRename={renameConversation}
+                        onTogglePin={togglePin}
+                        onDelete={deleteConversation}
+                        onClearAll={clearConversations}
+                    />
+
+                    <div className="ai-chat-content">
+                        {/* Mobile header with hamburger */}
+                        <div className="ai-chat-mobile-bar">
+                            <button
+                                type="button"
+                                className="ai-chat-hamburger"
+                                onClick={() => setSidebarOpen((v) => !v)}
+                                aria-label="Toggle chat history"
+                                aria-expanded={sidebarOpen}
+                            >
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                    <path d="M3 12h18" />
+                                    <path d="M3 6h18" />
+                                    <path d="M3 18h18" />
+                                </svg>
+                            </button>
+                            <h1 className="ai-chat-mobile-title">AI Agent</h1>
                         </div>
 
                         {/* Scrollable messages area */}
-                        <div className="ai-chat-messages">
-                            {/* Show chat history — user messages as plain bubbles, assistant messages with AnswerPanel */}
-                            {chatHistory.map((turn, i) => (
-                                <div
-                                    key={i}
-                                    className={`ai-message ${turn.role}`}
-                                    style={{
-                                        display: 'flex',
-                                        justifyContent: turn.role === 'user' ? 'flex-end' : 'flex-start',
-                                    }}
-                                >
-                                    {turn.role === 'user' ? (
-                                        <div
-                                            className="message-bubble"
-                                            style={{
-                                                maxWidth: '70%',
-                                                padding: '10px 14px',
-                                                borderRadius: '12px',
-                                                background: '#DCF8C6',
-                                                color: '#111',
-                                                fontSize: 'var(--font-body)',
-                                            }}
-                                        >
-                                            <div style={{ fontWeight: 700, fontSize: 12, color: '#6b7280', marginBottom: 4 }}>
-                                                You
+                        <div className="ai-chat-messages" ref={messagesContainerRef} onScroll={handleScroll}>
+                            <div className="ai-chat-messages-inner">
+                                <div className="ai-chat-heading">
+                                    <h1>AI Agent</h1>
+                                    <p className="ai-chat-subheading">
+                                        A scholarly research assistant grounded in the Mahapashupata Veershaivam corpus.
+                                    </p>
+                                </div>
+
+                                {chatHistory.map((turn, i) => (
+                                    <div
+                                        key={i}
+                                        className={`ai-message ${turn.role}`}
+                                        style={{
+                                            display: 'flex',
+                                            justifyContent: turn.role === 'user' ? 'flex-end' : 'flex-start',
+                                        }}
+                                    >
+                                        {turn.role === 'user' ? (
+                                            <div className="message-bubble">
+                                                <div className="message-bubble-label">You</div>
+                                                {turn.content}
                                             </div>
-                                            {turn.content}
-                                        </div>
-                                    ) : (
+                                        ) : (
+                                            <AnswerPanel
+                                                answer={turn.content}
+                                                sources={turn.sources || []}
+                                                confidence={turn.confidence || 0}
+                                                loading={false}
+                                                onCopyAnswer={() => copyText(turn.content)}
+                                                onCopyReferences={() => copyText(formatCitationLines(turn.sources || []))}
+                                            />
+                                        )}
+                                    </div>
+                                ))}
+
+                                {/* Current answer (live streaming — not yet in chatHistory) */}
+                                {(answer || loading) && (
+                                    <div className="ai-message assistant">
                                         <AnswerPanel
-                                            answer={turn.content}
-                                            sources={turn.sources || []}
-                                            confidence={turn.confidence || 0}
-                                            loading={false}
-                                            onCopyAnswer={() => copyText(turn.content)}
-                                            onCopyReferences={() => copyText(formatCitationLines(turn.sources || []))}
+                                            answer={answer}
+                                            sources={sources}
+                                            confidence={confidence}
+                                            loading={loading}
+                                            onCopyAnswer={() => copyText(answer)}
+                                            onCopyReferences={copySources}
                                         />
-                                    )}
-                                </div>
-                            ))}
+                                    </div>
+                                )}
 
-                            {/* Current answer (live streaming — not yet in chatHistory) */}
-                            {(answer || loading) && (
-                                <div className="ai-message assistant">
-                                    <AnswerPanel
-                                        answer={answer}
-                                        sources={sources}
-                                        confidence={confidence}
-                                        loading={loading}
-                                        onCopyAnswer={() => copyText(answer)}
-                                        onCopyReferences={copySources}
-                                    />
-                                </div>
-                            )}
+                                {error && (
+                                    <div style={{ color: '#b91c1c', padding: 12, fontSize: 'var(--font-body)' }}>
+                                        {error}
+                                    </div>
+                                )}
 
-                            {/* Error */}
-                            {error && (
-                                <div style={{ color: '#b91c1c', padding: 12, fontSize: 'var(--font-body)' }}>
-                                    {error}
-                                </div>
-                            )}
-
-                            <div ref={messagesEndRef} />
+                                <div ref={messagesEndRef} />
+                            </div>
                         </div>
 
-                        {/* Query controls (collapsed as settings) */}
-                        <details style={{ marginBottom: 8 }}>
-                            <summary style={{ cursor: 'pointer', color: '#6b7280', fontSize: 13, padding: '4px 0', userSelect: 'none' }}>
-                                Advanced settings
-                            </summary>
-                            <div style={{ padding: '8px 0' }}>
-                                <QueryControls
-                                    paths={datasetPathList}
-                                    selected={selectedPaths}
-                                    allSelected={allSelected}
-                                    onDatasetChange={handleDatasetChange}
-                                    topK={topK}
-                                    onTopKChange={setTopK}
-                                    answerMode={answerMode}
-                                    onAnswerModeChange={setAnswerMode}
-                                    includeConversationMemory={includeConversationMemory}
-                                    onIncludeConversationMemoryChange={setIncludeConversationMemory}
-                                    onAsk={ask}
-                                    onStop={stop}
-                                    onRegenerate={regenerate}
-                                    hasGeneration={Boolean(answer && answer.trim()) || sources.length > 0}
-                                    loading={loading}
-                                    status={status}
-                                    error={error}
-                                />
-                            </div>
-                        </details>
+                        {/* Fixed bottom composer */}
+                        <div className="ai-chat-composer">
+                            <div className="ai-chat-composer-inner">
+                                <details className="ai-chat-advanced">
+                                    <summary>Advanced settings</summary>
+                                    <div className="ai-chat-advanced-body">
+                                        <QueryControls
+                                            paths={datasetPathList}
+                                            selected={selectedPaths}
+                                            allSelected={allSelected}
+                                            onDatasetChange={handleDatasetChange}
+                                            topK={topK}
+                                            onTopKChange={setTopK}
+                                            answerMode={answerMode}
+                                            onAnswerModeChange={setAnswerMode}
+                                            includeConversationMemory={includeConversationMemory}
+                                            onIncludeConversationMemoryChange={setIncludeConversationMemory}
+                                            onAsk={ask}
+                                            onStop={stop}
+                                            onRegenerate={regenerate}
+                                            hasGeneration={Boolean(answer && answer.trim()) || sources.length > 0}
+                                            loading={loading}
+                                            status={status}
+                                            error={error}
+                                        />
+                                    </div>
+                                </details>
 
-                        {/* Fixed input area */}
-                        <div className="ai-chat-input-area">
-                            <div className="ai-chat-input-inner">
                                 <div className="ai-chat-input-wrap">
                                     <textarea
+                                        ref={inputRef}
                                         value={prompt}
                                         onChange={(e) => setPrompt(e.target.value)}
                                         onKeyDown={(e) => {
                                             if (e.key === 'Enter' && !e.shiftKey) {
                                                 e.preventDefault();
-                                                if (prompt.trim() && selectedDataset && !loading) ask();
+                                                if (prompt.trim() && selectedDataset && !loading) handleAsk();
                                             }
                                         }}
                                         placeholder="Ask a question..."
@@ -176,35 +235,43 @@ function AiAgent() {
                                         rows={1}
                                         disabled={loading}
                                     />
-                                    <button
-                                        onClick={ask}
-                                        disabled={!selectedDataset || !prompt.trim() || loading}
-                                        className="ai-chat-send-btn"
-                                        aria-label="Send question"
-                                    >
-                                        ➤
-                                    </button>
+                                    {loading ? (
+                                        <button
+                                            onClick={stop}
+                                            className="ai-chat-send-btn ai-chat-stop-btn"
+                                            aria-label="Stop generating"
+                                        >
+                                            ■
+                                        </button>
+                                    ) : (
+                                        <button
+                                            onClick={handleAsk}
+                                            disabled={!selectedDataset || !prompt.trim() || loading}
+                                            className="ai-chat-send-btn"
+                                            aria-label="Send question"
+                                        >
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                                <path d="M12 19V5" />
+                                                <path d="m5 12 7-7 7 7" />
+                                            </svg>
+                                        </button>
+                                    )}
                                 </div>
+
                                 {status && (
-                                    <div style={{ color: '#6b7280', fontSize: 13, marginTop: 6, textAlign: 'center' }}>{status}</div>
+                                    <div className="ai-chat-status">{status}</div>
                                 )}
+
+                                <div className="ai-chat-disclaimer">
+                                    AI can make mistakes. Verify important information against the source texts.
+                                </div>
                             </div>
                         </div>
-
-                        {/* References below chat
-                        {sources.length > 0 && (
-                            <div style={{ maxWidth: 980, margin: '0 auto', width: '100%', padding: '0 16px 20px' }}>
-                                <ReferencesPanel sources={sources} />
-                            </div>
-                        )} */}
                     </div>
                 </div>
             </main>
-
-            {/* <Footer /> */}
         </div>
     );
 }
 
 export default AiAgent;
-
