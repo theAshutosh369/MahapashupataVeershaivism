@@ -47,6 +47,11 @@ function AiAgent() {
     const inputRef = useRef<HTMLTextAreaElement>(null);
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
+    // Conversation search state
+    const [conversationSearch, setConversationSearch] = useState('');
+    const [activeMatchIndex, setActiveMatchIndex] = useState(0);
+    const messageRefs = useRef<Array<HTMLDivElement | null>>([]);
+
     const wasNearBottomRef = useRef(true);
 
     function copyText(text: string) {
@@ -57,6 +62,40 @@ function AiAgent() {
     function copySources() {
         copyText(formatCitationLines(sources));
     }
+
+    // Escape regex special characters for safe searching
+    function escapeRegExp(s: string) {
+        return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    // Render text with <mark> around matches (case-insensitive)
+    function renderHighlighted(text: string, query: string) {
+        if (!query) return text;
+        try {
+            const re = new RegExp(`(${escapeRegExp(query)})`, 'ig');
+            const parts = text.split(re);
+            return parts.map((part, i) => (re.test(part) ? <mark key={i} className="chat-highlight">{part}</mark> : part));
+        } catch (e) {
+            console.log("exception in renderHighlighted", e);
+            return text;
+        }
+    }
+
+    // Get a short snippet (around 120 chars) with the match centered when possible
+    function getSnippet(text: string, query: string, radius = 60) {
+        if (!query) return '';
+        const lower = text.toLowerCase();
+        const q = query.toLowerCase();
+        const idx = lower.indexOf(q);
+        if (idx === -1) return '';
+        const start = Math.max(0, idx - radius);
+        const end = Math.min(text.length, idx + q.length + radius);
+        let snippet = text.slice(start, end).trim();
+        if (start > 0) snippet = '…' + snippet;
+        if (end < text.length) snippet = snippet + '…';
+        return snippet;
+    }
+
 
     // Auto-scroll to the newest message when a new message arrives or during streaming.
     useEffect(() => {
@@ -138,34 +177,82 @@ function AiAgent() {
                                     <p className="ai-chat-subheading">
                                         A scholarly research assistant grounded in the Mahapashupata Veershaivam corpus.
                                     </p>
-                                </div>
-
-                                {chatHistory.map((turn, i) => (
-                                    <div
-                                        key={i}
-                                        className={`ai-message ${turn.role}`}
-                                        style={{
-                                            display: 'flex',
-                                            justifyContent: turn.role === 'user' ? 'flex-end' : 'flex-start',
-                                        }}
-                                    >
-                                        {turn.role === 'user' ? (
-                                            <div className="message-bubble">
-                                                <div className="message-bubble-label">You</div>
-                                                {turn.content}
-                                            </div>
-                                        ) : (
-                                            <AnswerPanel
-                                                answer={turn.content}
-                                                sources={turn.sources || []}
-                                                confidence={turn.confidence || 0}
-                                                loading={false}
-                                                onCopyAnswer={() => copyText(turn.content)}
-                                                onCopyReferences={() => copyText(formatCitationLines(turn.sources || []))}
-                                            />
+                                    {/* Conversation search */}
+                                    <div className="chat-in-conv-search">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                            <circle cx="11" cy="11" r="8" />
+                                            <path d="m21 21-4.3-4.3" />
+                                        </svg>
+                                        <input
+                                            type="text"
+                                            placeholder="Search in conversation..."
+                                            className="chat-in-conv-search-input"
+                                            value={conversationSearch}
+                                            onChange={(e) => {
+                                                setConversationSearch(e.target.value);
+                                                setActiveMatchIndex(0);
+                                            }}
+                                        />
+                                        {conversationSearch && (
+                                            <>
+                                                <button type="button" className="chat-in-conv-prev" onClick={() => {
+                                                    const matches = chatHistory.flatMap((t, idx) => t.content.toLowerCase().includes(conversationSearch.toLowerCase()) ? [idx] : []);
+                                                    if (matches.length === 0) return;
+                                                    const next = (activeMatchIndex - 1 + matches.length) % matches.length;
+                                                    setActiveMatchIndex(next);
+                                                    const targetIdx = matches[next];
+                                                    messageRefs.current[targetIdx]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                                }} aria-label="Previous match">◀</button>
+                                                <button type="button" className="chat-in-conv-next" onClick={() => {
+                                                    const matches = chatHistory.flatMap((t, idx) => t.content.toLowerCase().includes(conversationSearch.toLowerCase()) ? [idx] : []);
+                                                    if (matches.length === 0) return;
+                                                    const next = (activeMatchIndex + 1) % matches.length;
+                                                    setActiveMatchIndex(next);
+                                                    const targetIdx = matches[next];
+                                                    messageRefs.current[targetIdx]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                                }} aria-label="Next match">▶</button>
+                                                <button type="button" className="chat-in-conv-clear" onClick={() => { setConversationSearch(''); setActiveMatchIndex(0); }} aria-label="Clear search">✕</button>
+                                            </>
                                         )}
                                     </div>
-                                ))}
+                                </div>
+
+                                {chatHistory.map((turn, i) => {
+                                    const query = conversationSearch.trim();
+                                    const isMatch = query && turn.content.toLowerCase().includes(query.toLowerCase());
+                                    return (
+                                        <div
+                                            key={i}
+                                            ref={(el) => { if (el) messageRefs.current[i] = el; }}
+                                            className={`ai-message ${turn.role}`}
+                                            style={{
+                                                display: 'flex',
+                                                justifyContent: turn.role === 'user' ? 'flex-end' : 'flex-start',
+                                            }}
+                                        >
+                                            {turn.role === 'user' ? (
+                                                <div className="message-bubble">
+                                                    <div className="message-bubble-label">You</div>
+                                                    <div>{typeof turn.content === 'string' ? renderHighlighted(turn.content, conversationSearch) : turn.content}</div>
+                                                </div>
+                                            ) : (
+                                                <div style={{ display: 'flex', flexDirection: 'column', gap: 8, maxWidth: '100%' }}>
+                                                    <AnswerPanel
+                                                        answer={turn.content}
+                                                        sources={turn.sources || []}
+                                                        confidence={turn.confidence || 0}
+                                                        loading={false}
+                                                        onCopyAnswer={() => copyText(turn.content)}
+                                                        onCopyReferences={() => copyText(formatCitationLines(turn.sources || []))}
+                                                    />
+                                                    {isMatch && (
+                                                        <div className="chat-match-snippet">{renderHighlighted(getSnippet(turn.content, conversationSearch) || turn.content, conversationSearch)}</div>
+                                                    )}
+                                                </div>
+                                            )}
+                                        </div>
+                                    );
+                                })}
 
                                 {/* Current answer (live streaming — not yet in chatHistory) */}
                                 {(answer || loading) && (
