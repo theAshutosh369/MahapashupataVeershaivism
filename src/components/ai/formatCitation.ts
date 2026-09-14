@@ -60,3 +60,19 @@ export function formatCitationLines(sources: RAGSource[]): string {
     return sources.map((source, i) => formatCitationPlain(source, i)).join('\n');
 }
 
+/**
+ * Convert plain "[5]" citation markers in the answer text into markdown
+ * links pointing at "#cite-5", but only for numbers that actually have a
+ * matching source (avoids linkifying unrelated bracketed numbers).
+ * The brackets are escaped so they render literally inside the link text.
+ */
+export function linkifyCitations(text: string, sourceCount: number): string {
+    if (!text || sourceCount === 0) return text;
+    return text.replace(/\[(\d+)\]/g, (match, num: string) => {
+        const n = Number(num);
+        if (n >= 1 && n <= sourceCount) {
+            return `[\\[${num}\\]](#cite-${n})`;
+        }
+        return match;
+    });
+}
