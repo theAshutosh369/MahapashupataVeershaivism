@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -9,18 +9,14 @@ import DatasetGenerator from "./pages/DatasetGenerator";
 import AiAgent from "./pages/AiAgent";
 import ScrollNavigator from "./components/ScrollNavigator";
 
-
-
-function App() {
+function AppShell() {
+    const location = useLocation();
 
     return (
-
-        <BrowserRouter>
-
-            <ScrollNavigator />
+        <>
+            <ScrollNavigator pathname={location.pathname} />
 
             <Routes>
-
                 <Route
                     path="/"
                     element={<Home />}
@@ -55,17 +51,17 @@ function App() {
                     path="/agent"
                     element={<AiAgent />}
                 />
-
-
-
-
-
             </Routes>
-
-        </BrowserRouter>
-
+        </>
     );
+}
 
+function App() {
+    return (
+        <BrowserRouter>
+            <AppShell />
+        </BrowserRouter>
+    );
 }
 
 export default App;

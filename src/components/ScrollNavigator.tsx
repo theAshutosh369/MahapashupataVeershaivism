@@ -2,13 +2,37 @@ import { useEffect, useState } from "react";
 
 import "../styles/components/scroll-navigator.css";
 
-function ScrollNavigator() {
+type ScrollNavigatorProps = {
+    pathname?: string;
+};
+
+function ScrollNavigator({ pathname = "/" }: ScrollNavigatorProps) {
     const [scrollY, setScrollY] = useState(0);
     const [windowHeight, setWindowHeight] = useState(0);
     const [documentHeight, setDocumentHeight] = useState(0);
 
     useEffect(() => {
+        function getTargetElement() {
+            if (pathname === "/agent") {
+                const chatMessages = document.querySelector(".ai-chat-messages");
+                if (chatMessages instanceof HTMLElement) {
+                    return chatMessages;
+                }
+            }
+
+            return null;
+        }
+
         function handleScroll() {
+            const target = getTargetElement();
+
+            if (target) {
+                setScrollY(target.scrollTop);
+                setWindowHeight(target.clientHeight);
+                setDocumentHeight(target.scrollHeight);
+                return;
+            }
+
             setScrollY(window.scrollY);
             setWindowHeight(window.innerHeight);
             setDocumentHeight(document.documentElement.scrollHeight);
@@ -29,14 +53,24 @@ function ScrollNavigator() {
         // Initial values
         handleScroll();
 
-        window.addEventListener("scroll", onScroll, { passive: true });
+        const target = getTargetElement();
+        if (target) {
+            target.addEventListener("scroll", onScroll, { passive: true });
+        } else {
+            window.addEventListener("scroll", onScroll, { passive: true });
+        }
+
         window.addEventListener("resize", handleScroll, { passive: true });
 
         return () => {
-            window.removeEventListener("scroll", onScroll);
+            if (target) {
+                target.removeEventListener("scroll", onScroll);
+            } else {
+                window.removeEventListener("scroll", onScroll);
+            }
             window.removeEventListener("resize", handleScroll);
         };
-    }, []);
+    }, [pathname]);
 
     const THRESHOLD = 200; // px from top/bottom to determine "near"
     const FADE_THRESHOLD = 150; // px to show the navigator
@@ -53,6 +87,18 @@ function ScrollNavigator() {
     const isVisible = isPastFadeThreshold && (showTop || showBottom);
 
     function scrollToTop() {
+        const target = pathname === "/agent"
+            ? document.querySelector(".ai-chat-messages")
+            : null;
+
+        if (target instanceof HTMLElement) {
+            target.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            });
+            return;
+        }
+
         window.scrollTo({
             top: 0,
             behavior: "smooth",
@@ -60,6 +106,18 @@ function ScrollNavigator() {
     }
 
     function scrollToBottom() {
+        const target = pathname === "/agent"
+            ? document.querySelector(".ai-chat-messages")
+            : null;
+
+        if (target instanceof HTMLElement) {
+            target.scrollTo({
+                top: target.scrollHeight,
+                behavior: "smooth",
+            });
+            return;
+        }
+
         window.scrollTo({
             top: document.documentElement.scrollHeight,
             behavior: "smooth",
