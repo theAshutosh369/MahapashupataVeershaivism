@@ -283,7 +283,9 @@ export default function useRagAssistant() {
     }
 
     async function ask() {
-        if (!prompt.trim()) {
+        const rawPrompt = prompt;
+
+        if (!rawPrompt.trim()) {
             setError('Please enter a prompt.');
             return;
         }
@@ -293,7 +295,7 @@ export default function useRagAssistant() {
         }
 
         const request: RAGQueryRequest = {
-            query: prompt,
+            query: rawPrompt,
             selectedDataset,
             selectedDatasets: allSelected ? undefined : Array.from(effectiveSelected),
             topK,
@@ -302,7 +304,7 @@ export default function useRagAssistant() {
             conversationHistory: []
         };
 
-        const userMsg = makeMessage({ role: 'user', content: prompt.trim() });
+        const userMsg = makeMessage({ role: 'user', content: rawPrompt });
 
         // Create or update the active conversation. The user message is added
         // and persisted BEFORE the backend request starts — it never depends on
